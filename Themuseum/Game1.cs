@@ -170,7 +170,7 @@ namespace Themuseum
             {
                 CharPos.X += 3;
             }
-            else if (CharPos.Y <= _graphics.GraphicsDevice.Viewport.Bounds.Top + 20)
+            else if (CharPos.Y <= _graphics.GraphicsDevice.Viewport.Bounds.Top + 48)
             {
                 CharPos.Y += 3;
             }
