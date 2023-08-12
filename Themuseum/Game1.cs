@@ -28,7 +28,7 @@ namespace Themuseum
         private int currentrow = 1;
 
         private Vector2 CharPos = new Vector2(0, 0);
-        private Vector2 keyPos = new Vector2(200,200);
+        private Vector2 keyPos = new Vector2(200, 200);
 
         private KeyboardState _keyboardState;
 
@@ -53,8 +53,8 @@ namespace Themuseum
         {
             Tileset = Content.Load<Texture2D>("placeholder_tileset");
             Key = Content.Load<Texture2D>("key-white");
-            
-            for(int i = 0; i < (int)GraphicsDevice.Viewport.Width / 32; i++)
+
+            for (int i = 0; i < (int)GraphicsDevice.Viewport.Width / 32; i++)
             {
                 Tile_X.Add(i);
             }
@@ -88,7 +88,7 @@ namespace Themuseum
         protected override void LoadContent()
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
-            
+
             Character.Load(Content, "placeholdersprite", Frames, FramesRow, FramesPerSec);
 
             // TODO: use this.Content to load your game content here
@@ -97,33 +97,32 @@ namespace Themuseum
         protected override void Update(GameTime gameTime)
         {
             //Collision check
-            Rectangle charRectangle = new Rectangle((int)CharPos.X, (int)CharPos.Y, 32, 32);
+            Rectangle charRectangle = new Rectangle((int)CharPos.X, (int)CharPos.Y, 32, 48);
+            Rectangle blockRectangle = new Rectangle((int)keyPos.X, (int)keyPos.Y, 24, 24);
+
+            if (charRectangle.Intersects(blockRectangle) == true)
             {
-                Rectangle blockRectangle = new Rectangle((int)keyPos.X, (int)keyPos.Y, 24, 24);
+                personHit = true;
+                keyPos = new Vector2(20000, 10000);
+                score += 1;
+            }
+            else if (charRectangle.Intersects(blockRectangle) == false)
+            {
+                personHit = false;
+            }
 
-                if (charRectangle.Intersects(blockRectangle) == true)
-                {
-                    personHit = true;
-                    keyPos = new Vector2(20000, 10000);
-                    score += 1;
-                }
-                else if (charRectangle.Intersects(blockRectangle) == false)
-                {
-                    personHit = false;
-                }
-
-                if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
+            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
-            
+
             _keyboardState = Keyboard.GetState();
             float elapsed = (float)gameTime.ElapsedGameTime.TotalSeconds;
 
             //Player Movement & Collision Creation
-            Rectangle charRectangle = new Rectangle((int)CharPos.X, (int)CharPos.Y, 32, 48);
+
 
             if (_keyboardState.IsKeyDown(Keys.A))
             {
-                if(OnWall == true)
+                if (OnWall == true)
                 {
                     CharPos.X += speed + 10;
                 }
@@ -131,7 +130,7 @@ namespace Themuseum
                 {
                     CharPos.X -= speed;
                 }
-                
+
             }
             else if (_keyboardState.IsKeyDown(Keys.D))
             {
@@ -143,7 +142,7 @@ namespace Themuseum
                 {
                     CharPos.X += speed;
                 }
-                
+
             }
             else if (_keyboardState.IsKeyDown(Keys.W))
             {
@@ -155,7 +154,7 @@ namespace Themuseum
                 {
                     CharPos.Y -= speed;
                 }
-                
+
             }
             else if (_keyboardState.IsKeyDown(Keys.S))
             {
@@ -167,7 +166,7 @@ namespace Themuseum
                 {
                     CharPos.Y += speed;
                 }
-                
+
             }
 
             /*
@@ -190,57 +189,57 @@ namespace Themuseum
             }
             */
 
-            CollisionBox[0] = new Rectangle(0,0,GraphicsDevice.Viewport.Width,64);
+            CollisionBox[0] = new Rectangle(0, 0, GraphicsDevice.Viewport.Width, 64);
             CollisionBox[1] = new Rectangle(0, GraphicsDevice.Viewport.Height - 32, GraphicsDevice.Viewport.Width, 32);
             CollisionBox[2] = new Rectangle(0, 0, 32, GraphicsDevice.Viewport.Height);
             CollisionBox[3] = new Rectangle(GraphicsDevice.Viewport.Width - 32, 0, 32, GraphicsDevice.Viewport.Height);
 
-                for (int i = 0; i < CollisionBox.Count; i++)
+            for (int i = 0; i < CollisionBox.Count; i++)
+            {
+                if (charRectangle.Intersects(CollisionBox[i]))
                 {
-                    if (charRectangle.Intersects(CollisionBox[i]))
-                    {
-                        OnWall = true;
-                        break;
-                    }
-                    else
-                    {
-                        OnWall = false;
-                    }
+                    OnWall = true;
+                    break;
                 }
+                else
+                {
+                    OnWall = false;
+                }
+            }
 
 
             //Wall Collision Check
-            if (CharPos.X >= _graphics.GraphicsDevice.Viewport.Bounds.Right - 55)
+            if (CharPos.X >= _graphics.GraphicsDevice.Viewport.Bounds.Right - 32)
             {
                 CharPos.X -= 3;
             }
-            else if (CharPos.X <= _graphics.GraphicsDevice.Viewport.Bounds.Left + 22)
+            else if (CharPos.X <= _graphics.GraphicsDevice.Viewport.Bounds.Left + 32)
             {
                 CharPos.X += 3;
             }
-            else if (CharPos.Y <= _graphics.GraphicsDevice.Viewport.Bounds.Top + 20)
+            else if (CharPos.Y <= _graphics.GraphicsDevice.Viewport.Bounds.Top + 64)
             {
                 CharPos.Y += 3;
             }
-            else if (CharPos.Y >= _graphics.GraphicsDevice.Viewport.Bounds.Bottom - 72)
+            else if (CharPos.Y >= _graphics.GraphicsDevice.Viewport.Bounds.Bottom - 32)
             {
                 CharPos.Y -= 3;
             }
             Character.UpdateFrame(elapsed);
             base.Update(gameTime);
         }
-    }
+
 
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
+
             _spriteBatch.Begin();
 
-            //Key
-            _spriteBatch.Draw(Key, keyPos, new Rectangle(0,0,32,32),Color.White); 
+            
 
             //Wall Tile Drawing (Upper Wall)
-            for(int i = 1; i < ((int)GraphicsDevice.Viewport.Width / 32) - 1; i++)
+            for (int i = 1; i < ((int)GraphicsDevice.Viewport.Width / 32) - 1; i++)
             {
                 _spriteBatch.Draw(Tileset, new Vector2(Tile_X[i] * 32, 0), new Rectangle(32, 32 * 5, 32, 64), Color.White);
             }
@@ -267,11 +266,11 @@ namespace Themuseum
             _spriteBatch.Draw(Tileset, new Vector2((Tile_X.Count * 32) - 32, (Tile_Y.Count * 32) - 32), new Rectangle(32, 32 * 3, 32, 32), Color.White);
 
             //Floor Drawing
-            for(int i = 1; i < ((int)GraphicsDevice.Viewport.Width / 32) - 1; i++)
+            for (int i = 1; i < ((int)GraphicsDevice.Viewport.Width / 32) - 1; i++)
             {
-                for(int j = 2; j < ((int)GraphicsDevice.Viewport.Height / 32) - 1; j++)
+                for (int j = 2; j < ((int)GraphicsDevice.Viewport.Height / 32) - 1; j++)
                 {
-                    _spriteBatch.Draw(Tileset, new Vector2(Tile_X[i] * 32, Tile_X[j] * 32), new Rectangle(32*3, 0, 32, 32), Color.White);
+                    _spriteBatch.Draw(Tileset, new Vector2(Tile_X[i] * 32, Tile_X[j] * 32), new Rectangle(32 * 3, 0, 32, 32), Color.White);
                 }
             }
 
@@ -298,11 +297,16 @@ namespace Themuseum
             }
             else
             {
-                Character.DrawFrame(_spriteBatch, 2 , CharPos, currentrow);
+                Character.DrawFrame(_spriteBatch, 2, CharPos, currentrow);
             }
+            //Key
+            _spriteBatch.Draw(Key, keyPos, new Rectangle(0, 0, 32, 32), Color.White);
+
 
             _spriteBatch.End();
             base.Draw(gameTime);
         }
     }
 }
+
+
