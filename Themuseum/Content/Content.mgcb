@@ -25,6 +25,13 @@
 /processorParam:TextureFormat=Color
 /build:key-white.png
 
+#begin Keycollect.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:Keycollect.spritefont
+
 #begin placeholder_tileset.png
 /importer:TextureImporter
 /processor:TextureProcessor

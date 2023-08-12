@@ -17,6 +17,7 @@ namespace Themuseum
         private const float Scale = 1.0f;
         private const float Depth = 0.5f;
         private int speed = 2;
+        private SpriteFont _font;
 
         private int Frames = 4;
         private const int FramesPerSec = 15;
@@ -24,6 +25,8 @@ namespace Themuseum
 
         private int score = 0;
         private bool personHit;
+
+        Random r = new Random();
 
         private int currentrow = 1;
 
@@ -53,7 +56,7 @@ namespace Themuseum
         {
             Tileset = Content.Load<Texture2D>("placeholder_tileset");
             Key = Content.Load<Texture2D>("key-white");
-
+            _font = Content.Load<SpriteFont>("Keycollect");
             for (int i = 0; i < (int)GraphicsDevice.Viewport.Width / 32; i++)
             {
                 Tile_X.Add(i);
@@ -103,7 +106,8 @@ namespace Themuseum
             if (charRectangle.Intersects(blockRectangle) == true)
             {
                 personHit = true;
-                keyPos = new Vector2(20000, 10000);
+                keyPos.X = r.Next(_graphics.GraphicsDevice.Viewport.Bounds.Left + 32, _graphics.GraphicsDevice.Viewport.Bounds.Right);
+                keyPos.Y = r.Next(_graphics.GraphicsDevice.Viewport.Bounds.Top + 72, _graphics.GraphicsDevice.Viewport.Bounds.Bottom);
                 score += 1;
             }
             else if (charRectangle.Intersects(blockRectangle) == false)
@@ -122,53 +126,21 @@ namespace Themuseum
 
             if (_keyboardState.IsKeyDown(Keys.A))
             {
-                if (OnWall == true)
-                {
-                    CharPos.X += speed + 10;
-                }
-                else
-                {
-                    CharPos.X -= speed;
-                }
+                    CharPos.X -= speed ;
 
             }
             else if (_keyboardState.IsKeyDown(Keys.D))
             {
-                if (OnWall == true)
-                {
-                    CharPos.X -= speed + 10;
-                }
-                else
-                {
                     CharPos.X += speed;
-                }
-
             }
             else if (_keyboardState.IsKeyDown(Keys.W))
             {
-                if (OnWall == true)
-                {
-                    CharPos.Y += speed + 10;
-                }
-                else
-                {
                     CharPos.Y -= speed;
-                }
-
             }
             else if (_keyboardState.IsKeyDown(Keys.S))
             {
-                if (OnWall == true)
-                {
-                    CharPos.Y -= speed + 10;
-                }
-                else
-                {
                     CharPos.Y += speed;
-                }
-
             }
-
             /*
             //Creating Collision (Upperwall) | Experimental System
             for (int i = 0; i < ((int)GraphicsDevice.Viewport.Width / 32); i++)
@@ -189,39 +161,20 @@ namespace Themuseum
             }
             */
 
-            CollisionBox[0] = new Rectangle(0, 0, GraphicsDevice.Viewport.Width, 64);
-            CollisionBox[1] = new Rectangle(0, GraphicsDevice.Viewport.Height - 32, GraphicsDevice.Viewport.Width, 32);
-            CollisionBox[2] = new Rectangle(0, 0, 32, GraphicsDevice.Viewport.Height);
-            CollisionBox[3] = new Rectangle(GraphicsDevice.Viewport.Width - 32, 0, 32, GraphicsDevice.Viewport.Height);
-
-            for (int i = 0; i < CollisionBox.Count; i++)
-            {
-                if (charRectangle.Intersects(CollisionBox[i]))
-                {
-                    OnWall = true;
-                    break;
-                }
-                else
-                {
-                    OnWall = false;
-                }
-            }
-
-
             //Wall Collision Check
-            if (CharPos.X >= _graphics.GraphicsDevice.Viewport.Bounds.Right - 32)
+            if (CharPos.X >= _graphics.GraphicsDevice.Viewport.Bounds.Right - 55)
             {
                 CharPos.X -= 3;
             }
-            else if (CharPos.X <= _graphics.GraphicsDevice.Viewport.Bounds.Left + 32)
+            else if (CharPos.X <= _graphics.GraphicsDevice.Viewport.Bounds.Left + 22)
             {
                 CharPos.X += 3;
             }
-            else if (CharPos.Y <= _graphics.GraphicsDevice.Viewport.Bounds.Top + 64)
+            else if (CharPos.Y <= _graphics.GraphicsDevice.Viewport.Bounds.Top + 20)
             {
                 CharPos.Y += 3;
             }
-            else if (CharPos.Y >= _graphics.GraphicsDevice.Viewport.Bounds.Bottom - 32)
+            else if (CharPos.Y >= _graphics.GraphicsDevice.Viewport.Bounds.Bottom - 72)
             {
                 CharPos.Y -= 3;
             }
@@ -235,6 +188,7 @@ namespace Themuseum
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             _spriteBatch.Begin();
+            _spriteBatch.DrawString(_font, "Key :" + score, new Vector2(0,0), Color.White);
 
             
 
