@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using SharpDX.Direct3D9;
+using System;
 using System.Collections.Generic;
 
 namespace Themuseum
@@ -14,7 +15,7 @@ namespace Themuseum
         private const float Rotation = 0;
         private const float Scale = 1.0f;
         private const float Depth = 0.5f;
-        private int speed = 3;
+        private int speed = 2;
 
         private int Frames = 4;
         private const int FramesPerSec = 15;
@@ -30,6 +31,10 @@ namespace Themuseum
 
         List<int> Tile_X = new List<int>();
         List<int> Tile_Y = new List<int>();
+
+        List<Rectangle> CollisionBox = new List<Rectangle>();
+
+        bool OnWall = false;
 
         public Game1()
         {
@@ -51,6 +56,24 @@ namespace Themuseum
             {
                 Tile_Y.Add(i);
             }
+
+            /*
+            for(int i = 0; i < (int)GraphicsDevice.Viewport.Width / 32 + (int)GraphicsDevice.Viewport.Width / 32; i++)
+            {
+                
+               CollisionBox.Add(new Rectangle(0, 0, 32, 32));
+                
+            }*/
+
+            for (int i = 0; i < 4; i++)
+            {
+
+                CollisionBox.Add(new Rectangle(0, 0, 32, 32));
+
+            }
+
+            Console.Write(CollisionBox.Count);
+
             //Character Position Initial
             CharPos = new Vector2(GraphicsDevice.Viewport.Width / 2, GraphicsDevice.Viewport.Height / 2);
             base.Initialize();
@@ -72,22 +95,95 @@ namespace Themuseum
             _keyboardState = Keyboard.GetState();
             float elapsed = (float)gameTime.ElapsedGameTime.TotalSeconds;
 
-            //Player Movement
+            //Player Movement & Collision Creation
+            Rectangle charRectangle = new Rectangle((int)CharPos.X, (int)CharPos.Y, 32, 48);
+
             if (_keyboardState.IsKeyDown(Keys.A))
             {
-                CharPos.X -= speed;
+                if(OnWall == true)
+                {
+                    CharPos.X += speed + 10;
+                }
+                else
+                {
+                    CharPos.X -= speed;
+                }
+                
             }
             else if (_keyboardState.IsKeyDown(Keys.D))
             {
-                CharPos.X += speed;
+                if (OnWall == true)
+                {
+                    CharPos.X -= speed + 10;
+                }
+                else
+                {
+                    CharPos.X += speed;
+                }
+                
             }
             else if (_keyboardState.IsKeyDown(Keys.W))
             {
-                CharPos.Y -= speed;
+                if (OnWall == true)
+                {
+                    CharPos.Y += speed + 10;
+                }
+                else
+                {
+                    CharPos.Y -= speed;
+                }
+                
             }
             else if (_keyboardState.IsKeyDown(Keys.S))
             {
-                CharPos.Y += speed;
+                if (OnWall == true)
+                {
+                    CharPos.Y -= speed + 10;
+                }
+                else
+                {
+                    CharPos.Y += speed;
+                }
+                
+            }
+
+            /*
+            //Creating Collision (Upperwall) | Experimental System
+            for (int i = 0; i < ((int)GraphicsDevice.Viewport.Width / 32); i++)
+            {
+                CollisionBox[i] = new Rectangle(Tile_X[i] * 32,0, 32, 32);
+                
+               
+                if (charRectangle.Intersects(CollisionBox[i]))
+                {
+                    OnWall = true;
+                    break;
+                }
+                else
+                {
+                    OnWall = false;
+
+                }
+            }
+            */
+
+            CollisionBox[0] = new Rectangle(0,0,GraphicsDevice.Viewport.Width,64);
+            CollisionBox[1] = new Rectangle(0, GraphicsDevice.Viewport.Height - 32, GraphicsDevice.Viewport.Width, 32);
+            CollisionBox[2] = new Rectangle(0, 0, 32, GraphicsDevice.Viewport.Height);
+            CollisionBox[3] = new Rectangle(GraphicsDevice.Viewport.Width - 32, 0, 32, GraphicsDevice.Viewport.Height);
+
+            for(int i = 0; i < CollisionBox.Count; i++)
+            {
+                if (charRectangle.Intersects(CollisionBox[i]))
+                {
+                    OnWall = true;
+                    break;
+                }
+                else
+                {
+                    OnWall = false;
+
+                }
             }
 
             Character.UpdateFrame(elapsed);
@@ -125,6 +221,15 @@ namespace Themuseum
 
             _spriteBatch.Draw(Tileset, new Vector2(0, (Tile_Y.Count * 32) - 32), new Rectangle(32, 32 * 3, 32, 32), Color.White);
             _spriteBatch.Draw(Tileset, new Vector2((Tile_X.Count * 32) - 32, (Tile_Y.Count * 32) - 32), new Rectangle(32, 32 * 3, 32, 32), Color.White);
+
+            //Floor Drawing
+            for(int i = 1; i < ((int)GraphicsDevice.Viewport.Width / 32) - 1; i++)
+            {
+                for(int j = 2; j < ((int)GraphicsDevice.Viewport.Height / 32) - 1; j++)
+                {
+                    _spriteBatch.Draw(Tileset, new Vector2(Tile_X[i] * 32, Tile_X[j] * 32), new Rectangle(32*3, 0, 32, 32), Color.White);
+                }
+            }
 
             //Player Animation
             if (_keyboardState.IsKeyDown(Keys.A))
