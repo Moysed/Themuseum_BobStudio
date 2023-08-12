@@ -89,7 +89,22 @@ namespace Themuseum
             {
                 CharPos.Y += speed;
             }
-
+            if (CharPos.X >= _graphics.GraphicsDevice.Viewport.Bounds.Right - 55)
+            {
+                CharPos.X -= 3;
+            }
+            else if (CharPos.X <= _graphics.GraphicsDevice.Viewport.Bounds.Left + 22)
+            {
+                CharPos.X += 3;
+            }
+            else if (CharPos.Y <= _graphics.GraphicsDevice.Viewport.Bounds.Top + 20)
+            {
+                CharPos.Y += 3;
+            }
+            else if (CharPos.Y >= _graphics.GraphicsDevice.Viewport.Bounds.Bottom - 72)
+            {
+                CharPos.Y -= 3;
+            }
             Character.UpdateFrame(elapsed);
             base.Update(gameTime);
         }
