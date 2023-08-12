@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using SharpDX.Direct3D9;
+using System;
 using System.Collections.Generic;
 
 namespace Themuseum
@@ -11,6 +11,7 @@ namespace Themuseum
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
         private AnimatedTexture Character;
+        private Texture2D Key;
         private const float Rotation = 0;
         private const float Scale = 1.0f;
         private const float Depth = 0.5f;
@@ -20,9 +21,13 @@ namespace Themuseum
         private const int FramesPerSec = 15;
         private int FramesRow = 4;
 
+        private int score = 0;
+        private bool personHit;
+
         private int currentrow = 1;
 
         private Vector2 CharPos = new Vector2(0, 0);
+        private Vector2 keyPos = new Vector2(200,200);
 
         private KeyboardState _keyboardState;
 
@@ -42,6 +47,7 @@ namespace Themuseum
         protected override void Initialize()
         {
             Tileset = Content.Load<Texture2D>("placeholder_tileset");
+            Key = Content.Load<Texture2D>("key-white");
             
             for(int i = 0; i < (int)GraphicsDevice.Viewport.Width / 32; i++)
             {
@@ -67,8 +73,25 @@ namespace Themuseum
 
         protected override void Update(GameTime gameTime)
         {
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
+            //Collision check
+            Rectangle charRectangle = new Rectangle((int)CharPos.X, (int)CharPos.Y, 32, 32);
+            {
+                Rectangle blockRectangle = new Rectangle((int)keyPos.X, (int)keyPos.Y, 24, 24);
+
+                if (charRectangle.Intersects(blockRectangle) == true)
+                {
+                    personHit = true;
+                    keyPos = new Vector2(20000, 10000);
+                    score += 1;
+                }
+                else if (charRectangle.Intersects(blockRectangle) == false)
+                {
+                    personHit = false;
+                }
+
+                if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
+            
             _keyboardState = Keyboard.GetState();
             float elapsed = (float)gameTime.ElapsedGameTime.TotalSeconds;
 
@@ -89,6 +112,8 @@ namespace Themuseum
             {
                 CharPos.Y += speed;
             }
+
+            //Wall Collision Check
             if (CharPos.X >= _graphics.GraphicsDevice.Viewport.Bounds.Right - 55)
             {
                 CharPos.X -= 3;
@@ -108,11 +133,15 @@ namespace Themuseum
             Character.UpdateFrame(elapsed);
             base.Update(gameTime);
         }
+    }
 
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
             _spriteBatch.Begin();
+
+            //Key
+            _spriteBatch.Draw(Key, keyPos, new Rectangle(0,0,32,32),Color.White); 
 
             //Wall Tile Drawing (Upper Wall)
             for(int i = 1; i < ((int)GraphicsDevice.Viewport.Width / 32) - 1; i++)
