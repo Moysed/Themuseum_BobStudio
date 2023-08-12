@@ -13,6 +13,7 @@ namespace Themuseum
         private SpriteBatch _spriteBatch;
         private AnimatedTexture Character;
         private Texture2D Key;
+        private Texture2D ExitDoor;
         private const float Rotation = 0;
         private const float Scale = 1.0f;
         private const float Depth = 0.5f;
@@ -42,8 +43,14 @@ namespace Themuseum
 
         List<Rectangle> CollisionBox = new List<Rectangle>();
 
-        bool OnWall = false;
+        private Color Textcolor;
+        private string displaytext = "";
 
+        private bool HasKey = false;
+        private bool IsUnlocked = false;
+
+        private int Doorspriteframe = 8;
+        private Vector2 Doorpos;
         public Game1()
         {
             _graphics = new GraphicsDeviceManager(this);
@@ -57,6 +64,8 @@ namespace Themuseum
             Tileset = Content.Load<Texture2D>("placeholder_tileset");
             Key = Content.Load<Texture2D>("key-white");
             _font = Content.Load<SpriteFont>("Keycollect");
+            ExitDoor = Content.Load<Texture2D>("placeholderdoor");
+
             for (int i = 0; i < (int)GraphicsDevice.Viewport.Width / 32; i++)
             {
                 Tile_X.Add(i);
@@ -81,8 +90,9 @@ namespace Themuseum
 
             }
 
-            Console.Write(CollisionBox.Count);
 
+            Doorpos = new Vector2(32 * 20, 0);
+            keyPos = new Vector2(32 * 5, 32 * 12);
             //Character Position Initial
             CharPos = new Vector2(GraphicsDevice.Viewport.Width / 2, GraphicsDevice.Viewport.Height / 2);
             base.Initialize();
@@ -94,26 +104,20 @@ namespace Themuseum
 
             Character.Load(Content, "placeholdersprite", Frames, FramesRow, FramesPerSec);
 
-            // TODO: use this.Content to load your game content here
+            
         }
 
         protected override void Update(GameTime gameTime)
         {
             //Collision check
             Rectangle charRectangle = new Rectangle((int)CharPos.X, (int)CharPos.Y, 32, 48);
-            Rectangle blockRectangle = new Rectangle((int)keyPos.X, (int)keyPos.Y, 24, 24);
-
-            if (charRectangle.Intersects(blockRectangle) == true)
-            {
-                personHit = true;
-                keyPos.X = r.Next(_graphics.GraphicsDevice.Viewport.Bounds.Left + 32, _graphics.GraphicsDevice.Viewport.Bounds.Right);
-                keyPos.Y = r.Next(_graphics.GraphicsDevice.Viewport.Bounds.Top + 72, _graphics.GraphicsDevice.Viewport.Bounds.Bottom);
-                score += 1;
-            }
-            else if (charRectangle.Intersects(blockRectangle) == false)
+            Rectangle KeyRectangle = new Rectangle((int)keyPos.X, (int)keyPos.Y, 24, 24);
+            Rectangle DoorRectangle = new Rectangle((int)Doorpos.X, (int)Doorpos.Y, 32, 64);
+           
+            /*else if (charRectangle.Intersects(KeyRectangle) == false)
             {
                 personHit = false;
-            }
+            }*/
 
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
@@ -123,6 +127,48 @@ namespace Themuseum
 
             //Player Movement & Collision Creation
 
+            if (charRectangle.Intersects(KeyRectangle) == true)
+            {
+                Textcolor = Color.White;
+                displaytext = "Press E to Interact";
+                /*
+                personHit = true;
+                keyPos.X = r.Next(_graphics.GraphicsDevice.Viewport.Bounds.Left + 32, _graphics.GraphicsDevice.Viewport.Bounds.Right);
+                keyPos.Y = r.Next(_graphics.GraphicsDevice.Viewport.Bounds.Top + 72, _graphics.GraphicsDevice.Viewport.Bounds.Bottom);
+                score += 1;
+                */
+                if (_keyboardState.IsKeyDown(Keys.E))
+                {
+                    HasKey = true;
+                    keyPos = new Vector2(10000, 10000);
+                    Textcolor = Color.Gold;
+                    displaytext = "Key Collected";
+                }
+                    
+            }
+
+            if (charRectangle.Intersects(DoorRectangle) == true && IsUnlocked == false)
+            {
+                Textcolor = Color.White;
+                displaytext = "Press E to Interact";
+                if (_keyboardState.IsKeyDown(Keys.E) && HasKey == false)
+                {
+                    Textcolor = Color.Red;
+                    displaytext = "The door is locked";
+                }
+                else if (_keyboardState.IsKeyDown(Keys.E) && HasKey == true)
+                {
+                    Textcolor = Color.LightGreen;
+                    displaytext = "You unlocked the door";
+                    Doorspriteframe = 14;
+                    IsUnlocked = true;
+                }
+            }
+            else if (charRectangle.Intersects(DoorRectangle) == true && IsUnlocked == true)
+            {
+                Textcolor = Color.LightGreen;
+                displaytext = "The door is opened";
+            }
 
             if (_keyboardState.IsKeyDown(Keys.A))
             {
@@ -188,7 +234,7 @@ namespace Themuseum
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             _spriteBatch.Begin();
-            _spriteBatch.DrawString(_font, "Key :" + score, new Vector2(0,0), Color.White);
+            //_spriteBatch.DrawString(_font, "Key :" + score, new Vector2(0,0), Color.White);
 
             
 
@@ -228,6 +274,13 @@ namespace Themuseum
                 }
             }
 
+           
+            //Key
+            _spriteBatch.Draw(Key, keyPos, new Rectangle(0, 0, 32, 32), Color.White);
+            //Door
+            _spriteBatch.Draw(ExitDoor, Doorpos, new Rectangle(6 * 32, Doorspriteframe * 32, 32, 64), Color.White);
+            
+
             //Player Animation
             if (_keyboardState.IsKeyDown(Keys.A))
             {
@@ -253,9 +306,9 @@ namespace Themuseum
             {
                 Character.DrawFrame(_spriteBatch, 2, CharPos, currentrow);
             }
-            //Key
-            _spriteBatch.Draw(Key, keyPos, new Rectangle(0, 0, 32, 32), Color.White);
 
+            //Text
+            _spriteBatch.DrawString(_font, displaytext, new Vector2(GraphicsDevice.Viewport.Bounds.Left + 16, GraphicsDevice.Viewport.Bounds.Top), Textcolor, 0, Vector2.Zero, 0.75f, SpriteEffects.None, 1);
 
             _spriteBatch.End();
             base.Draw(gameTime);
