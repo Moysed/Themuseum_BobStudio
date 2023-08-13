@@ -280,7 +280,7 @@ namespace Themuseum
                 }
             }
             //Door
-            _spriteBatch.Draw(ExitDoor, new Vector2(100, Doorpos.Y), new Rectangle(6 * 32, Doorspriteframe * 32, 32, 64), Color.White);
+            _spriteBatch.Draw(ExitDoor, new Vector2(Doorpos.X, Doorpos.Y), new Rectangle(6 * 32, Doorspriteframe * 32, 32, 64), Color.White);
 
             //Player Animation
             if (_keyboardState.IsKeyDown(Keys.A))
@@ -316,7 +316,7 @@ namespace Themuseum
             //Collision check
             Rectangle charRectangle = new Rectangle((int)CharPos.X, (int)CharPos.Y, 32, 48);
             Rectangle KeyRectangle = new Rectangle((int)keyPos.X, (int)keyPos.Y, 24, 24);
-            Rectangle DoorRectangle = new Rectangle(0, 0, 32, 64);
+            Rectangle DoorRectangle = new Rectangle((int)Doorpos.X, (int)Doorpos.Y, 32, 64);
             Rectangle CircleBox = new Rectangle((int)Circlepos.X, (int)Circlepos.Y, 64, 64);
             Rectangle Crystal_1 = new Rectangle(64, 32, 32, 64);
             Rectangle Crystal_2 = new Rectangle(64 + 32 + 10, 32, 32, 64);
@@ -330,15 +330,14 @@ namespace Themuseum
                 personHit = false;
             }*/
 
-            if (isGameplay == true)
+            /*if (isGameplay == true)
             {
                 DoorRectangle = new Rectangle((int)Doorpos.X, (int)Doorpos.Y, 32, 64);
-            }
-            else if(isRoom2 == true) 
+            }*/
+            /*else if(isRoom2 == true) 
             {
-                CharPos.X = 100;
                 DoorRectangle = new Rectangle(100, (int)Doorpos.Y, 32, 64);
-            }
+            }*/
                 
             
 
