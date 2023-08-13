@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using SharpDX.Direct3D9;
@@ -39,6 +40,7 @@ namespace Themuseum
         private Vector2 keyPos = new Vector2(200, 200);
 
         private KeyboardState _keyboardState;
+        private KeyboardState OldKey;
 
         private Texture2D Tileset;
 
@@ -60,7 +62,8 @@ namespace Themuseum
         private bool CircleActive = true;
 
         private Vector2 Notepos;
-        
+
+        List<SoundEffect> soundEffects = new List<SoundEffect>();
 
         //bool isGameplay;
         //public bool isRoom2;
@@ -130,7 +133,13 @@ namespace Themuseum
             MagicCircle.Load(Content, "199-Support07", Frames, FramesRow, FramesPerSec);
             MagicCrystal.Load(Content, "198-Support06", Frames, FramesRow, FramesPerSec);
 
-            
+            soundEffects.Add(Content.Load<SoundEffect>("005-System05")); //Pick-up sfx
+            soundEffects.Add(Content.Load<SoundEffect>("024-Door01")); //Door Open Sfx
+            soundEffects.Add(Content.Load<SoundEffect>("028-Door05")); //Door Locked Sfx
+            soundEffects.Add(Content.Load<SoundEffect>("046-Book01")); // Note read sfx
+            soundEffects.Add(Content.Load<SoundEffect>("147-Support05")); // Crystal Approve Sfx
+            soundEffects.Add(Content.Load<SoundEffect>("140-Darkness03")); // Crystal Denied sfx
+
         }
 
         
@@ -162,17 +171,18 @@ namespace Themuseum
             if (PlayerCol.Intersects(KeyRectangle) == true)
             {
 
-                if (_keyboardState.IsKeyDown(Keys.E) && CircleActive == false)
+                if (_keyboardState.IsKeyUp(Keys.E) && OldKey.IsKeyDown(Keys.E) && CircleActive == false)
                 {
+                    soundEffects[0].Play();
                     HasKey = true;
                     keyPos = new Vector2(10000, 10000);
                     Textcolor = Color.Gold;
                     displaytext = "Key Collected";
                     timer = countdown;
                 }
-                else if (_keyboardState.IsKeyDown(Keys.E) && CircleActive == true)
+                else if (_keyboardState.IsKeyUp(Keys.E) && OldKey.IsKeyDown(Keys.E) && CircleActive == true)
                 {
-
+                    soundEffects[5].Play();
                     Textcolor = Color.LightPink;
                     displaytext = "The magic circle is preventing the key from moving";
                     timer = countdown;
@@ -183,14 +193,16 @@ namespace Themuseum
             if (PlayerCol.Intersects(DoorRectangle) == true && IsUnlocked == false)
             {
 
-                if (_keyboardState.IsKeyDown(Keys.E) && HasKey == false)
+                if (_keyboardState.IsKeyUp(Keys.E) && OldKey.IsKeyDown(Keys.E) && HasKey == false)
                 {
+                    soundEffects[2].Play();
                     Textcolor = Color.Red;
                     displaytext = "The door is locked";
                     timer = countdown;
                 }
-                else if (_keyboardState.IsKeyDown(Keys.E) && HasKey == true)
+                else if (_keyboardState.IsKeyUp(Keys.E) && OldKey.IsKeyDown(Keys.E) && HasKey == true)
                 {
+                    soundEffects[1].Play();
                     Textcolor = Color.LightGreen;
                     displaytext = "You unlocked the door";
                     Doorspriteframe = 14;
@@ -200,8 +212,9 @@ namespace Themuseum
             }
             else if (PlayerCol.Intersects(DoorRectangle) == true && IsUnlocked == true)
             {
-                if (_keyboardState.IsKeyDown(Keys.E))
+                if (_keyboardState.IsKeyUp(Keys.E) && OldKey.IsKeyDown(Keys.E))
                 {
+                    soundEffects[1].Play();
                     Textcolor = Color.LightGreen;
                     displaytext = "The door is opened";
                     timer = countdown;
@@ -217,15 +230,17 @@ namespace Themuseum
 
             if (PlayerCol.Intersects(Crystal_1) && CircleActive == true)
             {
-                if (_keyboardState.IsKeyDown(Keys.E) && CircleType == 1)
+                if (_keyboardState.IsKeyUp(Keys.E) && OldKey.IsKeyDown(Keys.E) && CircleType == 1)
                 {
+                    soundEffects[4].Play();
                     Textcolor = Color.Aqua;
                     displaytext = "Barrier circle deactivated";
                     CircleActive = false;
                     timer = countdown;
                 }
-                else if (_keyboardState.IsKeyDown(Keys.E))
+                else if (_keyboardState.IsKeyUp(Keys.E) && OldKey.IsKeyDown(Keys.E))
                 {
+                    soundEffects[5].Play();
                     Textcolor = Color.Red;
                     displaytext = "You choose wrong, prepare for consequences!";
                     timer = countdown;
@@ -233,15 +248,17 @@ namespace Themuseum
             }
             if (PlayerCol.Intersects(Crystal_2) && CircleActive == true)
             {
-                if (_keyboardState.IsKeyDown(Keys.E) && CircleType == 2)
+                if (_keyboardState.IsKeyUp(Keys.E) && OldKey.IsKeyDown(Keys.E) && CircleType == 2)
                 {
+                    soundEffects[4].Play();
                     Textcolor = Color.Aqua;
                     displaytext = "Barrier circle deactivated";
                     CircleActive = false;
                     timer = countdown;
                 }
-                else if (_keyboardState.IsKeyDown(Keys.E))
+                else if (_keyboardState.IsKeyUp(Keys.E) && OldKey.IsKeyDown(Keys.E))
                 {
+                    soundEffects[5].Play();
                     Textcolor = Color.Red;
                     displaytext = "You choose wrong, prepare for consequences!";
                     timer = countdown;
@@ -249,15 +266,17 @@ namespace Themuseum
             }
             if (PlayerCol.Intersects(Crystal_3) && CircleActive == true)
             {
-                if (_keyboardState.IsKeyDown(Keys.E) && CircleType == 3)
+                if (_keyboardState.IsKeyUp(Keys.E) && OldKey.IsKeyDown(Keys.E) && CircleType == 3)
                 {
+                    soundEffects[4].Play();
                     Textcolor = Color.Aqua;
                     displaytext = "Barrier circle deactivated";
                     CircleActive = false;
                     timer = countdown;
                 }
-                else if (_keyboardState.IsKeyDown(Keys.E))
+                else if (_keyboardState.IsKeyUp(Keys.E) && OldKey.IsKeyDown(Keys.E))
                 {
+                    soundEffects[5].Play();
                     Textcolor = Color.Red;
                     displaytext = "You choose wrong, prepare for consequences!";
                     timer = countdown;
@@ -265,15 +284,17 @@ namespace Themuseum
             }
             if (PlayerCol.Intersects(Crystal_4) && CircleActive == true)
             {
-                if (_keyboardState.IsKeyDown(Keys.E) && CircleType == 4)
+                if (_keyboardState.IsKeyUp(Keys.E) && OldKey.IsKeyDown(Keys.E) && CircleType == 4)
                 {
+                    soundEffects[4].Play();
                     Textcolor = Color.Aqua;
                     displaytext = "Barrier circle deactivated";
                     CircleActive = false;
                     timer = countdown;
                 }
-                else if (_keyboardState.IsKeyDown(Keys.E))
+                else if (_keyboardState.IsKeyUp(Keys.E) && OldKey.IsKeyDown(Keys.E))
                 {
+                    soundEffects[5].Play();
                     Textcolor = Color.Red;
                     displaytext = "You choose wrong, prepare for consequences!";
                     timer = countdown;
@@ -285,8 +306,9 @@ namespace Themuseum
                 Circlepos = new Vector2(10000, 10000);
             }
 
-            if (PlayerCol.Intersects(NoteBox) && _keyboardState.IsKeyDown(Keys.E))
+            if (PlayerCol.Intersects(NoteBox) && _keyboardState.IsKeyUp(Keys.E) && OldKey.IsKeyDown(Keys.E))
             {
+                soundEffects[3].Play();
                 Textcolor = Color.Orange;
                 displaytext = "Hint:\n\n G = Y \n\n R = B \n\n B = R \n\n Y = G";
                 timer = countdown;
@@ -405,8 +427,10 @@ namespace Themuseum
             }
 
             //Object Interactions (Room2)
-            if (PlayerCol.Intersects(DoorRectangle) && _keyboardState.IsKeyDown(Keys.E))
+            if (PlayerCol.Intersects(DoorRectangle) && _keyboardState.IsKeyUp(Keys.E) && OldKey.IsKeyDown(Keys.E))
             {
+                soundEffects[1].Play();
+
                 LevelIndicator = 1;
 
                 CharPos =new Vector2(CharPos.X, 72);
@@ -467,6 +491,7 @@ namespace Themuseum
                 Exit();
 
             _keyboardState = Keyboard.GetState();
+            
 
             //Player Movement 
 
@@ -501,7 +526,8 @@ namespace Themuseum
             }
 
             float elapsed = (float)gameTime.ElapsedGameTime.TotalSeconds;
-           
+
+            OldKey = _keyboardState;
             Character.UpdateFrame(elapsed);
             base.Update(gameTime);
         }
