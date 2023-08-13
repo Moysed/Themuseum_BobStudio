@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Media;
 using SharpDX.Direct3D9;
 using System;
 using System.Collections.Generic;
@@ -36,7 +37,7 @@ namespace Themuseum
         Random r = new Random();
 
         private int currentrow = 1;
-        private int currentspeed;
+        
 
         private Vector2 CharPos = new Vector2(0, 0);
         private Vector2 keyPos = new Vector2(200, 200);
@@ -66,6 +67,7 @@ namespace Themuseum
         private Vector2 Notepos;
 
         List<SoundEffect> soundEffects = new List<SoundEffect>();
+        List<Song> BGM = new List<Song>();
 
         //bool isGameplay;
         //public bool isRoom2;
@@ -115,8 +117,8 @@ namespace Themuseum
 
             }
             */
-
             
+
             keyPos = new Vector2(32 * 5, 32 * 12);
             Circlepos = new Vector2(keyPos.X - 16, keyPos.Y - 20);
             
@@ -142,6 +144,9 @@ namespace Themuseum
             soundEffects.Add(Content.Load<SoundEffect>("147-Support05")); // Crystal Approve Sfx
             soundEffects.Add(Content.Load<SoundEffect>("140-Darkness03")); // Crystal Denied sfx
 
+            BGM.Add(Content.Load<Song>("BGM(Concept)"));
+            MediaPlayer.Play(BGM[0]);
+            MediaPlayer.IsRepeating = true;
         }
 
         
@@ -263,64 +268,69 @@ namespace Themuseum
             if (_keyboardState.IsKeyDown(Keys.A))
             {
                 CharPos.X -= speed;
-                currentspeed = speed;
+                
                 if (_keyboardState.IsKeyDown(Keys.A) && _keyboardState.IsKeyDown(Keys.LeftShift))
                 {
-                    speed = 5;
+                    speed = 4;
                     CharPos.X -= speed;
-                    currentspeed = speed;
+                    
                 }
             }
             else if (_keyboardState.IsKeyDown(Keys.D))
             {
                 CharPos.X += speed;
-                currentspeed = speed;
+                
                 if (_keyboardState.IsKeyDown(Keys.D) && _keyboardState.IsKeyDown(Keys.LeftShift))
                 {
-                    speed = 5;
+                    speed = 4;
                     CharPos.X += speed;
-                    currentspeed = speed;
+                   
                 }
             }
             else if (_keyboardState.IsKeyDown(Keys.W))
             {
                 CharPos.Y -= speed;
-                currentspeed = speed;
+                
                 if (_keyboardState.IsKeyDown(Keys.W) && _keyboardState.IsKeyDown(Keys.LeftShift))
                 {
-                    speed = 5;
+                    speed = 4;
                     CharPos.Y -= speed;
-                    currentspeed = speed;
+                   
                 }
             }
             else if (_keyboardState.IsKeyDown(Keys.S))
             {
                 CharPos.Y += speed;
-                currentspeed = speed;
+                
                 if (_keyboardState.IsKeyDown(Keys.S) && _keyboardState.IsKeyDown(Keys.LeftShift))
                 {
-                    speed = 5;
+                    speed = 4;
                     CharPos.Y += speed;
-                    currentspeed = speed;
+                    
                 }
+            }
+
+            if (_keyboardState.IsKeyUp(Keys.LeftShift))
+            {
+                speed = 3;
             }
 
             //Wal collision check
             if (CharPos.X >= _graphics.GraphicsDevice.Viewport.Bounds.Right - 54)
             {
-                CharPos.X -= currentspeed;
+                CharPos.X -= speed;
             }
             else if (CharPos.X <= _graphics.GraphicsDevice.Viewport.Bounds.Left + 20)
             {
-                CharPos.X += currentspeed;
+                CharPos.X += speed;
             }
             else if (CharPos.Y <= _graphics.GraphicsDevice.Viewport.Bounds.Top + 34)
             {
-                CharPos.Y += currentspeed;
+                CharPos.Y += speed;
             }
             else if (CharPos.Y >= _graphics.GraphicsDevice.Viewport.Bounds.Bottom - 72)
             {
-                CharPos.Y -= currentspeed;
+                CharPos.Y -= speed;
             }
 
 
@@ -517,19 +527,19 @@ namespace Themuseum
             //Wall Collision Check
             if (CharPos.X >= _graphics.GraphicsDevice.Viewport.Bounds.Right - 54)
             {
-                CharPos.X -= currentspeed;
+                CharPos.X -= speed;
             }
             else if (CharPos.X <= _graphics.GraphicsDevice.Viewport.Bounds.Left + 20)
             {
-                CharPos.X += currentspeed;
+                CharPos.X += speed;
             }
             else if (CharPos.Y <= _graphics.GraphicsDevice.Viewport.Bounds.Top + 34)
             {
-                CharPos.Y += currentspeed;
+                CharPos.Y += speed;
             }
             else if (CharPos.Y >= _graphics.GraphicsDevice.Viewport.Bounds.Bottom - 72)
             {
-                CharPos.Y -= currentspeed;
+                CharPos.Y -= speed;
             }
 
 
@@ -549,19 +559,19 @@ namespace Themuseum
             //Wall Collision Check
             if (CharPos.X >= _graphics.GraphicsDevice.Viewport.Bounds.Right - 54)
             {
-                CharPos.X -= currentspeed;
+                CharPos.X -= speed;
             }
             else if (CharPos.X <= _graphics.GraphicsDevice.Viewport.Bounds.Left + 20)
             {
-                CharPos.X += currentspeed;
+                CharPos.X += speed;
             }
             else if (CharPos.Y <= _graphics.GraphicsDevice.Viewport.Bounds.Top + 34)
             {
-                CharPos.Y += currentspeed;
+                CharPos.Y += speed;
             }
             else if (CharPos.Y >= _graphics.GraphicsDevice.Viewport.Bounds.Bottom - 72)
             {
-                CharPos.Y -= currentspeed;
+                CharPos.Y -= speed;
             }
 
             //Object Interactions (Room2)

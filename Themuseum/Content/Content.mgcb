@@ -97,6 +97,12 @@
 /processorParam:TextureFormat=Color
 /build:199-Support07.png
 
+#begin BGM(Concept).mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:BGM(Concept).mp3
+
 #begin key-white.png
 /importer:TextureImporter
 /processor:TextureProcessor
