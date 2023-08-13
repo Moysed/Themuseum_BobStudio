@@ -9,6 +9,7 @@ namespace Themuseum
 {
     public class Game1 : Game
     {
+        int countdown = 60*4;
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
         private AnimatedTexture Character;
@@ -27,8 +28,7 @@ namespace Themuseum
         private const int FramesPerSec = 15;
         private int FramesRow = 4;
 
-        private int score = 0;
-        private bool personHit;
+        private int timer;
 
         Random r = new Random();
 
@@ -77,6 +77,7 @@ namespace Themuseum
             Key = Content.Load<Texture2D>("key-white");
             _font = Content.Load<SpriteFont>("Keycollect");
             ExitDoor = Content.Load<Texture2D>("placeholderdoor");
+            timer = 0;
 
             for (int i = 0; i < (int)GraphicsDevice.Viewport.Width / 32; i++)
             {
@@ -126,6 +127,7 @@ namespace Themuseum
 
         protected override void Update(GameTime gameTime)
         {
+            timer--;
             //Collision check
             Rectangle charRectangle = new Rectangle((int)CharPos.X, (int)CharPos.Y, 32, 48);
             Rectangle KeyRectangle = new Rectangle((int)keyPos.X, (int)keyPos.Y, 24, 24);
@@ -165,12 +167,14 @@ namespace Themuseum
                     keyPos = new Vector2(10000, 10000);
                     Textcolor = Color.Gold;
                     displaytext = "Key Collected";
+                    timer = countdown;
                 }
                 else if(_keyboardState.IsKeyDown(Keys.E) && CircleActive == true)
                 {
                     
                     Textcolor = Color.LightPink;
                     displaytext = "The magic circle is preventing the key from moving";
+                    timer = countdown;
                 }
                     
             }
@@ -183,6 +187,7 @@ namespace Themuseum
                 {
                     Textcolor = Color.Red;
                     displaytext = "The door is locked";
+                    timer = countdown;
                 }
                 else if (_keyboardState.IsKeyDown(Keys.E) && HasKey == true)
                 {
@@ -190,12 +195,14 @@ namespace Themuseum
                     displaytext = "You unlocked the door";
                     Doorspriteframe = 14;
                     IsUnlocked = true;
+                    timer = countdown;
                 }
             }
             else if (charRectangle.Intersects(DoorRectangle) == true && IsUnlocked == true)
             {
                 Textcolor = Color.LightGreen;
                 displaytext = "The door is opened";
+                timer = countdown;
             }
             
 
@@ -224,11 +231,13 @@ namespace Themuseum
                     Textcolor = Color.Aqua;
                     displaytext = "Barrier circle deactivated";
                     CircleActive = false;
+                    timer = countdown;
                 }
                 else if (_keyboardState.IsKeyDown(Keys.E))
                 {
                     Textcolor = Color.Red;
                     displaytext = "You choose wrong, prepare for consequences!";
+                    timer = countdown;
                 }
             }
             if (charRectangle.Intersects(Crystal_2) && CircleActive == true)
@@ -238,11 +247,13 @@ namespace Themuseum
                     Textcolor = Color.Aqua;
                     displaytext = "Barrier circle deactivated";
                     CircleActive = false;
+                    timer = countdown;
                 }
                 else if (_keyboardState.IsKeyDown(Keys.E))
                 {
                     Textcolor = Color.Red;
                     displaytext = "You choose wrong, prepare for consequences!";
+                    timer = countdown;
                 }
             }
             if (charRectangle.Intersects(Crystal_3) && CircleActive == true)
@@ -252,11 +263,13 @@ namespace Themuseum
                     Textcolor = Color.Aqua;
                     displaytext = "Barrier circle deactivated";
                     CircleActive = false;
+                    timer = countdown;
                 }
                 else if (_keyboardState.IsKeyDown(Keys.E))
                 {
                     Textcolor = Color.Red;
                     displaytext = "You choose wrong, prepare for consequences!";
+                    timer = countdown;
                 }
             }
             if (charRectangle.Intersects(Crystal_4) && CircleActive == true)
@@ -266,11 +279,13 @@ namespace Themuseum
                     Textcolor = Color.Aqua;
                     displaytext = "Barrier circle deactivated";
                     CircleActive = false;
+                    timer = countdown;
                 }
                 else if(_keyboardState.IsKeyDown(Keys.E))
                 {
                     Textcolor = Color.Red;
                     displaytext = "You choose wrong, prepare for consequences!";
+                    timer = countdown;
                 }
             }
 
@@ -283,8 +298,13 @@ namespace Themuseum
             {
                 Textcolor = Color.Orange;
                 displaytext = "Hint:\n\n G = Y \n\n R = B \n\n B = R \n\n Y = G";
+                timer = countdown;
             }
-            
+            if (timer == 0)
+            {
+                displaytext = string.Empty;
+                
+            }
             /*
             //Creating Collision (Upperwall) | Experimental System
             for (int i = 0; i < ((int)GraphicsDevice.Viewport.Width / 32); i++)
