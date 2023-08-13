@@ -60,10 +60,12 @@ namespace Themuseum
         private bool CircleActive = true;
 
         private Vector2 Notepos;
-
-        bool isGameplay;
-        public bool isRoom2;
         
+
+        //bool isGameplay;
+        //public bool isRoom2;
+
+        private int LevelIndicator = 1;
         public Game1()
         {
             _graphics = new GraphicsDeviceManager(this);
@@ -100,18 +102,19 @@ namespace Themuseum
                 
             }*/
 
+            /*
             for (int i = 0; i < 4; i++)
             {
 
                 CollisionBox.Add(new Rectangle(0, 0, 32, 32));
 
             }
+            */
 
-
-            Doorpos = new Vector2(32 * 20, 0);
+            
             keyPos = new Vector2(32 * 5, 32 * 12);
             Circlepos = new Vector2(keyPos.X - 16, keyPos.Y - 20);
-            Notepos = new Vector2(32 * 20, 256);
+            
             CircleType = r.Next(1, 4);
             //Character Position Initial
             CharPos = new Vector2(GraphicsDevice.Viewport.Width / 2, GraphicsDevice.Viewport.Height / 2);
@@ -127,23 +130,202 @@ namespace Themuseum
             MagicCircle.Load(Content, "199-Support07", Frames, FramesRow, FramesPerSec);
             MagicCrystal.Load(Content, "198-Support06", Frames, FramesRow, FramesPerSec);
 
-            isGameplay = true;
-            isRoom2 = false;
+            
         }
-
-        //private void UpdateGameplay()
-        //{
-            //if (Keyboard.GetState().IsKeyDown(Keys.E) == true)
-            //{
-                //isRoom2 = true;
-                //isGameplay = false;
-            //}
-        //}
 
         
 
-        private void DrawGameplay()
+        
+
+        private void Room1(GameTime gameTime,Rectangle PlayerCol)
         {
+            //System
+            Notepos = new Vector2(32 * 20, 256);
+            Doorpos = new Vector2(32 * 20, 0);
+            Rectangle KeyRectangle = new Rectangle((int)keyPos.X, (int)keyPos.Y, 24, 24);
+            Rectangle DoorRectangle = new Rectangle((int)Doorpos.X, (int)Doorpos.Y, 32, 64);
+            Rectangle CircleBox = new Rectangle((int)Circlepos.X, (int)Circlepos.Y, 64, 64);
+            Rectangle Crystal_1 = new Rectangle(64, 32, 32, 64);
+            Rectangle Crystal_2 = new Rectangle(64 + 32 + 10, 32, 32, 64);
+            Rectangle Crystal_3 = new Rectangle(64 + 64 + 20, 32, 32, 64);
+            Rectangle Crystal_4 = new Rectangle(64 + 96 + 30, 32, 32, 64);
+            Rectangle NoteBox = new Rectangle((int)Notepos.X, (int)Notepos.Y, 32, 32);
+
+
+
+           
+            float elapsed = (float)gameTime.ElapsedGameTime.TotalSeconds;
+
+           
+
+            //Object Interactions(Room1)
+            if (PlayerCol.Intersects(KeyRectangle) == true)
+            {
+
+                if (_keyboardState.IsKeyDown(Keys.E) && CircleActive == false)
+                {
+                    HasKey = true;
+                    keyPos = new Vector2(10000, 10000);
+                    Textcolor = Color.Gold;
+                    displaytext = "Key Collected";
+                    timer = countdown;
+                }
+                else if (_keyboardState.IsKeyDown(Keys.E) && CircleActive == true)
+                {
+
+                    Textcolor = Color.LightPink;
+                    displaytext = "The magic circle is preventing the key from moving";
+                    timer = countdown;
+                }
+
+            }
+
+            if (PlayerCol.Intersects(DoorRectangle) == true && IsUnlocked == false)
+            {
+
+                if (_keyboardState.IsKeyDown(Keys.E) && HasKey == false)
+                {
+                    Textcolor = Color.Red;
+                    displaytext = "The door is locked";
+                    timer = countdown;
+                }
+                else if (_keyboardState.IsKeyDown(Keys.E) && HasKey == true)
+                {
+                    Textcolor = Color.LightGreen;
+                    displaytext = "You unlocked the door";
+                    Doorspriteframe = 14;
+                    IsUnlocked = true;
+
+                }
+            }
+            else if (PlayerCol.Intersects(DoorRectangle) == true && IsUnlocked == true)
+            {
+                if (_keyboardState.IsKeyDown(Keys.E))
+                {
+                    Textcolor = Color.LightGreen;
+                    displaytext = "The door is opened";
+                    timer = countdown;
+
+                    
+                    LevelIndicator = 2;
+
+                    CharPos = new Vector2(CharPos.X, GraphicsDevice.Viewport.Height - 64);
+                }
+               
+
+            }
+
+            if (PlayerCol.Intersects(Crystal_1) && CircleActive == true)
+            {
+                if (_keyboardState.IsKeyDown(Keys.E) && CircleType == 1)
+                {
+                    Textcolor = Color.Aqua;
+                    displaytext = "Barrier circle deactivated";
+                    CircleActive = false;
+                    timer = countdown;
+                }
+                else if (_keyboardState.IsKeyDown(Keys.E))
+                {
+                    Textcolor = Color.Red;
+                    displaytext = "You choose wrong, prepare for consequences!";
+                    timer = countdown;
+                }
+            }
+            if (PlayerCol.Intersects(Crystal_2) && CircleActive == true)
+            {
+                if (_keyboardState.IsKeyDown(Keys.E) && CircleType == 2)
+                {
+                    Textcolor = Color.Aqua;
+                    displaytext = "Barrier circle deactivated";
+                    CircleActive = false;
+                    timer = countdown;
+                }
+                else if (_keyboardState.IsKeyDown(Keys.E))
+                {
+                    Textcolor = Color.Red;
+                    displaytext = "You choose wrong, prepare for consequences!";
+                    timer = countdown;
+                }
+            }
+            if (PlayerCol.Intersects(Crystal_3) && CircleActive == true)
+            {
+                if (_keyboardState.IsKeyDown(Keys.E) && CircleType == 3)
+                {
+                    Textcolor = Color.Aqua;
+                    displaytext = "Barrier circle deactivated";
+                    CircleActive = false;
+                    timer = countdown;
+                }
+                else if (_keyboardState.IsKeyDown(Keys.E))
+                {
+                    Textcolor = Color.Red;
+                    displaytext = "You choose wrong, prepare for consequences!";
+                    timer = countdown;
+                }
+            }
+            if (PlayerCol.Intersects(Crystal_4) && CircleActive == true)
+            {
+                if (_keyboardState.IsKeyDown(Keys.E) && CircleType == 4)
+                {
+                    Textcolor = Color.Aqua;
+                    displaytext = "Barrier circle deactivated";
+                    CircleActive = false;
+                    timer = countdown;
+                }
+                else if (_keyboardState.IsKeyDown(Keys.E))
+                {
+                    Textcolor = Color.Red;
+                    displaytext = "You choose wrong, prepare for consequences!";
+                    timer = countdown;
+                }
+            }
+
+            if (CircleActive == false)
+            {
+                Circlepos = new Vector2(10000, 10000);
+            }
+
+            if (PlayerCol.Intersects(NoteBox) && _keyboardState.IsKeyDown(Keys.E))
+            {
+                Textcolor = Color.Orange;
+                displaytext = "Hint:\n\n G = Y \n\n R = B \n\n B = R \n\n Y = G";
+                timer = countdown;
+            }
+            
+
+
+            //Wall Collision Check
+            if (CharPos.X >= _graphics.GraphicsDevice.Viewport.Bounds.Right - 55)
+            {
+                CharPos.X -= 3;
+            }
+            else if (CharPos.X <= _graphics.GraphicsDevice.Viewport.Bounds.Left + 22)
+            {
+                CharPos.X += 3;
+            }
+            else if (CharPos.Y <= _graphics.GraphicsDevice.Viewport.Bounds.Top + 48)
+            {
+                CharPos.Y += 3;
+            }
+            else if (CharPos.Y >= _graphics.GraphicsDevice.Viewport.Bounds.Bottom - 72)
+            {
+                CharPos.Y -= 3;
+            }
+
+           
+
+
+            MagicCircle.UpdateFrame(elapsed);
+            
+            MagicCrystal.UpdateFrame(elapsed);
+
+           
+        }
+       
+        private void Room1_Draw()
+        {
+            //Drawing
+            
             //Wall Tile Drawing (Upper Wall)
             for (int i = 1; i < ((int)GraphicsDevice.Viewport.Width / 32) - 1; i++)
             {
@@ -185,7 +367,8 @@ namespace Themuseum
             //Key
             _spriteBatch.Draw(Key, keyPos, new Rectangle(0, 0, 32, 32), Color.White);
             //Door
-            _spriteBatch.Draw(ExitDoor, Doorpos, new Rectangle(6 * 32, Doorspriteframe * 32, 32, 64), Color.White);
+            _spriteBatch.Draw(ExitDoor, new Vector2(Doorpos.X, Doorpos.Y), new Rectangle(6 * 32, Doorspriteframe * 32, 32, 64), Color.White);
+            
 
             //MagicCrystal
             MagicCrystal.DrawFrame(_spriteBatch, new Vector2(64, 32), 1);
@@ -195,54 +378,46 @@ namespace Themuseum
 
             //Note
             _spriteBatch.Draw(Tileset, Notepos, new Rectangle(5 * 32, 27 * 32, 32, 32), Color.White);
-            //Player Animation
-            if (_keyboardState.IsKeyDown(Keys.A))
-            {
-                currentrow = 2;
-                Character.DrawFrame(_spriteBatch, CharPos, currentrow);
-            }
-            else if (_keyboardState.IsKeyDown(Keys.D))
-            {
-                currentrow = 3;
-                Character.DrawFrame(_spriteBatch, CharPos, currentrow);
-            }
-            else if (_keyboardState.IsKeyDown(Keys.W))
-            {
-                currentrow = 4;
-                Character.DrawFrame(_spriteBatch, CharPos, currentrow);
-            }
-            else if (_keyboardState.IsKeyDown(Keys.S))
-            {
-                currentrow = 1;
-                Character.DrawFrame(_spriteBatch, CharPos, currentrow);
-            }
-            else
-            {
-                Character.DrawFrame(_spriteBatch, 2, CharPos, currentrow);
-            }
 
-            //Text
-            //_spriteBatch.DrawString(_font, displaytext, new Vector2(GraphicsDevice.Viewport.Bounds.Left + 16, GraphicsDevice.Viewport.Bounds.Top), Textcolor, 0, Vector2.Zero, 0.75f, SpriteEffects.None, 1);
-            _spriteBatch.DrawString(_font, displaytext, new Vector2(CharPos.X - 64, CharPos.Y - 48), Textcolor, 0, Vector2.Zero, 0.75f, SpriteEffects.None, 1);
+            
         }
-       
-        private void UpdateRoom2()
+
+        private void Room2(GameTime gameTime, Rectangle PlayerCol)
         {
-                isRoom2 = true;
-                isGameplay = false;
-                currentrow = 1;
-        }
-
-        private void UpdateGameplay()
-        {
-            if (_keyboardState.IsKeyDown(Keys.E))
+            Rectangle DoorRectangle = new Rectangle((int)Doorpos.X, (int)Doorpos.Y, 32, 32);
+            Doorpos = new Vector2(32 * 20, GraphicsDevice.Viewport.Height - 32);
+            //Wall Collision Check
+            if (CharPos.X >= _graphics.GraphicsDevice.Viewport.Bounds.Right - 55)
             {
-                isRoom2 = false;
-                isGameplay = true;
+                CharPos.X -= 3;
             }
+            else if (CharPos.X <= _graphics.GraphicsDevice.Viewport.Bounds.Left + 22)
+            {
+                CharPos.X += 3;
+            }
+            else if (CharPos.Y <= _graphics.GraphicsDevice.Viewport.Bounds.Top + 48)
+            {
+                CharPos.Y += 3;
+            }
+            else if (CharPos.Y >= _graphics.GraphicsDevice.Viewport.Bounds.Bottom - 72)
+            {
+                CharPos.Y -= 3;
+            }
+
+            //Object Interactions (Room2)
+            if (PlayerCol.Intersects(DoorRectangle) && _keyboardState.IsKeyDown(Keys.E))
+            {
+                LevelIndicator = 1;
+
+                CharPos =new Vector2(CharPos.X, 72);
+            }
+           
+
+
+
         }
 
-        private void DrawRoom2()
+        private void Room2_Draw()
         {
             //Wall Tile Drawing (Upper Wall)
             for (int i = 1; i < ((int)GraphicsDevice.Viewport.Width / 32) - 1; i++)
@@ -280,7 +455,69 @@ namespace Themuseum
                 }
             }
             //Door
-            _spriteBatch.Draw(ExitDoor, new Vector2(Doorpos.X, Doorpos.Y), new Rectangle(6 * 32, Doorspriteframe * 32, 32, 64), Color.White);
+            _spriteBatch.Draw(Tileset, Doorpos, new Rectangle(32 * 3, 0, 32, 32), Color.White);
+        }
+
+        protected override void Update(GameTime gameTime)
+        {
+            timer--;
+            Rectangle charRectangle = new Rectangle((int)CharPos.X, (int)CharPos.Y, 32, 48);
+
+            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
+                Exit();
+
+            _keyboardState = Keyboard.GetState();
+
+            //Player Movement 
+
+            if (_keyboardState.IsKeyDown(Keys.A))
+            {
+                CharPos.X -= speed;
+
+            }
+            else if (_keyboardState.IsKeyDown(Keys.D))
+            {
+                CharPos.X += speed;
+            }
+            else if (_keyboardState.IsKeyDown(Keys.W))
+            {
+                CharPos.Y -= speed;
+            }
+            else if (_keyboardState.IsKeyDown(Keys.S))
+            {
+                CharPos.Y += speed;
+            }
+
+            if (timer == 0)
+            {
+                displaytext = string.Empty;
+
+            }
+
+            switch (LevelIndicator)
+            {
+                case 1: Room1(gameTime, charRectangle); break;
+                case 2: Room2(gameTime, charRectangle); break;
+            }
+
+            float elapsed = (float)gameTime.ElapsedGameTime.TotalSeconds;
+           
+            Character.UpdateFrame(elapsed);
+            base.Update(gameTime);
+        }
+
+
+        protected override void Draw(GameTime gameTime)
+        {
+            GraphicsDevice.Clear(Color.CornflowerBlue);
+
+            _spriteBatch.Begin();
+
+            switch (LevelIndicator)
+            {
+                case 1: Room1_Draw(); break;
+                case 2: Room2_Draw(); break;
+            }
 
             //Player Animation
             if (_keyboardState.IsKeyDown(Keys.A))
@@ -308,266 +545,9 @@ namespace Themuseum
                 Character.DrawFrame(_spriteBatch, 2, CharPos, currentrow);
             }
 
-        }
+            //Text
+            _spriteBatch.DrawString(_font, displaytext, new Vector2(CharPos.X - 64, CharPos.Y - 48), Textcolor, 0, Vector2.Zero, 0.75f, SpriteEffects.None, 1);
 
-        protected override void Update(GameTime gameTime)
-        {
-            timer--;
-            //Collision check
-            Rectangle charRectangle = new Rectangle((int)CharPos.X, (int)CharPos.Y, 32, 48);
-            Rectangle KeyRectangle = new Rectangle((int)keyPos.X, (int)keyPos.Y, 24, 24);
-            Rectangle DoorRectangle = new Rectangle((int)Doorpos.X, (int)Doorpos.Y, 32, 64);
-            Rectangle CircleBox = new Rectangle((int)Circlepos.X, (int)Circlepos.Y, 64, 64);
-            Rectangle Crystal_1 = new Rectangle(64, 32, 32, 64);
-            Rectangle Crystal_2 = new Rectangle(64 + 32 + 10, 32, 32, 64);
-            Rectangle Crystal_3 = new Rectangle(64 + 64 + 20, 32, 32, 64);
-            Rectangle Crystal_4 = new Rectangle(64 + 96 + 30, 32, 32, 64);
-            Rectangle NoteBox = new Rectangle((int)Notepos.X, (int)Notepos.Y, 32, 32);
-
-            /*else if (charRectangle.Intersects(KeyRectangle) == false)
-            {
-            (int)Doorpos.X,(int)Doorpos.Y
-                personHit = false;
-            }*/
-
-            /*if (isGameplay == true)
-            {
-                DoorRectangle = new Rectangle((int)Doorpos.X, (int)Doorpos.Y, 32, 64);
-            }*/
-            /*else if(isRoom2 == true) 
-            {
-                DoorRectangle = new Rectangle(100, (int)Doorpos.Y, 32, 64);
-            }*/
-                
-            
-
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
-                Exit();
-
-            _keyboardState = Keyboard.GetState();
-            float elapsed = (float)gameTime.ElapsedGameTime.TotalSeconds;
-
-            //Player Movement & Collision Creation
-
-            if (_keyboardState.IsKeyDown(Keys.A))
-            {
-                CharPos.X -= speed;
-
-            }
-            else if (_keyboardState.IsKeyDown(Keys.D))
-            {
-                CharPos.X += speed;
-            }
-            else if (_keyboardState.IsKeyDown(Keys.W))
-            {
-                CharPos.Y -= speed;
-            }
-            else if (_keyboardState.IsKeyDown(Keys.S))
-            {
-                CharPos.Y += speed;
-            }
-
-            if (charRectangle.Intersects(KeyRectangle) == true)
-            {
-                //Textcolor = Color.White;
-                //displaytext = "Press E to Interact";
-                /*
-                personHit = true;
-                keyPos.X = r.Next(_graphics.GraphicsDevice.Viewport.Bounds.Left + 32, _graphics.GraphicsDevice.Viewport.Bounds.Right);
-                keyPos.Y = r.Next(_graphics.GraphicsDevice.Viewport.Bounds.Top + 72, _graphics.GraphicsDevice.Viewport.Bounds.Bottom);
-                score += 1;
-                */
-                if (_keyboardState.IsKeyDown(Keys.E) && CircleActive == false)
-                {
-                    HasKey = true;
-                    keyPos = new Vector2(10000, 10000);
-                    Textcolor = Color.Gold;
-                    displaytext = "Key Collected";
-                    timer = countdown;
-                }
-                else if (_keyboardState.IsKeyDown(Keys.E) && CircleActive == true)
-                {
-
-                    Textcolor = Color.LightPink;
-                    displaytext = "The magic circle is preventing the key from moving";
-                    timer = countdown;
-                }
-
-            }
-
-            if (charRectangle.Intersects(DoorRectangle) == true && IsUnlocked == false)
-            {
-                //Textcolor = Color.White;
-                //displaytext = "Press E to Interact";
-                if (_keyboardState.IsKeyDown(Keys.E) && HasKey == false)
-                {
-                    Textcolor = Color.Red;
-                    displaytext = "The door is locked";
-                    timer = countdown;
-                }
-                else if (_keyboardState.IsKeyDown(Keys.E) && HasKey == true)
-                {
-                    Textcolor = Color.LightGreen;
-                    displaytext = "You unlocked the door";
-                    Doorspriteframe = 14;
-                    IsUnlocked = true;
-                    UpdateRoom2();
-                }
-            }
-            else if (charRectangle.Intersects(DoorRectangle) == true && IsUnlocked == true)
-            {
-                Textcolor = Color.LightGreen;
-                displaytext = "The door is opened";
-                timer = countdown;
-                isRoom2 = true;
-            }
-
-            if (charRectangle.Intersects(Crystal_1) && CircleActive == true)
-            {
-                if (_keyboardState.IsKeyDown(Keys.E) && CircleType == 1)
-                {
-                    Textcolor = Color.Aqua;
-                    displaytext = "Barrier circle deactivated";
-                    CircleActive = false;
-                    timer = countdown;
-                }
-                else if (_keyboardState.IsKeyDown(Keys.E))
-                {
-                    Textcolor = Color.Red;
-                    displaytext = "You choose wrong, prepare for consequences!";
-                    timer = countdown;
-                }
-            }
-            if (charRectangle.Intersects(Crystal_2) && CircleActive == true)
-            {
-                if (_keyboardState.IsKeyDown(Keys.E) && CircleType == 2)
-                {
-                    Textcolor = Color.Aqua;
-                    displaytext = "Barrier circle deactivated";
-                    CircleActive = false;
-                    timer = countdown;
-                }
-                else if (_keyboardState.IsKeyDown(Keys.E))
-                {
-                    Textcolor = Color.Red;
-                    displaytext = "You choose wrong, prepare for consequences!";
-                    timer = countdown;
-                }
-            }
-            if (charRectangle.Intersects(Crystal_3) && CircleActive == true)
-            {
-                if (_keyboardState.IsKeyDown(Keys.E) && CircleType == 3)
-                {
-                    Textcolor = Color.Aqua;
-                    displaytext = "Barrier circle deactivated";
-                    CircleActive = false;
-                    timer = countdown;
-                }
-                else if (_keyboardState.IsKeyDown(Keys.E))
-                {
-                    Textcolor = Color.Red;
-                    displaytext = "You choose wrong, prepare for consequences!";
-                    timer = countdown;
-                }
-            }
-            if (charRectangle.Intersects(Crystal_4) && CircleActive == true)
-            {
-                if (_keyboardState.IsKeyDown(Keys.E) && CircleType == 4)
-                {
-                    Textcolor = Color.Aqua;
-                    displaytext = "Barrier circle deactivated";
-                    CircleActive = false;
-                    timer = countdown;
-                }
-                else if (_keyboardState.IsKeyDown(Keys.E))
-                {
-                    Textcolor = Color.Red;
-                    displaytext = "You choose wrong, prepare for consequences!";
-                    timer = countdown;
-                }
-            }
-
-            if (CircleActive == false)
-            {
-                Circlepos = new Vector2(10000, 10000);
-            }
-
-            if (charRectangle.Intersects(NoteBox) && _keyboardState.IsKeyDown(Keys.E))
-            {
-                Textcolor = Color.Orange;
-                displaytext = "Hint:\n\n G = Y \n\n R = B \n\n B = R \n\n Y = G";
-                timer = countdown;
-            }
-            if (timer == 0)
-            {
-                displaytext = string.Empty;
-
-            }
-            /*
-            //Creating Collision (Upperwall) | Experimental System
-            for (int i = 0; i < ((int)GraphicsDevice.Viewport.Width / 32); i++)
-            {
-                CollisionBox[i] = new Rectangle(Tile_X[i] * 32,0, 32, 32);
-                
-               
-                if (charRectangle.Intersects(CollisionBox[i]))
-                {
-                    OnWall = true;
-                    break;
-                }
-                else
-                {
-                    OnWall = false;
-
-                }
-            }
-            */
-
-            //Wall Collision Check
-            if (CharPos.X >= _graphics.GraphicsDevice.Viewport.Bounds.Right - 55)
-            {
-                CharPos.X -= 3;
-            }
-            else if (CharPos.X <= _graphics.GraphicsDevice.Viewport.Bounds.Left + 22)
-            {
-                CharPos.X += 3;
-            }
-            else if (CharPos.Y <= _graphics.GraphicsDevice.Viewport.Bounds.Top + 48)
-            {
-                CharPos.Y += 3;
-            }
-            else if (CharPos.Y >= _graphics.GraphicsDevice.Viewport.Bounds.Bottom - 72)
-            {
-                CharPos.Y -= 3;
-            }
-
-            //scence
-           // if (isGameplay == true)
-            //{
-                //UpdateGameplay();
-            //}
-            
-
-            MagicCircle.UpdateFrame(elapsed);
-            Character.UpdateFrame(elapsed);
-            MagicCrystal.UpdateFrame(elapsed);
-            base.Update(gameTime);
-        }
-
-
-        protected override void Draw(GameTime gameTime)
-        {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
-
-            _spriteBatch.Begin();
-            if(isGameplay == true)
-            {
-                DrawGameplay();
-            }
-            else if(isRoom2 == true)
-            {
-                DrawRoom2();
-            }
             _spriteBatch.End();
             base.Draw(gameTime);
         }
