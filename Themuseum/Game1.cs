@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework.Input;
 using SharpDX.Direct3D9;
 using System;
 using System.Collections.Generic;
+using System.Timers;
 
 namespace Themuseum
 {
@@ -59,6 +60,9 @@ namespace Themuseum
         private bool CircleActive = true;
 
         private Vector2 Notepos;
+
+        bool isGameplay;
+        public bool isRoom2;
         
         public Game1()
         {
@@ -123,6 +127,187 @@ namespace Themuseum
             MagicCircle.Load(Content, "199-Support07", Frames, FramesRow, FramesPerSec);
             MagicCrystal.Load(Content, "198-Support06", Frames, FramesRow, FramesPerSec);
 
+            isGameplay = true;
+            isRoom2 = false;
+        }
+
+        //private void UpdateGameplay()
+        //{
+            //if (Keyboard.GetState().IsKeyDown(Keys.E) == true)
+            //{
+                //isRoom2 = true;
+                //isGameplay = false;
+            //}
+        //}
+
+        
+
+        private void DrawGameplay()
+        {
+            //Wall Tile Drawing (Upper Wall)
+            for (int i = 1; i < ((int)GraphicsDevice.Viewport.Width / 32) - 1; i++)
+            {
+                _spriteBatch.Draw(Tileset, new Vector2(Tile_X[i] * 32, 0), new Rectangle(32, 32 * 5, 32, 64), Color.White);
+            }
+
+            //Wall Roof Drawing (Left)
+            for (int i = 0; i < ((int)GraphicsDevice.Viewport.Height / 32) - 1; i++)
+            {
+                _spriteBatch.Draw(Tileset, new Vector2(0, Tile_Y[i] * 32), new Rectangle(32 * 2, 32 * 3, 32, 32), Color.White);
+            }
+
+            //Wall Roof Drawing (Right)
+            for (int i = 0; i < ((int)GraphicsDevice.Viewport.Height / 32) - 1; i++)
+            {
+                _spriteBatch.Draw(Tileset, new Vector2((Tile_X.Count * 32) - 32, Tile_Y[i] * 32), new Rectangle(0, 32 * 3, 32, 32), Color.White);
+            }
+
+            //Wall Roof Drawing (Down)
+            for (int i = 1; i < ((int)GraphicsDevice.Viewport.Width / 32) - 1; i++)
+            {
+                _spriteBatch.Draw(Tileset, new Vector2(Tile_X[i] * 32, (Tile_Y.Count * 32) - 32), new Rectangle(32, 32 * 2, 32, 32), Color.White);
+            }
+
+            _spriteBatch.Draw(Tileset, new Vector2(0, (Tile_Y.Count * 32) - 32), new Rectangle(32, 32 * 3, 32, 32), Color.White);
+            _spriteBatch.Draw(Tileset, new Vector2((Tile_X.Count * 32) - 32, (Tile_Y.Count * 32) - 32), new Rectangle(32, 32 * 3, 32, 32), Color.White);
+
+            //Floor Drawing
+            for (int i = 1; i < ((int)GraphicsDevice.Viewport.Width / 32) - 1; i++)
+            {
+                for (int j = 2; j < ((int)GraphicsDevice.Viewport.Height / 32) - 1; j++)
+                {
+                    _spriteBatch.Draw(Tileset, new Vector2(Tile_X[i] * 32, Tile_X[j] * 32), new Rectangle(32 * 3, 0, 32, 32), Color.White);
+                }
+            }
+
+            //MagicCircle
+            MagicCircle.DrawFrame(_spriteBatch, Circlepos, CircleType);
+            //Key
+            _spriteBatch.Draw(Key, keyPos, new Rectangle(0, 0, 32, 32), Color.White);
+            //Door
+            _spriteBatch.Draw(ExitDoor, Doorpos, new Rectangle(6 * 32, Doorspriteframe * 32, 32, 64), Color.White);
+
+            //MagicCrystal
+            MagicCrystal.DrawFrame(_spriteBatch, new Vector2(64, 32), 1);
+            MagicCrystal.DrawFrame(_spriteBatch, new Vector2(64 + 32 + 10, 32), 2);
+            MagicCrystal.DrawFrame(_spriteBatch, new Vector2(64 + 64 + 20, 32), 3);
+            MagicCrystal.DrawFrame(_spriteBatch, new Vector2(64 + 96 + 30, 32), 4);
+
+            //Note
+            _spriteBatch.Draw(Tileset, Notepos, new Rectangle(5 * 32, 27 * 32, 32, 32), Color.White);
+            //Player Animation
+            if (_keyboardState.IsKeyDown(Keys.A))
+            {
+                currentrow = 2;
+                Character.DrawFrame(_spriteBatch, CharPos, currentrow);
+            }
+            else if (_keyboardState.IsKeyDown(Keys.D))
+            {
+                currentrow = 3;
+                Character.DrawFrame(_spriteBatch, CharPos, currentrow);
+            }
+            else if (_keyboardState.IsKeyDown(Keys.W))
+            {
+                currentrow = 4;
+                Character.DrawFrame(_spriteBatch, CharPos, currentrow);
+            }
+            else if (_keyboardState.IsKeyDown(Keys.S))
+            {
+                currentrow = 1;
+                Character.DrawFrame(_spriteBatch, CharPos, currentrow);
+            }
+            else
+            {
+                Character.DrawFrame(_spriteBatch, 2, CharPos, currentrow);
+            }
+
+            //Text
+            //_spriteBatch.DrawString(_font, displaytext, new Vector2(GraphicsDevice.Viewport.Bounds.Left + 16, GraphicsDevice.Viewport.Bounds.Top), Textcolor, 0, Vector2.Zero, 0.75f, SpriteEffects.None, 1);
+            _spriteBatch.DrawString(_font, displaytext, new Vector2(CharPos.X - 64, CharPos.Y - 48), Textcolor, 0, Vector2.Zero, 0.75f, SpriteEffects.None, 1);
+        }
+       
+        private void UpdateRoom2()
+        {
+                isRoom2 = true;
+                isGameplay = false;
+                currentrow = 1;
+        }
+
+        private void UpdateGameplay()
+        {
+            if (_keyboardState.IsKeyDown(Keys.E))
+            {
+                isRoom2 = false;
+                isGameplay = true;
+            }
+        }
+
+        private void DrawRoom2()
+        {
+            //Wall Tile Drawing (Upper Wall)
+            for (int i = 1; i < ((int)GraphicsDevice.Viewport.Width / 32) - 1; i++)
+            {
+                _spriteBatch.Draw(Tileset, new Vector2(Tile_X[i] * 32, 0), new Rectangle(32, 32 * 5, 32, 64), Color.White);
+            }
+
+            //Wall Roof Drawing (Left)
+            for (int i = 0; i < ((int)GraphicsDevice.Viewport.Height / 32) - 1; i++)
+            {
+                _spriteBatch.Draw(Tileset, new Vector2(0, Tile_Y[i] * 32), new Rectangle(32 * 2, 32 * 3, 32, 32), Color.White);
+            }
+
+            //Wall Roof Drawing (Right)
+            for (int i = 0; i < ((int)GraphicsDevice.Viewport.Height / 32) - 1; i++)
+            {
+                _spriteBatch.Draw(Tileset, new Vector2((Tile_X.Count * 32) - 32, Tile_Y[i] * 32), new Rectangle(0, 32 * 3, 32, 32), Color.White);
+            }
+
+            //Wall Roof Drawing (Down)
+            for (int i = 1; i < ((int)GraphicsDevice.Viewport.Width / 32) - 1; i++)
+            {
+                _spriteBatch.Draw(Tileset, new Vector2(Tile_X[i] * 32, (Tile_Y.Count * 32) - 32), new Rectangle(32, 32 * 2, 32, 32), Color.White);
+            }
+
+            _spriteBatch.Draw(Tileset, new Vector2(0, (Tile_Y.Count * 32) - 32), new Rectangle(32, 32 * 3, 32, 32), Color.White);
+            _spriteBatch.Draw(Tileset, new Vector2((Tile_X.Count * 32) - 32, (Tile_Y.Count * 32) - 32), new Rectangle(32, 32 * 3, 32, 32), Color.White);
+
+            //Floor Drawing
+            for (int i = 1; i < ((int)GraphicsDevice.Viewport.Width / 32) - 1; i++)
+            {
+                for (int j = 2; j < ((int)GraphicsDevice.Viewport.Height / 32) - 1; j++)
+                {
+                    _spriteBatch.Draw(Tileset, new Vector2(Tile_X[i] * 32, Tile_X[j] * 32), new Rectangle(32 * 3, 0, 32, 32), Color.White);
+                }
+            }
+            //Door
+            _spriteBatch.Draw(ExitDoor, new Vector2(100, Doorpos.Y), new Rectangle(6 * 32, Doorspriteframe * 32, 32, 64), Color.White);
+
+            //Player Animation
+            if (_keyboardState.IsKeyDown(Keys.A))
+            {
+                currentrow = 2;
+                Character.DrawFrame(_spriteBatch, CharPos, currentrow);
+            }
+            else if (_keyboardState.IsKeyDown(Keys.D))
+            {
+                currentrow = 3;
+                Character.DrawFrame(_spriteBatch, CharPos, currentrow);
+            }
+            else if (_keyboardState.IsKeyDown(Keys.W))
+            {
+                currentrow = 4;
+                Character.DrawFrame(_spriteBatch, CharPos, currentrow);
+            }
+            else if (_keyboardState.IsKeyDown(Keys.S))
+            {
+                currentrow = 1;
+                Character.DrawFrame(_spriteBatch, CharPos, currentrow);
+            }
+            else
+            {
+                Character.DrawFrame(_spriteBatch, 2, CharPos, currentrow);
+            }
+
         }
 
         protected override void Update(GameTime gameTime)
@@ -131,17 +316,31 @@ namespace Themuseum
             //Collision check
             Rectangle charRectangle = new Rectangle((int)CharPos.X, (int)CharPos.Y, 32, 48);
             Rectangle KeyRectangle = new Rectangle((int)keyPos.X, (int)keyPos.Y, 24, 24);
-            Rectangle DoorRectangle = new Rectangle((int)Doorpos.X, (int)Doorpos.Y, 32, 64);
+            Rectangle DoorRectangle = new Rectangle(0, 0, 32, 64);
             Rectangle CircleBox = new Rectangle((int)Circlepos.X, (int)Circlepos.Y, 64, 64);
             Rectangle Crystal_1 = new Rectangle(64, 32, 32, 64);
-            Rectangle Crystal_2 = new Rectangle(64 + 32 + 10, 32,32,64);
+            Rectangle Crystal_2 = new Rectangle(64 + 32 + 10, 32, 32, 64);
             Rectangle Crystal_3 = new Rectangle(64 + 64 + 20, 32, 32, 64);
             Rectangle Crystal_4 = new Rectangle(64 + 96 + 30, 32, 32, 64);
             Rectangle NoteBox = new Rectangle((int)Notepos.X, (int)Notepos.Y, 32, 32);
+
             /*else if (charRectangle.Intersects(KeyRectangle) == false)
             {
+            (int)Doorpos.X,(int)Doorpos.Y
                 personHit = false;
             }*/
+
+            if (isGameplay == true)
+            {
+                DoorRectangle = new Rectangle((int)Doorpos.X, (int)Doorpos.Y, 32, 64);
+            }
+            else if(isRoom2 == true) 
+            {
+                CharPos.X = 100;
+                DoorRectangle = new Rectangle(100, (int)Doorpos.Y, 32, 64);
+            }
+                
+            
 
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
@@ -150,6 +349,24 @@ namespace Themuseum
             float elapsed = (float)gameTime.ElapsedGameTime.TotalSeconds;
 
             //Player Movement & Collision Creation
+
+            if (_keyboardState.IsKeyDown(Keys.A))
+            {
+                CharPos.X -= speed;
+
+            }
+            else if (_keyboardState.IsKeyDown(Keys.D))
+            {
+                CharPos.X += speed;
+            }
+            else if (_keyboardState.IsKeyDown(Keys.W))
+            {
+                CharPos.Y -= speed;
+            }
+            else if (_keyboardState.IsKeyDown(Keys.S))
+            {
+                CharPos.Y += speed;
+            }
 
             if (charRectangle.Intersects(KeyRectangle) == true)
             {
@@ -169,16 +386,16 @@ namespace Themuseum
                     displaytext = "Key Collected";
                     timer = countdown;
                 }
-                else if(_keyboardState.IsKeyDown(Keys.E) && CircleActive == true)
+                else if (_keyboardState.IsKeyDown(Keys.E) && CircleActive == true)
                 {
-                    
+
                     Textcolor = Color.LightPink;
                     displaytext = "The magic circle is preventing the key from moving";
                     timer = countdown;
                 }
-                    
+
             }
-          
+
             if (charRectangle.Intersects(DoorRectangle) == true && IsUnlocked == false)
             {
                 //Textcolor = Color.White;
@@ -195,7 +412,7 @@ namespace Themuseum
                     displaytext = "You unlocked the door";
                     Doorspriteframe = 14;
                     IsUnlocked = true;
-                    timer = countdown;
+                    UpdateRoom2();
                 }
             }
             else if (charRectangle.Intersects(DoorRectangle) == true && IsUnlocked == true)
@@ -203,28 +420,10 @@ namespace Themuseum
                 Textcolor = Color.LightGreen;
                 displaytext = "The door is opened";
                 timer = countdown;
-            }
-            
-
-            if (_keyboardState.IsKeyDown(Keys.A))
-            {
-                    CharPos.X -= speed ;
-
-            }
-            else if (_keyboardState.IsKeyDown(Keys.D))
-            {
-                    CharPos.X += speed;
-            }
-            else if (_keyboardState.IsKeyDown(Keys.W))
-            {
-                    CharPos.Y -= speed;
-            }
-            else if (_keyboardState.IsKeyDown(Keys.S))
-            {
-                    CharPos.Y += speed;
+                isRoom2 = true;
             }
 
-            if(charRectangle.Intersects(Crystal_1) && CircleActive == true)
+            if (charRectangle.Intersects(Crystal_1) && CircleActive == true)
             {
                 if (_keyboardState.IsKeyDown(Keys.E) && CircleType == 1)
                 {
@@ -281,7 +480,7 @@ namespace Themuseum
                     CircleActive = false;
                     timer = countdown;
                 }
-                else if(_keyboardState.IsKeyDown(Keys.E))
+                else if (_keyboardState.IsKeyDown(Keys.E))
                 {
                     Textcolor = Color.Red;
                     displaytext = "You choose wrong, prepare for consequences!";
@@ -303,7 +502,7 @@ namespace Themuseum
             if (timer == 0)
             {
                 displaytext = string.Empty;
-                
+
             }
             /*
             //Creating Collision (Upperwall) | Experimental System
@@ -343,6 +542,13 @@ namespace Themuseum
                 CharPos.Y -= 3;
             }
 
+            //scence
+           // if (isGameplay == true)
+            //{
+                //UpdateGameplay();
+            //}
+            
+
             MagicCircle.UpdateFrame(elapsed);
             Character.UpdateFrame(elapsed);
             MagicCrystal.UpdateFrame(elapsed);
@@ -355,91 +561,14 @@ namespace Themuseum
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             _spriteBatch.Begin();
-            //_spriteBatch.DrawString(_font, "Key :" + score, new Vector2(0,0), Color.White);
-
-            
-
-            //Wall Tile Drawing (Upper Wall)
-            for (int i = 1; i < ((int)GraphicsDevice.Viewport.Width / 32) - 1; i++)
+            if(isGameplay == true)
             {
-                _spriteBatch.Draw(Tileset, new Vector2(Tile_X[i] * 32, 0), new Rectangle(32, 32 * 5, 32, 64), Color.White);
+                DrawGameplay();
             }
-
-            //Wall Roof Drawing (Left)
-            for (int i = 0; i < ((int)GraphicsDevice.Viewport.Height / 32) - 1; i++)
+            else if(isRoom2 == true)
             {
-                _spriteBatch.Draw(Tileset, new Vector2(0, Tile_Y[i] * 32), new Rectangle(32 * 2, 32 * 3, 32, 32), Color.White);
+                DrawRoom2();
             }
-
-            //Wall Roof Drawing (Right)
-            for (int i = 0; i < ((int)GraphicsDevice.Viewport.Height / 32) - 1; i++)
-            {
-                _spriteBatch.Draw(Tileset, new Vector2((Tile_X.Count * 32) - 32, Tile_Y[i] * 32), new Rectangle(0, 32 * 3, 32, 32), Color.White);
-            }
-
-            //Wall Roof Drawing (Down)
-            for (int i = 1; i < ((int)GraphicsDevice.Viewport.Width / 32) - 1; i++)
-            {
-                _spriteBatch.Draw(Tileset, new Vector2(Tile_X[i] * 32, (Tile_Y.Count * 32) - 32), new Rectangle(32, 32 * 2, 32, 32), Color.White);
-            }
-
-            _spriteBatch.Draw(Tileset, new Vector2(0, (Tile_Y.Count * 32) - 32), new Rectangle(32, 32 * 3, 32, 32), Color.White);
-            _spriteBatch.Draw(Tileset, new Vector2((Tile_X.Count * 32) - 32, (Tile_Y.Count * 32) - 32), new Rectangle(32, 32 * 3, 32, 32), Color.White);
-
-            //Floor Drawing
-            for (int i = 1; i < ((int)GraphicsDevice.Viewport.Width / 32) - 1; i++)
-            {
-                for (int j = 2; j < ((int)GraphicsDevice.Viewport.Height / 32) - 1; j++)
-                {
-                    _spriteBatch.Draw(Tileset, new Vector2(Tile_X[i] * 32, Tile_X[j] * 32), new Rectangle(32 * 3, 0, 32, 32), Color.White);
-                }
-            }
-
-            //MagicCircle
-            MagicCircle.DrawFrame(_spriteBatch, Circlepos,CircleType);
-            //Key
-            _spriteBatch.Draw(Key, keyPos, new Rectangle(0, 0, 32, 32), Color.White);
-            //Door
-            _spriteBatch.Draw(ExitDoor, Doorpos, new Rectangle(6 * 32, Doorspriteframe * 32, 32, 64), Color.White);
-
-            //MagicCrystal
-            MagicCrystal.DrawFrame(_spriteBatch,new Vector2(64,32),1);
-            MagicCrystal.DrawFrame(_spriteBatch, new Vector2(64 + 32 + 10, 32), 2);
-            MagicCrystal.DrawFrame(_spriteBatch, new Vector2(64 + 64 + 20, 32), 3);
-            MagicCrystal.DrawFrame(_spriteBatch, new Vector2(64 + 96 + 30, 32), 4);
-
-            //Note
-            _spriteBatch.Draw(Tileset, Notepos, new Rectangle(5 * 32, 27 * 32, 32, 32), Color.White);
-            //Player Animation
-            if (_keyboardState.IsKeyDown(Keys.A))
-            {
-                currentrow = 2;
-                Character.DrawFrame(_spriteBatch, CharPos, currentrow);
-            }
-            else if (_keyboardState.IsKeyDown(Keys.D))
-            {
-                currentrow = 3;
-                Character.DrawFrame(_spriteBatch, CharPos, currentrow);
-            }
-            else if (_keyboardState.IsKeyDown(Keys.W))
-            {
-                currentrow = 4;
-                Character.DrawFrame(_spriteBatch, CharPos, currentrow);
-            }
-            else if (_keyboardState.IsKeyDown(Keys.S))
-            {
-                currentrow = 1;
-                Character.DrawFrame(_spriteBatch, CharPos, currentrow);
-            }
-            else
-            {
-                Character.DrawFrame(_spriteBatch, 2, CharPos, currentrow);
-            }
-
-            //Text
-            //_spriteBatch.DrawString(_font, displaytext, new Vector2(GraphicsDevice.Viewport.Bounds.Left + 16, GraphicsDevice.Viewport.Bounds.Top), Textcolor, 0, Vector2.Zero, 0.75f, SpriteEffects.None, 1);
-            _spriteBatch.DrawString(_font, displaytext, new Vector2(CharPos.X - 64, CharPos.Y - 48), Textcolor, 0, Vector2.Zero, 0.75f, SpriteEffects.None, 1);
-
             _spriteBatch.End();
             base.Draw(gameTime);
         }
