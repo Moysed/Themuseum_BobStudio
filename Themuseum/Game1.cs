@@ -17,7 +17,6 @@ namespace Themuseum
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
         private AnimatedTexture Character;
-        private AnimatedTexture Ghost;
         private AnimatedTexture MagicCircle;
         private AnimatedTexture MagicCrystal;
         private Texture2D Key;
@@ -63,12 +62,14 @@ namespace Themuseum
         private Vector2 Circlepos;
         private int CircleType = 1;
         private bool CircleActive = true;
+        private Ghost Monster;
 
         private Vector2 Notepos;
 
         List<SoundEffect> soundEffects = new List<SoundEffect>();
         List<Song> BGM = new List<Song>();
 
+        private bool MonsterSummon = false;
         //bool isGameplay;
         //public bool isRoom2;
 
@@ -77,7 +78,7 @@ namespace Themuseum
         {
             _graphics = new GraphicsDeviceManager(this);
             Character = new AnimatedTexture(Vector2.Zero, Rotation, Scale, Depth);
-            Ghost = new AnimatedTexture(Vector2.Zero, Rotation, Scale, Depth);
+           
             MagicCircle = new AnimatedTexture(Vector2.Zero, Rotation, Scale, Depth);
             MagicCrystal = new AnimatedTexture(Vector2.Zero, Rotation, Scale, Depth);
             Content.RootDirectory = "Content";
@@ -90,6 +91,7 @@ namespace Themuseum
             Key = Content.Load<Texture2D>("key-white");
             _font = Content.Load<SpriteFont>("Keycollect");
             ExitDoor = Content.Load<Texture2D>("placeholderdoor");
+            Monster = new Ghost(new Vector2(10000, 10000));
             timer = 0;
 
             for (int i = 0; i < (int)GraphicsDevice.Viewport.Width / 32; i++)
@@ -133,7 +135,7 @@ namespace Themuseum
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
             Character.Load(Content, "placeholdersprite", Frames, FramesRow, FramesPerSec);
-            Ghost.Load(Content, "054-Undead04", Frames, FramesRow, FramesPerSec);
+            
             MagicCircle.Load(Content, "199-Support07", Frames, FramesRow, FramesPerSec);
             MagicCrystal.Load(Content, "198-Support06", Frames, FramesRow, FramesPerSec);
 
@@ -143,6 +145,8 @@ namespace Themuseum
             soundEffects.Add(Content.Load<SoundEffect>("046-Book01")); // Note read sfx
             soundEffects.Add(Content.Load<SoundEffect>("147-Support05")); // Crystal Approve Sfx
             soundEffects.Add(Content.Load<SoundEffect>("140-Darkness03")); // Crystal Denied sfx
+            soundEffects.Add(Content.Load<SoundEffect>("081-Monster03")); // Monster Sound
+            Monster.LoadSprite(Content);
 
             BGM.Add(Content.Load<Song>("BGM(Concept)"));
             MediaPlayer.Play(BGM[0]);
@@ -250,6 +254,9 @@ namespace Themuseum
             }
             //Door
             _spriteBatch.Draw(Tileset, Doorpos, new Rectangle(32 * 3, 0, 32, 32), Color.White);
+
+            //Ghost Draw
+            Monster.Draw(_spriteBatch);
         }
 
         protected override void Update(GameTime gameTime)
@@ -333,6 +340,13 @@ namespace Themuseum
                 CharPos.Y -= speed;
             }
 
+            if (charRectangle.Intersects(Monster.collision))
+            {
+                soundEffects[6].Play();
+                Textcolor = Color.Black;
+                displaytext = "You felt overwhelming despair";
+                timer = countdown;
+            }
 
             if (timer == 0)
             {
@@ -351,11 +365,13 @@ namespace Themuseum
 
             OldKey = _keyboardState;
             Character.UpdateFrame(elapsed);
+            Monster.UpdateAnimation(elapsed);
             base.Update(gameTime);
         }
 
         private void Room1(GameTime gameTime, Rectangle PlayerCol)
         {
+
             //System
             Notepos = new Vector2(32 * 20, 256);
             Doorpos = new Vector2(32 * 20, 0);
@@ -368,7 +384,7 @@ namespace Themuseum
             Rectangle Crystal_4 = new Rectangle(64 + 96 + 30, 32, 32, 64);
             Rectangle NoteBox = new Rectangle((int)Notepos.X, (int)Notepos.Y, 32, 32);
 
-
+            
 
 
             float elapsed = (float)gameTime.ElapsedGameTime.TotalSeconds;
@@ -430,6 +446,8 @@ namespace Themuseum
 
                     LevelIndicator = 2;
 
+                    Monster.Changestartingposition(new Vector2(100, 100));
+
                     CharPos = new Vector2(CharPos.X, GraphicsDevice.Viewport.Height - 64);
                 }
 
@@ -451,6 +469,7 @@ namespace Themuseum
                     soundEffects[5].Play();
                     Textcolor = Color.Red;
                     displaytext = "You choose wrong, prepare for consequences!";
+                    MonsterSummon = true;
                     timer = countdown;
                 }
             }
@@ -469,6 +488,7 @@ namespace Themuseum
                     soundEffects[5].Play();
                     Textcolor = Color.Red;
                     displaytext = "You choose wrong, prepare for consequences!";
+                    MonsterSummon = true;
                     timer = countdown;
                 }
             }
@@ -487,6 +507,7 @@ namespace Themuseum
                     soundEffects[5].Play();
                     Textcolor = Color.Red;
                     displaytext = "You choose wrong, prepare for consequences!";
+                    MonsterSummon = true;
                     timer = countdown;
                 }
             }
@@ -505,6 +526,7 @@ namespace Themuseum
                     soundEffects[5].Play();
                     Textcolor = Color.Red;
                     displaytext = "You choose wrong, prepare for consequences!";
+                    MonsterSummon = true;
                     timer = countdown;
                 }
             }
@@ -556,6 +578,8 @@ namespace Themuseum
         {
             Rectangle DoorRectangle = new Rectangle((int)Doorpos.X, (int)Doorpos.Y, 32, 32);
             Doorpos = new Vector2(32 * 20, GraphicsDevice.Viewport.Height - 32);
+
+            
             //Wall Collision Check
             if (CharPos.X >= _graphics.GraphicsDevice.Viewport.Bounds.Right - 54)
             {
@@ -580,8 +604,18 @@ namespace Themuseum
                 soundEffects[1].Play();
 
                 LevelIndicator = 1;
-
+                Monster.Changestartingposition(new Vector2(1000, 1000));
                 CharPos = new Vector2(CharPos.X, 72);
+            }
+
+            //Monster Chase
+            if(MonsterSummon == true)
+            {
+                Monster.Chase(CharPos);
+            }
+            else
+            {
+                Monster.Changestartingposition(new Vector2(1000, 1000));
             }
         }
 
@@ -596,7 +630,7 @@ namespace Themuseum
                 case 1: Room1_Draw(); break;
                 case 2: Room2_Draw(); break;
             }
-
+            
             //Player Animation
             if (_keyboardState.IsKeyDown(Keys.A))
             {
