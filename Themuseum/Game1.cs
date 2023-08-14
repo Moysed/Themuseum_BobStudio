@@ -16,7 +16,7 @@ namespace Themuseum
         int countdown = 60*4;
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
-        private AnimatedTexture Character;
+        
         private AnimatedTexture MagicCircle;
         private AnimatedTexture MagicCrystal;
         private AnimatedTexture Fire;
@@ -38,10 +38,10 @@ namespace Themuseum
 
         Random r = new Random();
 
-        private int currentrow = 1;
+        
         
 
-        private Vector2 CharPos = new Vector2(0, 0);
+        //private Vector2 CharPos = new Vector2(0, 0);
         private Vector2 keyPos = new Vector2(200, 200);
 
         private KeyboardState _keyboardState;
@@ -66,7 +66,7 @@ namespace Themuseum
         private int CircleType = 1;
         private bool CircleActive = true;
         private Ghost Monster;
-
+        private Player player;
         private Vector2 Notepos;
 
         List<SoundEffect> soundEffects = new List<SoundEffect>();
@@ -80,7 +80,7 @@ namespace Themuseum
         public Game1()
         {
             _graphics = new GraphicsDeviceManager(this);
-            Character = new AnimatedTexture(Vector2.Zero, Rotation, Scale, Depth);
+            //Character = new AnimatedTexture(Vector2.Zero, Rotation, Scale, Depth);
             Fire = new AnimatedTexture(Vector2.Zero, Rotation, Scale, Depth);
             Fountain = new AnimatedTexture(Vector2.Zero, Rotation, Scale, Depth);
             MagicCircle = new AnimatedTexture(Vector2.Zero, Rotation, Scale, Depth);
@@ -97,6 +97,7 @@ namespace Themuseum
             ExitDoor = Content.Load<Texture2D>("placeholderdoor");
             Sign = Content.Load<Texture2D>("186-Bulletin01");
             Monster = new Ghost(new Vector2(10000, 10000));
+            
             timer = 0;
 
             for (int i = 0; i < (int)GraphicsDevice.Viewport.Width / 32; i++)
@@ -131,7 +132,7 @@ namespace Themuseum
             
             CircleType = r.Next(1, 4);
             //Character Position Initial
-            CharPos = new Vector2(GraphicsDevice.Viewport.Width / 2, GraphicsDevice.Viewport.Height / 2);
+            player = new Player(new Vector2(GraphicsDevice.Viewport.Width / 2, GraphicsDevice.Viewport.Height / 2));
             base.Initialize();
         }
 
@@ -139,7 +140,7 @@ namespace Themuseum
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            Character.Load(Content, "placeholdersprite", Frames, FramesRow, FramesPerSec);
+            
             
             MagicCircle.Load(Content, "199-Support07", Frames, FramesRow, FramesPerSec);
             MagicCrystal.Load(Content, "198-Support06", Frames, FramesRow, FramesPerSec);
@@ -154,7 +155,7 @@ namespace Themuseum
             soundEffects.Add(Content.Load<SoundEffect>("140-Darkness03")); // Crystal Denied sfx
             soundEffects.Add(Content.Load<SoundEffect>("081-Monster03")); // Monster Sound
             Monster.LoadSprite(Content);
-
+            player.LoadSprite(Content);
             BGM.Add(Content.Load<Song>("BGM(Concept)"));
             MediaPlayer.Play(BGM[0]);
             MediaPlayer.IsRepeating = true;
@@ -278,85 +279,37 @@ namespace Themuseum
         protected override void Update(GameTime gameTime)
         {
             timer--;
-            Rectangle charRectangle = new Rectangle((int)CharPos.X, (int)CharPos.Y, 32, 48);
+            
 
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
             _keyboardState = Keyboard.GetState();
+
+
+            player.Controls(_keyboardState);
+
             
 
-            //Player Movement 
-
-            if (_keyboardState.IsKeyDown(Keys.A))
-            {
-                CharPos.X -= speed;
-                
-                if (_keyboardState.IsKeyDown(Keys.A) && _keyboardState.IsKeyDown(Keys.LeftShift))
-                {
-                    speed = 4;
-                    CharPos.X -= speed;
-                    
-                }
-            }
-            else if (_keyboardState.IsKeyDown(Keys.D))
-            {
-                CharPos.X += speed;
-                
-                if (_keyboardState.IsKeyDown(Keys.D) && _keyboardState.IsKeyDown(Keys.LeftShift))
-                {
-                    speed = 4;
-                    CharPos.X += speed;
-                   
-                }
-            }
-            else if (_keyboardState.IsKeyDown(Keys.W))
-            {
-                CharPos.Y -= speed;
-                
-                if (_keyboardState.IsKeyDown(Keys.W) && _keyboardState.IsKeyDown(Keys.LeftShift))
-                {
-                    speed = 4;
-                    CharPos.Y -= speed;
-                   
-                }
-            }
-            else if (_keyboardState.IsKeyDown(Keys.S))
-            {
-                CharPos.Y += speed;
-                
-                if (_keyboardState.IsKeyDown(Keys.S) && _keyboardState.IsKeyDown(Keys.LeftShift))
-                {
-                    speed = 4;
-                    CharPos.Y += speed;
-                    
-                }
-            }
-
-            if (_keyboardState.IsKeyUp(Keys.LeftShift))
-            {
-                speed = 3;
-            }
-
             //Wal collision check
-            if (CharPos.X >= _graphics.GraphicsDevice.Viewport.Bounds.Right - 54)
+            if (player.SelfPosition.X >= _graphics.GraphicsDevice.Viewport.Bounds.Right - 54)
             {
-                CharPos.X -= speed;
+                player.SelfPosition.X -= speed;
             }
-            else if (CharPos.X <= _graphics.GraphicsDevice.Viewport.Bounds.Left + 20)
+            else if (player.SelfPosition.X <= _graphics.GraphicsDevice.Viewport.Bounds.Left + 20)
             {
-                CharPos.X += speed;
+                player.SelfPosition.X += speed;
             }
-            else if (CharPos.Y <= _graphics.GraphicsDevice.Viewport.Bounds.Top + 34)
+            else if (player.SelfPosition.Y <= _graphics.GraphicsDevice.Viewport.Bounds.Top + 34)
             {
-                CharPos.Y += speed;
+                player.SelfPosition.Y += speed;
             }
-            else if (CharPos.Y >= _graphics.GraphicsDevice.Viewport.Bounds.Bottom - 72)
+            else if (player.SelfPosition.Y >= _graphics.GraphicsDevice.Viewport.Bounds.Bottom - 72)
             {
-                CharPos.Y -= speed;
+                player.SelfPosition.Y -= speed;
             }
 
-            if (charRectangle.Intersects(Monster.collision))
+            if (player.collision.Intersects(Monster.collision))
             {
                 soundEffects[6].Play();
                 Textcolor = Color.Black;
@@ -373,16 +326,17 @@ namespace Themuseum
 
             switch (LevelIndicator)
             {
-                case 1: Room1(gameTime, charRectangle); break;
-                case 2: Room2(gameTime, charRectangle); break;
+                case 1: Room1(gameTime, player.collision); break;
+                case 2: Room2(gameTime, player.collision); break;
             }
 
 
             float elapsed = (float)gameTime.ElapsedGameTime.TotalSeconds;
 
             OldKey = _keyboardState;
-            Character.UpdateFrame(elapsed);
+            //Character.UpdateFrame(elapsed);
             Monster.UpdateAnimation(elapsed);
+            player.UpdateAnimation(elapsed);
             base.Update(gameTime);
         }
 
@@ -465,7 +419,8 @@ namespace Themuseum
 
                     Monster.Changestartingposition(new Vector2(100, 100));
 
-                    CharPos = new Vector2(CharPos.X, GraphicsDevice.Viewport.Height - 64);
+                    player.ChangeStartingPosition(new Vector2(player.SelfPosition.X, GraphicsDevice.Viewport.Height - 64));
+                    
                 }
 
 
@@ -564,24 +519,24 @@ namespace Themuseum
 
 
             //Wall Collision Check
-            if (CharPos.X >= _graphics.GraphicsDevice.Viewport.Bounds.Right - 54)
+            if (player.SelfPosition.X >= _graphics.GraphicsDevice.Viewport.Bounds.Right - 54)
             {
-                CharPos.X -= speed;
+                player.SelfPosition.X -= speed;
             }
-            else if (CharPos.X <= _graphics.GraphicsDevice.Viewport.Bounds.Left + 20)
+            else if (player.SelfPosition.X <= _graphics.GraphicsDevice.Viewport.Bounds.Left + 20)
             {
-                CharPos.X += speed;
+                player.SelfPosition.X += speed;
             }
-            else if (CharPos.Y <= _graphics.GraphicsDevice.Viewport.Bounds.Top + 34)
+            else if (player.SelfPosition.Y <= _graphics.GraphicsDevice.Viewport.Bounds.Top + 34)
             {
-                CharPos.Y += speed;
+                player.SelfPosition.Y += speed;
             }
-            else if (CharPos.Y >= _graphics.GraphicsDevice.Viewport.Bounds.Bottom - 72)
+            else if (player.SelfPosition.Y >= _graphics.GraphicsDevice.Viewport.Bounds.Bottom - 72)
             {
-                CharPos.Y -= speed;
+                player.SelfPosition.Y -= speed;
             }
 
-            
+
 
 
 
@@ -604,21 +559,21 @@ namespace Themuseum
             float elapsed = (float)gameTime.ElapsedGameTime.TotalSeconds;
 
             //Wall Collision Check
-            if (CharPos.X >= _graphics.GraphicsDevice.Viewport.Bounds.Right - 54)
+            if (player.SelfPosition.X >= _graphics.GraphicsDevice.Viewport.Bounds.Right - 54)
             {
-                CharPos.X -= speed;
+                player.SelfPosition.X -= speed;
             }
-            else if (CharPos.X <= _graphics.GraphicsDevice.Viewport.Bounds.Left + 20)
+            else if (player.SelfPosition.X <= _graphics.GraphicsDevice.Viewport.Bounds.Left + 20)
             {
-                CharPos.X += speed;
+                player.SelfPosition.X += speed;
             }
-            else if (CharPos.Y <= _graphics.GraphicsDevice.Viewport.Bounds.Top + 34)
+            else if (player.SelfPosition.Y <= _graphics.GraphicsDevice.Viewport.Bounds.Top + 34)
             {
-                CharPos.Y += speed;
+                player.SelfPosition.Y += speed;
             }
-            else if (CharPos.Y >= _graphics.GraphicsDevice.Viewport.Bounds.Bottom - 72)
+            else if (player.SelfPosition.Y >= _graphics.GraphicsDevice.Viewport.Bounds.Bottom - 72)
             {
-                CharPos.Y -= speed;
+                player.SelfPosition.Y -= speed;
             }
 
             //Object Interactions (Room2)
@@ -628,7 +583,7 @@ namespace Themuseum
 
                 LevelIndicator = 1;
                 Monster.Changestartingposition(new Vector2(1000, 1000));
-                CharPos = new Vector2(CharPos.X, 72);
+                player.ChangeStartingPosition(new Vector2(player.SelfPosition.X, 72));
             }
 
             if(PlayerCol.Intersects(SignRectangle) && _keyboardState.IsKeyUp(Keys.E) && OldKey.IsKeyDown(Keys.E))
@@ -662,7 +617,7 @@ namespace Themuseum
             //Monster Chase
             if (MonsterSummon == true)
             {
-                Monster.Chase(CharPos);
+                Monster.Chase(player.SelfPosition);
             }
             else
             {
@@ -684,35 +639,12 @@ namespace Themuseum
                 case 1: Room1_Draw(); break;
                 case 2: Room2_Draw(); break;
             }
-            
-            //Player Animation
-            if (_keyboardState.IsKeyDown(Keys.A))
-            {
-                currentrow = 2;
-                Character.DrawFrame(_spriteBatch, CharPos, currentrow);
-            }
-            else if (_keyboardState.IsKeyDown(Keys.D))
-            {
-                currentrow = 3;
-                Character.DrawFrame(_spriteBatch, CharPos, currentrow);
-            }
-            else if (_keyboardState.IsKeyDown(Keys.W))
-            {
-                currentrow = 4;
-                Character.DrawFrame(_spriteBatch, CharPos, currentrow);
-            }
-            else if (_keyboardState.IsKeyDown(Keys.S))
-            {
-                currentrow = 1;
-                Character.DrawFrame(_spriteBatch, CharPos, currentrow);
-            }
-            else
-            {
-                Character.DrawFrame(_spriteBatch, 2, CharPos, currentrow);
-            }
 
+            player.Draw(_spriteBatch,_keyboardState);
+           
+            
             //Text
-            _spriteBatch.DrawString(_font, displaytext, new Vector2(CharPos.X - 64, CharPos.Y - 48), Textcolor, 0, Vector2.Zero, 0.75f, SpriteEffects.None, 1);
+            _spriteBatch.DrawString(_font, displaytext, new Vector2(player.SelfPosition.X - 64, player.SelfPosition.Y - 48), Textcolor, 0, Vector2.Zero, 0.75f, SpriteEffects.None, 1);
 
             _spriteBatch.End();
             base.Draw(gameTime);
