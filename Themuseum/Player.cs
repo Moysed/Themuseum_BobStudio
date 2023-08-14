@@ -16,7 +16,7 @@ namespace Themuseum
 
     class Player : Game1
     {
-        private float speed = 3f;
+        public float speed = 3f;
         public Vector2 SelfPosition;
         public Rectangle collision;
         private AnimatedTexture Sprite;
@@ -70,32 +70,35 @@ namespace Themuseum
             if (Keystate.IsKeyDown(Keys.A))
             {
                 SelfPosition.X -= speed;
-
+                currentSpeed = speed;
                 if (Keystate.IsKeyDown(Keys.A) && Keystate.IsKeyDown(Keys.LeftShift))
                 {
                     speed = 4;
+                    currentSpeed = speed;
                     SelfPosition.X -= speed;
-
+                    
                 }
             }
             else if (Keystate.IsKeyDown(Keys.D))
             {
                 SelfPosition.X += speed;
-
+                currentSpeed = speed;
                 if (Keystate.IsKeyDown(Keys.D) && Keystate.IsKeyDown(Keys.LeftShift))
                 {
                     speed = 4;
+                    currentSpeed = speed;
                     SelfPosition.X += speed;
-
+                    
                 }
             }
             else if (Keystate.IsKeyDown(Keys.W))
             {
                 SelfPosition.Y -= speed;
-
+                currentSpeed = speed;
                 if (Keystate.IsKeyDown(Keys.W) && Keystate.IsKeyDown(Keys.LeftShift))
                 {
                     speed = 4;
+                    currentSpeed = speed;
                     SelfPosition.Y -= speed;
 
                 }
@@ -103,10 +106,11 @@ namespace Themuseum
             else if (Keystate.IsKeyDown(Keys.S))
             {
                 SelfPosition.Y += speed;
-
+                currentSpeed = speed;
                 if (Keystate.IsKeyDown(Keys.S) && Keystate.IsKeyDown(Keys.LeftShift))
                 {
                     speed = 4;
+                    currentSpeed = speed;
                     SelfPosition.Y += speed;
 
                 }
@@ -115,8 +119,10 @@ namespace Themuseum
             if (Keystate.IsKeyUp(Keys.LeftShift))
             {
                 speed = 3;
+                currentSpeed = speed;
             }
         }
+
 
         public void UpdateAnimation(float elasped)
         {
