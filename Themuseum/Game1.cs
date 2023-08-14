@@ -73,6 +73,8 @@ namespace Themuseum
         List<Song> BGM = new List<Song>();
 
         private bool MonsterSummon = false;
+
+        private Staminabar Staminabar;
         //bool isGameplay;
         //public bool isRoom2;
 
@@ -97,6 +99,7 @@ namespace Themuseum
             ExitDoor = Content.Load<Texture2D>("placeholderdoor");
             Sign = Content.Load<Texture2D>("186-Bulletin01");
             Monster = new Ghost(new Vector2(10000, 10000));
+            
             
             timer = 0;
 
@@ -133,6 +136,7 @@ namespace Themuseum
             CircleType = r.Next(1, 4);
             //Character Position Initial
             player = new Player(new Vector2(GraphicsDevice.Viewport.Width / 2, GraphicsDevice.Viewport.Height / 2));
+            Staminabar = new Staminabar(player.MaxStamina);
             base.Initialize();
         }
 
@@ -156,6 +160,7 @@ namespace Themuseum
             soundEffects.Add(Content.Load<SoundEffect>("081-Monster03")); // Monster Sound
             Monster.LoadSprite(Content);
             player.LoadSprite(Content);
+            Staminabar.LoadSprite(Content);
             BGM.Add(Content.Load<Song>("BGM(Concept)"));
             MediaPlayer.Play(BGM[0]);
             MediaPlayer.IsRepeating = true;
@@ -289,7 +294,7 @@ namespace Themuseum
 
             player.Controls(_keyboardState);
 
-            
+            Staminabar.UpdateBar(player.SelfPosition, player.UpdateStamina());
 
             //Wal collision check
             if (player.SelfPosition.X >= _graphics.GraphicsDevice.Viewport.Bounds.Right - 54)
@@ -317,7 +322,7 @@ namespace Themuseum
                 timer = countdown;
             }
 
-            if (timer == 0)
+            if (timer < 0)
             {
                 displaytext = string.Empty;
                 CircleType = r.Next(1, 4);
@@ -641,6 +646,8 @@ namespace Themuseum
             }
 
             player.Draw(_spriteBatch,_keyboardState);
+
+            Staminabar.Drawbar(_spriteBatch);
            
             
             //Text

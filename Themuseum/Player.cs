@@ -20,13 +20,17 @@ namespace Themuseum
         public Vector2 SelfPosition;
         public Rectangle collision;
         private AnimatedTexture Sprite;
+        public float MaxStamina = 100;
+        private float CurrentStamina = 100;
+       
         private int framerow = 1;
-
+        
         public Player(Vector2 SpawningPosition)
         {
             SelfPosition = SpawningPosition;
             Sprite = new AnimatedTexture(Vector2.Zero, 0, 1, 0.5f);
             collision = new Rectangle((int)SelfPosition.X, (int)SelfPosition.Y, 32, 48);
+            
         }
 
         public void LoadSprite(ContentManager Content)
@@ -71,9 +75,10 @@ namespace Themuseum
             {
                 SelfPosition.X -= speed;
 
-                if (Keystate.IsKeyDown(Keys.A) && Keystate.IsKeyDown(Keys.LeftShift))
+                if (Keystate.IsKeyDown(Keys.A) && Keystate.IsKeyDown(Keys.LeftShift) && CurrentStamina > 0)
                 {
                     speed = 4;
+                    CurrentStamina--;
                     SelfPosition.X -= speed;
 
                 }
@@ -82,9 +87,10 @@ namespace Themuseum
             {
                 SelfPosition.X += speed;
 
-                if (Keystate.IsKeyDown(Keys.D) && Keystate.IsKeyDown(Keys.LeftShift))
+                if (Keystate.IsKeyDown(Keys.D) && Keystate.IsKeyDown(Keys.LeftShift) && CurrentStamina > 0)
                 {
                     speed = 4;
+                    CurrentStamina--;
                     SelfPosition.X += speed;
 
                 }
@@ -93,9 +99,10 @@ namespace Themuseum
             {
                 SelfPosition.Y -= speed;
 
-                if (Keystate.IsKeyDown(Keys.W) && Keystate.IsKeyDown(Keys.LeftShift))
+                if (Keystate.IsKeyDown(Keys.W) && Keystate.IsKeyDown(Keys.LeftShift) && CurrentStamina > 0)
                 {
                     speed = 4;
+                    CurrentStamina--;
                     SelfPosition.Y -= speed;
 
                 }
@@ -104,9 +111,10 @@ namespace Themuseum
             {
                 SelfPosition.Y += speed;
 
-                if (Keystate.IsKeyDown(Keys.S) && Keystate.IsKeyDown(Keys.LeftShift))
+                if (Keystate.IsKeyDown(Keys.S) && Keystate.IsKeyDown(Keys.LeftShift) && CurrentStamina > 0)
                 {
                     speed = 4;
+                    CurrentStamina--;
                     SelfPosition.Y += speed;
 
                 }
@@ -114,8 +122,18 @@ namespace Themuseum
 
             if (Keystate.IsKeyUp(Keys.LeftShift))
             {
+                CurrentStamina += 0.10f;
                 speed = 3;
             }
+
+           
+
+            if (CurrentStamina > 100)
+            {
+                
+                CurrentStamina = 100;
+            }
+           
         }
 
         public void UpdateAnimation(float elasped)
@@ -126,6 +144,11 @@ namespace Themuseum
         public void ChangeStartingPosition(Vector2 spawnposition)
         {
             SelfPosition = spawnposition;
+        }
+
+        public float UpdateStamina()
+        {
+            return (CurrentStamina);
         }
     }
 }
