@@ -19,8 +19,11 @@ namespace Themuseum
         private AnimatedTexture Character;
         private AnimatedTexture MagicCircle;
         private AnimatedTexture MagicCrystal;
+        private AnimatedTexture Fire;
+        private AnimatedTexture Fountain;
         private Texture2D Key;
         private Texture2D ExitDoor;
+        private Texture2D Sign;
         private const float Rotation = 0;
         private const float Scale = 1.0f;
         private const float Depth = 0.5f;
@@ -78,7 +81,8 @@ namespace Themuseum
         {
             _graphics = new GraphicsDeviceManager(this);
             Character = new AnimatedTexture(Vector2.Zero, Rotation, Scale, Depth);
-           
+            Fire = new AnimatedTexture(Vector2.Zero, Rotation, Scale, Depth);
+            Fountain = new AnimatedTexture(Vector2.Zero, Rotation, Scale, Depth);
             MagicCircle = new AnimatedTexture(Vector2.Zero, Rotation, Scale, Depth);
             MagicCrystal = new AnimatedTexture(Vector2.Zero, Rotation, Scale, Depth);
             Content.RootDirectory = "Content";
@@ -91,6 +95,7 @@ namespace Themuseum
             Key = Content.Load<Texture2D>("key-white");
             _font = Content.Load<SpriteFont>("Keycollect");
             ExitDoor = Content.Load<Texture2D>("placeholderdoor");
+            Sign = Content.Load<Texture2D>("186-Bulletin01");
             Monster = new Ghost(new Vector2(10000, 10000));
             timer = 0;
 
@@ -138,6 +143,8 @@ namespace Themuseum
             
             MagicCircle.Load(Content, "199-Support07", Frames, FramesRow, FramesPerSec);
             MagicCrystal.Load(Content, "198-Support06", Frames, FramesRow, FramesPerSec);
+            Fire.Load(Content, "184-Light01", Frames, FramesRow, FramesPerSec);
+            Fountain.Load(Content, "196-Support04", Frames, FramesRow, FramesPerSec);
 
             soundEffects.Add(Content.Load<SoundEffect>("005-System05")); //Pick-up sfx
             soundEffects.Add(Content.Load<SoundEffect>("024-Door01")); //Door Open Sfx
@@ -255,8 +262,17 @@ namespace Themuseum
             //Door
             _spriteBatch.Draw(Tileset, Doorpos, new Rectangle(32 * 3, 0, 32, 32), Color.White);
 
+            //Summoning Fire
+            Fire.DrawFrame(_spriteBatch, new Vector2(32 * 20, 64), 3);
+            //Redemption Fountain
+            Fountain.DrawFrame(_spriteBatch, new Vector2(64, 32), 3);
+
+            //Sign
+            _spriteBatch.Draw(Sign, new Vector2(GraphicsDevice.Viewport.Width / 2,32),new Rectangle(0,32*3,32,48),Color.White);
             //Ghost Draw
             Monster.Draw(_spriteBatch);
+
+            
         }
 
         protected override void Update(GameTime gameTime)
@@ -351,7 +367,8 @@ namespace Themuseum
             if (timer == 0)
             {
                 displaytext = string.Empty;
-
+                CircleType = r.Next(1, 4);
+                timer = countdown;
             }
 
             switch (LevelIndicator)
@@ -564,6 +581,7 @@ namespace Themuseum
                 CharPos.Y -= speed;
             }
 
+            
 
 
 
@@ -577,9 +595,14 @@ namespace Themuseum
         private void Room2(GameTime gameTime, Rectangle PlayerCol)
         {
             Rectangle DoorRectangle = new Rectangle((int)Doorpos.X, (int)Doorpos.Y, 32, 32);
+            Rectangle FireRectangle = new Rectangle(32*20,64,32,64);
+            Rectangle FountainRectangle = new Rectangle(64, 32, 64, 64);
+            Rectangle SignRectangle = new Rectangle(GraphicsDevice.Viewport.Width / 2, 32, 32, 48);
+
             Doorpos = new Vector2(32 * 20, GraphicsDevice.Viewport.Height - 32);
 
-            
+            float elapsed = (float)gameTime.ElapsedGameTime.TotalSeconds;
+
             //Wall Collision Check
             if (CharPos.X >= _graphics.GraphicsDevice.Viewport.Bounds.Right - 54)
             {
@@ -608,8 +631,36 @@ namespace Themuseum
                 CharPos = new Vector2(CharPos.X, 72);
             }
 
+            if(PlayerCol.Intersects(SignRectangle) && _keyboardState.IsKeyUp(Keys.E) && OldKey.IsKeyDown(Keys.E))
+            {
+                soundEffects[3].Play();
+                Textcolor = Color.Orange;
+                displaytext = "Detail:\n\n Fire summons the wraith \n\n Water calms the wraith ";
+                timer = countdown;
+            }
+
+            if(PlayerCol.Intersects(FireRectangle) && _keyboardState.IsKeyUp(Keys.E) && OldKey.IsKeyDown(Keys.E))
+            {
+                soundEffects[5].Play();
+                Textcolor = Color.Red;
+                displaytext = "You summoned the wraith!";
+                Monster.Changestartingposition(new Vector2(100, 100));
+                MonsterSummon = true;
+                timer = countdown;
+            }
+
+            if (PlayerCol.Intersects(FountainRectangle) && _keyboardState.IsKeyUp(Keys.E) && OldKey.IsKeyDown(Keys.E))
+            {
+                soundEffects[4].Play();
+                Textcolor = Color.Aqua;
+                displaytext = "The Wraith is calm...for now";
+                MonsterSummon = false;
+                timer = countdown;
+            }
+
+
             //Monster Chase
-            if(MonsterSummon == true)
+            if (MonsterSummon == true)
             {
                 Monster.Chase(CharPos);
             }
@@ -617,6 +668,9 @@ namespace Themuseum
             {
                 Monster.Changestartingposition(new Vector2(1000, 1000));
             }
+
+            Fire.UpdateFrame(elapsed);
+            Fountain.UpdateFrame(elapsed);
         }
 
         protected override void Draw(GameTime gameTime)

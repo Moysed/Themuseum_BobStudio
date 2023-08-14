@@ -44,6 +44,7 @@ namespace Themuseum
         public void Changestartingposition(Vector2 newPos)
         {
             SelfPosition = newPos;
+            collision = new Rectangle((int)SelfPosition.X, (int)SelfPosition.Y, 64, 64);
         }
         public void UpdateAnimation(float elasped)
         {
