@@ -4,7 +4,6 @@ using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
-using SharpDX.Direct3D9;
 using System;
 using System.Collections.Generic;
 using System.Timers;
@@ -15,7 +14,7 @@ namespace Themuseum
     {
         int countdown = 60*4;
         private GraphicsDeviceManager _graphics;
-        private SpriteBatch _spriteBatch;
+         SpriteBatch _spriteBatch;
         
         private AnimatedTexture MagicCircle;
         private AnimatedTexture MagicCrystal;
@@ -27,7 +26,8 @@ namespace Themuseum
         private const float Rotation = 0;
         private const float Scale = 1.0f;
         private const float Depth = 0.5f;
-        private int speed = 3;
+        //public int speed = 3;
+        public float currentSpeed;
         private SpriteFont _font;
 
         private int Frames = 4;
@@ -296,22 +296,25 @@ namespace Themuseum
 
             Staminabar.UpdateBar(player.SelfPosition, player.UpdateStamina());
 
-            //Wal collision check
-            if (player.SelfPosition.X >= _graphics.GraphicsDevice.Viewport.Bounds.Right - 54)
-            {
-                player.SelfPosition.X -= speed;
-            }
-            else if (player.SelfPosition.X <= _graphics.GraphicsDevice.Viewport.Bounds.Left + 20)
-            {
-                player.SelfPosition.X += speed;
-            }
-            else if (player.SelfPosition.Y <= _graphics.GraphicsDevice.Viewport.Bounds.Top + 34)
-            {
-                player.SelfPosition.Y += speed;
-            }
-            else if (player.SelfPosition.Y >= _graphics.GraphicsDevice.Viewport.Bounds.Bottom - 72)
-            {
-                player.SelfPosition.Y -= speed;
+            
+            //Wall Collision Check
+                if (player.SelfPosition.X >= _graphics.GraphicsDevice.Viewport.Bounds.Right - 54)
+                {
+                    player.SelfPosition.X -= player.currentSpeed;
+                }
+                
+                else if (player.SelfPosition.X <= _graphics.GraphicsDevice.Viewport.Bounds.Left + 20)
+                {
+                    player.SelfPosition.X += player.currentSpeed;
+                }
+                       
+                else if (player.SelfPosition.Y <= _graphics.GraphicsDevice.Viewport.Bounds.Top + 34)
+                {
+                    player.SelfPosition.Y += player.currentSpeed;
+                }
+                else if (player.SelfPosition.Y >= _graphics.GraphicsDevice.Viewport.Bounds.Bottom - 72)
+                {
+                    player.SelfPosition.Y -= player.currentSpeed;
             }
 
             if (player.collision.Intersects(Monster.collision))
@@ -526,19 +529,21 @@ namespace Themuseum
             //Wall Collision Check
             if (player.SelfPosition.X >= _graphics.GraphicsDevice.Viewport.Bounds.Right - 54)
             {
-                player.SelfPosition.X -= speed;
+                player.SelfPosition.X -= player.currentSpeed;
             }
+
             else if (player.SelfPosition.X <= _graphics.GraphicsDevice.Viewport.Bounds.Left + 20)
             {
-                player.SelfPosition.X += speed;
+                player.SelfPosition.X += player.currentSpeed;
             }
+
             else if (player.SelfPosition.Y <= _graphics.GraphicsDevice.Viewport.Bounds.Top + 34)
             {
-                player.SelfPosition.Y += speed;
+                player.SelfPosition.Y += player.currentSpeed;
             }
             else if (player.SelfPosition.Y >= _graphics.GraphicsDevice.Viewport.Bounds.Bottom - 72)
             {
-                player.SelfPosition.Y -= speed;
+                player.SelfPosition.Y -= player.currentSpeed;
             }
 
 
@@ -566,19 +571,21 @@ namespace Themuseum
             //Wall Collision Check
             if (player.SelfPosition.X >= _graphics.GraphicsDevice.Viewport.Bounds.Right - 54)
             {
-                player.SelfPosition.X -= speed;
+                player.SelfPosition.X -= player.currentSpeed;
             }
+
             else if (player.SelfPosition.X <= _graphics.GraphicsDevice.Viewport.Bounds.Left + 20)
             {
-                player.SelfPosition.X += speed;
+                player.SelfPosition.X += player.currentSpeed;
             }
+
             else if (player.SelfPosition.Y <= _graphics.GraphicsDevice.Viewport.Bounds.Top + 34)
             {
-                player.SelfPosition.Y += speed;
+                player.SelfPosition.Y += player.currentSpeed;
             }
             else if (player.SelfPosition.Y >= _graphics.GraphicsDevice.Viewport.Bounds.Bottom - 72)
             {
-                player.SelfPosition.Y -= speed;
+                player.SelfPosition.Y -= player.currentSpeed;
             }
 
             //Object Interactions (Room2)

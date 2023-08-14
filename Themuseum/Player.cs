@@ -16,7 +16,7 @@ namespace Themuseum
 
     class Player : Game1
     {
-        private float speed = 3f;
+        public float speed = 3f;
         public Vector2 SelfPosition;
         public Rectangle collision;
         private AnimatedTexture Sprite;
@@ -75,12 +75,12 @@ namespace Themuseum
             {
                 SelfPosition.X -= speed;
 
-                if (Keystate.IsKeyDown(Keys.A) && Keystate.IsKeyDown(Keys.LeftShift) && CurrentStamina > 0)
+                if (Keystate.IsKeyDown(Keys.A) && Keystate.IsKeyDown(Keys.LeftShift))
                 {
                     speed = 4;
                     CurrentStamina--;
                     SelfPosition.X -= speed;
-
+                    
                 }
             }
             else if (Keystate.IsKeyDown(Keys.D))
@@ -92,7 +92,7 @@ namespace Themuseum
                     speed = 4;
                     CurrentStamina--;
                     SelfPosition.X += speed;
-
+                    
                 }
             }
             else if (Keystate.IsKeyDown(Keys.W))
@@ -124,6 +124,7 @@ namespace Themuseum
             {
                 CurrentStamina += 0.10f;
                 speed = 3;
+                currentSpeed = speed;
             }
 
            
@@ -135,6 +136,7 @@ namespace Themuseum
             }
            
         }
+
 
         public void UpdateAnimation(float elasped)
         {
