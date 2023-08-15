@@ -357,7 +357,7 @@ namespace Themuseum
             }
             else
             {
-                Monster.Changestartingposition(new Vector2(1000, 1000));
+                Monster.Changestartingposition(new Vector2(player.SelfPosition.X + 1000, player.SelfPosition.Y + 1000));
                 
             }
 
@@ -455,7 +455,7 @@ namespace Themuseum
 
                     LevelIndicator = 2;
 
-                    Monster.Changestartingposition(new Vector2(100, 100));
+                    
                     Refills[0].ChangePosition(new Vector2(10000, 10000));
                     Refills[1].RestorePosition();
 
@@ -636,7 +636,7 @@ namespace Themuseum
                 soundEffects[1].Play();
 
                 LevelIndicator = 1;
-                Monster.Changestartingposition(new Vector2(1000, 1000));
+                
                 player.ChangeStartingPosition(new Vector2(player.SelfPosition.X, 72));
                 Refills[1].ChangePosition(new Vector2(10000, 10000));
                 Refills[0].RestorePosition();
