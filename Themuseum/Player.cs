@@ -22,6 +22,9 @@ namespace Themuseum
         private AnimatedTexture Sprite;
         public float MaxStamina = 100;
         private float CurrentStamina = 100;
+        private float MaxFuel = 500;
+        private float CurrentFuel = 500;
+
        
         private int framerow = 1;
         
@@ -66,7 +69,7 @@ namespace Themuseum
             }
         }
 
-        public void Controls(KeyboardState Keystate)
+        public void Controls(KeyboardState Keystate, LanternLight Light)
         {
             
             collision = new Rectangle((int)SelfPosition.X, (int)SelfPosition.Y, 32, 48);
@@ -75,7 +78,7 @@ namespace Themuseum
             {
                 SelfPosition.X -= speed;
 
-                if (Keystate.IsKeyDown(Keys.A) && Keystate.IsKeyDown(Keys.LeftShift))
+                if (Keystate.IsKeyDown(Keys.A) && Keystate.IsKeyDown(Keys.LeftShift) && CurrentStamina > 0 && Keystate.IsKeyUp(Keys.F))
                 {
                     speed = 4;
                     CurrentStamina--;
@@ -88,7 +91,7 @@ namespace Themuseum
             {
                 SelfPosition.X += speed;
 
-                if (Keystate.IsKeyDown(Keys.D) && Keystate.IsKeyDown(Keys.LeftShift) && CurrentStamina > 0)
+                if (Keystate.IsKeyDown(Keys.D) && Keystate.IsKeyDown(Keys.LeftShift) && CurrentStamina > 0 && Keystate.IsKeyUp(Keys.F))
                 {
                     speed = 4;
                     CurrentStamina--;
@@ -101,7 +104,7 @@ namespace Themuseum
             {
                 SelfPosition.Y -= speed;
 
-                if (Keystate.IsKeyDown(Keys.W) && Keystate.IsKeyDown(Keys.LeftShift) && CurrentStamina > 0)
+                if (Keystate.IsKeyDown(Keys.W) && Keystate.IsKeyDown(Keys.LeftShift) && CurrentStamina > 0 && Keystate.IsKeyUp(Keys.F))
                 {
                     speed = 4;
                     CurrentStamina--;
@@ -114,7 +117,7 @@ namespace Themuseum
             {
                 SelfPosition.Y += speed;
 
-                if (Keystate.IsKeyDown(Keys.S) && Keystate.IsKeyDown(Keys.LeftShift) && CurrentStamina > 0)
+                if (Keystate.IsKeyDown(Keys.S) && Keystate.IsKeyDown(Keys.LeftShift) && CurrentStamina > 0 && Keystate.IsKeyUp(Keys.F))
                 {
                     speed = 4;
                     CurrentStamina--;
@@ -131,12 +134,20 @@ namespace Themuseum
                 currentSpeed = speed;
             }
 
-           
-
             if (CurrentStamina > 100)
             {
                 
                 CurrentStamina = 100;
+            }
+
+            if(Keystate.IsKeyDown(Keys.F) && CurrentFuel > 0)
+            {
+                CurrentFuel--;
+                Light.LightActivate(this);
+            }
+            else if(Keystate.IsKeyUp(Keys.F) || CurrentFuel <= 0)
+            {
+                Light.LightDeactivate();
             }
            
         }

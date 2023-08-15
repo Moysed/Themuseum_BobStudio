@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
+using SharpDX.Direct3D9;
 using System;
 using System.Collections.Generic;
 using System.Timers;
@@ -41,7 +42,7 @@ namespace Themuseum
         
         
 
-        //private Vector2 CharPos = new Vector2(0, 0);
+        
         private Vector2 keyPos = new Vector2(200, 200);
 
         private KeyboardState _keyboardState;
@@ -75,8 +76,9 @@ namespace Themuseum
         private bool MonsterSummon = false;
 
         private Staminabar Staminabar;
-        //bool isGameplay;
-        //public bool isRoom2;
+        private LanternLight Lantern;
+
+       
 
         private int LevelIndicator = 1;
         public Game1()
@@ -137,6 +139,7 @@ namespace Themuseum
             //Character Position Initial
             player = new Player(new Vector2(GraphicsDevice.Viewport.Width / 2, GraphicsDevice.Viewport.Height / 2));
             Staminabar = new Staminabar(player.MaxStamina);
+            Lantern = new LanternLight();
             base.Initialize();
         }
 
@@ -161,6 +164,7 @@ namespace Themuseum
             Monster.LoadSprite(Content);
             player.LoadSprite(Content);
             Staminabar.LoadSprite(Content);
+            Lantern.LoadSprite(Content);
             BGM.Add(Content.Load<Song>("BGM(Concept)"));
             MediaPlayer.Play(BGM[0]);
             MediaPlayer.IsRepeating = true;
@@ -292,7 +296,7 @@ namespace Themuseum
             _keyboardState = Keyboard.GetState();
 
 
-            player.Controls(_keyboardState);
+            player.Controls(_keyboardState,Lantern);
 
             Staminabar.UpdateBar(player.SelfPosition, player.UpdateStamina());
 
@@ -629,7 +633,7 @@ namespace Themuseum
             //Monster Chase
             if (MonsterSummon == true)
             {
-                Monster.Chase(player.SelfPosition);
+                Monster.Chase(player.SelfPosition,Lantern);
             }
             else
             {
@@ -654,9 +658,10 @@ namespace Themuseum
 
             player.Draw(_spriteBatch,_keyboardState);
 
+            Lantern.Drawlight(_spriteBatch);
+
             Staminabar.Drawbar(_spriteBatch);
-           
-            
+
             //Text
             _spriteBatch.DrawString(_font, displaytext, new Vector2(player.SelfPosition.X - 64, player.SelfPosition.Y - 48), Textcolor, 0, Vector2.Zero, 0.75f, SpriteEffects.None, 1);
 
