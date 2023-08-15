@@ -56,7 +56,7 @@ namespace Themuseum
         List<Rectangle> CollisionBox = new List<Rectangle>();
 
         private Color Textcolor;
-        private string displaytext = "";
+        public string displaytext = "";
 
         private bool HasKey = false;
         private bool IsUnlocked = false;
@@ -77,7 +77,7 @@ namespace Themuseum
 
         private Staminabar Staminabar;
         private LanternLight Lantern;
-
+        List<LanternRefill> Refills = new List<LanternRefill>();
        
 
         private int LevelIndicator = 1;
@@ -114,22 +114,7 @@ namespace Themuseum
                 Tile_Y.Add(i);
             }
 
-            /*
-            for(int i = 0; i < (int)GraphicsDevice.Viewport.Width / 32 + (int)GraphicsDevice.Viewport.Width / 32; i++)
-            {
-                
-               CollisionBox.Add(new Rectangle(0, 0, 32, 32));
-                
-            }*/
-
-            /*
-            for (int i = 0; i < 4; i++)
-            {
-
-                CollisionBox.Add(new Rectangle(0, 0, 32, 32));
-
-            }
-            */
+           
             
 
             keyPos = new Vector2(32 * 5, 32 * 12);
@@ -140,6 +125,8 @@ namespace Themuseum
             player = new Player(new Vector2(GraphicsDevice.Viewport.Width / 2, GraphicsDevice.Viewport.Height / 2));
             Staminabar = new Staminabar(player.MaxStamina);
             Lantern = new LanternLight();
+            Refills.Add(new LanternRefill(new Vector2(400,128)));
+            Refills.Add(new LanternRefill(new Vector2(600, 128)));
             base.Initialize();
         }
 
@@ -165,6 +152,13 @@ namespace Themuseum
             player.LoadSprite(Content);
             Staminabar.LoadSprite(Content);
             Lantern.LoadSprite(Content);
+
+            for(int i = 0; i < Refills.Count; i++)
+            {
+                Refills[i].LoadSprite(Content);
+            }
+            
+            
             BGM.Add(Content.Load<Song>("BGM(Concept)"));
             MediaPlayer.Play(BGM[0]);
             MediaPlayer.IsRepeating = true;
@@ -228,6 +222,9 @@ namespace Themuseum
 
             //Note
             _spriteBatch.Draw(Tileset, Notepos, new Rectangle(5 * 32, 27 * 32, 32, 32), Color.White);
+
+            //Fuel Refills
+            Refills[0].DrawSprite(_spriteBatch);
         }
 
         
@@ -279,6 +276,9 @@ namespace Themuseum
 
             //Sign
             _spriteBatch.Draw(Sign, new Vector2(GraphicsDevice.Viewport.Width / 2,32),new Rectangle(0,32*3,32,48),Color.White);
+
+            //Refuels
+            Refills[1].DrawSprite(_spriteBatch);
             //Ghost Draw
             Monster.Draw(_spriteBatch);
 
@@ -334,6 +334,20 @@ namespace Themuseum
                 displaytext = string.Empty;
                 CircleType = r.Next(1, 4);
                 timer = countdown;
+            }
+
+
+            for (int i = 0; i < Refills.Count; i++)
+            {
+                if (player.collision.Intersects(Refills[i].UpdateCollision()) && _keyboardState.IsKeyUp(Keys.E) && OldKey.IsKeyDown(Keys.E))
+                {
+                    soundEffects[0].Play();
+
+                    Textcolor = Color.Gold;
+                    displaytext = "You refueled your lantern oil";
+                    player.CurrentFuel = player.MaxFuel;
+                    timer = countdown;
+                }
             }
 
             switch (LevelIndicator)
@@ -430,6 +444,8 @@ namespace Themuseum
                     LevelIndicator = 2;
 
                     Monster.Changestartingposition(new Vector2(100, 100));
+                    Refills[0].ChangePosition(new Vector2(10000, 10000));
+                    Refills[1].RestorePosition();
 
                     player.ChangeStartingPosition(new Vector2(player.SelfPosition.X, GraphicsDevice.Viewport.Height - 64));
                     
@@ -530,6 +546,8 @@ namespace Themuseum
 
 
 
+
+
             //Wall Collision Check
             if (player.SelfPosition.X >= _graphics.GraphicsDevice.Viewport.Bounds.Right - 54)
             {
@@ -600,6 +618,8 @@ namespace Themuseum
                 LevelIndicator = 1;
                 Monster.Changestartingposition(new Vector2(1000, 1000));
                 player.ChangeStartingPosition(new Vector2(player.SelfPosition.X, 72));
+                Refills[1].ChangePosition(new Vector2(10000, 10000));
+                Refills[0].RestorePosition();
             }
 
             if(PlayerCol.Intersects(SignRectangle) && _keyboardState.IsKeyUp(Keys.E) && OldKey.IsKeyDown(Keys.E))

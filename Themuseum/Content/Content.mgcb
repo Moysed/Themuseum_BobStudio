@@ -103,6 +103,18 @@
 /processorParam:TextureFormat=Color
 /build:186-Bulletin01.png
 
+#begin 187-Lorry01.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:187-Lorry01.png
+
 #begin 196-Support04.png
 /importer:TextureImporter
 /processor:TextureProcessor

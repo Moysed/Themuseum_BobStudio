@@ -22,8 +22,8 @@ namespace Themuseum
         private AnimatedTexture Sprite;
         public float MaxStamina = 100;
         private float CurrentStamina = 100;
-        private float MaxFuel = 500;
-        private float CurrentFuel = 500;
+        public float MaxFuel = 300;
+        public float CurrentFuel = 300;
 
        
         private int framerow = 1;
@@ -149,7 +149,8 @@ namespace Themuseum
             {
                 Light.LightDeactivate();
             }
-           
+
+            
         }
 
 
