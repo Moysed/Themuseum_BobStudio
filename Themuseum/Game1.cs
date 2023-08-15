@@ -280,8 +280,7 @@ namespace Themuseum
 
             //Refuels
             Refills[1].DrawSprite(_spriteBatch);
-            //Ghost Draw
-            Monster.Draw(_spriteBatch);
+            
 
             
         }
@@ -698,6 +697,9 @@ namespace Themuseum
             Lantern.Drawlight(_spriteBatch);
 
             Staminabar.Drawbar(_spriteBatch);
+
+            //Ghost Draw
+            Monster.Draw(_spriteBatch);
 
             //Text
             _spriteBatch.DrawString(_font, displaytext, new Vector2(player.SelfPosition.X - 64, player.SelfPosition.Y - 48), Textcolor, 0, Vector2.Zero, 0.75f, SpriteEffects.None, 1);
