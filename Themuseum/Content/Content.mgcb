@@ -212,6 +212,12 @@
 /processorParam:TextureFormat=Color
 /build:LanternLight.png
 
+#begin Marked.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Marked.mp3
+
 #begin placeholder_tileset.png
 /importer:TextureImporter
 /processor:TextureProcessor

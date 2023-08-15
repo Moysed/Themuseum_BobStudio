@@ -160,6 +160,7 @@ namespace Themuseum
             
             
             BGM.Add(Content.Load<Song>("BGM(Concept)"));
+            BGM.Add(Content.Load<Song>("Marked"));
             MediaPlayer.Play(BGM[0]);
             MediaPlayer.IsRepeating = true;
         }
@@ -350,12 +351,24 @@ namespace Themuseum
                 }
             }
 
+            //Monster Chase
+            if (MonsterSummon == true)
+            {
+                Monster.Chase(player.SelfPosition, Lantern);
+            }
+            else
+            {
+                Monster.Changestartingposition(new Vector2(1000, 1000));
+                
+            }
+
             switch (LevelIndicator)
             {
                 case 1: Room1(gameTime, player.collision); break;
                 case 2: Room2(gameTime, player.collision); break;
             }
 
+            
 
             float elapsed = (float)gameTime.ElapsedGameTime.TotalSeconds;
 
@@ -470,6 +483,8 @@ namespace Themuseum
                     Textcolor = Color.Red;
                     displaytext = "You choose wrong, prepare for consequences!";
                     MonsterSummon = true;
+                    MediaPlayer.Play(BGM[1]);
+                    MediaPlayer.IsRepeating = true;
                     timer = countdown;
                 }
             }
@@ -489,6 +504,8 @@ namespace Themuseum
                     Textcolor = Color.Red;
                     displaytext = "You choose wrong, prepare for consequences!";
                     MonsterSummon = true;
+                    MediaPlayer.Play(BGM[1]);
+                    MediaPlayer.IsRepeating = true;
                     timer = countdown;
                 }
             }
@@ -508,6 +525,8 @@ namespace Themuseum
                     Textcolor = Color.Red;
                     displaytext = "You choose wrong, prepare for consequences!";
                     MonsterSummon = true;
+                    MediaPlayer.Play(BGM[1]);
+                    MediaPlayer.IsRepeating = true;
                     timer = countdown;
                 }
             }
@@ -527,6 +546,8 @@ namespace Themuseum
                     Textcolor = Color.Red;
                     displaytext = "You choose wrong, prepare for consequences!";
                     MonsterSummon = true;
+                    MediaPlayer.Play(BGM[1]);
+                    MediaPlayer.IsRepeating = true;
                     timer = countdown;
                 }
             }
@@ -637,6 +658,8 @@ namespace Themuseum
                 displaytext = "You summoned the wraith!";
                 Monster.Changestartingposition(new Vector2(100, 100));
                 MonsterSummon = true;
+                MediaPlayer.Play(BGM[1]);
+                MediaPlayer.IsRepeating = true;
                 timer = countdown;
             }
 
@@ -646,19 +669,13 @@ namespace Themuseum
                 Textcolor = Color.Aqua;
                 displaytext = "The Wraith is calm...for now";
                 MonsterSummon = false;
+                MediaPlayer.Play(BGM[0]);
+                MediaPlayer.IsRepeating = true;
                 timer = countdown;
             }
 
 
-            //Monster Chase
-            if (MonsterSummon == true)
-            {
-                Monster.Chase(player.SelfPosition,Lantern);
-            }
-            else
-            {
-                Monster.Changestartingposition(new Vector2(1000, 1000));
-            }
+            
 
             Fire.UpdateFrame(elapsed);
             Fountain.UpdateFrame(elapsed);
