@@ -38,7 +38,7 @@ namespace Themuseum
 
         public void LoadSprite(ContentManager Content)
         {
-            Sprite.Load(Content, "placeholdersprite", 4, 4, 15);
+            Sprite.Load(Content, "Main_Char", 4, 4, 15);
         }
 
         public void Draw(SpriteBatch SB, KeyboardState Keystate)
