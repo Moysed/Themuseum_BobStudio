@@ -82,7 +82,7 @@ namespace Themuseum
                 {
                     speed = 4;
                     CurrentStamina--;
-                    currentSpeed = speed;
+                    //currentSpeed = speed;
                     SelfPosition.X -= speed;
                     
                 }
@@ -95,7 +95,7 @@ namespace Themuseum
                 {
                     speed = 4;
                     CurrentStamina--;
-                    currentSpeed = speed;
+                    //currentSpeed = speed;
                     SelfPosition.X += speed;
                     
                 }
@@ -108,7 +108,7 @@ namespace Themuseum
                 {
                     speed = 4;
                     CurrentStamina--;
-                    currentSpeed = speed;
+                    //currentSpeed = speed;
                     SelfPosition.Y -= speed;
 
                 }
@@ -121,7 +121,7 @@ namespace Themuseum
                 {
                     speed = 4;
                     CurrentStamina--;
-                    currentSpeed = speed;
+                    //currentSpeed = speed;
                     SelfPosition.Y += speed;
 
                 }
@@ -131,7 +131,7 @@ namespace Themuseum
             {
                 CurrentStamina += 0.10f;
                 speed = 3;
-                currentSpeed = speed;
+                //currentSpeed = speed;
             }
 
             if (CurrentStamina > 100)
