@@ -13,7 +13,7 @@ using SharpDX.Direct3D9;
 
 namespace Themuseum
 {
-    class LanternLight : Game1
+    class LanternLight 
     {
         private Vector2 SelfPosition;
         public Rectangle Collision;

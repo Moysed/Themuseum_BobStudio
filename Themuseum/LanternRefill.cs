@@ -14,7 +14,7 @@ using SharpDX.Direct3D9;
 
 namespace Themuseum
 {
-    class LanternRefill : Game1
+    class LanternRefill 
     {
         private Vector2 DeployPosition;
         private Vector2 StorePosition;

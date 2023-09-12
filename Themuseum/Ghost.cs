@@ -14,7 +14,7 @@ using SharpDX.Direct3D9;
 
 namespace Themuseum
 {
-    class Ghost : Game1
+    class Ghost 
     {
         private float speed = 3f;
         private Vector2 SelfPosition;

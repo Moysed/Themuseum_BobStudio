@@ -15,7 +15,7 @@ using SharpDX.Direct3D9;
 
 namespace Themuseum
 {
-    class Staminabar : Game1
+    class Staminabar 
     {
         private Texture2D BarBackground;
         private Texture2D BarColor;

@@ -14,7 +14,7 @@ using SharpDX.Direct3D9;
 namespace Themuseum
 {
 
-    class Player : Game1
+    class Player 
     {
         public float speed = 3f;
         public Vector2 SelfPosition;
@@ -24,7 +24,8 @@ namespace Themuseum
         private float CurrentStamina = 100;
         public float MaxFuel = 300;
         public float CurrentFuel = 300;
-
+        private KeyboardState KeyControls;
+        
        
         private int framerow = 1;
         
@@ -71,14 +72,16 @@ namespace Themuseum
 
         public void Controls(KeyboardState Keystate, LanternLight Light)
         {
-            
+            KeyControls = Keystate;
             collision = new Rectangle((int)SelfPosition.X, (int)SelfPosition.Y, 32, 48);
 
-            if (Keystate.IsKeyDown(Keys.A))
+           
+
+            if (KeyControls.IsKeyDown(Keys.A))
             {
                 SelfPosition.X -= speed;
 
-                if (Keystate.IsKeyDown(Keys.A) && Keystate.IsKeyDown(Keys.LeftShift) && CurrentStamina > 0 && Keystate.IsKeyUp(Keys.F))
+                if (KeyControls.IsKeyDown(Keys.A) && KeyControls.IsKeyDown(Keys.LeftShift) && CurrentStamina > 0 && KeyControls.IsKeyUp(Keys.F))
                 {
                     speed = 4;
                     CurrentStamina--;
@@ -87,11 +90,11 @@ namespace Themuseum
                     
                 }
             }
-            else if (Keystate.IsKeyDown(Keys.D))
+            else if (KeyControls.IsKeyDown(Keys.D))
             {
                 SelfPosition.X += speed;
 
-                if (Keystate.IsKeyDown(Keys.D) && Keystate.IsKeyDown(Keys.LeftShift) && CurrentStamina > 0 && Keystate.IsKeyUp(Keys.F))
+                if (KeyControls.IsKeyDown(Keys.D) && KeyControls.IsKeyDown(Keys.LeftShift) && CurrentStamina > 0 && KeyControls.IsKeyUp(Keys.F))
                 {
                     speed = 4;
                     CurrentStamina--;
@@ -100,11 +103,11 @@ namespace Themuseum
                     
                 }
             }
-            else if (Keystate.IsKeyDown(Keys.W))
+            else if (KeyControls.IsKeyDown(Keys.W))
             {
                 SelfPosition.Y -= speed;
 
-                if (Keystate.IsKeyDown(Keys.W) && Keystate.IsKeyDown(Keys.LeftShift) && CurrentStamina > 0 && Keystate.IsKeyUp(Keys.F))
+                if (KeyControls.IsKeyDown(Keys.W) && KeyControls.IsKeyDown(Keys.LeftShift) && CurrentStamina > 0 && KeyControls.IsKeyUp(Keys.F))
                 {
                     speed = 4;
                     CurrentStamina--;
@@ -113,11 +116,11 @@ namespace Themuseum
 
                 }
             }
-            else if (Keystate.IsKeyDown(Keys.S))
+            else if (KeyControls.IsKeyDown(Keys.S))
             {
                 SelfPosition.Y += speed;
 
-                if (Keystate.IsKeyDown(Keys.S) && Keystate.IsKeyDown(Keys.LeftShift) && CurrentStamina > 0 && Keystate.IsKeyUp(Keys.F))
+                if (KeyControls.IsKeyDown(Keys.S) && KeyControls.IsKeyDown(Keys.LeftShift) && CurrentStamina > 0 && KeyControls.IsKeyUp(Keys.F))
                 {
                     speed = 4;
                     CurrentStamina--;
@@ -127,7 +130,7 @@ namespace Themuseum
                 }
             }
 
-            if (Keystate.IsKeyUp(Keys.LeftShift))
+            if (KeyControls.IsKeyUp(Keys.LeftShift))
             {
                 CurrentStamina += 0.10f;
                 speed = 3;
@@ -140,17 +143,20 @@ namespace Themuseum
                 CurrentStamina = 100;
             }
 
-            if(Keystate.IsKeyDown(Keys.F) && CurrentFuel > 0)
+            if(KeyControls.IsKeyDown(Keys.F) && CurrentFuel > 0)
             {
                 CurrentFuel--;
                 Light.LightActivate(this);
             }
-            else if(Keystate.IsKeyUp(Keys.F) || CurrentFuel <= 0)
+            else if(KeyControls.IsKeyUp(Keys.F) || CurrentFuel <= 0)
             {
                 Light.LightDeactivate();
             }
 
-            
+
+           
+           
+
         }
 
 
@@ -168,5 +174,7 @@ namespace Themuseum
         {
             return (CurrentStamina);
         }
+
+        
     }
 }
