@@ -39,12 +39,12 @@ namespace Themuseum
                 case 2: room2.Draw(SB); break;
             }
         }
-        public void RoomFunction(GraphicsDeviceManager _graphics, Player player)
+        public void RoomFunction(GraphicsDeviceManager _graphics, Player player , KeyManagement keymanager)
         {
             switch (roomnum)
             {
-                case 1: room1.Function(_graphics,player,this); break;
-                case 2: room2.Function(_graphics, player,this); break;
+                case 1: room1.Function(_graphics,player,this, keymanager); break;
+                case 2: room2.Function(_graphics, player,this, keymanager); break;
             }
         }
 

@@ -6,14 +6,15 @@ namespace Themuseum
 {
     public class Game1 : Game
     {
+        //Game Object
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
-        
         private Player player;
         private LanternLight light;
         private Staminabar staminabar;
         private RoomManager roomManager;
         private KeyboardState Keystate;
+        private KeyManagement KeyManagement;
         
         
         public Game1()
@@ -32,6 +33,7 @@ namespace Themuseum
             light = new LanternLight();
             staminabar = new Staminabar(player.MaxStamina);
             roomManager = new RoomManager(1);
+            KeyManagement = new KeyManagement();
             base.Initialize();
         }
 
@@ -57,7 +59,7 @@ namespace Themuseum
             player.UpdateAnimation(elapsed);
             staminabar.UpdateBar(player.SelfPosition, player.UpdateStamina());
 
-            roomManager.RoomFunction(_graphics, player);
+            roomManager.RoomFunction(_graphics, player, KeyManagement);
            
             
 

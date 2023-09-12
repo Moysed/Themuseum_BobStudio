@@ -40,7 +40,7 @@ namespace Themuseum
 
         }
 
-        public void Function(GraphicsDeviceManager _graphics, Player player, RoomManager roomManager)
+        public void Function(GraphicsDeviceManager _graphics, Player player, RoomManager roomManager, KeyManagement Keymanager)
         {
             DoorPos = new Vector2(1280-64, 640 / 2);
             DoorCollision = new Rectangle((int)DoorPos.X, (int)DoorPos.Y, 32, 64);
