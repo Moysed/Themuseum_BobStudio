@@ -14,6 +14,7 @@ namespace Themuseum
 {
     class KeyManagement
     {
+        //Trigger naming format {Room number}_{Type of triggers and its number}
         public bool R1_S1 = false;
         public KeyManagement()
         {
