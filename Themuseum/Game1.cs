@@ -35,6 +35,7 @@ namespace Themuseum
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
+            //Test;
             // TODO: Add your update logic here
 
             base.Update(gameTime);
