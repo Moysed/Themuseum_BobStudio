@@ -60,42 +60,83 @@ namespace Themuseum
             //Wall Collision
             if (player.SelfPosition.X >= _graphics.GraphicsDevice.Viewport.Bounds.Right - 64)
             {
-                player.SelfPosition.X -= player.speed;
+                if (player.speed == 4)
+                {
+                    player.SelfPosition.X -= 8;
+                }
+                else
+                    player.SelfPosition.X -= player.speed;
             }
 
             else if (player.SelfPosition.X <= _graphics.GraphicsDevice.Viewport.Bounds.Left + 64)
             {
-                player.SelfPosition.X += player.speed;
+                if (player.speed == 4)
+                {
+                    player.SelfPosition.X += 8;
+                }
+                else
+                    player.SelfPosition.X += player.speed;
             }
 
             else if (player.SelfPosition.Y <= _graphics.GraphicsDevice.Viewport.Bounds.Top + 64)
             {
-                player.SelfPosition.Y += player.speed;
+                if (player.speed == 4)
+                {
+                    player.SelfPosition.Y += 8;
+                }
+                else
+                    player.SelfPosition.Y += player.speed;
             }
             else if (player.SelfPosition.Y >= _graphics.GraphicsDevice.Viewport.Bounds.Bottom - 64)
             {
-                player.SelfPosition.Y -= player.speed;
+                if (player.speed == 4)
+                {
+                    player.SelfPosition.Y -= 8;
+                }
+                else
+                    player.SelfPosition.Y -= player.speed;
             }
 
             for(int i = 0; i < WallArea_Col.Count; i++)
             {
                 if (WallArea_Col[i].Intersects(player.collision))
                 {
-                    if (player.collision.Right > WallArea_Col[i].Right)
+                    if (player.collision.Right >= WallArea_Col[i].Right)
                     {
-                        player.SelfPosition.X += player.speed;
+                        if (player.speed == 4)
+                        {
+                            player.SelfPosition.X -= 8;
+                        }
+                        else
+                            player.SelfPosition.X -= player.speed;
                     }
-                    if(player.collision.Left < WallArea_Col[i].Left)
+                    if(player.collision.Left <= WallArea_Col[i].Left)
                     {
-                        player.SelfPosition.X -= player.speed;
+                        if (player.speed == 4)
+                        {
+                            player.SelfPosition.X += 8;
+                        }
+                        else
+                            player.SelfPosition.X += player.speed;
                     }
-                    if (player.collision.Top > WallArea_Col[i].Top)
+                    if (player.collision.Top >= WallArea_Col[i].Top)
                     {
-                        player.SelfPosition.Y += player.speed;
+                        if (player.speed == 4)
+                        {
+                            player.SelfPosition.Y += 8;
+                        }
+                        else
+                            player.SelfPosition.Y += player.speed;
                     }
-                    if(player.collision.Bottom < WallArea_Col[i].Bottom)
+                    if(player.collision.Bottom <= WallArea_Col[i].Bottom)
                     {
-                        player.SelfPosition.Y -= player.speed;
+                        if (player.speed == 4 )
+                        {
+                            
+                            player.SelfPosition.Y -= 8;
+                        }
+                        else
+                            player.SelfPosition.Y -= player.speed;
 
                     }
 

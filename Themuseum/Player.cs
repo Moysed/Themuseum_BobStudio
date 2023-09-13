@@ -21,7 +21,7 @@ namespace Themuseum
         public Rectangle collision;
         private AnimatedTexture Sprite;
         public float MaxStamina = 100;
-        private float CurrentStamina = 100;
+        public float CurrentStamina = 100;
         public float MaxFuel = 300;
         public float CurrentFuel = 300;
         private KeyboardState KeyControls;
@@ -75,7 +75,6 @@ namespace Themuseum
             KeyControls = Keystate;
             collision = new Rectangle((int)SelfPosition.X, (int)SelfPosition.Y, 32, 48);
 
-           
 
             if (KeyControls.IsKeyDown(Keys.A))
             {

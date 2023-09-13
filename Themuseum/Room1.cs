@@ -24,6 +24,7 @@ namespace Themuseum
         private Rectangle DoorCollision;
         private KeyboardState KeyControls;
         private KeyboardState OldKey;
+       
 
         
 
@@ -60,21 +61,42 @@ namespace Themuseum
             //Wall Collision
             if (player.SelfPosition.X >= _graphics.GraphicsDevice.Viewport.Bounds.Right - 64)
             {
+                if(player.speed >= 4)
+                {
+                    player.SelfPosition.X -= 8f;
+                }
+                else
                 player.SelfPosition.X -= player.speed;
-            }
+                
+            } 
 
             else if (player.SelfPosition.X <= _graphics.GraphicsDevice.Viewport.Bounds.Left + 64)
             {
-                player.SelfPosition.X += player.speed;
+                if (player.speed >= 4)
+                {
+                    player.SelfPosition.X += 8f;
+                }
+                else
+                    player.SelfPosition.X += player.speed;
             }
 
-            else if (player.SelfPosition.Y <= _graphics.GraphicsDevice.Viewport.Bounds.Top + 64)
+             else if (player.SelfPosition.Y <= _graphics.GraphicsDevice.Viewport.Bounds.Top + 64)
             {
-                player.SelfPosition.Y += player.speed;
+                if (player.speed >= 4)
+                {
+                    player.SelfPosition.Y += 8f;
+                }
+                else
+                    player.SelfPosition.Y += player.speed;
             }
             else if (player.SelfPosition.Y >= _graphics.GraphicsDevice.Viewport.Bounds.Bottom - 64)
             {
-                player.SelfPosition.Y -= player.speed;
+                if (player.speed >= 4)
+                {
+                    player.SelfPosition.Y -= 8f;
+                }
+                else
+                    player.SelfPosition.Y -= player.speed;
             }
 
             //Object Interaction
@@ -95,6 +117,8 @@ namespace Themuseum
                     Keymanager.KeyTrigger("R1_S1");
                 }
             }
+
+           
             OldKey = KeyControls;
         }
 
