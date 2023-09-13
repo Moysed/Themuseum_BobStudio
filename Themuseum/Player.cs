@@ -174,6 +174,10 @@ namespace Themuseum
             return (CurrentStamina);
         }
 
+        public float UpdateSpeed()
+        {
+            return speed;
+        }
         
     }
 }

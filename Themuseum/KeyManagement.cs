@@ -16,6 +16,9 @@ namespace Themuseum
     {
         //Trigger naming format {Room number}_{Type of triggers and its number}
         public bool R1_S1 = false;
+        public bool R1_S2 = false;
+        public bool R1_S3 = false;
+        public bool R2_T1 = false;
         public KeyManagement()
         {
 
@@ -24,7 +27,10 @@ namespace Themuseum
         {
             switch (KeyID)
             {
-                case "R1_S1": R1_S1 = true; break; 
+                case "R1_S1": R1_S1 = true; break;
+                case "R1_S2": R1_S2 = true; break;
+                case "R1_S3": R1_S3 = true; break;
+                case "R2_T1": R2_T1 = true; break;
             }
         }
 
