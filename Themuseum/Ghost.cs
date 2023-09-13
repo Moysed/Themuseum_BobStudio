@@ -33,21 +33,29 @@ namespace Themuseum
         {
             Sprite.DrawFrame(SB, SelfPosition, 1);
         }
-        public void Chase(Vector2 PlayerPosition,LanternLight Lantern)
+        public void Behavior(Player player,LanternLight Lantern)
         {
-            collision = new Rectangle((int)SelfPosition.X, (int)SelfPosition.Y, 64, 64);
-
-            Vector2 Dir = PlayerPosition - SelfPosition;
-            Dir.Normalize();
-            if (collision.Intersects(Lantern.Collision))
+            if(player.IsHaunted == true)
             {
-                speed = 1;
+                collision = new Rectangle((int)SelfPosition.X, (int)SelfPosition.Y, 64, 64);
+
+                Vector2 Dir = player.SelfPosition - SelfPosition;
+                Dir.Normalize();
+                if (collision.Intersects(Lantern.Collision))
+                {
+                    speed = 1;
+                }
+                else
+                {
+                    speed = 3;
+                }
+                SelfPosition += new Vector2(Dir.X * speed, Dir.Y * speed);
             }
             else
             {
-                speed = 3;
+                Changestartingposition(new Vector2(1300, 1300));
             }
-            SelfPosition += new Vector2(Dir.X * speed, Dir.Y * speed);
+           
         }
         public void Changestartingposition(Vector2 newPos)
         {

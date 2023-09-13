@@ -25,6 +25,7 @@ namespace Themuseum
         public float MaxFuel = 300;
         public float CurrentFuel = 300;
         private KeyboardState KeyControls;
+        public bool IsHaunted = false;
         
        
         private int framerow = 1;

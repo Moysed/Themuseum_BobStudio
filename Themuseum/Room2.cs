@@ -61,7 +61,7 @@ namespace Themuseum
 
         }
 
-        public void Function(GraphicsDeviceManager _graphics, Player player, RoomManager roomManager, KeyManagement Keymanager)
+        public void Function(GraphicsDeviceManager _graphics, Player player, RoomManager roomManager, KeyManagement Keymanager, float elapsed)
         {
            
             KeyControls = Keyboard.GetState();
@@ -177,6 +177,7 @@ namespace Themuseum
             {
                 Keymanager.KeyTrigger("R2_T1");
                 Console.WriteLine("R2_T1 Triggered");
+                player.IsHaunted = true;
             }
 
             OldKey = KeyControls;

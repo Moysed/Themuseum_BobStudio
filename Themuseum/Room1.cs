@@ -28,6 +28,7 @@ namespace Themuseum
         private Vector2 HiddenSwitch_03_Pos;
         private Vector2 DoorPos;
         private Rectangle DoorCollision;
+        private Shire R1_Shire;
         private KeyboardState KeyControls;
         private KeyboardState OldKey;
        
@@ -44,6 +45,7 @@ namespace Themuseum
             HiddenSwitch_02_Col = new Rectangle((int)HiddenSwitch_02_Pos.X, (int)HiddenSwitch_02_Pos.Y, 64, 64);
             HiddenSwitch_03_Pos = new Vector2(10000, 10000);
             HiddenSwitch_03_Col = new Rectangle((int)HiddenSwitch_03_Pos.X, (int)HiddenSwitch_03_Pos.Y, 64, 64);
+            R1_Shire = new Shire(new Vector2(1100, 70));
         }
 
         public void LoadSprite(ContentManager content)
@@ -53,6 +55,7 @@ namespace Themuseum
             HiddenSwitch_01_Tex = content.Load<Texture2D>("hiddenswitch01_placeholder");
             HiddenSwitch_02_Tex = content.Load<Texture2D>("hiddenswitch02_placeholder");
             HiddenSwitch_03_Tex = content.Load<Texture2D>("hiddenswtich03_placeholder");
+            R1_Shire.LoadSprite(content);
         }
         
         public void Draw(SpriteBatch SB)
@@ -62,9 +65,10 @@ namespace Themuseum
             SB.Draw(HiddenSwitch_01_Tex, HiddenSwitch_01_Pos, Color.White);
             SB.Draw(HiddenSwitch_02_Tex, HiddenSwitch_02_Pos, Color.White);
             SB.Draw(HiddenSwitch_03_Tex, HiddenSwitch_03_Pos, Color.White);
+            R1_Shire.Draw(SB);
         }
 
-        public void Function(GraphicsDeviceManager _graphics, Player player,RoomManager roomManager, KeyManagement Keymanager)
+        public void Function(GraphicsDeviceManager _graphics, Player player,RoomManager roomManager, KeyManagement Keymanager, float elapsed)
         {
             
             KeyControls = Keyboard.GetState();
@@ -112,6 +116,7 @@ namespace Themuseum
             //Objects Behavior
             DoorPos = new Vector2(64, 640 / 2);
             DoorCollision = new Rectangle((int)DoorPos.X, (int)DoorPos.Y, 32, 64);
+            R1_Shire.Behavior(player, elapsed);
             HiddenSwitch_01_Pos = new Vector2(1000, 320);
             HiddenSwitch_01_Col = new Rectangle((int)HiddenSwitch_01_Pos.X, (int)HiddenSwitch_01_Pos.Y, 64, 64);
             HiddenSwitch_02_Col = new Rectangle((int)HiddenSwitch_02_Pos.X, (int)HiddenSwitch_02_Pos.Y, 64, 64);
@@ -145,6 +150,7 @@ namespace Themuseum
                 if (KeyControls.IsKeyDown(Keys.E) && OldKey.IsKeyUp(Keys.E))
                 {
                     Keymanager.KeyTrigger("R1_S1");
+                    Console.WriteLine("R1_S1");
                 }
             }
             if (player.collision.Intersects(HiddenSwitch_02_Col) == true)
@@ -152,6 +158,7 @@ namespace Themuseum
                 if (KeyControls.IsKeyDown(Keys.E) && OldKey.IsKeyUp(Keys.E))
                 {
                     Keymanager.KeyTrigger("R1_S2");
+                    Console.WriteLine("R1_S2");
                 }
             }
             if (player.collision.Intersects(HiddenSwitch_03_Col) == true)
@@ -159,6 +166,7 @@ namespace Themuseum
                 if (KeyControls.IsKeyDown(Keys.E) && OldKey.IsKeyUp(Keys.E))
                 {
                     Keymanager.KeyTrigger("R1_S3");
+                    Console.WriteLine("R1_S3");
                 }
             }
 

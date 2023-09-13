@@ -11,9 +11,11 @@ using System.Timers;
 
 namespace Themuseum
 {
+    /*
     //Protoype
     public class Game1_Archived : Game
     {
+        
         int countdown = 60*4;
         private GraphicsDeviceManager _graphics;
          SpriteBatch _spriteBatch;
@@ -709,7 +711,7 @@ namespace Themuseum
             base.Draw(gameTime);
         }
     }
-    
+    */
 }
 
 
