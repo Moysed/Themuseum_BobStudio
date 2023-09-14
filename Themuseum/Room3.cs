@@ -36,7 +36,6 @@ namespace Themuseum
             WallArea_Col.Add(new Rectangle(0, 0, 100, 500));
             WallArea_Col.Add(new Rectangle(1180, 0, 100, 500));
 
-
         }
 
 
@@ -151,14 +150,12 @@ namespace Themuseum
                     Console.WriteLine("Hit door hitbox");
                     if (KeyControls.IsKeyDown(Keys.E) && Oldkey_.IsKeyUp(Keys.E))
                     {
+                        player.pieceActive = true;
                         player.ChangeStartingPosition(new Vector2(600, 75*7 ));
                         roomManager.Roomchange(4);
                     }
                 }
             }
-
-
-
         }
     }
 }

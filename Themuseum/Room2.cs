@@ -26,6 +26,11 @@ namespace Themuseum
         private Vector2 R2_T1_Trigger_Pos;
         private Rectangle R2_T1_Trigger_Col;
         private KeyboardState KeyControls;
+        private Texture2D piece3;
+        private Vector2 piece3Pos;
+        private Texture2D piece4;
+        private Vector2 piece4Pos;
+        private int player_pieceActive = 0;
         private KeyboardState OldKey;
         public Room2()
         {
@@ -37,7 +42,9 @@ namespace Themuseum
 
             R2_T1_Trigger_Pos = new Vector2(640,256);
             R2_T1_Trigger_Col = new Rectangle((int)R2_T1_Trigger_Pos.X, (int)R2_T1_Trigger_Pos.X, 128, 128);
-           
+
+            piece3Pos = new Vector2(550, 200);
+            piece4Pos = new Vector2(800, 400);
         }
 
        
@@ -47,6 +54,8 @@ namespace Themuseum
             Door = content.Load<Texture2D>("placeholderdoor");
             WallArea_Tex = content.Load<Texture2D>("wallplaceholder");
             R2_T1_Trigger_Tex = content.Load<Texture2D>("199-Support07");
+            piece3 = content.Load<Texture2D>("Piece3");
+            piece4 = content.Load<Texture2D>("Piece4");
         }
 
         public void Draw(SpriteBatch SB)
@@ -60,12 +69,18 @@ namespace Themuseum
                 SB.Draw(WallArea_Tex, WallArea_Col[i], Color.White);
             }
 
+            if(player_pieceActive == 1) 
+            {
+                SB.Draw(piece3, piece3Pos, Color.White);
+                SB.Draw(piece4, piece4Pos, Color.White);
+            }
         }
 
         public void Function(GraphicsDeviceManager _graphics, Player player, RoomManager roomManager, KeyManagement Keymanager, float elapsed)
         {
            
             KeyControls = Keyboard.GetState();
+
             //Wall Collision
             if (player.SelfPosition.X >= _graphics.GraphicsDevice.Viewport.Bounds.Right - 64)
             {
@@ -150,7 +165,10 @@ namespace Themuseum
                     }
 
                 }
-               
+               if(player.pieceActive == true)
+                {
+                    player_pieceActive = 1;
+                }
                
                 
 
@@ -162,6 +180,9 @@ namespace Themuseum
             R2_T1_Trigger_Pos = new Vector2(540, 256);
             R2_T1_Trigger_Col = new Rectangle((int)R2_T1_Trigger_Pos.X, (int)R2_T1_Trigger_Pos.Y, 128, 128);
 
+            Rectangle piece3Col = new Rectangle((int)piece3Pos.X, (int)piece3Pos.Y, 64, 64);
+            Rectangle piece4Col = new Rectangle((int)piece4Pos.X, (int)piece4Pos.Y, 64, 64);
+
             //Object Interaction
             if (player.collision.Intersects(DoorCollision) == true)
             {
@@ -171,8 +192,6 @@ namespace Themuseum
                     player.ChangeStartingPosition(new Vector2(64, 640 / 2));
                     roomManager.Roomchange(1);
                 }
-
-
             }
 
             if(R2_T1_Trigger_Col.Intersects(player.collision) == true && Keymanager.R2_T1 == false)
@@ -187,6 +206,26 @@ namespace Themuseum
                 Console.WriteLine("Changed to Room3");
                 player.ChangeStartingPosition(new Vector2(500, 550));
                 roomManager.Roomchange(3);
+            }
+
+            //Piece Collect
+            if (player.collision.Intersects(piece3Col) == true)
+            {
+                if (KeyControls.IsKeyDown(Keys.E) && OldKey.IsKeyUp(Keys.E))
+                {
+                    player.pieces += 1;
+                    Console.WriteLine(player.pieces);
+                    piece3Pos.X = 5000;
+                }
+            }
+            if (player.collision.Intersects(piece4Col) == true)
+            {
+                if (KeyControls.IsKeyDown(Keys.E) && OldKey.IsKeyUp(Keys.E))
+                {
+                    player.pieces += 1;
+                    Console.WriteLine(player.pieces);
+                    piece4Pos.X = 5000;
+                }
             }
 
             OldKey = KeyControls;
