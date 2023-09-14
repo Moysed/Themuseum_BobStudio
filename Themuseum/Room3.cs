@@ -148,6 +148,7 @@ namespace Themuseum
 
                     }
                 }
+            }
                 if (player.collision.Intersects(BacktoRoom2) == true)
                 {
                     Console.WriteLine("Changed to Room2");
@@ -176,4 +177,3 @@ namespace Themuseum
             }
         }
     }
-}
