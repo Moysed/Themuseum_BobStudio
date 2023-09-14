@@ -15,9 +15,13 @@ namespace Themuseum
 {
     class Room3
     {
+
         Rectangle BacktoRoom2;
         private Texture2D TileStatic;
         KeyboardState KeyControls;
+        private Texture2D Door;
+        private Vector2 DoorPos;
+        private Rectangle DoorCollision;
         private Texture2D WallArea_Tex;
         KeyboardState Oldkey_;
         private List<Rectangle> WallArea_Col = new List<Rectangle>();
@@ -25,10 +29,14 @@ namespace Themuseum
 
         public Room3()
         {
-            WallArea_Col.Add(new Rectangle(0, 576, 500, 200));
-            WallArea_Col.Add(new Rectangle(700, 576, 1000, 200));
 
-            
+            WallArea_Col.Add(new Rectangle(0, 300, 500, 2000));
+            WallArea_Col.Add(new Rectangle(700, 300, 1000, 2000));
+            WallArea_Col.Add(new Rectangle(0, 0, 2000, 100));
+            WallArea_Col.Add(new Rectangle(0, 0, 100, 500));
+            WallArea_Col.Add(new Rectangle(1180, 0, 100, 500));
+
+
         }
 
 
@@ -37,22 +45,27 @@ namespace Themuseum
         {
             TileStatic = content.Load<Texture2D>("room3_placeholder");
             WallArea_Tex = content.Load<Texture2D>("wallplaceholder");
+            Door = content.Load<Texture2D>("placeholderdoor");
+            DoorPos = new Vector2(610, 35);
         }
 
         public void Draw(SpriteBatch SB)
         {
             SB.Draw(TileStatic, Vector2.Zero, Color.White);
 
+
             for (int i = 0; i < WallArea_Col.Count; i++)
             {
                 SB.Draw(WallArea_Tex, WallArea_Col[i], Color.White);
             }
+            SB.Draw(Door, DoorPos, new Rectangle(6 * 32, 8 * 32, 32, 64), Color.White);
         }
         public void Function(GraphicsDeviceManager _graphics, Player player, RoomManager roomManager, KeyManagement Keymanager, float elapsed)
         {
             KeyControls = Keyboard.GetState();
             //Object Hitbox
-            BacktoRoom2 = new Rectangle(501,600 , 190, 200);
+            BacktoRoom2 = new Rectangle(501, 600, 190, 200);
+            DoorCollision = new Rectangle((int)DoorPos.X, (int)DoorPos.Y, 32, 70);
             //Wall Collision
             if (player.SelfPosition.X >= _graphics.GraphicsDevice.Viewport.Bounds.Right - 64)
             {
@@ -83,7 +96,7 @@ namespace Themuseum
                 else
                     player.SelfPosition.Y += player.speed;
             }
-           
+
             for (int i = 0; i < WallArea_Col.Count; i++)
             {
                 if (WallArea_Col[i].Intersects(player.collision))
@@ -127,11 +140,19 @@ namespace Themuseum
 
                     }
                 }
-                    if (player.collision.Intersects(BacktoRoom2) == true)
+                if (player.collision.Intersects(BacktoRoom2) == true)
+                {
+                    Console.WriteLine("Changed to Room2");
+                    player.ChangeStartingPosition(new Vector2(500, 70));
+                    roomManager.Roomchange(2);
+                }
+                if (player.collision.Intersects(DoorCollision) == true)
+                {
+                    Console.WriteLine("Hit door hitbox");
+                    if (KeyControls.IsKeyDown(Keys.E) && Oldkey_.IsKeyUp(Keys.E))
                     {
-                        Console.WriteLine("Changed to Room2");
-                        player.ChangeStartingPosition(new Vector2(500, 70));
-                        roomManager.Roomchange(2);
+                        player.ChangeStartingPosition(new Vector2(600, 75*7 ));
+                        roomManager.Roomchange(4);
                     }
                 }
             }
@@ -140,3 +161,4 @@ namespace Themuseum
 
         }
     }
+}
