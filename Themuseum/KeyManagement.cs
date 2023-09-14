@@ -19,6 +19,9 @@ namespace Themuseum
         public bool R1_S2 = false;
         public bool R1_S3 = false;
         public bool R2_T1 = false;
+        public bool MRB_StatueActive = false;
+        public bool MRB_PieceActive = false;
+        public int MRB_Pieces = 0;
         public KeyManagement()
         {
 
@@ -31,6 +34,8 @@ namespace Themuseum
                 case "R1_S2": R1_S2 = true; break;
                 case "R1_S3": R1_S3 = true; break;
                 case "R2_T1": R2_T1 = true; break;
+                case "MRB_Statue": MRB_StatueActive = true; break;
+                case "MRB_Pieces": MRB_PieceActive = true; break;
             }
         }
 

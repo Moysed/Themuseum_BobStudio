@@ -122,8 +122,8 @@ namespace Themuseum
             {
                 if (keycontrols.IsKeyDown(Keys.E) && Oldkey_.IsKeyUp(Keys.E))
                 {
-                    player.pieces += 1;
-                    Console.WriteLine(player.pieces);
+                    Keymanager.MRB_Pieces += 1;
+                    Console.WriteLine(Keymanager.MRB_Pieces);
                     piece5Pos.X = 5000;
                 }
             }
@@ -131,8 +131,8 @@ namespace Themuseum
             {
                 if (keycontrols.IsKeyDown(Keys.E) && Oldkey_.IsKeyUp(Keys.E))
                 {
-                    player.pieces += 1;
-                    Console.WriteLine(player.pieces);
+                    Keymanager.MRB_Pieces += 1;
+                    Console.WriteLine(Keymanager.MRB_Pieces);
                     piece6Pos.X = 5000;
                 }
             }
@@ -142,11 +142,12 @@ namespace Themuseum
             {
                 if (keycontrols.IsKeyDown(Keys.E) && Oldkey_.IsKeyUp(Keys.E))
                 {
-                    Console.WriteLine(player.StatueActive);
-                    if(player.pieces == 6)
+                    Console.WriteLine(Keymanager.MRB_StatueActive);
+                    if(Keymanager.MRB_Pieces == 6)
                     {
-                        player.StatueActive = true;
+                        Keymanager.KeyTrigger("MRB_Statue");
                     }
+                    Console.WriteLine(Keymanager.MRB_StatueActive); 
                 }
             }
 

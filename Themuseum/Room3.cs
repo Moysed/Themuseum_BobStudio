@@ -22,6 +22,8 @@ namespace Themuseum
         private Texture2D Door;
         private Vector2 DoorPos;
         private Rectangle DoorCollision;
+        private Vector2 DoorPos_MRB_MRC_C;
+        private Rectangle DoorCollision_MRB_MRC_C;
         private Texture2D WallArea_Tex;
         KeyboardState Oldkey_;
         private List<Rectangle> WallArea_Col = new List<Rectangle>();
@@ -35,6 +37,8 @@ namespace Themuseum
             WallArea_Col.Add(new Rectangle(0, 0, 2000, 100));
             WallArea_Col.Add(new Rectangle(0, 0, 100, 500));
             WallArea_Col.Add(new Rectangle(1180, 0, 100, 500));
+            DoorPos = new Vector2(610, 35);
+
 
         }
 
@@ -45,7 +49,7 @@ namespace Themuseum
             TileStatic = content.Load<Texture2D>("room3_placeholder");
             WallArea_Tex = content.Load<Texture2D>("wallplaceholder");
             Door = content.Load<Texture2D>("placeholderdoor");
-            DoorPos = new Vector2(610, 35);
+            
         }
 
         public void Draw(SpriteBatch SB)
@@ -58,13 +62,18 @@ namespace Themuseum
                 SB.Draw(WallArea_Tex, WallArea_Col[i], Color.White);
             }
             SB.Draw(Door, DoorPos, new Rectangle(6 * 32, 8 * 32, 32, 64), Color.White);
+            SB.Draw(Door, DoorPos_MRB_MRC_C, new Rectangle(6 * 32, 8 * 32, 32, 64), Color.White);
         }
         public void Function(GraphicsDeviceManager _graphics, Player player, RoomManager roomManager, KeyManagement Keymanager, float elapsed)
         {
             KeyControls = Keyboard.GetState();
             //Object Hitbox
+            DoorPos = new Vector2(610, 35);
+            DoorPos_MRB_MRC_C = new Vector2(1180, 200);
+            DoorCollision_MRB_MRC_C = new Rectangle((int)DoorPos_MRB_MRC_C.X, (int)DoorPos_MRB_MRC_C.Y, 32, 70);
             BacktoRoom2 = new Rectangle(501, 600, 190, 200);
             DoorCollision = new Rectangle((int)DoorPos.X, (int)DoorPos.Y, 32, 70);
+            
             //Wall Collision
             if (player.SelfPosition.X >= _graphics.GraphicsDevice.Viewport.Bounds.Right - 64)
             {
@@ -147,12 +156,21 @@ namespace Themuseum
                 }
                 if (player.collision.Intersects(DoorCollision) == true)
                 {
-                    Console.WriteLine("Hit door hitbox");
-                    if (KeyControls.IsKeyDown(Keys.E) && Oldkey_.IsKeyUp(Keys.E))
+                    
+                    if (KeyControls.IsKeyDown(Keys.E) && Oldkey_.IsKeyUp(Keys.E) && Keymanager.R1_S2 == true && Keymanager.R1_S3 == true)
                     {
-                        player.pieceActive = true;
+                        Keymanager.MRB_PieceActive = true;
                         player.ChangeStartingPosition(new Vector2(600, 75*7 ));
                         roomManager.Roomchange(4);
+                    }
+                }
+                if(player.collision.Intersects(DoorCollision_MRB_MRC_C) == true)
+                {
+                    if (KeyControls.IsKeyDown(Keys.E) && Oldkey_.IsKeyUp(Keys.E) && Keymanager.MRB_StatueActive == true)
+                    {
+                        
+                        player.ChangeStartingPosition(new Vector2(75,200));
+                        roomManager.Roomchange(5);
                     }
                 }
             }

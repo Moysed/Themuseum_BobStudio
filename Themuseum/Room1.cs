@@ -187,7 +187,7 @@ namespace Themuseum
                     Console.WriteLine("R1_S3");
                 }
             }
-            if (player.pieceActive == true)
+            if (Keymanager.MRB_PieceActive == true)
             {
                 player_pieceActive = 1;
             }
@@ -197,8 +197,8 @@ namespace Themuseum
             {
                 if (KeyControls.IsKeyDown(Keys.E) && OldKey.IsKeyUp(Keys.E))
                 {
-                    player.pieces += 1;
-                    Console.WriteLine(player.pieces);
+                    Keymanager.MRB_Pieces += 1;
+                    Console.WriteLine(Keymanager.MRB_Pieces);
                     piece1Pos.X = 5000;
                 }
             }
@@ -206,8 +206,8 @@ namespace Themuseum
             {
                 if (KeyControls.IsKeyDown(Keys.E) && OldKey.IsKeyUp(Keys.E))
                 {
-                    player.pieces += 1;
-                    Console.WriteLine(player.pieces);
+                    Keymanager.MRB_Pieces += 1;
+                    Console.WriteLine(Keymanager.MRB_Pieces);
                     piece2Pos.X = 5000;
                 }
             }

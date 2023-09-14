@@ -26,11 +26,10 @@ namespace Themuseum
         public float CurrentFuel = 300;
         private KeyboardState KeyControls;
         public bool IsHaunted = false;
-        public bool StatueActive = false;
-        public bool pieceActive = false;
+        
       
         private int framerow = 1;
-        public int pieces = 0;
+        
 
         public Player(Vector2 SpawningPosition)
         {
