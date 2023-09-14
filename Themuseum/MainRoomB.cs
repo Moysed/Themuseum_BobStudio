@@ -29,15 +29,16 @@ namespace Themuseum
         private Vector2 statuePos;
         KeyboardState Oldkey_;
         KeyboardState keycontrols;
+        Random random;
 
 
         public MainRoomB()
         {
+            random = new Random();
             DoorPos = new Vector2(610, 72 * 8);
-
             statuePos = new Vector2(500, 500);
-            piece5Pos = new Vector2(200, 200);
-            piece6Pos = new Vector2(800, 200);
+            piece5Pos = new Vector2(random.Next(64,200), random.Next(100,200));
+            piece6Pos = new Vector2(random.Next(400,800),random.Next(150,600));
         }
 
         public void LoadContent(ContentManager content)
