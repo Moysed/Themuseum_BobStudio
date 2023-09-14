@@ -32,8 +32,10 @@ namespace Themuseum
         private Vector2 piece4Pos;
         private int player_pieceActive = 0;
         private KeyboardState OldKey;
+        Random random = new Random();
         public Room2()
         {
+            random = new Random();
             DoorPos = new Vector2(1280-64, 640 / 2);
             DoorCollision = new Rectangle((int)DoorPos.X, (int)DoorPos.Y, 32, 64);
             
@@ -43,8 +45,8 @@ namespace Themuseum
             R2_T1_Trigger_Pos = new Vector2(640,256);
             R2_T1_Trigger_Col = new Rectangle((int)R2_T1_Trigger_Pos.X, (int)R2_T1_Trigger_Pos.X, 128, 128);
 
-            piece3Pos = new Vector2(550, 200);
-            piece4Pos = new Vector2(800, 400);
+            piece3Pos = new Vector2(random.Next(520,600), random.Next(190,200));
+            piece4Pos = new Vector2(random.Next(600,650), random.Next(360,400));
         }
 
        
