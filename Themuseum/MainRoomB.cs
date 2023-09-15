@@ -69,7 +69,7 @@ namespace Themuseum
             DoorCollision = new Rectangle((int)DoorPos.X, (int)DoorPos.Y , 32, 30);
 
             //Wall Collision
-            if (player.SelfPosition.X >= _graphics.GraphicsDevice.Viewport.Bounds.Right - 64)
+            if (player.SelfPosition.X >= _graphics.GraphicsDevice.Viewport.Bounds.Right - 116)
             {
                 if (player.speed == 4)
                 {
@@ -79,7 +79,7 @@ namespace Themuseum
                     player.SelfPosition.X -= player.speed;
             }
 
-            else if (player.SelfPosition.X <= _graphics.GraphicsDevice.Viewport.Bounds.Left + 64)
+            else if (player.SelfPosition.X <= _graphics.GraphicsDevice.Viewport.Bounds.Left + 52)
             {
                 if (player.speed == 4)
                 {
@@ -98,7 +98,7 @@ namespace Themuseum
                 else
                     player.SelfPosition.Y += player.speed;
             }
-            else if(player.SelfPosition.Y >= _graphics.GraphicsDevice.Viewport.Bounds.Bottom - 64)
+            else if(player.SelfPosition.Y >= _graphics.GraphicsDevice.Viewport.Bounds.Bottom - 190)
             {
                 if (player.speed == 4)
                 {
@@ -113,7 +113,7 @@ namespace Themuseum
                 Console.WriteLine("Hit");
                 if (keycontrols.IsKeyDown(Keys.E) && Oldkey_.IsKeyUp(Keys.E))
                 {
-                    player.ChangeStartingPosition(new Vector2(600, 110));
+                    player.ChangeStartingPosition(new Vector2(player.SelfPosition.X, 110));
                     roomManager.Roomchange(3);
                 }
             }

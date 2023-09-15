@@ -41,7 +41,7 @@ namespace Themuseum
 
         public void Behavior(Player player, float elapsed)
         {
-            Collision = new Rectangle((int)SelfPosition.X-16,(int)SelfPosition.Y-16,64,64);
+            Collision = new Rectangle((int)SelfPosition.X,(int)SelfPosition.Y,64,64);
 
             if (player.collision.Intersects(Collision))
             {

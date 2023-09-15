@@ -31,7 +31,7 @@ namespace Themuseum
 
         public void LightActivate(Player player)
         {
-            SelfPosition = new Vector2(player.SelfPosition.X - 110 ,player.SelfPosition.Y - 100 );
+            SelfPosition = new Vector2(player.SelfPosition.X - 97 ,player.SelfPosition.Y - 75);
             Collision = new Rectangle((int)SelfPosition.X,(int)SelfPosition.Y,256,256);
         }
 

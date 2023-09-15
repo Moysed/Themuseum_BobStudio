@@ -9,7 +9,6 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
-using SharpDX.Direct3D9;
 
 namespace Themuseum
 {
@@ -36,7 +35,6 @@ namespace Themuseum
             SelfPosition = SpawningPosition;
             Sprite = new AnimatedTexture(Vector2.Zero, 0, 1, 0.5f);
             collision = new Rectangle((int)SelfPosition.X, (int)SelfPosition.Y, 65, 130);
-            
         }
 
         public void LoadSprite(ContentManager Content)
@@ -75,7 +73,7 @@ namespace Themuseum
         public void Controls(KeyboardState Keystate, LanternLight Light)
         {
             KeyControls = Keystate;
-            collision = new Rectangle((int)SelfPosition.X, (int)SelfPosition.Y, 32, 48);
+            collision = new Rectangle((int)SelfPosition.X, (int)SelfPosition.Y, 65, 130);
 
 
             if (KeyControls.IsKeyDown(Keys.A))

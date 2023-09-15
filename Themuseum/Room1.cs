@@ -58,7 +58,7 @@ namespace Themuseum
 
         public void LoadSprite(ContentManager content)
         {
-            TileStatic = content.Load<Texture2D>("Room1 (bg)");
+            TileStatic = content.Load<Texture2D>("Room1(new)");
             Door = content.Load<Texture2D>("placeholderdoor");
             HiddenSwitch_01_Tex = content.Load<Texture2D>("hiddenswitch01_placeholder");
             HiddenSwitch_02_Tex = content.Load<Texture2D>("hiddenswitch02_placeholder");
@@ -89,7 +89,7 @@ namespace Themuseum
             KeyControls = Keyboard.GetState();
             
             //Wall Collision
-            if (player.SelfPosition.X >= _graphics.GraphicsDevice.Viewport.Bounds.Right - 64)
+            if (player.SelfPosition.X >= _graphics.GraphicsDevice.Viewport.Bounds.Right - 150)
             {
                 if(player.speed >= 4)
                 {
@@ -100,7 +100,7 @@ namespace Themuseum
                 
             } 
 
-            else if (player.SelfPosition.X <= _graphics.GraphicsDevice.Viewport.Bounds.Left + 64)
+            else if (player.SelfPosition.X <= _graphics.GraphicsDevice.Viewport.Bounds.Left + 85)
             {
                 if (player.speed >= 4)
                 {
@@ -119,7 +119,7 @@ namespace Themuseum
                 else
                     player.SelfPosition.Y += player.speed;
             }
-            else if (player.SelfPosition.Y >= _graphics.GraphicsDevice.Viewport.Bounds.Bottom - 64)
+            else if (player.SelfPosition.Y >= _graphics.GraphicsDevice.Viewport.Bounds.Bottom - 128 - 64)
             {
                 if (player.speed >= 4)
                 {
@@ -156,7 +156,7 @@ namespace Themuseum
             {
                 if(KeyControls.IsKeyDown(Keys.E) && OldKey.IsKeyUp(Keys.E) && Keymanager.R1_S1 == true)
                 {
-                    player.ChangeStartingPosition(new Vector2(1280 - 64, 640 / 2));
+                    player.ChangeStartingPosition(new Vector2(1280 - 64, player.SelfPosition.Y));
                     roomManager.Roomchange(2);
                     Console.WriteLine("Door Opened");
                 }

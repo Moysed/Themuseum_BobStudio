@@ -110,7 +110,7 @@ namespace Themuseum
                     if (KeyControls.IsKeyDown(Keys.E) && OldKey.IsKeyUp(Keys.E))
                     {
                         
-                        player.ChangeStartingPosition(new Vector2(1180-32, 200));
+                        player.ChangeStartingPosition(new Vector2(1180-65, player.SelfPosition.Y));
                         roomManager.Roomchange(3);
                     }
                 }
@@ -120,7 +120,7 @@ namespace Themuseum
                     if (KeyControls.IsKeyDown(Keys.E) && OldKey.IsKeyUp(Keys.E))
                     {
 
-                        player.ChangeStartingPosition(new Vector2(64, 200));
+                        player.ChangeStartingPosition(new Vector2(64, player.SelfPosition.Y));
                         roomManager.Roomchange(6);
                     }
                 }

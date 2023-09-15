@@ -72,7 +72,7 @@ namespace Themuseum
             DoorPos_MRB_MRC_C = new Vector2(1180, 200);
             DoorCollision_MRB_MRC_C = new Rectangle((int)DoorPos_MRB_MRC_C.X, (int)DoorPos_MRB_MRC_C.Y, 32, 70);
             BacktoRoom2 = new Rectangle(501, 600, 190, 200);
-            DoorCollision = new Rectangle((int)DoorPos.X, (int)DoorPos.Y, 32, 70);
+            DoorCollision = new Rectangle((int)DoorPos.X, (int)DoorPos.Y, 40, 72);
             
             //Wall Collision
             if (player.SelfPosition.X >= _graphics.GraphicsDevice.Viewport.Bounds.Right - 64)
@@ -152,7 +152,7 @@ namespace Themuseum
                 if (player.collision.Intersects(BacktoRoom2) == true)
                 {
                     Console.WriteLine("Changed to Room2");
-                    player.ChangeStartingPosition(new Vector2(500, 70));
+                    player.ChangeStartingPosition(new Vector2(player.SelfPosition.X, 70));
                     roomManager.Roomchange(2);
                 }
                 if (player.collision.Intersects(DoorCollision) == true)
@@ -161,7 +161,7 @@ namespace Themuseum
                     if (KeyControls.IsKeyDown(Keys.E) && Oldkey_.IsKeyUp(Keys.E) && Keymanager.R1_S2 == true && Keymanager.R1_S3 == true)
                     {
                         Keymanager.MRB_PieceActive = true;
-                        player.ChangeStartingPosition(new Vector2(600, 75*7 ));
+                        player.ChangeStartingPosition(new Vector2(player.SelfPosition.X, 75*7));
                         roomManager.Roomchange(4);
                     }
                 }
@@ -170,7 +170,7 @@ namespace Themuseum
                     if (KeyControls.IsKeyDown(Keys.E) && Oldkey_.IsKeyUp(Keys.E) && Keymanager.MRB_StatueActive == true)
                     {
                         
-                        player.ChangeStartingPosition(new Vector2(75,200));
+                        player.ChangeStartingPosition(new Vector2(75,player.SelfPosition.Y));
                         roomManager.Roomchange(5);
                     }
                 }

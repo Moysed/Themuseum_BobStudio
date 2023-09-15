@@ -84,7 +84,7 @@ namespace Themuseum
             KeyControls = Keyboard.GetState();
 
             //Wall Collision
-            if (player.SelfPosition.X >= _graphics.GraphicsDevice.Viewport.Bounds.Right - 64)
+            if (player.SelfPosition.X >= _graphics.GraphicsDevice.Viewport.Bounds.Right - 120)
             {
                 if (player.speed == 4)
                 {
@@ -113,7 +113,7 @@ namespace Themuseum
                 else
                     player.SelfPosition.Y += player.speed;
             }
-            else if (player.SelfPosition.Y >= _graphics.GraphicsDevice.Viewport.Bounds.Bottom - 64)
+            else if (player.SelfPosition.Y >= _graphics.GraphicsDevice.Viewport.Bounds.Bottom - 185)
             {
                 if (player.speed == 4)
                 {
@@ -191,7 +191,7 @@ namespace Themuseum
                 if (KeyControls.IsKeyDown(Keys.E) && OldKey.IsKeyUp(Keys.E))
                 {
                     Console.WriteLine("Door Opened");
-                    player.ChangeStartingPosition(new Vector2(64, 640 / 2));
+                    player.ChangeStartingPosition(new Vector2(64, player.SelfPosition.Y));
                     roomManager.Roomchange(1);
                 }
             }
@@ -206,7 +206,7 @@ namespace Themuseum
             if(player.collision.Intersects(EndofHallway) == true)
             {
                 Console.WriteLine("Changed to Room3");
-                player.ChangeStartingPosition(new Vector2(500, 550));
+                player.ChangeStartingPosition(new Vector2(player.SelfPosition.X, 450));
                 roomManager.Roomchange(3);
             }
 
