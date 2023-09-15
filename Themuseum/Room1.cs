@@ -52,7 +52,7 @@ namespace Themuseum
             HiddenSwitch_03_Col = new Rectangle((int)HiddenSwitch_03_Pos.X, (int)HiddenSwitch_03_Pos.Y, 64, 64);
             R1_Shire = new Shire(new Vector2(1100, 70));
             
-            piece1Pos = new Vector2(r.Next(80,200),r.Next(80, 250));
+            piece1Pos = new Vector2(r.Next(110,200),r.Next(80, 250));
             piece2Pos = new Vector2(r.Next(250,420), r.Next(275,480));
         }
 

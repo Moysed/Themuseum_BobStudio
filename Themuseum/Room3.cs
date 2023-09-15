@@ -70,7 +70,7 @@ namespace Themuseum
             //Object Hitbox
             DoorPos = new Vector2(610, 35);
             DoorPos_MRB_MRC_C = new Vector2(1180, 200);
-            DoorCollision_MRB_MRC_C = new Rectangle((int)DoorPos_MRB_MRC_C.X, (int)DoorPos_MRB_MRC_C.Y, 32, 70);
+            DoorCollision_MRB_MRC_C = new Rectangle((int)DoorPos_MRB_MRC_C.X - 10, (int)DoorPos_MRB_MRC_C.Y, 32, 70);
             BacktoRoom2 = new Rectangle(501, 600, 190, 200);
             DoorCollision = new Rectangle((int)DoorPos.X, (int)DoorPos.Y, 40, 72);
             

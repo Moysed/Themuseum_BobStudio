@@ -99,9 +99,9 @@ namespace Themuseum
             }
                 //Object Behavior
                 DoorPos_Room3 = new Vector2(32,200);
-                DoorCollision_Room3 = new Rectangle((int)DoorPos_Room3.X, (int)DoorPos_Room3.Y, 32, 64);
+                DoorCollision_Room3 = new Rectangle((int)DoorPos_Room3.X + 10, (int)DoorPos_Room3.Y, 32, 64);
                 DoorPos_MRC = new Vector2(1280 - 64, 200);
-                DoorCollision_MRC = new Rectangle((int)DoorPos_MRC.X, (int)DoorPos_MRC.Y, 32, 64);
+                DoorCollision_MRC = new Rectangle((int)DoorPos_MRC.X - 10, (int)DoorPos_MRC.Y, 32, 64);
 
                 //Player Interaction
                 if (player.collision.Intersects(DoorCollision_Room3) == true)

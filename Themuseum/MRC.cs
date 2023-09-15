@@ -108,7 +108,7 @@ namespace Themuseum
             }
                 //Object Behavior
                 DoorPos_MB_MC_C = new Vector2(32, 200);
-                DoorCollision_MB_MC_C = new Rectangle((int)DoorPos_MB_MC_C.X, (int)DoorPos_MB_MC_C.Y, 32, 64);
+                DoorCollision_MB_MC_C = new Rectangle((int)DoorPos_MB_MC_C.X + 10, (int)DoorPos_MB_MC_C.Y, 32, 64);
 
                 for (int i = 0; i < puzzleBlocks.Count; i++)
                 {
