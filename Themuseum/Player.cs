@@ -35,30 +35,30 @@ namespace Themuseum
         {
             SelfPosition = SpawningPosition;
             Sprite = new AnimatedTexture(Vector2.Zero, 0, 1, 0.5f);
-            collision = new Rectangle((int)SelfPosition.X, (int)SelfPosition.Y, 32, 48);
+            collision = new Rectangle((int)SelfPosition.X, (int)SelfPosition.Y, 65, 130);
             
         }
 
         public void LoadSprite(ContentManager Content)
         {
-            Sprite.Load(Content, "Main_Char", 4, 4, 15);
+            Sprite.Load(Content, "Player (1)", 4, 4, 15);
         }
 
         public void Draw(SpriteBatch SB, KeyboardState Keystate)
         {
             if (Keystate.IsKeyDown(Keys.A))
             {
-                framerow = 2;
+                framerow = 3;
                 Sprite.DrawFrame(SB, SelfPosition, framerow);
             }
             else if (Keystate.IsKeyDown(Keys.D))
             {
-                framerow = 3;
+                framerow = 4;
                 Sprite.DrawFrame(SB, SelfPosition, framerow);
             }
             else if (Keystate.IsKeyDown(Keys.W))
             {
-                framerow = 4;
+                framerow = 2;
                 Sprite.DrawFrame(SB, SelfPosition, framerow);
             }
             else if (Keystate.IsKeyDown(Keys.S))

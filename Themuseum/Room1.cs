@@ -58,7 +58,7 @@ namespace Themuseum
 
         public void LoadSprite(ContentManager content)
         {
-            TileStatic = content.Load<Texture2D>("room1_placeholder");
+            TileStatic = content.Load<Texture2D>("Room1 (bg)");
             Door = content.Load<Texture2D>("placeholderdoor");
             HiddenSwitch_01_Tex = content.Load<Texture2D>("hiddenswitch01_placeholder");
             HiddenSwitch_02_Tex = content.Load<Texture2D>("hiddenswitch02_placeholder");
