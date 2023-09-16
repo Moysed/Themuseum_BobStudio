@@ -18,11 +18,26 @@ namespace Themuseum
         private Texture2D Door;
         private Vector2 DoorPos_MB_MC_C;
         private Rectangle DoorCollision_MB_MC_C;
+        private Rectangle DoorCollision_End;
+        private Vector2 DoorPos_End;
         private KeyboardState KeyControls;
         private KeyboardState OldKey;
         private Texture2D WallArea_Tex;
         private List<Rectangle> WallArea_Col = new List<Rectangle>();
         private List<PuzzleBlock> puzzleBlocks = new List<PuzzleBlock>();
+        private Texture2D BlockArea;
+        private Vector2 BlockAreaPos_R;
+        private Vector2 BlockAreaPos_B;
+        private Vector2 BlockAreaPos_G;
+        private Vector2 BlockAreaPos_Y;
+        private Rectangle BlockAreaCol_R;
+        private Rectangle BlockAreaCol_B;
+        private Rectangle BlockAreaCol_G;
+        private Rectangle BlockAreaCol_Y;
+
+        private Texture2D BlockReset_Tex;
+        private Rectangle BlockReset_Col;
+        private Vector2 BlockReset_Pos;
         public MRC()
         {
             WallArea_Col.Add(new Rectangle(0, 0, 1280, 64));
@@ -30,13 +45,18 @@ namespace Themuseum
             WallArea_Col.Add(new Rectangle(1280-64, 0, 64, 640));
             WallArea_Col.Add(new Rectangle(0, 640-64, 1280, 64));
 
+            puzzleBlocks.Add(new PuzzleBlock(new Vector2(1280-256, 640-256), "Red"));
             puzzleBlocks.Add(new PuzzleBlock(new Vector2(256,256),"Blue"));
+            puzzleBlocks.Add(new PuzzleBlock(new Vector2(500, 400), "Green"));
+            puzzleBlocks.Add(new PuzzleBlock(new Vector2(900, 400), "Yellow"));
         }
 
         public void LoadSprite(ContentManager content)
         {
             WallArea_Tex = content.Load<Texture2D>("wallplaceholder");
             Door = content.Load<Texture2D>("placeholderdoor");
+            BlockArea = content.Load<Texture2D>("placeholderblock");
+            BlockReset_Tex = content.Load<Texture2D>("199-Support07");
 
             for(int i = 0; i < puzzleBlocks.Count; i++)
             {
@@ -46,6 +66,11 @@ namespace Themuseum
 
         public void Draw(SpriteBatch SB)
         {
+            SB.Draw(BlockArea, BlockAreaPos_R, new Rectangle(0, 0, 64, 64), Color.Red);
+            SB.Draw(BlockArea, BlockAreaPos_B, new Rectangle(0, 0, 64, 64), Color.Blue);
+            SB.Draw(BlockArea, BlockAreaPos_G, new Rectangle(0, 0, 64, 64), Color.Green);
+            SB.Draw(BlockArea, BlockAreaPos_Y, new Rectangle(0, 0, 64, 64), Color.Yellow);
+
             for (int i = 0; i < WallArea_Col.Count; i++)
             {
                 SB.Draw(WallArea_Tex, WallArea_Col[i], Color.White);
@@ -55,6 +80,9 @@ namespace Themuseum
                 puzzleBlocks[i].Draw(SB);
             }
             SB.Draw(Door, DoorPos_MB_MC_C, new Rectangle(6 * 32, 8 * 32, 32, 64), Color.White);
+            SB.Draw(Door, DoorPos_End, new Rectangle(6 * 32, 8 * 32, 32, 64), Color.White);
+            SB.Draw(BlockReset_Tex, BlockReset_Pos, new Rectangle(0, 128, 64, 64), Color.White);
+
         }
 
         public void Function(GraphicsDeviceManager _graphics, Player player, RoomManager roomManager, KeyManagement Keymanager, float elapsed)
@@ -109,11 +137,82 @@ namespace Themuseum
                 //Object Behavior
                 DoorPos_MB_MC_C = new Vector2(32, 200);
                 DoorCollision_MB_MC_C = new Rectangle((int)DoorPos_MB_MC_C.X + 10, (int)DoorPos_MB_MC_C.Y, 32, 64);
+                DoorPos_End = new Vector2(640,0);
+                DoorCollision_End = new Rectangle((int)DoorPos_End.X, (int)DoorPos_End.Y + 10, 32, 64);
+                BlockAreaPos_R = new Vector2(500,500);
+                BlockAreaPos_B = new Vector2(700, 200);
+                BlockAreaPos_G = new Vector2(128, 400);
+                BlockAreaPos_Y = new Vector2(1000, 500);
+                BlockAreaCol_R = new Rectangle((int)BlockAreaPos_R.X,(int)BlockAreaPos_R.Y,64,64);
+                BlockAreaCol_B = new Rectangle((int)BlockAreaPos_B.X,(int)BlockAreaPos_B.Y, 64, 64);
+                BlockAreaCol_G = new Rectangle((int)BlockAreaPos_G.X,(int)BlockAreaPos_G.Y, 64, 64);
+                BlockAreaCol_Y = new Rectangle((int)BlockAreaPos_Y.X,(int)BlockAreaPos_Y.Y, 64, 64);
+                BlockReset_Pos = new Vector2(1100, 128);
+                BlockReset_Col = new Rectangle((int)BlockReset_Pos.X, (int)BlockReset_Pos.Y, 64, 64);
 
-                for (int i = 0; i < puzzleBlocks.Count; i++)
-                {
+            for (int i = 0; i < puzzleBlocks.Count; i++)
+            {
                     puzzleBlocks[i].Behavior(player,elapsed);
+
+                if (BlockAreaCol_R.Intersects(puzzleBlocks[i].Collision) == true && puzzleBlocks[i].KeyDesignation == "Red")
+                {
+                    if(Keymanager.MRC_R_B == false)
+                    {
+                        Keymanager.MRC_R_B = true;
+                        Console.WriteLine("Block_Red in position");
+                    }
                 }
+                else if(BlockAreaCol_R.Intersects(puzzleBlocks[i].Collision) == false && puzzleBlocks[i].KeyDesignation == "Red")
+                {
+                    Keymanager.MRC_R_B = false;
+                }
+
+                if (BlockAreaCol_B.Intersects(puzzleBlocks[i].Collision) == true && puzzleBlocks[i].KeyDesignation == "Blue")
+                {
+                    if (Keymanager.MRC_B_B == false)
+                    {
+                        Keymanager.MRC_B_B = true;
+                        Console.WriteLine("Block_Blue in position");
+                    }
+                }
+                else if (BlockAreaCol_B.Intersects(puzzleBlocks[i].Collision) == false && puzzleBlocks[i].KeyDesignation == "Blue")
+                {
+                    Keymanager.MRC_B_B = false;
+                }
+
+                if (BlockAreaCol_G.Intersects(puzzleBlocks[i].Collision) == true && puzzleBlocks[i].KeyDesignation == "Green")
+                {
+                    if (Keymanager.MRC_G_B == false)
+                    {
+                        Keymanager.MRC_G_B = true;
+                        Console.WriteLine("Block_Green in position");
+                    }
+                }
+                else if (BlockAreaCol_G.Intersects(puzzleBlocks[i].Collision) == false && puzzleBlocks[i].KeyDesignation == "Green")
+                {
+                    Keymanager.MRC_G_B = false;
+                }
+
+                if (BlockAreaCol_Y.Intersects(puzzleBlocks[i].Collision) == true && puzzleBlocks[i].KeyDesignation == "Yellow")
+                {
+                    if (Keymanager.MRC_Y_B == false)
+                    {
+                        Keymanager.MRC_Y_B = true;
+                        Console.WriteLine("Block_Yellow in position");
+                    }
+                }
+                else if (BlockAreaCol_Y.Intersects(puzzleBlocks[i].Collision) == false && puzzleBlocks[i].KeyDesignation == "Yellow")
+                {
+                    Keymanager.MRC_Y_B = false;
+                }
+
+            }
+
+            if(Keymanager.MRC_R_B == true && Keymanager.MRC_B_B == true && Keymanager.MRC_G_B == true && Keymanager.MRC_Y_B == true && Keymanager.MRC_Unlock == false)
+            {
+                Console.WriteLine("All Combination in place");
+                Keymanager.MRC_Unlock = true;
+            }
 
             //Player Interaction
             if (player.collision.Intersects(DoorCollision_MB_MC_C) == true)
@@ -126,8 +225,37 @@ namespace Themuseum
                         roomManager.Roomchange(5);
                     }
                 }
+            if (player.collision.Intersects(DoorCollision_End) == true)
+            {
 
-                OldKey = KeyControls;
+                if (KeyControls.IsKeyDown(Keys.E) && OldKey.IsKeyUp(Keys.E))
+                {
+                    if(Keymanager.MRC_Unlock == false)
+                    {
+                        Console.WriteLine("MRC_Locked");
+                    }
+                    else if(Keymanager.MRC_Unlock == true)
+                    {
+                        Console.WriteLine("MRC_Unlocked");
+                    }
+                    
+                }
+            }
+            if (player.collision.Intersects(BlockReset_Col) == true)
+            {
+
+                if (KeyControls.IsKeyDown(Keys.E) && OldKey.IsKeyUp(Keys.E))
+                {
+
+                    Console.WriteLine("Puzzle Blocks Reset");
+                    for(int i = 0; i < puzzleBlocks.Count; i++)
+                    {
+                        puzzleBlocks[i].ResetPosition();
+                    }
+                }
+            }
+
+            OldKey = KeyControls;
             }
         }
     }

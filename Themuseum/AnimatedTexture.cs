@@ -34,6 +34,7 @@ namespace Themuseum
         private bool flip = false;
         private int pauseFrame = -1;
         private int pauseRow = -1;
+        
 
         public float Rotation, Scale, Depth;
         public Vector2 Origin;

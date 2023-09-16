@@ -19,8 +19,8 @@ namespace Themuseum
         private AnimatedTexture Sprite;
         private Vector2 SelfPosition;
         private Vector2 OriginalPosition;
-        private Rectangle Collision;
-        private string KeyDesignation = "";
+        public Rectangle Collision;
+        public string KeyDesignation = "";
         public PuzzleBlock(Vector2 startingposition, string DefineID)
         {
             SelfPosition = startingposition;
@@ -67,7 +67,7 @@ namespace Themuseum
                         player.SelfPosition.X -= player.speed;
                         SelfPosition.X += player.speed;
                 }
-                if (player.collision.Top >= Collision.Top)
+                if(player.collision.Top >= Collision.Top)
                 {
                     if (player.speed == 4)
                     {
@@ -78,7 +78,7 @@ namespace Themuseum
                         player.SelfPosition.Y += player.speed;
                         SelfPosition.Y -= player.speed;
                 }
-                if (player.collision.Bottom <= Collision.Bottom)
+                if(player.collision.Bottom <= Collision.Bottom)
                 {
                     if (player.speed == 4)
                     {
