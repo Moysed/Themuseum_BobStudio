@@ -34,12 +34,12 @@ namespace Themuseum
         {
             SelfPosition = SpawningPosition;
             Sprite = new AnimatedTexture(Vector2.Zero, 0, 1, 0.5f);
-            collision = new Rectangle((int)SelfPosition.X, (int)SelfPosition.Y, 65, 130);
+            collision = new Rectangle((int)SelfPosition.X, (int)SelfPosition.Y, 42, 84);
         }
 
         public void LoadSprite(ContentManager Content)
         {
-            Sprite.Load(Content, "Player (1)", 4, 4, 15);
+            Sprite.Load(Content, "Mini player", 4, 4, 15);
         }
 
         public void Draw(SpriteBatch SB, KeyboardState Keystate)
@@ -73,7 +73,7 @@ namespace Themuseum
         public void Controls(KeyboardState Keystate, LanternLight Light)
         {
             KeyControls = Keystate;
-            collision = new Rectangle((int)SelfPosition.X, (int)SelfPosition.Y, 65, 130);
+            collision = new Rectangle((int)SelfPosition.X, (int)SelfPosition.Y, 42, 84);
 
 
             if (KeyControls.IsKeyDown(Keys.A))

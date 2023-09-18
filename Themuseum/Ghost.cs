@@ -25,7 +25,7 @@ namespace Themuseum
         {
             SelfPosition = SpawningPosition;
             Sprite = new AnimatedTexture(Vector2.Zero,0,1,0.5f);
-            collision = new Rectangle((int)SelfPosition.X, (int)SelfPosition.Y,64,64);
+            collision = new Rectangle((int)SelfPosition.X, (int)SelfPosition.Y, 100, 200);
             
         }
 
@@ -37,7 +37,7 @@ namespace Themuseum
         {
             if(player.IsHaunted == true)
             {
-                collision = new Rectangle((int)SelfPosition.X, (int)SelfPosition.Y, 64, 64);
+                collision = new Rectangle((int)SelfPosition.X, (int)SelfPosition.Y, 100, 200);
 
                 Vector2 Dir = player.SelfPosition - SelfPosition;
                 Dir.Normalize();
@@ -60,7 +60,7 @@ namespace Themuseum
         public void Changestartingposition(Vector2 newPos)
         {
             SelfPosition = newPos;
-            collision = new Rectangle((int)SelfPosition.X, (int)SelfPosition.Y, 64, 64);
+            collision = new Rectangle((int)SelfPosition.X, (int)SelfPosition.Y, 100, 200);
         }
         public void UpdateAnimation(float elasped)
         {
@@ -68,7 +68,7 @@ namespace Themuseum
         }
         public void LoadSprite(ContentManager Content)
         {
-            Sprite.Load(Content, "054-Undead04", 4, 4, 4);
+            Sprite.Load(Content, "Enemy",1, 1, 1);
         }
         
         

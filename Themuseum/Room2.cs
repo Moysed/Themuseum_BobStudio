@@ -39,8 +39,8 @@ namespace Themuseum
             DoorPos = new Vector2(1280-64, 640 / 2);
             DoorCollision = new Rectangle((int)DoorPos.X, (int)DoorPos.Y, 32, 64);
             
-            WallArea_Col.Add(new Rectangle(0, 0, 500, 640));
-            WallArea_Col.Add(new Rectangle(700, 0, 1000, 300));
+            /*WallArea_Col.Add(new Rectangle(0, 0, 500, 640));
+            WallArea_Col.Add(new Rectangle(700, 0, 1000, 300));*/
 
             R2_T1_Trigger_Pos = new Vector2(640,256);
             R2_T1_Trigger_Col = new Rectangle((int)R2_T1_Trigger_Pos.X, (int)R2_T1_Trigger_Pos.X, 128, 128);
@@ -52,7 +52,7 @@ namespace Themuseum
        
         public void LoadSprite(ContentManager content)
         {
-            TileStatic = content.Load<Texture2D>("room2_placeholder");
+            TileStatic = content.Load<Texture2D>("Hallway1");
             Door = content.Load<Texture2D>("placeholderdoor");
             WallArea_Tex = content.Load<Texture2D>("wallplaceholder");
             R2_T1_Trigger_Tex = content.Load<Texture2D>("199-Support07");
@@ -66,10 +66,10 @@ namespace Themuseum
             SB.Draw(Door, DoorPos, new Rectangle(6 * 32, 8 * 32, 32, 64), Color.White);
             SB.Draw(R2_T1_Trigger_Tex, R2_T1_Trigger_Pos, new Rectangle(0, 0, 64, 64), Color.White);
 
-            for(int i = 0; i < WallArea_Col.Count; i++)
+            /*for(int i = 0; i < WallArea_Col.Count; i++)
             {
                 SB.Draw(WallArea_Tex, WallArea_Col[i], Color.White);
-            }
+            }*/
 
             if(player_pieceActive == 1) 
             {
@@ -84,27 +84,56 @@ namespace Themuseum
             KeyControls = Keyboard.GetState();
 
             //Wall Collision
-            if (player.SelfPosition.X >= _graphics.GraphicsDevice.Viewport.Bounds.Right - 120)
+            if (player.SelfPosition.X >= _graphics.GraphicsDevice.Viewport.Bounds.Right - 475)
             {
-                if (player.speed == 4)
+                if (player.SelfPosition.Y <= _graphics.GraphicsDevice.Viewport.Bounds.Top + 365)
                 {
-                    player.SelfPosition.X -= player.speed * 2;
+                    if (player.speed == 4)
+                    {
+                        player.SelfPosition.X -= player.speed * 2;
+                    }
+                    else
+                        player.SelfPosition.X -= player.speed;
                 }
-                else
-                    player.SelfPosition.X -= player.speed;
+            }
+            if (player.SelfPosition.X >= _graphics.GraphicsDevice.Viewport.Bounds.Right - 590)
+            {
+                if (player.SelfPosition.Y > _graphics.GraphicsDevice.Viewport.Bounds.Top + 300)
+                {
+                    if (player.speed == 4)
+                    {
+                        player.SelfPosition.X -= player.speed * 2;
+                    }
+                    else
+                        player.SelfPosition.X -= player.speed;
+                }
+            }
+            else if (player.SelfPosition.X <= _graphics.GraphicsDevice.Viewport.Bounds.Left + 435)
+            {
+                if (player.SelfPosition.Y <= _graphics.GraphicsDevice.Viewport.Bounds.Top + 365)
+                {
+                    if (player.speed == 4)
+                    {
+                        player.SelfPosition.X += player.speed * 2;
+                    }
+                    else
+                        player.SelfPosition.X += player.speed;
+                }
+            }
+            else if (player.SelfPosition.X <= _graphics.GraphicsDevice.Viewport.Bounds.Left + 544)            
+            {
+                if (player.SelfPosition.Y > _graphics.GraphicsDevice.Viewport.Bounds.Top + 300)
+                {
+                    if (player.speed == 4)
+                    {
+                        player.SelfPosition.X += player.speed * 2;
+                    }
+                    else
+                        player.SelfPosition.X += player.speed;
+                }
             }
 
-            else if (player.SelfPosition.X <= _graphics.GraphicsDevice.Viewport.Bounds.Left + 64)
-            {
-                if (player.speed == 4)
-                {
-                    player.SelfPosition.X += player.speed * 2;
-                }
-                else
-                    player.SelfPosition.X += player.speed;
-            }
-
-            else if (player.SelfPosition.Y <= _graphics.GraphicsDevice.Viewport.Bounds.Top + 64)
+            else if (player.SelfPosition.Y <= _graphics.GraphicsDevice.Viewport.Bounds.Top + 180)
             {
                 if (player.speed == 4)
                 {
@@ -136,14 +165,17 @@ namespace Themuseum
                         else
                             player.SelfPosition.X += player.speed;
                     }
-                    if(player.collision.Left <= WallArea_Col[i].Left)
+                    else if (player.SelfPosition.X <= _graphics.GraphicsDevice.Viewport.Bounds.Left + 435)
                     {
-                        if (player.speed == 4)
+                        if (player.SelfPosition.Y <= _graphics.GraphicsDevice.Viewport.Bounds.Top + 365)
                         {
-                            player.SelfPosition.X -= player.speed * 2;
+                            if (player.speed == 4)
+                            {
+                                player.SelfPosition.X += player.speed * 2;
+                            }
+                            else
+                                player.SelfPosition.X += player.speed;
                         }
-                        else
-                            player.SelfPosition.X -= player.speed;
                     }
                     if (player.collision.Top >= WallArea_Col[i].Top)
                     {
@@ -167,6 +199,7 @@ namespace Themuseum
                     }
 
                 }
+
                if(Keymanager.MRB_PieceActive == true)
                 {
                     player_pieceActive = 1;
@@ -186,6 +219,7 @@ namespace Themuseum
             Rectangle piece4Col = new Rectangle((int)piece4Pos.X, (int)piece4Pos.Y, 64, 64);
 
             //Object Interaction
+
             if (player.collision.Intersects(DoorCollision) == true)
             {
                 if (KeyControls.IsKeyDown(Keys.E) && OldKey.IsKeyUp(Keys.E))
