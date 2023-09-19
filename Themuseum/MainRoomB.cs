@@ -58,7 +58,7 @@ namespace Themuseum
            SB.Draw(piece5, piece5Pos, Color.White);
            SB.Draw(piece6, piece6Pos, Color.White);
         }
-        public void Function(GraphicsDeviceManager _graphics, Player player, RoomManager roomManager, KeyManagement Keymanager, float elapsed)
+        public void Function(GraphicsDeviceManager _graphics, Player player, RoomManager roomManager, KeyManagement Keymanager, float elapsed, DialogueBox dialogue)
         {
             keycontrols = Keyboard.GetState();
             //Object Hitbox

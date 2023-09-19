@@ -83,7 +83,7 @@ namespace Themuseum
             }
         }
 
-        public void Function(GraphicsDeviceManager _graphics, Player player,RoomManager roomManager, KeyManagement Keymanager, float elapsed)
+        public void Function(GraphicsDeviceManager _graphics, Player player,RoomManager roomManager, KeyManagement Keymanager, float elapsed, DialogueBox dialogue)
         {
             
             KeyControls = Keyboard.GetState();
@@ -168,6 +168,8 @@ namespace Themuseum
                 if (KeyControls.IsKeyDown(Keys.E) && OldKey.IsKeyUp(Keys.E))
                 {
                     Keymanager.KeyTrigger("R1_S1");
+                    dialogue.SettingParameter("placeholderblock", 200, 200, "1st Hidden Switch Activated", Color.Green);
+                    dialogue.Activation(true);
                     Console.WriteLine("R1_S1");
                 }
             }

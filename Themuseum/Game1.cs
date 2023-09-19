@@ -16,6 +16,7 @@ namespace Themuseum
         private KeyboardState Keystate;
         private KeyManagement KeyManagement;
         private Ghost ghost;
+        private DialogueBox dialogue;
         
         
         public Game1()
@@ -33,9 +34,10 @@ namespace Themuseum
             player = new Player(new Vector2(_graphics.GraphicsDevice.Viewport.Width / 2,_graphics.GraphicsDevice.Viewport.Height / 2));
             light = new LanternLight();
             staminabar = new Staminabar(player.MaxStamina);
-            roomManager = new RoomManager(2);
+            roomManager = new RoomManager(1);
             KeyManagement = new KeyManagement();
             ghost = new Ghost(new Vector2(10000,10000));
+            dialogue = new DialogueBox("placeholderblock", 200, 200);
             base.Initialize();
         }
 
@@ -47,6 +49,7 @@ namespace Themuseum
             staminabar.LoadSprite(Content);
             roomManager.LoadAssets(Content);
             ghost.LoadSprite(Content);
+            dialogue.LoadResource(Content);
             
             // TODO: use this.Content to load your game content here
         }
@@ -63,7 +66,8 @@ namespace Themuseum
             staminabar.UpdateBar(player.SelfPosition, player.UpdateStamina());
             ghost.Behavior(player, light);
             ghost.UpdateAnimation(elapsed);
-            roomManager.RoomFunction(_graphics, player, KeyManagement, elapsed);
+            roomManager.RoomFunction(_graphics, player, KeyManagement, elapsed,dialogue);
+            dialogue.behavior();
            
             
 
@@ -83,6 +87,7 @@ namespace Themuseum
             light.Drawlight(_spriteBatch);
             staminabar.Drawbar(_spriteBatch);
             ghost.Draw(_spriteBatch);
+            dialogue.Draw(_spriteBatch);
 
             _spriteBatch.End();
 
