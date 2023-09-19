@@ -10,7 +10,6 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
-using SharpDX.Direct3D9;
 
 namespace Themuseum
 {
@@ -25,7 +24,7 @@ namespace Themuseum
         {
             SelfPosition = SpawningPosition;
             Sprite = new AnimatedTexture(Vector2.Zero,0,1,0.5f);
-            collision = new Rectangle((int)SelfPosition.X, (int)SelfPosition.Y, 100, 200);
+            collision = new Rectangle((int)SelfPosition.X, (int)SelfPosition.Y, 82, 200);
             
         }
 
@@ -37,7 +36,7 @@ namespace Themuseum
         {
             if(player.IsHaunted == true)
             {
-                collision = new Rectangle((int)SelfPosition.X, (int)SelfPosition.Y, 100, 200);
+                collision = new Rectangle((int)SelfPosition.X, (int)SelfPosition.Y, 82, 200);
 
                 Vector2 Dir = player.SelfPosition - SelfPosition;
                 Dir.Normalize();
@@ -60,7 +59,7 @@ namespace Themuseum
         public void Changestartingposition(Vector2 newPos)
         {
             SelfPosition = newPos;
-            collision = new Rectangle((int)SelfPosition.X, (int)SelfPosition.Y, 100, 200);
+            collision = new Rectangle((int)SelfPosition.X, (int)SelfPosition.Y, 82, 200);
         }
         public void UpdateAnimation(float elasped)
         {
@@ -68,7 +67,7 @@ namespace Themuseum
         }
         public void LoadSprite(ContentManager Content)
         {
-            Sprite.Load(Content, "Enemy",1, 1, 1);
+            Sprite.Load(Content, "Ghost", 1, 1, 1);
         }
         
         

@@ -181,7 +181,7 @@
 /processorParam:TextureFormat=Color
 /build:EmptyBar.png
 
-#begin Enemy.png
+#begin Ghost.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -191,7 +191,7 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Enemy.png
+/build:Ghost.png
 
 #begin Hallway1.png
 /importer:TextureImporter
@@ -289,18 +289,6 @@
 /processor:SongProcessor
 /processorParam:Quality=Best
 /build:Marked.mp3
-
-#begin Mini player.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Mini player.png
 
 #begin Mini player.png
 /importer:TextureImporter
@@ -541,6 +529,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:TX Tileset Wall.png
+
+#begin Untitled_Artwork 2 (1).png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Untitled_Artwork 2 (1).png
 
 #begin wallplaceholder.png
 /importer:TextureImporter

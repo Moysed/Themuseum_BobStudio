@@ -36,7 +36,7 @@ namespace Themuseum
         public Room2()
         {
             random = new Random();
-            DoorPos = new Vector2(1280-64, 640 / 2);
+            DoorPos = new Vector2(840, 252);
             DoorCollision = new Rectangle((int)DoorPos.X, (int)DoorPos.Y, 32, 64);
             
             /*WallArea_Col.Add(new Rectangle(0, 0, 500, 640));
@@ -135,12 +135,12 @@ namespace Themuseum
 
             else if (player.SelfPosition.Y <= _graphics.GraphicsDevice.Viewport.Bounds.Top + 180)
             {
-                if (player.speed == 4)
-                {
-                    player.SelfPosition.Y += player.speed * 2;
-                }
-                else
-                    player.SelfPosition.Y += player.speed;
+                    if (player.speed == 4)
+                    {
+                        player.SelfPosition.Y += player.speed * 2;
+                    }
+                    else
+                        player.SelfPosition.Y += player.speed;
             }
             else if (player.SelfPosition.Y >= _graphics.GraphicsDevice.Viewport.Bounds.Bottom - 185)
             {
@@ -209,7 +209,7 @@ namespace Themuseum
 
             }
             //Object Behavior
-            DoorPos = new Vector2(1280 - 64, 640 / 2);
+            DoorPos = new Vector2(840, 252);
             DoorCollision = new Rectangle((int)DoorPos.X, (int)DoorPos.Y, 32, 64);
             EndofHallway = new Rectangle(500, 0, 200, 70);
             R2_T1_Trigger_Pos = new Vector2(540, 256);
@@ -240,7 +240,7 @@ namespace Themuseum
             if(player.collision.Intersects(EndofHallway) == true)
             {
                 Console.WriteLine("Changed to Room3");
-                player.ChangeStartingPosition(new Vector2(player.SelfPosition.X, 450));
+                player.ChangeStartingPosition(new Vector2(player.SelfPosition.X, player.SelfPosition.Y));
                 roomManager.Roomchange(3);
             }
 
