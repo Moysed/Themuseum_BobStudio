@@ -42,7 +42,7 @@ namespace Themuseum
 
         public Room1()
         {
-            DoorPos = new Vector2(64, 252);
+            DoorPos = new Vector2(0, 64);
             DoorCollision = new Rectangle((int)DoorPos.X, (int)DoorPos.Y, 32, 64);
             HiddenSwitch_01_Pos = new Vector2(1000,320);
             HiddenSwitch_01_Col = new Rectangle((int)HiddenSwitch_01_Pos.X, (int)HiddenSwitch_01_Pos.Y,64,64);
@@ -119,7 +119,7 @@ namespace Themuseum
                 else
                     player.SelfPosition.Y += player.speed;
             }
-            else if (player.SelfPosition.Y >= _graphics.GraphicsDevice.Viewport.Bounds.Bottom - 128 - 64)
+            else if (player.SelfPosition.Y >= _graphics.GraphicsDevice.Viewport.Bounds.Bottom - 142)
             {
                 if (player.speed >= 4)
                 {
@@ -129,7 +129,7 @@ namespace Themuseum
                     player.SelfPosition.Y -= player.speed;
             }
             //Objects Behavior
-            DoorPos = new Vector2(64, 252);
+            DoorPos = new Vector2(300, 50);
             DoorCollision = new Rectangle((int)DoorPos.X, (int)DoorPos.Y, 32, 64);
             R1_Shire.Behavior(player, elapsed);
             HiddenSwitch_01_Pos = new Vector2(1000, 320);
@@ -156,7 +156,7 @@ namespace Themuseum
             {
                 if(KeyControls.IsKeyDown(Keys.E) && OldKey.IsKeyUp(Keys.E) && Keymanager.R1_S1 == true)
                 {
-                    player.ChangeStartingPosition(new Vector2(_graphics.GraphicsDevice.Viewport.Bounds.Right - 150, player.SelfPosition.Y));
+                    player.ChangeStartingPosition(new Vector2(_graphics.GraphicsDevice.Viewport.Width/2, _graphics.GraphicsDevice.Viewport.Bounds.Bottom - 128));
                     roomManager.Roomchange(2);
                     Console.WriteLine("Door Opened");
                 }
