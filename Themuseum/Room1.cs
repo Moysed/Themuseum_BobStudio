@@ -33,10 +33,13 @@ namespace Themuseum
         private Vector2 piece1Pos;
         private Texture2D piece2;
         private Vector2 piece2Pos;
+        private Rectangle piece1Col;
+        private Rectangle piece2Col;
         private int player_pieceActive = 0;
         private KeyboardState KeyControls;
         private KeyboardState OldKey;
-       Random r = new Random();
+       
+        Random r = new Random();
 
         
 
@@ -68,22 +71,43 @@ namespace Themuseum
             piece2 = content.Load<Texture2D>("Piece2");
         }
         
-        public void Draw(SpriteBatch SB)
+        public void Draw(SpriteBatch SB,LanternLight light)
         {
             SB.Draw(TileStatic, Vector2.Zero, Color.White);
             SB.Draw(Door, DoorPos, new Rectangle(6 * 32, 8 * 32, 32, 64), Color.White);
-            SB.Draw(HiddenSwitch_01_Tex, HiddenSwitch_01_Pos, Color.White);
-            SB.Draw(HiddenSwitch_02_Tex, HiddenSwitch_02_Pos, Color.White);
-            SB.Draw(HiddenSwitch_03_Tex, HiddenSwitch_03_Pos, Color.White);
+            if (light.Collision.Intersects(HiddenSwitch_01_Col))
+            {
+                SB.Draw(HiddenSwitch_01_Tex, HiddenSwitch_01_Pos, Color.White);
+            }
+            else if (light.Collision.Intersects(HiddenSwitch_02_Col))
+            {
+                SB.Draw(HiddenSwitch_02_Tex, HiddenSwitch_02_Pos, Color.White);
+            }
+            else if (light.Collision.Intersects(HiddenSwitch_03_Col))
+            {
+                SB.Draw(HiddenSwitch_03_Tex, HiddenSwitch_03_Pos, Color.White);
+            }
+
+            
+            
+            
             R1_Shire.Draw(SB);
             if (player_pieceActive == 1)
             {
-                SB.Draw(piece1, piece1Pos, Color.White);
-                SB.Draw(piece2, piece2Pos, Color.White);
+                if (light.Collision.Intersects(piece1Col))
+                {
+                    SB.Draw(piece1, piece1Pos, Color.White);
+                }
+                else if (light.Collision.Intersects(piece1Col))
+                {
+                    SB.Draw(piece2, piece2Pos, Color.White);
+                }
+
+                
             }
         }
 
-        public void Function(GraphicsDeviceManager _graphics, Player player,RoomManager roomManager, KeyManagement Keymanager, float elapsed, DialogueBox dialogue)
+        public void Function(GraphicsDeviceManager _graphics, Player player,RoomManager roomManager, KeyManagement Keymanager, float elapsed, DialogueBox dialogue,LanternLight light)
         {
             
             KeyControls = Keyboard.GetState();
@@ -137,8 +161,8 @@ namespace Themuseum
             HiddenSwitch_02_Col = new Rectangle((int)HiddenSwitch_02_Pos.X, (int)HiddenSwitch_02_Pos.Y, 64, 64);
             HiddenSwitch_03_Col = new Rectangle((int)HiddenSwitch_03_Pos.X, (int)HiddenSwitch_03_Pos.Y, 64, 64);
 
-            Rectangle piece1Col = new Rectangle((int)piece1Pos.X, (int)piece1Pos.Y, 64, 64);
-            Rectangle piece2Col = new Rectangle((int)piece2Pos.X, (int)piece2Pos.Y, 64, 64);
+            piece1Col = new Rectangle((int)piece1Pos.X, (int)piece1Pos.Y, 64, 64);
+            piece2Col = new Rectangle((int)piece2Pos.X, (int)piece2Pos.Y, 64, 64);
 
             if (Keymanager.R2_T1 == false)
             {

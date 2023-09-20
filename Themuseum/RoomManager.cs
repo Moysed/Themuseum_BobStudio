@@ -43,11 +43,11 @@ namespace Themuseum
             mrc.LoadSprite(content);
         }
 
-        public void Draw(SpriteBatch SB)
+        public void Draw(SpriteBatch SB, LanternLight light)
         {
             switch (roomnum)
             {
-                case 1: room1.Draw(SB); break;
+                case 1: room1.Draw(SB,light); break;
                 case 2: room2.Draw(SB); break;
                 case 3: room3.Draw(SB); break;
                 case 4: MRB.Draw(SB); break;
@@ -55,11 +55,11 @@ namespace Themuseum
                 case 6: mrc.Draw(SB); break;
             }
         }
-        public void RoomFunction(GraphicsDeviceManager _graphics, Player player , KeyManagement keymanager, float elapsed, DialogueBox dialogue)
+        public void RoomFunction(GraphicsDeviceManager _graphics, Player player , KeyManagement keymanager, float elapsed, DialogueBox dialogue, LanternLight light)
         {
             switch (roomnum)
             {
-                case 1: room1.Function(_graphics,player,this, keymanager, elapsed,dialogue); break;
+                case 1: room1.Function(_graphics,player,this, keymanager, elapsed,dialogue,light); break;
                 case 2: room2.Function(_graphics, player,this, keymanager, elapsed,dialogue); break;
                 case 3: room3.Function(_graphics, player, this, keymanager, elapsed, dialogue); break;       
                 case 4: MRB.Function(_graphics, player, this, keymanager, elapsed, dialogue); break;
