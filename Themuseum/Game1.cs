@@ -34,7 +34,7 @@ namespace Themuseum
             player = new Player(new Vector2(_graphics.GraphicsDevice.Viewport.Width / 2,_graphics.GraphicsDevice.Viewport.Height / 2));
             light = new LanternLight();
             staminabar = new Staminabar(player.MaxStamina);
-            roomManager = new RoomManager(1);
+            roomManager = new RoomManager(4);
             KeyManagement = new KeyManagement();
             ghost = new Ghost(new Vector2(10000,10000));
             dialogue = new DialogueBox("placeholderblock", 200, 200);

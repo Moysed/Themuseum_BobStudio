@@ -66,7 +66,7 @@ namespace Themuseum
             Rectangle piece5Col = new Rectangle((int)piece5Pos.X, (int)piece5Pos.Y, 64, 64);
             Rectangle piece6Col = new Rectangle((int)piece6Pos.X, (int)piece6Pos.Y, 64, 64);
 
-            DoorCollision = new Rectangle((int)DoorPos.X, (int)DoorPos.Y , 32, 30);
+            DoorCollision = new Rectangle((int)DoorPos.X , (int)DoorPos.Y - 5, 32, 30);
 
             //Wall Collision
             if (player.SelfPosition.X >= _graphics.GraphicsDevice.Viewport.Bounds.Right - 116)
@@ -98,7 +98,7 @@ namespace Themuseum
                 else
                     player.SelfPosition.Y += player.speed;
             }
-            else if(player.SelfPosition.Y >= _graphics.GraphicsDevice.Viewport.Bounds.Bottom - 190)
+            else if(player.SelfPosition.Y >= _graphics.GraphicsDevice.Viewport.Bounds.Bottom - 145)
             {
                 if (player.speed == 4)
                 {

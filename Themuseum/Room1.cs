@@ -169,7 +169,7 @@ namespace Themuseum
                 {
                     Keymanager.KeyTrigger("R1_S1");
                     dialogue.SettingParameter("placeholderblock", 200, 200, "1st Hidden Switch Activated", Color.Green);
-                    dialogue.Activation(true);
+                    //dialogue.Activation(true);
                     Console.WriteLine("R1_S1");
                 }
             }
