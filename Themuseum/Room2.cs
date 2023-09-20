@@ -7,7 +7,6 @@ using Microsoft.Xna.Framework.Media;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection.Metadata;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -15,7 +14,8 @@ namespace Themuseum
 {
     class Room2 
     {
-        private Texture2D TileStatic;
+        
+        private AnimatedTexture TileAnimated;
         private Texture2D Door;
         private Vector2 DoorPos;
         private Rectangle DoorCollision;
@@ -38,7 +38,7 @@ namespace Themuseum
             random = new Random();
             DoorPos = new Vector2(840, 252);
             DoorCollision = new Rectangle((int)DoorPos.X, (int)DoorPos.Y, 32, 64);
-            
+            TileAnimated = new AnimatedTexture(Vector2.Zero, 0, 1, 0.5f);
             WallArea_Col.Add(new Rectangle(0, 0, 432, 400));
             WallArea_Col.Add(new Rectangle(0, 360, 550, 400));
             WallArea_Col.Add(new Rectangle(850, 0, 432, 400));
@@ -56,7 +56,8 @@ namespace Themuseum
        
         public void LoadSprite(ContentManager content)
         {
-            TileStatic = content.Load<Texture2D>("Hallway1");
+           // TileStatic = content.Load<Texture2D>("Hallway1");
+            TileAnimated.Load(content,"AnimatedRoom2Sprite", 12, 1, 15);
             Door = content.Load<Texture2D>("placeholderdoor");
             WallArea_Tex = content.Load<Texture2D>("wallplaceholder");
             R2_T1_Trigger_Tex = content.Load<Texture2D>("199-Support07");
@@ -66,7 +67,8 @@ namespace Themuseum
 
         public void Draw(SpriteBatch SB)
         {
-            SB.Draw(TileStatic, Vector2.Zero, Color.White);
+          // SB.Draw(TileStatic, Vector2.Zero, Color.White);
+            TileAnimated.DrawFrame(SB, Vector2.Zero,1);
             //SB.Draw(Door, DoorPos, new Rectangle(6 * 32, 8 * 32, 32, 64), Color.White);
             SB.Draw(R2_T1_Trigger_Tex, R2_T1_Trigger_Pos, new Rectangle(0, 0, 64, 64), Color.White);
 
@@ -139,8 +141,8 @@ namespace Themuseum
                 {
                     player_pieceActive = 1;
                 }
-               
-                
+
+                TileAnimated.UpdateFrame(elapsed);
 
             }
             //Object Behavior

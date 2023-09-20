@@ -24,7 +24,7 @@ namespace Themuseum
         private int Frame;
         private int framerow = 1; // frame row
         private int frame_r; // count frame row 
-       private int startframe;
+        private int startframe;
         private int endframe;
         private float TotalElapsed;
         private bool Paused;
