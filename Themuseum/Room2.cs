@@ -177,7 +177,7 @@ namespace Themuseum
             {
                 if(KeyControls.IsKeyDown(Keys.E) && OldKey.IsKeyUp(Keys.E)){
                     Console.WriteLine("Changed to Room3");
-                    player.ChangeStartingPosition(new Vector2(player.SelfPosition.X, player.SelfPosition.Y));
+                    player.ChangeStartingPosition(new Vector2(player.SelfPosition.X, 500));
                     roomManager.Roomchange(3);
                 }
                 

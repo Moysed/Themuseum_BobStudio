@@ -152,7 +152,7 @@ namespace Themuseum
                 if (player.collision.Intersects(BacktoRoom2) == true)
                 {
                     Console.WriteLine("Changed to Room2");
-                    player.ChangeStartingPosition(new Vector2(player.SelfPosition.X, 70));
+                    player.ChangeStartingPosition(new Vector2(player.SelfPosition.X, 200));
                     roomManager.Roomchange(2);
                 }
                 if (player.collision.Intersects(DoorCollision) == true)
