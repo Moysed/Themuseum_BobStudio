@@ -27,6 +27,7 @@ namespace Themuseum
         public bool MRC_Y_B = false;
         public bool MRC_G_B = false;
         public bool MRC_Unlock = false;
+        public bool GameEnded = false;
         public KeyManagement()
         {
 

@@ -16,7 +16,7 @@ namespace Themuseum
 {
     class MRC
     {
-        public bool IsEnded = false;
+        
 
         private Texture2D Door;
         private Vector2 DoorPos_MB_MC_C;
@@ -242,7 +242,7 @@ namespace Themuseum
                     else if (Keymanager.MRC_Unlock == true)
                     {
                         Console.WriteLine("MRC_Unlocked");
-                        IsEnded = true;
+                        Keymanager.GameEnded = true;
                     }
 
                 }
@@ -262,10 +262,7 @@ namespace Themuseum
             }
             OldKey = KeyControls;
         }
-        public bool EndCheck()
-        {
-            return IsEnded;
-        }
+       
     }
    
 

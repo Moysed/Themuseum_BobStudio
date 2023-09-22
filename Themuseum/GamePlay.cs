@@ -18,11 +18,11 @@ namespace Themuseum
         private Ghost ghost;
         private DialogueBox dialogue;
         RoomManager roomManager;
-        private MRC mrc;
+        
 
         Game1 game; public GamePlay(Game1 game, EventHandler theScreenEvent) : base(theScreenEvent)
         {
-            mrc = new MRC();
+            
             player = new Player(new Vector2(game._graphics.GraphicsDevice.Viewport.Width / 2, game._graphics.GraphicsDevice.Viewport.Height / 2));
             light = new LanternLight();
             staminabar = new Staminabar(player.MaxStamina);
@@ -56,16 +56,17 @@ namespace Themuseum
             ghost.Behavior(player, light);
             ghost.UpdateAnimation(elapsed);
             dialogue.behavior();
-            mrc.EndCheck();
+            
 
 
-
-            if(mrc.IsEnded == true)
+            
+            if(KeyManagement.GameEnded == true)
             {
+                Console.WriteLine("Game Won");
                 ScreenEvent.Invoke(game.winScreen, new EventArgs());
                 return;
             }
-
+            
            
            
 
