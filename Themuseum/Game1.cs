@@ -1,24 +1,30 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System;
 
 namespace Themuseum
 {
     public class Game1 : Game
     {
         //Game Object
-        private GraphicsDeviceManager _graphics;
+        public GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
         private Player player;
         private LanternLight light;
         private Staminabar staminabar;
-        private RoomManager roomManager;
+        //private RoomManager roomManager;
         private KeyboardState Keystate;
         private KeyManagement KeyManagement;
         private Ghost ghost;
         private DialogueBox dialogue;
-        
-        
+        private Mainmenu mainmenu;
+        private Screen mCurrentScreen;
+        public GameOver mGameoverScreen;
+        public WinScreen  winScreen;
+        public GamePlay mGameplay;
+
+
         public Game1()
         {
             _graphics = new GraphicsDeviceManager(this);
@@ -31,25 +37,24 @@ namespace Themuseum
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-            player = new Player(new Vector2(_graphics.GraphicsDevice.Viewport.Width / 2,_graphics.GraphicsDevice.Viewport.Height / 2));
-            light = new LanternLight();
-            staminabar = new Staminabar(player.MaxStamina);
-            roomManager = new RoomManager(3);
+            
+            //roomManager = new RoomManager(6);
             KeyManagement = new KeyManagement();
-            ghost = new Ghost(new Vector2(10000,10000));
+           
             dialogue = new DialogueBox("placeholderblock", 200, 200);
+            mainmenu = new Mainmenu(this, new EventHandler(GameplayScreenEvent));
+            mGameoverScreen = new GameOver(this , new EventHandler(GameplayScreenEvent));
+            winScreen = new WinScreen(this, new EventHandler(GameplayScreenEvent));
+            mGameplay = new GamePlay(this, new EventHandler(GameplayScreenEvent));
             base.Initialize();
         }
 
         protected override void LoadContent()
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
-            player.LoadSprite(Content);
-            light.LoadSprite(Content);
-            staminabar.LoadSprite(Content);
-            roomManager.LoadAssets(Content);
-            ghost.LoadSprite(Content);
+
             dialogue.LoadResource(Content);
+            mCurrentScreen = mainmenu;
             
             // TODO: use this.Content to load your game content here
         }
@@ -61,13 +66,10 @@ namespace Themuseum
             float elapsed = (float)gameTime.ElapsedGameTime.TotalSeconds;
             Keystate = Keyboard.GetState();
 
-            player.Controls(Keystate,light);
-            player.UpdateAnimation(elapsed);
-            staminabar.UpdateBar(player.SelfPosition, player.UpdateStamina());
-            ghost.Behavior(player, light);
-            ghost.UpdateAnimation(elapsed);
-            roomManager.RoomFunction(_graphics, player, KeyManagement, elapsed,dialogue,light);
+
+            //roomManager.RoomFunction(_graphics, player, KeyManagement, elapsed,dialogue,light);
             dialogue.behavior();
+            mCurrentScreen.Update(gameTime);
            
             
 
@@ -82,18 +84,20 @@ namespace Themuseum
 
             _spriteBatch.Begin();
 
-            roomManager.Draw(_spriteBatch,light);
-            player.Draw(_spriteBatch,Keystate);
-            light.Drawlight(_spriteBatch);
-            staminabar.Drawbar(_spriteBatch);
-            ghost.Draw(_spriteBatch);
+            //roomManager.Draw(_spriteBatch,light);
+
             dialogue.Draw(_spriteBatch);
+            mCurrentScreen.Draw(_spriteBatch);
 
             _spriteBatch.End();
 
             // TODO: Add your drawing code here
 
             base.Draw(gameTime);
+        }
+        public void GameplayScreenEvent(object obj, EventArgs e)
+        {
+            mCurrentScreen = (Screen)obj;
         }
     }
 }

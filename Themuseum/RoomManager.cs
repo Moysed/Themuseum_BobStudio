@@ -12,7 +12,7 @@ using Microsoft.Xna.Framework.Media;
 
 namespace Themuseum
 {
-    class RoomManager
+    class RoomManager : Game1
     {
         private int roomnum = 0;
         private Room1 room1;
@@ -21,7 +21,7 @@ namespace Themuseum
         private MainRoomB MRB;
         private MRB_To_MRC_Corridor MRB_MRC_Cor;
         private MRC mrc;
-        public RoomManager(int startingroom)
+         public RoomManager(int startingroom)
         {
             roomnum = startingroom;
             room1 = new Room1();

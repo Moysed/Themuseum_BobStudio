@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace Themuseum
 {
-    class Room1 : Game1
+    class Room1
     {
         private Texture2D TileStatic;
         private Texture2D Door;
@@ -41,10 +41,11 @@ namespace Themuseum
        
         Random r = new Random();
 
-        
+        SpriteBatch spriteBatch;
 
         public Room1()
         {
+       
             DoorPos = new Vector2(0, 64);
             DoorCollision = new Rectangle((int)DoorPos.X, (int)DoorPos.Y, 32, 64);
             HiddenSwitch_01_Pos = new Vector2(1000,320);
@@ -88,9 +89,6 @@ namespace Themuseum
                 SB.Draw(HiddenSwitch_03_Tex, HiddenSwitch_03_Pos, Color.White);
             }
 
-            
-            
-            
             R1_Shire.Draw(SB);
             if (player_pieceActive == 1)
             {
@@ -101,9 +99,7 @@ namespace Themuseum
                 else if (light.Collision.Intersects(piece1Col))
                 {
                     SB.Draw(piece2, piece2Pos, Color.White);
-                }
-
-                
+                }     
             }
         }
 

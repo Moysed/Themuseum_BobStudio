@@ -13,6 +13,18 @@
 
 #---------------------------------- Content ---------------------------------#
 
+#begin ../../../../../../../Downloads/gameover_placeholder.jpg
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:../../../../../../../Downloads/gameover_placeholder.jpg;gameover_placeholder.jpg
+
 #begin 005-System05.mp3
 /importer:Mp3Importer
 /processor:SoundEffectProcessor
@@ -163,18 +175,6 @@
 /processorParam:TextureFormat=Color
 /build:AnimatedRoom2Sprite.png
 
-#begin AnimatedRoom2Sprite.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:AnimatedRoom2Sprite.png
-
 #begin BGM(Concept).mp3
 /importer:Mp3Importer
 /processor:SongProcessor
@@ -204,6 +204,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:EmptyBar.png
+
+#begin gameover_placeholder.jpg
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:gameover_placeholder.jpg
 
 #begin Ghost.png
 /importer:TextureImporter
@@ -307,6 +319,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Main_Char.png
+
+#begin mainmenu_placeholder.jpg
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:mainmenu_placeholder.jpg
 
 #begin Marked.mp3
 /importer:Mp3Importer
@@ -530,6 +554,18 @@
 /processorParam:TextureFormat=Color
 /build:room3_placeholder.png
 
+#begin startbutton_placeholder.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:startbutton_placeholder.png
+
 #begin Statue.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -565,4 +601,16 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:wallplaceholder.png
+
+#begin win_placeholder.jpg
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:win_placeholder.jpg
 
