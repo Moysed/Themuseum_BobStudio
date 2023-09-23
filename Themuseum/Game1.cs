@@ -70,7 +70,6 @@ namespace Themuseum
             //roomManager.RoomFunction(_graphics, player, KeyManagement, elapsed,dialogue,light);
             dialogue.behavior();
             mCurrentScreen.Update(gameTime);
-           
             
 
             // TODO: Add your update logic here

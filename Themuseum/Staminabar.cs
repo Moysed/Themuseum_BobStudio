@@ -49,7 +49,7 @@ namespace Themuseum
             BarColor = Content.Load<Texture2D>("Mana");
             CandleBackground = Content.Load<Texture2D>("FullCandle_Bg");
             CandleBar = Content.Load<Texture2D>("FullCandle");
-            PlayerStatusUI.Load(Content, "UI_Status_Sprite", 8, 2, 15);
+            PlayerStatusUI.Load(Content, "UI_Status_Sprite", 8, 2, 4);
         }
 
         public void UpdateBar(float StaminaValue,float OilValue,float elapsed)

@@ -142,20 +142,16 @@ namespace Themuseum
                 CurrentStamina = 100;
             }
 
-            if(KeyControls.IsKeyDown(Keys.F) && CurrentFuel > 0)
+            if (KeyControls.IsKeyDown(Keys.F) && CurrentFuel > 0 && Light.IsActive == true)
             {
                 CurrentFuel--;
                 Light.LightActivate(this);
+                Console.WriteLine(CurrentFuel);
             }
-            else if(KeyControls.IsKeyUp(Keys.F) || CurrentFuel <= 0)
+            else if (KeyControls.IsKeyUp(Keys.F) || CurrentFuel <= 0 && Light.IsActive == false)
             {
                 Light.LightDeactivate();
-            }
-
-
-           
-           
-
+            } 
         }
 
 

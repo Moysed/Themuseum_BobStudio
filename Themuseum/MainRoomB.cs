@@ -15,7 +15,8 @@ namespace Themuseum
 
     class MainRoomB
     {
-
+        private Texture2D hint;
+        private Vector2 hintPos;
         private Texture2D TileStatic;
         private Texture2D Door;
         private Vector2 DoorPos;
@@ -31,7 +32,6 @@ namespace Themuseum
         KeyboardState keycontrols;
         Random random;
 
-
         public MainRoomB()
         {
             random = new Random();
@@ -39,10 +39,12 @@ namespace Themuseum
             statuePos = new Vector2(500, 500);
             piece5Pos = new Vector2(random.Next(64,200), random.Next(100,200));
             piece6Pos = new Vector2(random.Next(400,800),random.Next(150,500));
+            hintPos = new Vector2(500, 200);
         }
 
         public void LoadContent(ContentManager content)
         {
+            hint = content.Load<Texture2D>("Hint");
             TileStatic = content.Load<Texture2D>("room3_placeholder");
             Door = content.Load<Texture2D>("placeholderdoor");
             statue = content.Load<Texture2D>("Statue");
@@ -57,6 +59,7 @@ namespace Themuseum
            SB.Draw(statue, statuePos, Color.White);
            SB.Draw(piece5, piece5Pos, Color.White);
            SB.Draw(piece6, piece6Pos, Color.White);
+           SB.Draw(hint, hintPos, Color.White);
         }
         public void Function(GraphicsDeviceManager _graphics, Player player, RoomManager roomManager, KeyManagement Keymanager, float elapsed, DialogueBox dialogue)
         {
@@ -65,6 +68,7 @@ namespace Themuseum
             Rectangle statueCollision = new Rectangle((int)statuePos.X, (int)statuePos.Y, 64, 64);
             Rectangle piece5Col = new Rectangle((int)piece5Pos.X, (int)piece5Pos.Y, 64, 64);
             Rectangle piece6Col = new Rectangle((int)piece6Pos.X, (int)piece6Pos.Y, 64, 64);
+            Rectangle hint = new Rectangle((int)hintPos.X, (int)hintPos.Y, 64, 64);
 
             DoorCollision = new Rectangle((int)DoorPos.X , (int)DoorPos.Y - 5, 32, 30);
 
@@ -150,6 +154,17 @@ namespace Themuseum
                     }
                     Console.WriteLine(Keymanager.MRB_StatueActive); 
                 }
+            }
+
+            //hint Collision
+            if(player.collision.Intersects(hint) == true && keycontrols.IsKeyDown(Keys.E))
+            {
+                dialogue.SettingParameter("Hint Block", 200, 200, "Full Statue", Color.Green);
+                dialogue.Activation(true);
+            }
+            else 
+            {
+                dialogue.Activation(false);
             }
 
             Oldkey_ = keycontrols;
