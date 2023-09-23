@@ -57,9 +57,16 @@ namespace Themuseum
             SpritePosition = new Vector2(32, 32);
             OilPosition = new Vector2(110 + 48, 32);
             Staminaposition = new Vector2(32, 110 + 32);
-            
-            BarIndicator = new Rectangle(0, 0, (int)StaminaValue * (BarBackground.Width / (int)MaxStamina) , BarBackground.Height);
-            OilBarIndicator = new Rectangle(0, 0, CandleBackground.Width, (int)OilValue * (CandleBackground.Height / (int)MaxOil));
+
+            int StaminaIndicator = (int)MathF.Round(StaminaValue * (BarBackground.Width / MaxStamina));
+            int OilIndicator = (int)MathF.Round(OilValue * (CandleBackground.Height / MaxOil));
+
+            if(StaminaIndicator > BarBackground.Width)
+            {
+                StaminaIndicator = BarBackground.Width;
+            }
+            BarIndicator = new Rectangle(0, 0, StaminaIndicator , BarBackground.Height);
+            OilBarIndicator = new Rectangle(0, 0, CandleBackground.Width, OilIndicator);
 
             if(StaminaValue <= MaxStamina * 0.3)
             {
