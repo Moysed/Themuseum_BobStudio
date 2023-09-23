@@ -171,7 +171,12 @@ namespace Themuseum
 
         public float UpdateStamina()
         {
-            return (CurrentStamina);
+            return CurrentStamina;
+        }
+
+        public float UpdateOil()
+        {
+            return CurrentFuel;
         }
 
         public float UpdateSpeed()

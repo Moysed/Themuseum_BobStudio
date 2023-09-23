@@ -241,6 +241,18 @@
 /processorParam:TextureFormat=Color
 /build:FlashButton_small.png
 
+#begin FullCandle_Bg.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:FullCandle_Bg.png
+
 #begin FullCandle.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -865,6 +877,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:TX Tileset Wall.png
+
+#begin UI_Status_Sprite.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:UI_Status_Sprite.png
 
 #begin wallplaceholder.png
 /importer:TextureImporter

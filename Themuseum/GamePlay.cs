@@ -25,7 +25,7 @@ namespace Themuseum
             
             player = new Player(new Vector2(game._graphics.GraphicsDevice.Viewport.Width / 2, game._graphics.GraphicsDevice.Viewport.Height / 2));
             light = new LanternLight();
-            staminabar = new Staminabar(player.MaxStamina);
+            staminabar = new Staminabar(player.MaxStamina,player.MaxFuel);
 
             //roomManager = new RoomManager(6);
             KeyManagement = new KeyManagement();
@@ -52,7 +52,7 @@ namespace Themuseum
             player.Controls(Keystate, light);
             player.UpdateAnimation(elapsed);
 
-            staminabar.UpdateBar(player.SelfPosition, player.UpdateStamina());
+            staminabar.UpdateBar(player.CurrentStamina, player.CurrentFuel, elapsed) ;
             ghost.Behavior(player, light);
             ghost.UpdateAnimation(elapsed);
             dialogue.behavior();
@@ -77,9 +77,9 @@ namespace Themuseum
             roomManager.Draw(theBatch, light);
             player.Draw(theBatch, Keystate);
             light.Drawlight(theBatch);
-            staminabar.Drawbar(theBatch);
             ghost.Draw(theBatch);
             dialogue.Draw(theBatch);
+            staminabar.Drawbar(theBatch);
         }
 
       

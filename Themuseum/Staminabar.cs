@@ -19,46 +19,70 @@ namespace Themuseum
     {
         private Texture2D BarBackground;
         private Texture2D BarColor;
-        private Vector2 selfposition;
+        private AnimatedTexture PlayerStatusUI;
+        private Texture2D CandleBackground;
+        private Texture2D CandleBar;
+        private Vector2 Staminaposition;
+        private Vector2 OilPosition;
+        private Vector2 SpritePosition;
         private Rectangle BarIndicator;
+        private Rectangle OilBarIndicator;
         
         private float MaxStamina;
-        private bool showbar;
-        public Staminabar(float MaxValue)
+        private float MaxOil;
+
+        private int currentrow = 1;
+        //private bool showbar;
+        public Staminabar(float MaxStaminaValue,float MaxOilValue)
         {
-            MaxStamina = MaxValue;
+            MaxStamina = MaxStaminaValue;
+            MaxOil = MaxOilValue;
+            Console.WriteLine(MaxStamina);
+            Console.WriteLine(MaxOil);
+            PlayerStatusUI = new AnimatedTexture(Vector2.Zero, 0, 1, 0.5f);
+
         }
 
         public void LoadSprite(ContentManager Content)
         {
-            BarBackground = Content.Load<Texture2D>("EmptyBar");
-            BarColor = Content.Load<Texture2D>("BlueBar");
-
+            BarBackground = Content.Load<Texture2D>("Mana empty ");
+            BarColor = Content.Load<Texture2D>("Mana");
+            CandleBackground = Content.Load<Texture2D>("FullCandle_Bg");
+            CandleBar = Content.Load<Texture2D>("FullCandle");
+            PlayerStatusUI.Load(Content, "UI_Status_Sprite", 8, 2, 15);
         }
 
-        public void UpdateBar(Vector2 playerposition, float StaminaValue)
+        public void UpdateBar(float StaminaValue,float OilValue,float elapsed)
         {
-            selfposition = new Vector2(playerposition.X - 96, playerposition.Y + 64);
-            //(int)StaminaValue * 2
-            BarIndicator = new Rectangle(0, 0, (int)StaminaValue * (BarBackground.Width / (int)MaxStamina) , BarBackground.Height);
+            SpritePosition = new Vector2(32, 32);
+            OilPosition = new Vector2(110 + 48, 32);
+            Staminaposition = new Vector2(32, 110 + 32);
             
-            if(StaminaValue < MaxStamina)
+            BarIndicator = new Rectangle(0, 0, (int)StaminaValue * (BarBackground.Width / (int)MaxStamina) , BarBackground.Height);
+            OilBarIndicator = new Rectangle(0, 0, CandleBackground.Width, (int)OilValue * (CandleBackground.Height / (int)MaxOil));
+
+            if(StaminaValue <= MaxStamina * 0.3)
             {
-                showbar = true;
+                currentrow = 2;
             }
             else
             {
-                showbar = false;
+                currentrow = 1;
             }
+
+
+            PlayerStatusUI.UpdateFrame(elapsed);
+            
         }
 
         public void Drawbar(SpriteBatch SB)
         {
-            if(showbar == true)
-            {
-                SB.Draw(BarBackground, selfposition, Color.White);
-                SB.Draw(BarColor, selfposition,BarIndicator, Color.White);
-            }
+            
+                SB.Draw(BarBackground, Staminaposition, Color.White);
+                SB.Draw(BarColor, Staminaposition, BarIndicator, Color.White);
+                SB.Draw(CandleBackground, OilPosition, Color.White);
+                SB.Draw(CandleBar, OilPosition, OilBarIndicator, Color.White);
+                PlayerStatusUI.DrawFrame(SB, SpritePosition, currentrow);
         }
     }
 }
