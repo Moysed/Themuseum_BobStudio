@@ -19,6 +19,7 @@ namespace Themuseum
         private Vector2 SelfPosition;
         public Rectangle collision;
         private AnimatedTexture Sprite;
+        public bool gameOver = false;
         
         public Ghost(Vector2 SpawningPosition)
         {
@@ -54,6 +55,11 @@ namespace Themuseum
             {
                 Changestartingposition(new Vector2(1300, 1300));
             }
+
+            if(collision.Intersects(player.collision) == true)
+            {
+                gameOver = true;
+            }
            
         }
         public void Changestartingposition(Vector2 newPos)
@@ -68,8 +74,6 @@ namespace Themuseum
         public void LoadSprite(ContentManager Content)
         {
             Sprite.Load(Content, "Ghost", 1, 1, 1);
-        }
-        
-        
+        }    
     }
 }

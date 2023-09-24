@@ -35,7 +35,7 @@ namespace Themuseum
             staminabar.LoadSprite(game.Content);
             ghost.LoadSprite(game.Content);
             dialogue.LoadResource(game.Content);
-            roomManager = new RoomManager(6);
+            roomManager = new RoomManager(1);
             roomManager.LoadAssets(game.Content);
             light.LoadSprite(game.Content);
             this._graphics = game._graphics;
@@ -52,7 +52,7 @@ namespace Themuseum
             player.Controls(Keystate, light);
             player.UpdateAnimation(elapsed);
 
-            staminabar.UpdateBar(player.CurrentStamina, player.CurrentFuel, elapsed) ;
+                staminabar.UpdateBar(player.CurrentStamina, player.CurrentFuel, elapsed) ;
             ghost.Behavior(player, light);
             ghost.UpdateAnimation(elapsed);
             dialogue.behavior();
@@ -66,10 +66,13 @@ namespace Themuseum
                 ScreenEvent.Invoke(game.winScreen, new EventArgs());
                 return;
             }
-            
-           
-           
 
+            if (ghost.gameOver == true)
+            {
+                Console.WriteLine("Game Over");
+                ScreenEvent.Invoke(game.mGameoverScreen, new EventArgs());
+                return;
+            }
             base.Update(theTime);
         }
         public override void Draw(SpriteBatch theBatch)
@@ -81,7 +84,5 @@ namespace Themuseum
             dialogue.Draw(theBatch);
             staminabar.Drawbar(theBatch);
         }
-
-      
     }
 }

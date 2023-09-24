@@ -15,6 +15,10 @@ namespace Themuseum
 {
     class Room1
     {
+        private Texture2D Lantern;
+        private Vector2 lanternPos;
+        private Texture2D hint;
+        private Vector2 hintPos;
         private Texture2D TileStatic;
         private Texture2D Door;
         private Texture2D HiddenSwitch_01_Tex;
@@ -45,7 +49,8 @@ namespace Themuseum
 
         public Room1()
         {
-       
+            hintPos = new Vector2(500, 200);
+            lanternPos = new Vector2(500, 500);
             DoorPos = new Vector2(0, 64);
             DoorCollision = new Rectangle((int)DoorPos.X, (int)DoorPos.Y, 32, 64);
             HiddenSwitch_01_Pos = new Vector2(1000,320);
@@ -62,6 +67,8 @@ namespace Themuseum
 
         public void LoadSprite(ContentManager content)
         {
+            hint = content.Load<Texture2D>("Hint");
+            Lantern = content.Load<Texture2D>("Lantern_Placeholder");
             TileStatic = content.Load<Texture2D>("Room1(new)");
             Door = content.Load<Texture2D>("placeholderdoor");
             HiddenSwitch_01_Tex = content.Load<Texture2D>("hiddenswitch01_placeholder");
@@ -101,6 +108,8 @@ namespace Themuseum
                     SB.Draw(piece2, piece2Pos, Color.White);
                 }     
             }
+            SB.Draw(hint, hintPos, Color.White);
+            SB.Draw(Lantern, lanternPos, Color.White);
         }
 
         public void Function(GraphicsDeviceManager _graphics, Player player,RoomManager roomManager, KeyManagement Keymanager, float elapsed, DialogueBox dialogue,LanternLight light)
@@ -149,6 +158,8 @@ namespace Themuseum
                     player.SelfPosition.Y -= player.speed;
             }
             //Objects Behavior
+            Rectangle hint = new Rectangle((int)hintPos.X, (int)hintPos.Y, 64, 64);
+            Rectangle Lantern = new Rectangle((int)lanternPos.X, (int)lanternPos.Y, 64, 64);
             DoorPos = new Vector2(300, 50);
             DoorCollision = new Rectangle((int)DoorPos.X, (int)DoorPos.Y, 32, 64);
             R1_Shire.Behavior(player, elapsed);
@@ -234,6 +245,23 @@ namespace Themuseum
                 }
             }
 
+            //hint Collision
+            if (player.collision.Intersects(hint) == true && KeyControls.IsKeyDown(Keys.E))
+            {
+                dialogue.SettingParameter("Hint Block", 200, 200, "Light will guide you home", Color.Green);
+                dialogue.Activation(true);
+            }
+            else
+            {
+                dialogue.Activation(false);
+            }
+
+            if (player.collision.Intersects(Lantern) == true && KeyControls.IsKeyDown(Keys.E))
+            {
+                light.IsActive = true;
+                lanternPos.X = 20000;
+                Console.WriteLine(player.CurrentFuel);
+            }
 
             OldKey = KeyControls;
         }

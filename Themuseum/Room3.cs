@@ -31,18 +31,13 @@ namespace Themuseum
 
         public Room3()
         {
-
             WallArea_Col.Add(new Rectangle(0, 300, 500, 2000));
             WallArea_Col.Add(new Rectangle(700, 300, 1000, 2000));
             WallArea_Col.Add(new Rectangle(0, 0, 2000, 100));
             WallArea_Col.Add(new Rectangle(0, 0, 100, 500));
             WallArea_Col.Add(new Rectangle(1180, 0, 100, 500));
             DoorPos = new Vector2(610, 35);
-
-
         }
-
-
 
         public void Loadsprite(ContentManager content)
         {

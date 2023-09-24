@@ -9,7 +9,6 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
-using SharpDX.Direct3D9;
 
 namespace Themuseum
 {
@@ -18,6 +17,7 @@ namespace Themuseum
         private Vector2 SelfPosition;
         public Rectangle Collision;
         private Texture2D LightSprite;
+        public bool IsActive = false;
 
         public LanternLight()
         {

@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
+using SharpDX.Direct3D9;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,8 +15,13 @@ namespace Themuseum
 {
     class Room2 
     {
+        private LanternRefill lanternRefill;
+        private Vector2 LanternRefillPos;
+        //private float scale = 10f;
+        //private float depth = 0f;
+        //private float rotation = 0.0f;
         private Texture2D TileStatic;
-        private AnimatedTexture TileAnimated;
+        //private AnimatedTexture TileAnimated;
         private Texture2D Door;
         private Vector2 DoorPos;
         private Rectangle DoorCollision;
@@ -35,10 +41,12 @@ namespace Themuseum
         Random random = new Random();
         public Room2()
         {
+            LanternRefillPos = new Vector2(550, 500);
+            lanternRefill = new LanternRefill(LanternRefillPos);
             random = new Random();
             DoorPos = new Vector2(840, 252);
             DoorCollision = new Rectangle((int)DoorPos.X, (int)DoorPos.Y, 32, 64);
-            TileAnimated = new AnimatedTexture(Vector2.Zero, 0, 1, 0.5f);
+            //TileAnimated = new AnimatedTexture(Vector2.Zero,rotation,scale,depth);
             WallArea_Col.Add(new Rectangle(0, 0, 432, 400));
             WallArea_Col.Add(new Rectangle(0, 360, 550, 400));
             WallArea_Col.Add(new Rectangle(850, 0, 432, 400));
@@ -57,18 +65,19 @@ namespace Themuseum
         public void LoadSprite(ContentManager content)
         {
             TileStatic = content.Load<Texture2D>("Hallway1");
-            //TileAnimated.Load(content,"AnimatedRoom2Sprite", 12, 1, 15);
+            //TileAnimated.Load(content, "css_sprites (2)", 12, 1, 15);
             Door = content.Load<Texture2D>("placeholderdoor");
             WallArea_Tex = content.Load<Texture2D>("wallplaceholder");
             R2_T1_Trigger_Tex = content.Load<Texture2D>("199-Support07");
             piece3 = content.Load<Texture2D>("Piece3");
             piece4 = content.Load<Texture2D>("Piece4");
+            lanternRefill.LoadSprite(content);
         }
 
         public void Draw(SpriteBatch SB)
         {
             SB.Draw(TileStatic, Vector2.Zero, Color.White);
-            //TileAnimated.DrawFrame(SB, Vector2.Zero,1);
+            //TileAnimated.DrawFrame(SB, Vector2.Zero, 1);
             //SB.Draw(Door, DoorPos, new Rectangle(6 * 32, 8 * 32, 32, 64), Color.White);
             SB.Draw(R2_T1_Trigger_Tex, R2_T1_Trigger_Pos, new Rectangle(0, 0, 64, 64), Color.White);
 
@@ -82,6 +91,8 @@ namespace Themuseum
                 SB.Draw(piece3, piece3Pos, Color.White);
                 SB.Draw(piece4, piece4Pos, Color.White);
             }
+
+            lanternRefill.DrawSprite(SB);
         }
 
         public void Function(GraphicsDeviceManager _graphics, Player player, RoomManager roomManager, KeyManagement Keymanager, float elapsed, DialogueBox dialogue)
@@ -201,6 +212,16 @@ namespace Themuseum
                     Console.WriteLine(Keymanager.MRB_Pieces);
                     piece4Pos.X = 5000;
                 }
+            }
+            
+            if (player.collision.Intersects(lanternRefill.Collision) == true && KeyControls.IsKeyUp(Keys.E) && OldKey.IsKeyDown(Keys.E))
+            {
+                player.CurrentFuel += 300;
+                if(player.CurrentFuel > 300)
+                {
+                    player.CurrentFuel = 300;
+                }
+                Console.WriteLine(player.CurrentFuel);
             }
 
             OldKey = KeyControls;
