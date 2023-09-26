@@ -45,7 +45,7 @@ namespace Themuseum
         private KeyboardState KeyControls;
         private KeyboardState OldKey;
         private SoundSystem sound;
-       
+
         Random r = new Random();
 
 
@@ -56,15 +56,16 @@ namespace Themuseum
             lanternPos = new Vector2(740, 250);
             DoorPos = new Vector2(0, 64);
             DoorCollision = new Rectangle((int)DoorPos.X, (int)DoorPos.Y, 32, 64);
-            HiddenSwitch_01_Pos = new Vector2(1000,320);
-            HiddenSwitch_01_Col = new Rectangle((int)HiddenSwitch_01_Pos.X, (int)HiddenSwitch_01_Pos.Y,64,64);
+            HiddenSwitch_01_Pos = new Vector2(1000, 320);
+            HiddenSwitch_01_Col = new Rectangle((int)HiddenSwitch_01_Pos.X, (int)HiddenSwitch_01_Pos.Y, 64, 64);
             HiddenSwitch_02_Pos = new Vector2(10000, 10000);
             HiddenSwitch_02_Col = new Rectangle((int)HiddenSwitch_02_Pos.X, (int)HiddenSwitch_02_Pos.Y, 64, 64);
             HiddenSwitch_03_Pos = new Vector2(10000, 10000);
             HiddenSwitch_03_Col = new Rectangle((int)HiddenSwitch_03_Pos.X, (int)HiddenSwitch_03_Pos.Y, 64, 64);
             R1_Shire = new Shire(new Vector2(1100, 70));
             sound = new SoundSystem();
-            piece1Pos = new Vector2(r.Next(110,200),r.Next(80, 250));
+            piece1Pos = new Vector2(r.Next(110, 200), r.Next(80, 250));
+            
         }
 
         public void LoadSprite(ContentManager content)
@@ -80,9 +81,10 @@ namespace Themuseum
             HiddenSwitch_03_Tex = content.Load<Texture2D>("hiddenswtich03_placeholder");
             R1_Shire.LoadSprite(content);
             piece1 = content.Load<Texture2D>("Piece1");
+            sound.LoadContent(content);
         }
-        
-        public void Draw(SpriteBatch SB,LanternLight light)
+
+        public void Draw(SpriteBatch SB, LanternLight light)
         {
             SB.Draw(TileStatic, Vector2.Zero, Color.White);
             SB.Draw(Door, DoorPos, new Rectangle(6 * 32, 8 * 32, 32, 64), Color.White);
@@ -118,22 +120,22 @@ namespace Themuseum
             }
         }
 
-        public void Function(GraphicsDeviceManager _graphics, Player player,RoomManager roomManager, KeyManagement Keymanager, float elapsed, DialogueBox dialogue,LanternLight light)
+        public void Function(GraphicsDeviceManager _graphics, Player player, RoomManager roomManager, KeyManagement Keymanager, float elapsed, DialogueBox dialogue, LanternLight light)
         {
-            
+
             KeyControls = Keyboard.GetState();
-            
+
             //Wall Collision
             if (player.SelfPosition.X >= _graphics.GraphicsDevice.Viewport.Bounds.Right - 150)
             {
-                if(player.speed >= 4)
+                if (player.speed >= 4)
                 {
                     player.SelfPosition.X -= player.speed * 2;
                 }
                 else
-                player.SelfPosition.X -= player.speed;
-                
-            } 
+                    player.SelfPosition.X -= player.speed;
+
+            }
 
             else if (player.SelfPosition.X <= _graphics.GraphicsDevice.Viewport.Bounds.Left + 85)
             {
@@ -145,7 +147,7 @@ namespace Themuseum
                     player.SelfPosition.X += player.speed;
             }
 
-             else if (player.SelfPosition.Y <= _graphics.GraphicsDevice.Viewport.Bounds.Top + 64)
+            else if (player.SelfPosition.Y <= _graphics.GraphicsDevice.Viewport.Bounds.Top + 64)
             {
                 if (player.speed >= 4)
                 {
@@ -182,44 +184,29 @@ namespace Themuseum
                 HiddenSwitch_02_Pos = new Vector2(10000, 10000);
                 HiddenSwitch_03_Pos = new Vector2(10000, 10000);
             }
-            else if(Keymanager.R2_T1 == true)
+            else if (Keymanager.R2_T1 == true)
             {
                 HiddenSwitch_02_Pos = new Vector2(320, 128);
                 HiddenSwitch_03_Pos = new Vector2(540, 512);
             }
 
             //Object Interaction
-            if (player.collision.Intersects(DoorCollision) == true )
+            if (player.collision.Intersects(DoorCollision) == true)
             {
-                if(KeyControls.IsKeyDown(Keys.E) && OldKey.IsKeyUp(Keys.E) && Keymanager.R1_S1 == true)
+                if (KeyControls.IsKeyDown(Keys.E) && OldKey.IsKeyUp(Keys.E) && Keymanager.R1_S1 == true)
                 {
                     sound.PlaySfx(1);
-                    player.ChangeStartingPosition(new Vector2(_graphics.GraphicsDevice.Viewport.Width/2, _graphics.GraphicsDevice.Viewport.Bounds.Bottom - 128));
+                    player.ChangeStartingPosition(new Vector2(_graphics.GraphicsDevice.Viewport.Width / 2, _graphics.GraphicsDevice.Viewport.Bounds.Bottom - 128));
                     roomManager.Roomchange(2);
                     Console.WriteLine("Door Opened");
-                }  
-<<<<<<< HEAD
                 }
-                else if (KeyControls.IsKeyDown(Keys.E) && OldKey.IsKeyUp(Keys.E))
-                {
-                    sound.PlaySfx(2);
-                }
-                
-=======
-                }  
->>>>>>> 290b042b50fbb27875d0689299a3c81fa534f0f6
+
             }
-            if(player.collision.Intersects(HiddenSwitch_01_Col) == true)
+            else if (KeyControls.IsKeyDown(Keys.E) && OldKey.IsKeyUp(Keys.E))
             {
-                if (KeyControls.IsKeyDown(Keys.E) && OldKey.IsKeyUp(Keys.E))
-                {
-                    sound.PlaySfx(1);
-                    Keymanager.KeyTrigger("R1_S1");
-                    dialogue.SettingParameter("placeholderblock", 200, 200, "1st Hidden Switch Activated", Color.Green);
-                    //dialogue.Activation(true);
-                    Console.WriteLine("R1_S1");
-                }
+                sound.PlaySfx(2);
             }
+
             if (player.collision.Intersects(HiddenSwitch_02_Col) == true)
             {
                 if (KeyControls.IsKeyDown(Keys.E) && OldKey.IsKeyUp(Keys.E))
@@ -254,7 +241,17 @@ namespace Themuseum
                     piece1Pos.X = 5000;
                 }
             }
-            
+            if (player.collision.Intersects(HiddenSwitch_01_Col) == true)
+            {
+                if (KeyControls.IsKeyDown(Keys.E) && OldKey.IsKeyUp(Keys.E))
+                {
+                    sound.PlaySfx(1);
+                    Keymanager.KeyTrigger("R1_S1");
+                    dialogue.SettingParameter("placeholderblock", 200, 200, "1st Hidden Switch Activated", Color.Green);
+                    //dialogue.Activation(true);
+                    Console.WriteLine("R1_S1");
+                }
+            }
 
             //hint Collision
             if (player.collision.Intersects(hint) == true && KeyControls.IsKeyDown(Keys.E))
@@ -265,7 +262,7 @@ namespace Themuseum
             }
             else if (player.collision.Intersects(hint) == true && KeyControls.IsKeyUp(Keys.E) && OldKey.IsKeyDown(Keys.E))
             {
-                OldKey = KeyControls;
+                
                 dialogue.SettingParameter("Hint Block", 200, 200, "Light will guide you home", Color.Green);
                 dialogue.Activation(false);
             }
@@ -294,7 +291,7 @@ namespace Themuseum
                 mapActive = false;
             }
 
-            if(mapActive = true && Keyboard.GetState().IsKeyDown(Keys.G))
+            if (mapActive = true && Keyboard.GetState().IsKeyDown(Keys.G))
             {
                 showMap = true;
             }
@@ -302,6 +299,17 @@ namespace Themuseum
             {
                 showMap = false;
             }
+
+            OldKey = KeyControls;
         }
     }
 }
+    
+           
+
+
+
+
+
+
+
