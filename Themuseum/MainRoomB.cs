@@ -160,7 +160,7 @@ namespace Themuseum
                 dialogue.Activation(false);
             }
 
-            if (room1.mapActive = true && Keyboard.GetState().IsKeyDown(Keys.G))
+            if (room1.mapActive = true && Keyboard.GetState().IsKeyDown(Keys.M))
             {
                 room1.showMap = true;
             }

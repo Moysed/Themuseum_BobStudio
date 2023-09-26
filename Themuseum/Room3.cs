@@ -176,7 +176,7 @@ namespace Themuseum
                         roomManager.Roomchange(5);
                     }
                 }
-            if (room1.mapActive = true && Keyboard.GetState().IsKeyDown(Keys.G))
+            if (room1.mapActive = true && Keyboard.GetState().IsKeyDown(Keys.M))
             {
                 room1.showMap = true;
             }
