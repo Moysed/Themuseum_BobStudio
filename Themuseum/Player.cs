@@ -15,6 +15,7 @@ namespace Themuseum
 
     class Player 
     {
+        Room1 room1;
         public float speed = 3f;
         public Vector2 SelfPosition;
         public Rectangle collision;
@@ -32,6 +33,7 @@ namespace Themuseum
 
         public Player(Vector2 SpawningPosition)
         {
+            room1 = new Room1();
             SelfPosition = SpawningPosition;
             Sprite = new AnimatedTexture(Vector2.Zero, 0, 1, 0.5f);
             collision = new Rectangle((int)SelfPosition.X, (int)SelfPosition.Y, 42, 84);
@@ -151,7 +153,7 @@ namespace Themuseum
             else if (KeyControls.IsKeyUp(Keys.F) || CurrentFuel <= 0 && Light.IsActive == false)
             {
                 Light.LightDeactivate();
-            } 
+            }
         }
 
 

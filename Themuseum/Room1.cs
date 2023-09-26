@@ -15,8 +15,11 @@ namespace Themuseum
 {
     class Room1
     {
+        public bool mapActive;
         private Texture2D Lantern;
         private Vector2 lanternPos;
+        private Texture2D Map;
+        private Vector2 mapPos;
         private Texture2D hint;
         private Vector2 hintPos;
         private Texture2D TileStatic;
@@ -48,8 +51,9 @@ namespace Themuseum
 
         public Room1()
         {
-            hintPos = new Vector2(500, 200);
-            lanternPos = new Vector2(500, 500);
+            mapPos = new Vector2(430, 290);
+            hintPos = new Vector2(300, 400);
+            lanternPos = new Vector2(740, 250);
             DoorPos = new Vector2(0, 64);
             DoorCollision = new Rectangle((int)DoorPos.X, (int)DoorPos.Y, 32, 64);
             HiddenSwitch_01_Pos = new Vector2(1000,320);
@@ -67,8 +71,9 @@ namespace Themuseum
         public void LoadSprite(ContentManager content)
         {
             hint = content.Load<Texture2D>("Hint");
-            Lantern = content.Load<Texture2D>("Lantern_Placeholder");
-            TileStatic = content.Load<Texture2D>("Room1(new)");
+            Map = content.Load<Texture2D>("Map");
+            Lantern = content.Load<Texture2D>("Lantern");
+            TileStatic = content.Load<Texture2D>("Bg");
             Door = content.Load<Texture2D>("placeholderdoor");
             HiddenSwitch_01_Tex = content.Load<Texture2D>("hiddenswitch01_placeholder");
             HiddenSwitch_02_Tex = content.Load<Texture2D>("hiddenswitch02_placeholder");
@@ -108,6 +113,7 @@ namespace Themuseum
             }
             SB.Draw(hint, hintPos, Color.White);
             SB.Draw(Lantern, lanternPos, Color.White);
+            SB.Draw(Map, mapPos, Color.White);
             R1_Shire.Draw(SB);
         }
 
@@ -158,7 +164,8 @@ namespace Themuseum
             }
             //Objects Behavior
             Rectangle hint = new Rectangle((int)hintPos.X, (int)hintPos.Y, 64, 64);
-            Rectangle Lantern = new Rectangle((int)lanternPos.X, (int)lanternPos.Y, 64, 64);
+            Rectangle Lantern = new Rectangle((int)lanternPos.X, (int)lanternPos.Y, 40, 70);
+            Rectangle map = new Rectangle((int)mapPos.X, (int)mapPos.Y, 74, 34);
             DoorPos = new Vector2(300, 50);
             DoorCollision = new Rectangle((int)DoorPos.X, (int)DoorPos.Y, 32, 64);
             R1_Shire.Behavior(player, elapsed);
@@ -189,9 +196,7 @@ namespace Themuseum
                     player.ChangeStartingPosition(new Vector2(_graphics.GraphicsDevice.Viewport.Width/2, _graphics.GraphicsDevice.Viewport.Bounds.Bottom - 128));
                     roomManager.Roomchange(2);
                     Console.WriteLine("Door Opened");
-                }
-                
-                
+                }  
             }
             if(player.collision.Intersects(HiddenSwitch_01_Col) == true)
             {
@@ -268,8 +273,6 @@ namespace Themuseum
                 lanternPos.X = 20000;
                 Console.WriteLine(player.CurrentFuel);
             }
-
-            
         }
 
         
