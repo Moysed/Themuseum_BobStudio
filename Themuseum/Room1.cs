@@ -15,10 +15,12 @@ namespace Themuseum
 {
     class Room1
     {
-        public bool mapActive;
+        public bool showMap = false;
+        public bool mapActive = false;
         private Texture2D Lantern;
         private Vector2 lanternPos;
         private Texture2D Map;
+        private Texture2D Map_Sprite;
         private Vector2 mapPos;
         private Texture2D hint;
         private Vector2 hintPos;
@@ -38,10 +40,7 @@ namespace Themuseum
         private Shire R1_Shire;
         private Texture2D piece1;
         private Vector2 piece1Pos;
-        private Texture2D piece2;
-        private Vector2 piece2Pos;
         private Rectangle piece1Col;
-        private Rectangle piece2Col;
         private int player_pieceActive = 0;
         private KeyboardState KeyControls;
         private KeyboardState OldKey;
@@ -65,11 +64,11 @@ namespace Themuseum
             R1_Shire = new Shire(new Vector2(1100, 70));
             
             piece1Pos = new Vector2(r.Next(110,200),r.Next(80, 250));
-            piece2Pos = new Vector2(r.Next(250,420), r.Next(275,480));
         }
 
         public void LoadSprite(ContentManager content)
         {
+            Map_Sprite = content.Load<Texture2D>("MapSheet");
             hint = content.Load<Texture2D>("Hint");
             Map = content.Load<Texture2D>("Map");
             Lantern = content.Load<Texture2D>("Lantern");
@@ -80,7 +79,6 @@ namespace Themuseum
             HiddenSwitch_03_Tex = content.Load<Texture2D>("hiddenswtich03_placeholder");
             R1_Shire.LoadSprite(content);
             piece1 = content.Load<Texture2D>("Piece1");
-            piece2 = content.Load<Texture2D>("Piece2");
         }
         
         public void Draw(SpriteBatch SB,LanternLight light)
@@ -106,15 +104,17 @@ namespace Themuseum
                 {
                     SB.Draw(piece1, piece1Pos, Color.White);
                 }
-                else if (light.Collision.Intersects(piece1Col))
-                {
-                    SB.Draw(piece2, piece2Pos, Color.White);
-                }     
             }
             SB.Draw(hint, hintPos, Color.White);
             SB.Draw(Lantern, lanternPos, Color.White);
-            SB.Draw(Map, mapPos, Color.White);
             R1_Shire.Draw(SB);
+            SB.Draw(Map, mapPos, Color.White);
+
+            if (showMap == true)
+            {
+                SB.Draw(Map_Sprite, new Vector2(320, 0), Color.White);
+                Console.WriteLine(showMap);
+            }
         }
 
         public void Function(GraphicsDeviceManager _graphics, Player player,RoomManager roomManager, KeyManagement Keymanager, float elapsed, DialogueBox dialogue,LanternLight light)
@@ -175,7 +175,6 @@ namespace Themuseum
             HiddenSwitch_03_Col = new Rectangle((int)HiddenSwitch_03_Pos.X, (int)HiddenSwitch_03_Pos.Y, 64, 64);
 
             piece1Col = new Rectangle((int)piece1Pos.X, (int)piece1Pos.Y, 64, 64);
-            piece2Col = new Rectangle((int)piece2Pos.X, (int)piece2Pos.Y, 64, 64);
 
             if (Keymanager.R2_T1 == false)
             {
@@ -239,15 +238,7 @@ namespace Themuseum
                     piece1Pos.X = 5000;
                 }
             }
-            if (player.collision.Intersects(piece2Col) == true)
-            {
-                if (KeyControls.IsKeyDown(Keys.E) && OldKey.IsKeyUp(Keys.E))
-                {
-                    Keymanager.MRB_Pieces += 1;
-                    Console.WriteLine(Keymanager.MRB_Pieces);
-                    piece2Pos.X = 5000;
-                }
-            }
+            
 
             //hint Collision
             if (player.collision.Intersects(hint) == true && KeyControls.IsKeyDown(Keys.E))
@@ -273,8 +264,27 @@ namespace Themuseum
                 lanternPos.X = 20000;
                 Console.WriteLine(player.CurrentFuel);
             }
-        }
 
-        
+            if (player.collision.Intersects(map) == true && KeyControls.IsKeyDown(Keys.E))
+            {
+                mapActive = true;
+                mapPos.X = 20000;
+                Console.WriteLine(mapActive);
+            }
+
+            else
+            {
+                mapActive = false;
+            }
+
+            if(mapActive = true && Keyboard.GetState().IsKeyDown(Keys.G))
+            {
+                showMap = true;
+            }
+            else
+            {
+                showMap = false;
+            }
+        }
     }
 }

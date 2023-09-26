@@ -15,6 +15,8 @@ namespace Themuseum
 {
     class Room2 
     {
+        Room1 room1;
+        private Texture2D Map_Sprite;
         private LanternRefill lanternRefill;
         private Vector2 LanternRefillPos;
         //private float scale = 10f;
@@ -32,15 +34,14 @@ namespace Themuseum
         private Vector2 R2_T1_Trigger_Pos;
         private Rectangle R2_T1_Trigger_Col;
         private KeyboardState KeyControls;
-        private Texture2D piece3;
-        private Vector2 piece3Pos;
-        private Texture2D piece4;
-        private Vector2 piece4Pos;
+        private Texture2D piece2;
+        private Vector2 piece2Pos;
         private int player_pieceActive = 0;
         private KeyboardState OldKey;
         Random random = new Random();
         public Room2()
         {
+            room1 = new Room1();
             LanternRefillPos = new Vector2(550, 500);
             lanternRefill = new LanternRefill(LanternRefillPos);
             random = new Random();
@@ -57,20 +58,19 @@ namespace Themuseum
             R2_T1_Trigger_Pos = new Vector2(640,256);
             R2_T1_Trigger_Col = new Rectangle((int)R2_T1_Trigger_Pos.X, (int)R2_T1_Trigger_Pos.X, 128, 128);
 
-            piece3Pos = new Vector2(random.Next(520,600), random.Next(190,200));
-            piece4Pos = new Vector2(random.Next(600,650), random.Next(360,400));
+            piece2Pos = new Vector2(random.Next(520,600), random.Next(190,200));
         }
 
        
         public void LoadSprite(ContentManager content)
         {
+            Map_Sprite = content.Load<Texture2D>("MapSheet");
             TileStatic = content.Load<Texture2D>("Hallway1");
             //TileAnimated.Load(content, "css_sprites (2)", 12, 1, 15);
             Door = content.Load<Texture2D>("placeholderdoor");
             WallArea_Tex = content.Load<Texture2D>("wallplaceholder");
             R2_T1_Trigger_Tex = content.Load<Texture2D>("199-Support07");
-            piece3 = content.Load<Texture2D>("Piece3");
-            piece4 = content.Load<Texture2D>("Piece4");
+            piece2 = content.Load<Texture2D>("Piece2");
             lanternRefill.LoadSprite(content);
         }
 
@@ -88,11 +88,15 @@ namespace Themuseum
 
             if(player_pieceActive == 1) 
             {
-                SB.Draw(piece3, piece3Pos, Color.White);
-                SB.Draw(piece4, piece4Pos, Color.White);
+                SB.Draw(piece2, piece2Pos, Color.White);
             }
 
             lanternRefill.DrawSprite(SB);
+
+            if (room1.showMap == true)
+            {
+                SB.Draw(Map_Sprite, new Vector2(320, 0), Color.White);
+            }
         }
 
         public void Function(GraphicsDeviceManager _graphics, Player player, RoomManager roomManager, KeyManagement Keymanager, float elapsed, DialogueBox dialogue)
@@ -163,8 +167,7 @@ namespace Themuseum
             R2_T1_Trigger_Pos = new Vector2(540, 256);
             R2_T1_Trigger_Col = new Rectangle((int)R2_T1_Trigger_Pos.X, (int)R2_T1_Trigger_Pos.Y, 128, 128);
 
-            Rectangle piece3Col = new Rectangle((int)piece3Pos.X, (int)piece3Pos.Y, 64, 64);
-            Rectangle piece4Col = new Rectangle((int)piece4Pos.X, (int)piece4Pos.Y, 64, 64);
+            Rectangle piece2Col = new Rectangle((int)piece2Pos.X, (int)piece2Pos.Y, 64, 64);
 
             //Object Interaction
 
@@ -195,22 +198,13 @@ namespace Themuseum
             }
 
             //Piece Collect
-            if (player.collision.Intersects(piece3Col) == true)
+            if (player.collision.Intersects(piece2Col) == true)
             {
                 if (KeyControls.IsKeyDown(Keys.E) && OldKey.IsKeyUp(Keys.E))
                 {
                     Keymanager.MRB_Pieces += 1;
                     Console.WriteLine(Keymanager.MRB_Pieces);
-                    piece3Pos.X = 5000;
-                }
-            }
-            if (player.collision.Intersects(piece4Col) == true)
-            {
-                if (KeyControls.IsKeyDown(Keys.E) && OldKey.IsKeyUp(Keys.E))
-                {
-                    Keymanager.MRB_Pieces += 1;
-                    Console.WriteLine(Keymanager.MRB_Pieces);
-                    piece4Pos.X = 5000;
+                    piece2Pos.X = 5000;
                 }
             }
             
@@ -222,6 +216,15 @@ namespace Themuseum
                     player.CurrentFuel = 300;
                 }
                 Console.WriteLine(player.CurrentFuel);
+            }
+            
+            if (room1.mapActive = true && Keyboard.GetState().IsKeyDown(Keys.G))
+            {
+                room1.showMap = true;
+            }
+            else
+            {
+                room1.showMap = false;
             }
 
             OldKey = KeyControls;

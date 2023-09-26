@@ -16,8 +16,8 @@ namespace Themuseum
 {
     class MRC
     {
-        
-
+        Room1 room1;
+        private Texture2D Map_Sprite;
         private Texture2D Door;
         private Vector2 DoorPos_MB_MC_C;
         private Rectangle DoorCollision_MB_MC_C;
@@ -43,6 +43,7 @@ namespace Themuseum
         private Vector2 BlockReset_Pos;
         public MRC()
         {
+            room1 = new Room1();    
             WallArea_Col.Add(new Rectangle(0, 0, 1280, 64));
             WallArea_Col.Add(new Rectangle(0, 0, 64, 640));
             WallArea_Col.Add(new Rectangle(1280 - 64, 0, 64, 640));
@@ -56,6 +57,7 @@ namespace Themuseum
 
         public void LoadSprite(ContentManager content)
         {
+            Map_Sprite = content.Load<Texture2D>("MapSheet");
             WallArea_Tex = content.Load<Texture2D>("wallplaceholder");
             Door = content.Load<Texture2D>("placeholderdoor");
             BlockArea = content.Load<Texture2D>("placeholderblock");
@@ -85,11 +87,23 @@ namespace Themuseum
             SB.Draw(Door, DoorPos_MB_MC_C, new Rectangle(6 * 32, 8 * 32, 32, 64), Color.White);
             SB.Draw(Door, DoorPos_End, new Rectangle(6 * 32, 8 * 32, 32, 64), Color.White);
             SB.Draw(BlockReset_Tex, BlockReset_Pos, new Rectangle(0, 128, 64, 64), Color.White);
-
+            if (room1.showMap == true)
+            {
+                SB.Draw(Map_Sprite, new Vector2(320, 0), Color.White);
+            }
         }
 
         public void Function(GraphicsDeviceManager _graphics, Player player, RoomManager roomManager, KeyManagement Keymanager, float elapsed, DialogueBox dialogue)
         {
+            if (room1.mapActive = true && Keyboard.GetState().IsKeyDown(Keys.G))
+            {
+                room1.showMap = true;
+            }
+            else
+            {
+                room1.showMap = false;
+
+            }
             KeyControls = Keyboard.GetState();
             //Wall Collision
             for (int i = 0; i < WallArea_Col.Count; i++)
