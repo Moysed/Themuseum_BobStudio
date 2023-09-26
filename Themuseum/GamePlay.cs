@@ -17,6 +17,7 @@ namespace Themuseum
         private KeyManagement KeyManagement;
         private Ghost ghost;
         private DialogueBox dialogue;
+        private SoundSystem soundSystem;
         RoomManager roomManager;
         
 

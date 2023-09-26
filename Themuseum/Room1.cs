@@ -42,6 +42,7 @@ namespace Themuseum
         private int player_pieceActive = 0;
         private KeyboardState KeyControls;
         private KeyboardState OldKey;
+        private SoundSystem sound;
        
         Random r = new Random();
 
@@ -60,7 +61,7 @@ namespace Themuseum
             HiddenSwitch_03_Pos = new Vector2(10000, 10000);
             HiddenSwitch_03_Col = new Rectangle((int)HiddenSwitch_03_Pos.X, (int)HiddenSwitch_03_Pos.Y, 64, 64);
             R1_Shire = new Shire(new Vector2(1100, 70));
-            
+            sound = new SoundSystem();
             piece1Pos = new Vector2(r.Next(110,200),r.Next(80, 250));
             piece2Pos = new Vector2(r.Next(250,420), r.Next(275,480));
         }
@@ -77,6 +78,7 @@ namespace Themuseum
             R1_Shire.LoadSprite(content);
             piece1 = content.Load<Texture2D>("Piece1");
             piece2 = content.Load<Texture2D>("Piece2");
+            sound.LoadContent(content);
         }
         
         public void Draw(SpriteBatch SB,LanternLight light)
@@ -187,17 +189,22 @@ namespace Themuseum
             {
                 if(KeyControls.IsKeyDown(Keys.E) && OldKey.IsKeyUp(Keys.E) && Keymanager.R1_S1 == true)
                 {
+                    sound.PlaySfx(1);
                     player.ChangeStartingPosition(new Vector2(_graphics.GraphicsDevice.Viewport.Width/2, _graphics.GraphicsDevice.Viewport.Bounds.Bottom - 128));
                     roomManager.Roomchange(2);
                     Console.WriteLine("Door Opened");
                 }
-                
+                else if (KeyControls.IsKeyDown(Keys.E) && OldKey.IsKeyUp(Keys.E))
+                {
+                    sound.PlaySfx(2);
+                }
                 
             }
             if(player.collision.Intersects(HiddenSwitch_01_Col) == true)
             {
                 if (KeyControls.IsKeyDown(Keys.E) && OldKey.IsKeyUp(Keys.E))
                 {
+                    sound.PlaySfx(1);
                     Keymanager.KeyTrigger("R1_S1");
                     dialogue.SettingParameter("placeholderblock", 200, 200, "1st Hidden Switch Activated", Color.Green);
                     //dialogue.Activation(true);
@@ -208,6 +215,7 @@ namespace Themuseum
             {
                 if (KeyControls.IsKeyDown(Keys.E) && OldKey.IsKeyUp(Keys.E))
                 {
+                    sound.PlaySfx(1);
                     Keymanager.KeyTrigger("R1_S2");
                     Console.WriteLine("R1_S2");
                 }
@@ -216,6 +224,7 @@ namespace Themuseum
             {
                 if (KeyControls.IsKeyDown(Keys.E) && OldKey.IsKeyUp(Keys.E))
                 {
+                    sound.PlaySfx(1);
                     Keymanager.KeyTrigger("R1_S3");
                     Console.WriteLine("R1_S3");
                 }
@@ -230,6 +239,7 @@ namespace Themuseum
             {
                 if (KeyControls.IsKeyDown(Keys.E) && OldKey.IsKeyUp(Keys.E))
                 {
+                    sound.PlaySfx(0);
                     Keymanager.MRB_Pieces += 1;
                     Console.WriteLine(Keymanager.MRB_Pieces);
                     piece1Pos.X = 5000;
@@ -239,6 +249,7 @@ namespace Themuseum
             {
                 if (KeyControls.IsKeyDown(Keys.E) && OldKey.IsKeyUp(Keys.E))
                 {
+                    sound.PlaySfx(0);
                     Keymanager.MRB_Pieces += 1;
                     Console.WriteLine(Keymanager.MRB_Pieces);
                     piece2Pos.X = 5000;
@@ -258,6 +269,7 @@ namespace Themuseum
 
             if (player.collision.Intersects(Lantern) == true && KeyControls.IsKeyDown(Keys.E))
             {
+                sound.PlaySfx(0);
                 light.IsActive = true;
                 lanternPos.X = 20000;
                 Console.WriteLine(player.CurrentFuel);

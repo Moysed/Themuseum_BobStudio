@@ -181,18 +181,6 @@
 /processorParam:TextureFormat=Color
 /build:BlueBar.png
 
-#begin C:/Users/admin/Downloads/css_sprites.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:C:/Users/admin/Downloads/css_sprites.png;css_sprites.png
-
 #begin Candle_big.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -216,18 +204,6 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Candle_KeyBG.png
-
-#begin css_sprites (2).png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:css_sprites (2).png
 
 #begin EmptyBar.png
 /importer:TextureImporter

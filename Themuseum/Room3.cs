@@ -59,7 +59,7 @@ namespace Themuseum
             SB.Draw(Door, DoorPos, new Rectangle(6 * 32, 8 * 32, 32, 64), Color.White);
             SB.Draw(Door, DoorPos_MRB_MRC_C, new Rectangle(6 * 32, 8 * 32, 32, 64), Color.White);
         }
-        public void Function(GraphicsDeviceManager _graphics, Player player, RoomManager roomManager, KeyManagement Keymanager, float elapsed, DialogueBox dialogue)
+        public void Function(GraphicsDeviceManager _graphics, Player player, RoomManager roomManager, KeyManagement Keymanager, float elapsed, DialogueBox dialogue, LanternLight light)
         {
             KeyControls = Keyboard.GetState();
             //Object Hitbox
