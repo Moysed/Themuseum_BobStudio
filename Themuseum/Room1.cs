@@ -80,11 +80,6 @@ namespace Themuseum
             HiddenSwitch_03_Tex = content.Load<Texture2D>("hiddenswtich03_placeholder");
             R1_Shire.LoadSprite(content);
             piece1 = content.Load<Texture2D>("Piece1");
-<<<<<<< HEAD
-            piece2 = content.Load<Texture2D>("Piece2");
-            sound.LoadContent(content);
-=======
->>>>>>> 290b042b50fbb27875d0689299a3c81fa534f0f6
         }
         
         public void Draw(SpriteBatch SB,LanternLight light)
@@ -202,6 +197,7 @@ namespace Themuseum
                     player.ChangeStartingPosition(new Vector2(_graphics.GraphicsDevice.Viewport.Width/2, _graphics.GraphicsDevice.Viewport.Bounds.Bottom - 128));
                     roomManager.Roomchange(2);
                     Console.WriteLine("Door Opened");
+                }  
 <<<<<<< HEAD
                 }
                 else if (KeyControls.IsKeyDown(Keys.E) && OldKey.IsKeyUp(Keys.E))
@@ -258,20 +254,7 @@ namespace Themuseum
                     piece1Pos.X = 5000;
                 }
             }
-<<<<<<< HEAD
-            if (player.collision.Intersects(piece2Col) == true)
-            {
-                if (KeyControls.IsKeyDown(Keys.E) && OldKey.IsKeyUp(Keys.E))
-                {
-                    sound.PlaySfx(0);
-                    Keymanager.MRB_Pieces += 1;
-                    Console.WriteLine(Keymanager.MRB_Pieces);
-                    piece2Pos.X = 5000;
-                }
-            }
-=======
             
->>>>>>> 290b042b50fbb27875d0689299a3c81fa534f0f6
 
             //hint Collision
             if (player.collision.Intersects(hint) == true && KeyControls.IsKeyDown(Keys.E))
