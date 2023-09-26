@@ -27,7 +27,6 @@ namespace Themuseum
             light = new LanternLight();
             staminabar = new Staminabar(player.MaxStamina,player.MaxFuel);
 
-            //roomManager = new RoomManager(6);
             KeyManagement = new KeyManagement();
             ghost = new Ghost(new Vector2(10000, 10000));
             dialogue = new DialogueBox("placeholderblock", 200, 200);

@@ -12,21 +12,23 @@ namespace Themuseum
     public class GameOver : Screen
     {
         Texture2D gameOver;
+        private Player player;
         Game1 game; public GameOver(Game1 game,
          EventHandler theScreenEvent) : base(theScreenEvent)
         {
             //Load
             gameOver = game.Content.Load<Texture2D>("gameover_placeholder");
-
+            player = new Player(Vector2.Zero);
             this.game = game;
         }
         public override void Update(GameTime theTime)
         {
-            if (Keyboard.GetState().IsKeyDown(Keys.C) == true)
+            /*if (Keyboard.GetState().IsKeyDown(Keys.R) == true)
             {
-                ScreenEvent.Invoke(game.mGameoverScreen, new EventArgs());
+                ScreenEvent.Invoke(game.mGameplay, new EventArgs());
+                player.IsHaunted = false;
                 return;
-            }
+            }*/
           
             base.Update(theTime);
         }

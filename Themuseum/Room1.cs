@@ -45,7 +45,6 @@ namespace Themuseum
        
         Random r = new Random();
 
-        SpriteBatch spriteBatch;
 
         public Room1()
         {
@@ -96,7 +95,6 @@ namespace Themuseum
                 SB.Draw(HiddenSwitch_03_Tex, HiddenSwitch_03_Pos, Color.White);
             }
 
-            R1_Shire.Draw(SB);
             if (player_pieceActive == 1)
             {
                 if (light.Collision.Intersects(piece1Col))
@@ -110,6 +108,7 @@ namespace Themuseum
             }
             SB.Draw(hint, hintPos, Color.White);
             SB.Draw(Lantern, lanternPos, Color.White);
+            R1_Shire.Draw(SB);
         }
 
         public void Function(GraphicsDeviceManager _graphics, Player player,RoomManager roomManager, KeyManagement Keymanager, float elapsed, DialogueBox dialogue,LanternLight light)
@@ -248,13 +247,20 @@ namespace Themuseum
             //hint Collision
             if (player.collision.Intersects(hint) == true && KeyControls.IsKeyDown(Keys.E))
             {
+                //OldKey = KeyControls;
                 dialogue.SettingParameter("Hint Block", 200, 200, "Light will guide you home", Color.Green);
                 dialogue.Activation(true);
             }
-            else
+            else if (player.collision.Intersects(hint) == true && KeyControls.IsKeyUp(Keys.E) && OldKey.IsKeyDown(Keys.E))
             {
+                OldKey = KeyControls;
+                dialogue.SettingParameter("Hint Block", 200, 200, "Light will guide you home", Color.Green);
                 dialogue.Activation(false);
             }
+            /*else
+            {
+                dialogue.Activation(false);
+            }*/
 
             if (player.collision.Intersects(Lantern) == true && KeyControls.IsKeyDown(Keys.E))
             {
@@ -263,7 +269,7 @@ namespace Themuseum
                 Console.WriteLine(player.CurrentFuel);
             }
 
-            OldKey = KeyControls;
+            
         }
 
         
