@@ -10,7 +10,9 @@ namespace Themuseum
     {
         Texture2D mainMenuTexture;
         Texture2D Button;
+        Vector2 buttonPos;
         MouseState mouseState;
+        MouseState Old_mouseState;
         RoomManager roomManager;
         KeyManagement KeyManagement;
         GraphicsDeviceManager _graphics;
@@ -26,40 +28,40 @@ namespace Themuseum
             Button = game.Content.Load<Texture2D>("startbutton_placeholder");
             KeyManagement = new KeyManagement();
             player = new Player(new Vector2(0,0));
+            buttonPos = new Vector2(600, 320);
             light = new LanternLight();
-            //roomManager = new RoomManager(6);
             KeyManagement = new KeyManagement();
             dialogue = new DialogueBox("placeholderblock", 200, 200);
             this.game = game;
-
+            IsMouseVisible = true;
         }
         public override void Update(GameTime theTime)
         {
             mouseState = Mouse.GetState();
-            var mousePosition = new Point(mouseState.X, mouseState.Y);
-            Rectangle StartHitbox = new Rectangle(600, 320, 150, 80);
-            Rectangle Mousehitbox = new Rectangle(mousePosition.X, mousePosition.Y , 10 , 10);
-            
-          
+            Rectangle StartHitbox = new Rectangle((int)buttonPos.X, (int)buttonPos.Y, 150, 80);
 
+            /*if (StartHitbox.Contains(mouseState.X, mouseState.Y) && Mouse.GetState().LeftButton == ButtonState.Pressed)
+            {
+                Console.WriteLine("Clicked");
+                ScreenEvent.Invoke(game.mGameplay, new EventArgs());
+                return;
+            }*/
+            
             if (Keyboard.GetState().IsKeyDown(Keys.A) == true)
             {
+                Console.WriteLine("Clicked");
                 ScreenEvent.Invoke(game.mGameplay, new EventArgs());
                 return;
             }
-            if (Keyboard.GetState().IsKeyDown(Keys.C) == true)
-            {
-                ScreenEvent.Invoke(game.winScreen, new EventArgs());
-                return;
-            }
 
+            Old_mouseState = mouseState;
             base.Update(theTime);
         }
         public override void Draw(SpriteBatch theBatch)
         {
             
             theBatch.Draw(mainMenuTexture, Vector2.Zero, Color.White); base.Draw(theBatch);
-            theBatch.Draw(Button, new Vector2(600 ,320), Color.White);
+            theBatch.Draw(Button, buttonPos, Color.White);
             
         }
     }

@@ -15,7 +15,8 @@ namespace Themuseum
 {
     class Room3
     {
-
+        Room1 room1;
+        private Texture2D Map_Sprite;
         Rectangle BacktoRoom2;
         private Texture2D TileStatic;
         KeyboardState KeyControls;
@@ -31,6 +32,7 @@ namespace Themuseum
 
         public Room3()
         {
+            room1 = new Room1();
             WallArea_Col.Add(new Rectangle(0, 300, 500, 2000));
             WallArea_Col.Add(new Rectangle(700, 300, 1000, 2000));
             WallArea_Col.Add(new Rectangle(0, 0, 2000, 100));
@@ -41,6 +43,7 @@ namespace Themuseum
 
         public void Loadsprite(ContentManager content)
         {
+            Map_Sprite = content.Load<Texture2D>("MapSheet");
             TileStatic = content.Load<Texture2D>("room3_placeholder");
             WallArea_Tex = content.Load<Texture2D>("wallplaceholder");
             Door = content.Load<Texture2D>("placeholderdoor");
@@ -58,6 +61,10 @@ namespace Themuseum
             }
             SB.Draw(Door, DoorPos, new Rectangle(6 * 32, 8 * 32, 32, 64), Color.White);
             SB.Draw(Door, DoorPos_MRB_MRC_C, new Rectangle(6 * 32, 8 * 32, 32, 64), Color.White);
+            if (room1.showMap == true)
+            {
+                SB.Draw(Map_Sprite, new Vector2(320, 0), Color.White);
+            }
         }
         public void Function(GraphicsDeviceManager _graphics, Player player, RoomManager roomManager, KeyManagement Keymanager, float elapsed, DialogueBox dialogue, LanternLight light)
         {
@@ -169,6 +176,15 @@ namespace Themuseum
                         roomManager.Roomchange(5);
                     }
                 }
+            if (room1.mapActive = true && Keyboard.GetState().IsKeyDown(Keys.G))
+            {
+                room1.showMap = true;
             }
+            else
+            {
+                room1.showMap = false;
+            }
+        }
+
         }
     }

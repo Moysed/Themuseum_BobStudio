@@ -1,7 +1,10 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.Audio;
 using System;
+using System.Collections.Generic;
 
 namespace Themuseum
 {
@@ -13,18 +16,16 @@ namespace Themuseum
         private Player player;
         private LanternLight light;
         private Staminabar staminabar;
-        //private RoomManager roomManager;
-        private KeyboardState Keystate;
         private KeyManagement KeyManagement;
         private Ghost ghost;
         private DialogueBox dialogue;
-        private Mainmenu mainmenu;
         private Screen mCurrentScreen;
+        private Mainmenu mMainmenu;
         public GameOver mGameoverScreen;
         public WinScreen  winScreen;
         public GamePlay mGameplay;
 
-
+        MouseState m;
         public Game1()
         {
             _graphics = new GraphicsDeviceManager(this);
@@ -39,10 +40,12 @@ namespace Themuseum
             // TODO: Add your initialization logic here
             
             //roomManager = new RoomManager(6);
+            m = Mouse.GetState();
+
             KeyManagement = new KeyManagement();
-           
+
             dialogue = new DialogueBox("placeholderblock", 200, 200);
-            mainmenu = new Mainmenu(this, new EventHandler(GameplayScreenEvent));
+            mMainmenu = new Mainmenu(this, new EventHandler(GameplayScreenEvent));
             mGameoverScreen = new GameOver(this , new EventHandler(GameplayScreenEvent));
             winScreen = new WinScreen(this, new EventHandler(GameplayScreenEvent));
             mGameplay = new GamePlay(this, new EventHandler(GameplayScreenEvent));
@@ -54,7 +57,7 @@ namespace Themuseum
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
             dialogue.LoadResource(Content);
-            mCurrentScreen = mainmenu;
+            mCurrentScreen = mMainmenu;
             
             // TODO: use this.Content to load your game content here
         }
@@ -64,8 +67,6 @@ namespace Themuseum
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
             float elapsed = (float)gameTime.ElapsedGameTime.TotalSeconds;
-            Keystate = Keyboard.GetState();
-
 
             //roomManager.RoomFunction(_graphics, player, KeyManagement, elapsed,dialogue,light);
             dialogue.behavior();

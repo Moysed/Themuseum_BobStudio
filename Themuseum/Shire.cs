@@ -12,6 +12,8 @@ namespace Themuseum
 {
     class Shire
     {
+        bool animateActive = false;
+        private Texture2D _Sprite;
         private AnimatedTexture Sprite;
         private Vector2 SelfPosition;
         private Rectangle Collision;
@@ -20,22 +22,28 @@ namespace Themuseum
         public Shire(Vector2 startingposition){
             SelfPosition = startingposition;
             Sprite = new AnimatedTexture(Vector2.Zero, 0, 1, 0.5f);
-            Collision = new Rectangle((int)SelfPosition.X, (int)SelfPosition.Y, 32, 64);
+            
+            Collision = new Rectangle((int)SelfPosition.X, (int)SelfPosition.Y, 50, 109);
         }
 
         public void LoadSprite(ContentManager content)
         {
-            Sprite.Load(content, "198-Support06", 4, 4, 15);
+            Sprite.Load(content, "spritesheet (3)", 6, 1, 4);
+            _Sprite = content.Load<Texture2D>("Shire");
         }
 
         public void Draw(SpriteBatch SB)
         {
-            Sprite.DrawFrame(SB, SelfPosition, 1);
+            SB.Draw(_Sprite, SelfPosition, Color.White);
+            if(animateActive == true)
+            {
+                Sprite.DrawFrame(SB, new Vector2(465, 0), 1);
+            }
         }
 
-        public void Behavior(Player player,float elasped)
+        public void Behavior(Player player, float elasped)
         {
-            Collision = new Rectangle((int)SelfPosition.X, (int)SelfPosition.Y, 32, 64);
+            Collision = new Rectangle((int)SelfPosition.X, (int)SelfPosition.Y, 50, 109);
             Sprite.UpdateFrame(elasped);
 
             KeyInteract = Keyboard.GetState();
@@ -46,7 +54,12 @@ namespace Themuseum
                 {
                     player.IsHaunted = false;
                     Console.WriteLine("Shire Used!");
+                    animateActive = true;
                 }
+            }
+            else
+            {
+                animateActive = false;
             }
 
             OldKey = KeyInteract;

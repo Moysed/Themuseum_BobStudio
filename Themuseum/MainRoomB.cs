@@ -15,6 +15,8 @@ namespace Themuseum
 
     class MainRoomB
     {
+        Room1 room1;
+        private Texture2D Map_Sprite;
         private Texture2D hint;
         private Vector2 hintPos;
         private Texture2D TileStatic;
@@ -22,10 +24,8 @@ namespace Themuseum
         private Vector2 DoorPos;
         private Rectangle DoorCollision;
         private Texture2D WallArea_Tex;
-        private Texture2D piece5;
-        private Vector2 piece5Pos;
-        private Texture2D piece6;
-        private Vector2 piece6Pos;
+        private Texture2D piece3;
+        private Vector2 piece3Pos;
         private Texture2D statue;
         private Vector2 statuePos;
         KeyboardState Oldkey_;
@@ -34,22 +34,22 @@ namespace Themuseum
 
         public MainRoomB()
         {
+            room1 = new Room1();    
             random = new Random();
             DoorPos = new Vector2(610, 72 * 8);
             statuePos = new Vector2(500, 500);
-            piece5Pos = new Vector2(random.Next(64,200), random.Next(100,200));
-            piece6Pos = new Vector2(random.Next(400,800),random.Next(150,500));
+            piece3Pos = new Vector2(random.Next(64,200), random.Next(100,200));
             hintPos = new Vector2(500, 200);
         }
 
         public void LoadContent(ContentManager content)
         {
+            Map_Sprite = content.Load<Texture2D>("MapSheet");
             hint = content.Load<Texture2D>("Hint");
             TileStatic = content.Load<Texture2D>("room3_placeholder");
             Door = content.Load<Texture2D>("placeholderdoor");
             statue = content.Load<Texture2D>("Statue");
-            piece5 = content.Load<Texture2D>("Piece5");
-            piece6 = content.Load<Texture2D>("Piece6");
+            piece3 = content.Load<Texture2D>("Piece3");
         }
 
         public void Draw(SpriteBatch SB)
@@ -57,17 +57,19 @@ namespace Themuseum
            SB.Draw(TileStatic, Vector2.Zero, Color.White);
            SB.Draw(Door, DoorPos, new Rectangle(6 * 32, 8 * 32, 32, 64), Color.White);
            SB.Draw(statue, statuePos, Color.White);
-           SB.Draw(piece5, piece5Pos, Color.White);
-           SB.Draw(piece6, piece6Pos, Color.White);
+           SB.Draw(piece3, piece3Pos, Color.White);
            SB.Draw(hint, hintPos, Color.White);
+            if (room1.showMap == true)
+            {
+                SB.Draw(Map_Sprite, new Vector2(320, 0), Color.White);
+            }
         }
         public void Function(GraphicsDeviceManager _graphics, Player player, RoomManager roomManager, KeyManagement Keymanager, float elapsed, DialogueBox dialogue, LanternLight light)
         {
             keycontrols = Keyboard.GetState();
             //Object Hitbox
             Rectangle statueCollision = new Rectangle((int)statuePos.X, (int)statuePos.Y, 64, 64);
-            Rectangle piece5Col = new Rectangle((int)piece5Pos.X, (int)piece5Pos.Y, 64, 64);
-            Rectangle piece6Col = new Rectangle((int)piece6Pos.X, (int)piece6Pos.Y, 64, 64);
+            Rectangle piece5Col = new Rectangle((int)piece3Pos.X, (int)piece3Pos.Y, 64, 64);
             Rectangle hint = new Rectangle((int)hintPos.X, (int)hintPos.Y, 64, 64);
 
             DoorCollision = new Rectangle((int)DoorPos.X , (int)DoorPos.Y - 5, 32, 30);
@@ -129,16 +131,7 @@ namespace Themuseum
                 {
                     Keymanager.MRB_Pieces += 1;
                     Console.WriteLine(Keymanager.MRB_Pieces);
-                    piece5Pos.X = 5000;
-                }
-            }
-            if (player.collision.Intersects(piece6Col) == true)
-            {
-                if (keycontrols.IsKeyDown(Keys.E) && Oldkey_.IsKeyUp(Keys.E))
-                {
-                    Keymanager.MRB_Pieces += 1;
-                    Console.WriteLine(Keymanager.MRB_Pieces);
-                    piece6Pos.X = 5000;
+                    piece3Pos.X = 5000;
                 }
             }
 
@@ -148,7 +141,7 @@ namespace Themuseum
                 if (keycontrols.IsKeyDown(Keys.E) && Oldkey_.IsKeyUp(Keys.E))
                 {
                     Console.WriteLine(Keymanager.MRB_StatueActive);
-                    if(Keymanager.MRB_Pieces == 6)
+                    if(Keymanager.MRB_Pieces == 3)
                     {
                         Keymanager.KeyTrigger("MRB_Statue");
                     }
@@ -167,8 +160,18 @@ namespace Themuseum
                 dialogue.Activation(false);
             }
 
+            if (room1.mapActive = true && Keyboard.GetState().IsKeyDown(Keys.G))
+            {
+                room1.showMap = true;
+            }
+            else
+            {
+                room1.showMap = false;
+            }
+
             Oldkey_ = keycontrols;
         }
+
         
     }
 }

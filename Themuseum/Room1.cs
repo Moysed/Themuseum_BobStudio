@@ -15,8 +15,13 @@ namespace Themuseum
 {
     class Room1
     {
+        public bool showMap = false;
+        public bool mapActive = false;
         private Texture2D Lantern;
         private Vector2 lanternPos;
+        private Texture2D Map;
+        private Texture2D Map_Sprite;
+        private Vector2 mapPos;
         private Texture2D hint;
         private Vector2 hintPos;
         private Texture2D TileStatic;
@@ -35,10 +40,7 @@ namespace Themuseum
         private Shire R1_Shire;
         private Texture2D piece1;
         private Vector2 piece1Pos;
-        private Texture2D piece2;
-        private Vector2 piece2Pos;
         private Rectangle piece1Col;
-        private Rectangle piece2Col;
         private int player_pieceActive = 0;
         private KeyboardState KeyControls;
         private KeyboardState OldKey;
@@ -46,12 +48,12 @@ namespace Themuseum
        
         Random r = new Random();
 
-        SpriteBatch spriteBatch;
 
         public Room1()
         {
-            hintPos = new Vector2(500, 200);
-            lanternPos = new Vector2(500, 500);
+            mapPos = new Vector2(430, 290);
+            hintPos = new Vector2(300, 400);
+            lanternPos = new Vector2(740, 250);
             DoorPos = new Vector2(0, 64);
             DoorCollision = new Rectangle((int)DoorPos.X, (int)DoorPos.Y, 32, 64);
             HiddenSwitch_01_Pos = new Vector2(1000,320);
@@ -63,22 +65,26 @@ namespace Themuseum
             R1_Shire = new Shire(new Vector2(1100, 70));
             sound = new SoundSystem();
             piece1Pos = new Vector2(r.Next(110,200),r.Next(80, 250));
-            piece2Pos = new Vector2(r.Next(250,420), r.Next(275,480));
         }
 
         public void LoadSprite(ContentManager content)
         {
+            Map_Sprite = content.Load<Texture2D>("MapSheet");
             hint = content.Load<Texture2D>("Hint");
-            Lantern = content.Load<Texture2D>("Lantern_Placeholder");
-            TileStatic = content.Load<Texture2D>("Room1(new)");
+            Map = content.Load<Texture2D>("Map");
+            Lantern = content.Load<Texture2D>("Lantern");
+            TileStatic = content.Load<Texture2D>("Bg");
             Door = content.Load<Texture2D>("placeholderdoor");
             HiddenSwitch_01_Tex = content.Load<Texture2D>("hiddenswitch01_placeholder");
             HiddenSwitch_02_Tex = content.Load<Texture2D>("hiddenswitch02_placeholder");
             HiddenSwitch_03_Tex = content.Load<Texture2D>("hiddenswtich03_placeholder");
             R1_Shire.LoadSprite(content);
             piece1 = content.Load<Texture2D>("Piece1");
+<<<<<<< HEAD
             piece2 = content.Load<Texture2D>("Piece2");
             sound.LoadContent(content);
+=======
+>>>>>>> 290b042b50fbb27875d0689299a3c81fa534f0f6
         }
         
         public void Draw(SpriteBatch SB,LanternLight light)
@@ -98,20 +104,23 @@ namespace Themuseum
                 SB.Draw(HiddenSwitch_03_Tex, HiddenSwitch_03_Pos, Color.White);
             }
 
-            R1_Shire.Draw(SB);
             if (player_pieceActive == 1)
             {
                 if (light.Collision.Intersects(piece1Col))
                 {
                     SB.Draw(piece1, piece1Pos, Color.White);
                 }
-                else if (light.Collision.Intersects(piece1Col))
-                {
-                    SB.Draw(piece2, piece2Pos, Color.White);
-                }     
             }
             SB.Draw(hint, hintPos, Color.White);
             SB.Draw(Lantern, lanternPos, Color.White);
+            R1_Shire.Draw(SB);
+            SB.Draw(Map, mapPos, Color.White);
+
+            if (showMap == true)
+            {
+                SB.Draw(Map_Sprite, new Vector2(320, 0), Color.White);
+                Console.WriteLine(showMap);
+            }
         }
 
         public void Function(GraphicsDeviceManager _graphics, Player player,RoomManager roomManager, KeyManagement Keymanager, float elapsed, DialogueBox dialogue,LanternLight light)
@@ -161,7 +170,8 @@ namespace Themuseum
             }
             //Objects Behavior
             Rectangle hint = new Rectangle((int)hintPos.X, (int)hintPos.Y, 64, 64);
-            Rectangle Lantern = new Rectangle((int)lanternPos.X, (int)lanternPos.Y, 64, 64);
+            Rectangle Lantern = new Rectangle((int)lanternPos.X, (int)lanternPos.Y, 40, 70);
+            Rectangle map = new Rectangle((int)mapPos.X, (int)mapPos.Y, 74, 34);
             DoorPos = new Vector2(300, 50);
             DoorCollision = new Rectangle((int)DoorPos.X, (int)DoorPos.Y, 32, 64);
             R1_Shire.Behavior(player, elapsed);
@@ -171,7 +181,6 @@ namespace Themuseum
             HiddenSwitch_03_Col = new Rectangle((int)HiddenSwitch_03_Pos.X, (int)HiddenSwitch_03_Pos.Y, 64, 64);
 
             piece1Col = new Rectangle((int)piece1Pos.X, (int)piece1Pos.Y, 64, 64);
-            piece2Col = new Rectangle((int)piece2Pos.X, (int)piece2Pos.Y, 64, 64);
 
             if (Keymanager.R2_T1 == false)
             {
@@ -193,12 +202,16 @@ namespace Themuseum
                     player.ChangeStartingPosition(new Vector2(_graphics.GraphicsDevice.Viewport.Width/2, _graphics.GraphicsDevice.Viewport.Bounds.Bottom - 128));
                     roomManager.Roomchange(2);
                     Console.WriteLine("Door Opened");
+<<<<<<< HEAD
                 }
                 else if (KeyControls.IsKeyDown(Keys.E) && OldKey.IsKeyUp(Keys.E))
                 {
                     sound.PlaySfx(2);
                 }
                 
+=======
+                }  
+>>>>>>> 290b042b50fbb27875d0689299a3c81fa534f0f6
             }
             if(player.collision.Intersects(HiddenSwitch_01_Col) == true)
             {
@@ -245,6 +258,7 @@ namespace Themuseum
                     piece1Pos.X = 5000;
                 }
             }
+<<<<<<< HEAD
             if (player.collision.Intersects(piece2Col) == true)
             {
                 if (KeyControls.IsKeyDown(Keys.E) && OldKey.IsKeyUp(Keys.E))
@@ -255,17 +269,27 @@ namespace Themuseum
                     piece2Pos.X = 5000;
                 }
             }
+=======
+            
+>>>>>>> 290b042b50fbb27875d0689299a3c81fa534f0f6
 
             //hint Collision
             if (player.collision.Intersects(hint) == true && KeyControls.IsKeyDown(Keys.E))
             {
+                //OldKey = KeyControls;
                 dialogue.SettingParameter("Hint Block", 200, 200, "Light will guide you home", Color.Green);
                 dialogue.Activation(true);
             }
-            else
+            else if (player.collision.Intersects(hint) == true && KeyControls.IsKeyUp(Keys.E) && OldKey.IsKeyDown(Keys.E))
             {
+                OldKey = KeyControls;
+                dialogue.SettingParameter("Hint Block", 200, 200, "Light will guide you home", Color.Green);
                 dialogue.Activation(false);
             }
+            /*else
+            {
+                dialogue.Activation(false);
+            }*/
 
             if (player.collision.Intersects(Lantern) == true && KeyControls.IsKeyDown(Keys.E))
             {
@@ -275,9 +299,26 @@ namespace Themuseum
                 Console.WriteLine(player.CurrentFuel);
             }
 
-            OldKey = KeyControls;
-        }
+            if (player.collision.Intersects(map) == true && KeyControls.IsKeyDown(Keys.E))
+            {
+                mapActive = true;
+                mapPos.X = 20000;
+                Console.WriteLine(mapActive);
+            }
 
-        
+            else
+            {
+                mapActive = false;
+            }
+
+            if(mapActive = true && Keyboard.GetState().IsKeyDown(Keys.G))
+            {
+                showMap = true;
+            }
+            else
+            {
+                showMap = false;
+            }
+        }
     }
 }
