@@ -171,7 +171,7 @@ namespace Themuseum
             {
                 
                     Console.WriteLine("Door Opened");
-                    player.ChangeStartingPosition(new Vector2(300, 72));
+                    player.ChangeStartingPosition(new Vector2(player.SelfPosition.X, 72));
                     roomManager.Roomchange(1);
                 
             }
@@ -206,6 +206,7 @@ namespace Themuseum
             
             if (player.collision.Intersects(lanternRefill.Collision) == true && KeyControls.IsKeyUp(Keys.E) && OldKey.IsKeyDown(Keys.E))
             {
+                lanternRefill.IsCollected = true;
                 player.CurrentFuel += 300;
                 if(player.CurrentFuel > 300)
                 {

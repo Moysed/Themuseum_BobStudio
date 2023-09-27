@@ -39,7 +39,7 @@ namespace Themuseum
 
         public void LoadResource(ContentManager content)
         {
-            Dialoguebox_Sprite = content.Load<Texture2D>("placeholderblock");
+            Dialoguebox_Sprite = content.Load<Texture2D>("LongTalkingInterface");
             Font = content.Load<SpriteFont>("Keycollect");
             PortraitSprite = content.Load<Texture2D>(PortraitInput);
         }
@@ -69,7 +69,7 @@ namespace Themuseum
             KeyControls = Keyboard.GetState();
             if(IsActive == true)
             {
-                DialogueBoxPos = new Vector2(0, 440);
+                DialogueBoxPos = new Vector2(0, 487);
                 PortraitBoxPos = new Vector2(640-(PortraitWidth/2), 40);
 
                 

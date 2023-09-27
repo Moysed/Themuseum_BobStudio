@@ -55,8 +55,8 @@ namespace Themuseum
             mapPos = new Vector2(430, 290);
             hintPos = new Vector2(300, 400);
             lanternPos = new Vector2(740, 250);
-            DoorPos = new Vector2(0, 64);
-            DoorCollision = new Rectangle((int)DoorPos.X, (int)DoorPos.Y, 32, 64);
+            DoorPos = new Vector2(200, 0);
+            DoorCollision = new Rectangle(520, 200 , 200, 300);
             HiddenSwitch_01_Pos = new Vector2(1000, 320);
             HiddenSwitch_01_Col = new Rectangle((int)HiddenSwitch_01_Pos.X, (int)HiddenSwitch_01_Pos.Y, 64, 64);
             HiddenSwitch_02_Pos = new Vector2(10000, 10000);
@@ -88,7 +88,7 @@ namespace Themuseum
         public void Draw(SpriteBatch SB, LanternLight light)
         {
             SB.Draw(TileStatic, Vector2.Zero, Color.White);
-            SB.Draw(Door, DoorPos, new Rectangle(6 * 32, 8 * 32, 32, 64), Color.White);
+            //SB.Draw(Door, DoorPos, new Rectangle(6 * 32, 8 * 32, 32, 64), Color.White);
             if (light.Collision.Intersects(HiddenSwitch_01_Col))
             {
                 SB.Draw(HiddenSwitch_01_Tex, HiddenSwitch_01_Pos, Color.White);
@@ -165,8 +165,7 @@ namespace Themuseum
             Rectangle hint = new Rectangle((int)hintPos.X, (int)hintPos.Y, 64, 64);
             Rectangle Lantern = new Rectangle((int)lanternPos.X, (int)lanternPos.Y, 40, 70);
             Rectangle mapCol = new Rectangle((int)mapPos.X, (int)mapPos.Y, 74, 34);
-            DoorPos = new Vector2(300, 50);
-            DoorCollision = new Rectangle((int)DoorPos.X, (int)DoorPos.Y, 32, 64);
+            DoorCollision = new Rectangle(540, 0, 200,140);
             R1_Shire.Behavior(player, elapsed);
             HiddenSwitch_01_Pos = new Vector2(1000, 320);
             HiddenSwitch_01_Col = new Rectangle((int)HiddenSwitch_01_Pos.X, (int)HiddenSwitch_01_Pos.Y, 64, 64);
@@ -192,7 +191,7 @@ namespace Themuseum
                 if (KeyControls.IsKeyDown(Keys.E) && OldKey.IsKeyUp(Keys.E) && Keymanager.R1_S1 == true)
                 {
                     sound.PlaySfx(1);
-                    player.ChangeStartingPosition(new Vector2(_graphics.GraphicsDevice.Viewport.Width / 2, _graphics.GraphicsDevice.Viewport.Bounds.Bottom - 128));
+                    player.ChangeStartingPosition(new Vector2(player.SelfPosition.X, _graphics.GraphicsDevice.Viewport.Bounds.Bottom - 128));
                     roomManager.Roomchange(2);
                     Console.WriteLine("Door Opened");
                 }

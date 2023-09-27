@@ -47,7 +47,7 @@ namespace Themuseum
                 return;
             }*/
             
-            if (Keyboard.GetState().IsKeyDown(Keys.A) == true)
+            if (Keyboard.GetState().IsKeyDown(Keys.Enter) == true)
             {
                 Console.WriteLine("Clicked");
                 ScreenEvent.Invoke(game.mGameplay, new EventArgs());

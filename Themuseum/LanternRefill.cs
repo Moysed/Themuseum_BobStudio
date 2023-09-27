@@ -13,42 +13,51 @@ using Microsoft.Xna.Framework.Media;
 
 namespace Themuseum
 {
-    class LanternRefill 
+    public class LanternRefill 
     {
+        public bool IsCollected = false;
         private Vector2 DeployPosition;
         private Vector2 StorePosition;
         public Rectangle Collision;
-        private AnimatedTexture Texture;
+        private Texture2D unCollected;
+        private Texture2D Collected;
 
         public LanternRefill(Vector2 NewPosition)
         {
             DeployPosition = NewPosition;
             StorePosition = DeployPosition;
-            Collision = new Rectangle((int)DeployPosition.X, (int) DeployPosition.Y, 64, 64);
-            Texture = new AnimatedTexture(Vector2.Zero, 0, 1, 0.5f);
+            Collision = new Rectangle((int)DeployPosition.X, (int) DeployPosition.Y, 44, 50);
 
         }
 
         public void LoadSprite(ContentManager Content)
         {
-            Texture.Load(Content, "187-Lorry01", 4, 4, 15);
+            unCollected = Content.Load<Texture2D>("LightUncollect");
+            Collected = Content.Load<Texture2D>("LightCollected");
         }
 
         public void DrawSprite(SpriteBatch SB)
         {
-            Texture.DrawFrame(SB, DeployPosition, 1);
+            if(IsCollected == false)
+            {
+                SB.Draw(unCollected, DeployPosition, Color.White);
+            }
+            else if(IsCollected == true)
+            {
+                SB.Draw(Collected, StorePosition, Color.White);
+            }
         }
 
         public void ChangePosition(Vector2 NewPosition)
         {
             DeployPosition = NewPosition;
-            Collision = new Rectangle((int)DeployPosition.X, (int)DeployPosition.Y, 64, 64);
+            Collision = new Rectangle((int)DeployPosition.X, (int)DeployPosition.Y, 44, 50);
         }
 
         public void RestorePosition()
         {
             DeployPosition = StorePosition;
-            Collision = new Rectangle((int)DeployPosition.X, (int)DeployPosition.Y, 64, 64);
+            Collision = new Rectangle((int)DeployPosition.X, (int)DeployPosition.Y, 44, 50);
         }
 
         public Rectangle UpdateCollision()
