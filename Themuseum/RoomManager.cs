@@ -12,7 +12,7 @@ using Microsoft.Xna.Framework.Media;
 
 namespace Themuseum
 {
-    class RoomManager : Game1
+    class RoomManager 
     {
         private int roomnum = 0;
         private Room1 room1;
@@ -55,11 +55,11 @@ namespace Themuseum
                 case 6: mrc.Draw(SB); break;
             }
         }
-        public void RoomFunction(GraphicsDeviceManager _graphics, Player player , KeyManagement keymanager, float elapsed, DialogueBox dialogue, LanternLight light)
+        public void RoomFunction(GraphicsDeviceManager _graphics, Player player , KeyManagement keymanager, float elapsed, DialogueBox dialogue, LanternLight light,Map map)
         {
             switch (roomnum)
             {
-                case 1: room1.Function(_graphics,player,this, keymanager, elapsed,dialogue,light); break;
+                case 1: room1.Function(_graphics,player,this, keymanager, elapsed,dialogue,light,map); break;
                 case 2: room2.Function(_graphics, player,this, keymanager, elapsed,dialogue, light); break;
                 case 3: room3.Function(_graphics, player, this, keymanager, elapsed, dialogue, light); break;       
                 case 4: MRB.Function(_graphics, player, this, keymanager, elapsed, dialogue, light); break;

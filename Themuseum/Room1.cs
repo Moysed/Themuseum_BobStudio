@@ -16,8 +16,7 @@ namespace Themuseum
     class Room1
     {
         public Map map;
-        public bool showMap = false;
-        public bool mapActive = false;
+        
         private Texture2D Lantern;
         private Vector2 lanternPos;
         private Texture2D Map;
@@ -117,7 +116,7 @@ namespace Themuseum
 
         }
 
-        public void Function(GraphicsDeviceManager _graphics, Player player, RoomManager roomManager, KeyManagement Keymanager, float elapsed, DialogueBox dialogue, LanternLight light )
+        public void Function(GraphicsDeviceManager _graphics, Player player, RoomManager roomManager, KeyManagement Keymanager, float elapsed, DialogueBox dialogue, LanternLight light, Map map )
         {
 
             KeyControls = Keyboard.GetState();
@@ -165,7 +164,7 @@ namespace Themuseum
             //Objects Behavior
             Rectangle hint = new Rectangle((int)hintPos.X, (int)hintPos.Y, 64, 64);
             Rectangle Lantern = new Rectangle((int)lanternPos.X, (int)lanternPos.Y, 40, 70);
-            Rectangle map = new Rectangle((int)mapPos.X, (int)mapPos.Y, 74, 34);
+            Rectangle mapCol = new Rectangle((int)mapPos.X, (int)mapPos.Y, 74, 34);
             DoorPos = new Vector2(300, 50);
             DoorCollision = new Rectangle((int)DoorPos.X, (int)DoorPos.Y, 32, 64);
             R1_Shire.Behavior(player, elapsed);
@@ -273,11 +272,11 @@ namespace Themuseum
                 Console.WriteLine(player.CurrentFuel);
             }
 
-            if (player.collision.Intersects(map) == true && KeyControls.IsKeyDown(Keys.E))
+            if (player.collision.Intersects(mapCol) == true && KeyControls.IsKeyDown(Keys.E))
             {
-                mapActive = true;
-                //mapPos.X = 20000;
-                Console.WriteLine(mapActive);
+                map.IsActive = true;
+                mapPos.X = 20000;
+                Console.WriteLine("Map Collected");
             }
 
             OldKey = KeyControls;

@@ -8,7 +8,7 @@ using System.Collections.Generic;
 
 namespace Themuseum
 {
-    public class Map
+    class Map
     {
         private Vector2 mapPosition;
         private Texture2D MapSprite;
@@ -24,15 +24,21 @@ namespace Themuseum
             MapSprite = Content.Load<Texture2D>("MapSheet");
         }
 
-        public void MapActivate()
+        public void Behavior(RoomManager Rooms)
         {
-            mapPosition = new Vector2(320, 0);
+            if (IsActive == true)
+            {
+                if(Keyboard.GetState().IsKeyDown(Keys.M))
+                {
+                    mapPosition = new Vector2(320, 0);
+                }
+                else
+                {
+                    mapPosition = new Vector2(10000, 10000);
+                }
+            }
         }
-
-        public void MapDeactivate()
-        {
-            mapPosition = new Vector2(10000, 10000);
-        }
+        
 
         public void DrawMap(SpriteBatch SB)
         {

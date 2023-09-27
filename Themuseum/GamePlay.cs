@@ -27,6 +27,7 @@ namespace Themuseum
             
             player = new Player(new Vector2(game._graphics.GraphicsDevice.Viewport.Width / 2, game._graphics.GraphicsDevice.Viewport.Height / 2));
             light = new LanternLight();
+            map = new Map();
             staminabar = new Staminabar(player.MaxStamina,player.MaxFuel);
 
             KeyManagement = new KeyManagement();
@@ -49,11 +50,11 @@ namespace Themuseum
             float elapsed = (float)theTime.ElapsedGameTime.TotalSeconds;
             Keystate = Keyboard.GetState();
 
-            roomManager.RoomFunction(_graphics, player, KeyManagement, elapsed, dialogue, light);
+            roomManager.RoomFunction(_graphics, player, KeyManagement, elapsed, dialogue, light,map);
 
             player.Controls(Keystate, light);
             player.UpdateAnimation(elapsed);
-
+            map.Behavior(roomManager);
             staminabar.UpdateBar(player.CurrentStamina, player.CurrentFuel, elapsed) ;
             ghost.Behavior(player, light);
             ghost.UpdateAnimation(elapsed);
