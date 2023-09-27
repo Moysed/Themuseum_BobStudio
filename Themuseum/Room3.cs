@@ -57,7 +57,7 @@ namespace Themuseum
             KeyControls = Keyboard.GetState();
             //Object Hitbox
             DoorCollision_MRB_MRC_C = new Rectangle(1262, 158, 18, 294);
-            BacktoRoom2 = new Rectangle(400, 600, 300, 200);
+            BacktoRoom2 = new Rectangle(400, 600, 400, 200);
             DoorCollision = new Rectangle(568, 57, 138, 194);
             
             //Wall Collision

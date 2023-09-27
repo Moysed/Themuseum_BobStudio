@@ -66,10 +66,10 @@ namespace Themuseum
             keycontrols = Keyboard.GetState();
             //Object Hitbox
             Rectangle statueCollision = new Rectangle((int)statuePos.X, (int)statuePos.Y, 64, 64);
-            Rectangle piece5Col = new Rectangle((int)piece3Pos.X, (int)piece3Pos.Y, 64, 64);
+            Rectangle piece3Col = new Rectangle((int)piece3Pos.X, (int)piece3Pos.Y, 64, 64);
             Rectangle hint = new Rectangle((int)hintPos.X, (int)hintPos.Y, 64, 64);
 
-            DoorCollision = new Rectangle((int)DoorPos.X , (int)DoorPos.Y - 5, 32, 30);
+            DoorCollision = new Rectangle((int)DoorPos.X , (int)DoorPos.Y, 32, 30);
 
             //Wall Collision
             if (player.SelfPosition.X >= _graphics.GraphicsDevice.Viewport.Bounds.Right - 116)
@@ -122,7 +122,7 @@ namespace Themuseum
             }
 
             //Piece Collect
-            if (player.collision.Intersects(piece5Col) == true)
+            if (player.collision.Intersects(piece3Col) == true)
             {
                 if (keycontrols.IsKeyDown(Keys.E) && Oldkey_.IsKeyUp(Keys.E))
                 {
