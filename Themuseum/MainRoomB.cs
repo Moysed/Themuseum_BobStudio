@@ -116,7 +116,7 @@ namespace Themuseum
                 Console.WriteLine("Hit");
                 if (keycontrols.IsKeyDown(Keys.E) && Oldkey_.IsKeyUp(Keys.E))
                 {
-                    player.ChangeStartingPosition(new Vector2(player.SelfPosition.X, 110));
+                    player.ChangeStartingPosition(new Vector2(player.SelfPosition.X, 240));
                     roomManager.Roomchange(3);
                 }
             }

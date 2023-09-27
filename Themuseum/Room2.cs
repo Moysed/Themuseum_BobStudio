@@ -159,7 +159,7 @@ namespace Themuseum
             //Object Behavior
             DoorPos = new Vector2(0, 600);
             DoorCollision = new Rectangle((int)DoorPos.X, (int)DoorPos.Y, 1280, 20);
-            EndofHallway = new Rectangle(0, 0, 1280, 210);
+            EndofHallway = new Rectangle(589, 167, 111, 53);
             R2_T1_Trigger_Pos = new Vector2(540, 256);
             R2_T1_Trigger_Col = new Rectangle((int)R2_T1_Trigger_Pos.X, (int)R2_T1_Trigger_Pos.Y, 128, 128);
 

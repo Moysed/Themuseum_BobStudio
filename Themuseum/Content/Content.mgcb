@@ -1010,6 +1010,18 @@
 /processorParam:TextureFormat=Color
 /build:room2_placeholder.png
 
+#begin Room3 bg.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Room3 bg.png
+
 #begin room3_placeholder.png
 /importer:TextureImporter
 /processor:TextureProcessor
