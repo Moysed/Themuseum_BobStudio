@@ -68,6 +68,9 @@ namespace Themuseum
             {
                 Console.WriteLine("Game Won");
                 ScreenEvent.Invoke(game.winScreen, new EventArgs());
+
+                Reset();
+
                 return;
             }
 
@@ -75,18 +78,8 @@ namespace Themuseum
             {
                 Console.WriteLine("Game Over");
                 ScreenEvent.Invoke(game.mGameoverScreen, new EventArgs());
-                ghost.gameOver = false; 
-                player.IsHaunted = false;
-                roomManager.Roomchange(1);
-                KeyManagement.loss = true;
-                player.SelfPosition = new Vector2(game._graphics.GraphicsDevice.Viewport.Width / 2, game._graphics.GraphicsDevice.Viewport.Height / 2);
-                KeyManagement.MRB_Pieces = 0;
-                refill.refill = true;
-                refill.IsCollected = false;
-                KeyManagement.loss = true;
-                light.IsActive = false;
-                map.IsActive = false;
 
+                Reset();
 
                 return;
             }
@@ -101,6 +94,18 @@ namespace Themuseum
             dialogue.Draw(theBatch);
             staminabar.Drawbar(theBatch);
             map.DrawMap(theBatch);
+        }
+
+        public void Reset()
+        {
+            
+            ghost.gameOver = false;
+            player.Reset();
+            KeyManagement.Reset();
+            light.IsActive = false;
+            map.IsActive = false;
+            roomManager.RoomReset();
+            
         }
     }
 }

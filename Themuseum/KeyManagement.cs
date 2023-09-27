@@ -14,7 +14,7 @@ namespace Themuseum
 {
     class KeyManagement
     {
-        public bool loss = false;
+        
         //Trigger naming format {Room number}_{Type of triggers and its number}
         public bool R1_S1 = false;
         public bool R1_S2 = false;
@@ -29,10 +29,10 @@ namespace Themuseum
         public bool MRC_G_B = false;
         public bool MRC_Unlock = false;
         public bool GameEnded = false;
-        LanternLight light;
+        
         public KeyManagement()
         {
-            light = new LanternLight();
+            
         }
         public void KeyTrigger(string KeyID)
         {
@@ -47,23 +47,24 @@ namespace Themuseum
                 case "MRC_Unlock": MRC_Unlock=true; break;
             }
             
-            if(loss == true)
-            {
-                R1_S1 = false;
-        R1_S2 = false;
-         R1_S3 = false;
-        R2_T1 = false;
-        MRB_StatueActive = false;
-        MRB_PieceActive = false;
-        MRB_Pieces = 0;
-        MRC_R_B = false;
-         MRC_B_B = false;
-       MRC_Y_B = false;
-      MRC_G_B = false;
-   MRC_Unlock = false;
-    }
+            
         }
-
+        public void Reset()
+        {
+         R1_S1 = false;
+         R1_S2 = false;
+         R1_S3 = false;
+         R2_T1 = false;
+         MRB_StatueActive = false;
+         MRB_PieceActive = false;
+         MRB_Pieces = 0;
+         MRC_R_B = false;
+         MRC_B_B = false;
+         MRC_Y_B = false;
+         MRC_G_B = false;
+         MRC_Unlock = false;
+         GameEnded = false;
+        }
         
     }
 }

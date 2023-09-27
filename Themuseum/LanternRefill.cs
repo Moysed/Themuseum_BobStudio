@@ -15,8 +15,8 @@ namespace Themuseum
 {
     public class LanternRefill 
     {
-        KeyManagement keyManagement;
-        public bool refill = true;
+        
+        
         public bool IsCollected = false;
         private Vector2 DeployPosition;
         private Vector2 StorePosition;
@@ -26,7 +26,7 @@ namespace Themuseum
 
         public LanternRefill(Vector2 NewPosition)
         {
-            keyManagement = new KeyManagement();
+            
             DeployPosition = NewPosition;
             StorePosition = DeployPosition;
             Collision = new Rectangle((int)DeployPosition.X, (int) DeployPosition.Y, 44, 50);
@@ -41,7 +41,7 @@ namespace Themuseum
 
         public void DrawSprite(SpriteBatch SB)
         {
-            if(IsCollected == false  && keyManagement.loss == false)
+            if(IsCollected == false)
             {
                 SB.Draw(unCollected, DeployPosition, Color.White);
             }
@@ -66,6 +66,11 @@ namespace Themuseum
         public Rectangle UpdateCollision()
         {
             return Collision;
+        }
+
+        public void ResetState()
+        {
+            IsCollected = false;
         }
     }
 }

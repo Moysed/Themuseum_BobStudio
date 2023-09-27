@@ -184,6 +184,12 @@ namespace Themuseum
         {
             return speed;
         }
-        
+        public void Reset()
+        {
+            CurrentFuel = 300;
+            CurrentStamina = 100;
+            IsHaunted = false;
+            SelfPosition = new Vector2(1280/2,640/2);
+        }
     }
 }

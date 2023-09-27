@@ -204,18 +204,15 @@ namespace Themuseum
                 }
             }
             
-            if (player.collision.Intersects(lanternRefill.Collision) == true && KeyControls.IsKeyUp(Keys.E) && OldKey.IsKeyDown(Keys.E) && lanternRefill.refill == true)
+            if (player.collision.Intersects(lanternRefill.Collision) == true && KeyControls.IsKeyUp(Keys.E) && OldKey.IsKeyDown(Keys.E) && lanternRefill.IsCollected == false)
             {
                 
-                lanternRefill.IsCollected = true;
-                    player.CurrentFuel += 300;
+                    lanternRefill.IsCollected = true;
+                    player.CurrentFuel = 300;
 
-                    if (player.CurrentFuel > 300)
-                    {
-                        player.CurrentFuel = 300;
-                    }
+                    
                     Console.WriteLine(player.CurrentFuel);
-                    lanternRefill.refill = false;
+                    
                 
                 
                 
@@ -223,5 +220,11 @@ namespace Themuseum
             
             OldKey = KeyControls;
         }
+
+        public void Reset()
+        {
+            lanternRefill.ResetState();
+        }
+
     }
 }

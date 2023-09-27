@@ -216,10 +216,8 @@ namespace Themuseum
                 }
             }
 
-            if(Keymanager.loss == true)
-            {
-                lanternPos = new Vector2(740, 250);
-            }
+           
+            
 
                     //COunter col
 
@@ -342,7 +340,14 @@ namespace Themuseum
 
                     OldKey = KeyControls;
                 }
-            }
+        public void Reset()
+        {
+
+            lanternPos = new Vector2(740, 250);
+            mapPos = new Vector2(430, 290);
+        }
+    }
+            
         }
  
     

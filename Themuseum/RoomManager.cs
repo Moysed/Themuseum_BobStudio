@@ -74,5 +74,13 @@ namespace Themuseum
             roomnum = roomnumber;
         }
 
+        public void RoomReset()
+        {
+            roomnum = 1;
+            room1.Reset();
+            room2.Reset();
+
+        }
+
     }
 }
