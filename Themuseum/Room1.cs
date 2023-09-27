@@ -251,10 +251,7 @@ namespace Themuseum
                         }
 
                     }
-                    else if (KeyControls.IsKeyDown(Keys.E) && OldKey.IsKeyUp(Keys.E))
-                    {
-                        sound.PlaySfx(2);
-                    }
+                   
 
                     if (player.collision.Intersects(HiddenSwitch_02_Col) == true)
                     {
@@ -303,13 +300,12 @@ namespace Themuseum
                     }
 
                     //hint Collision
-                    if (KeyControls.IsKeyDown(Keys.E) && OldKey.IsKeyDown(Keys.E) && player.collision.Intersects(hint))
+                    if (KeyControls.IsKeyDown(Keys.E) && OldKey.IsKeyDown(Keys.E) && player.collision.Intersects(hint) == true)
                     {
-                if (dialogue.IsActive == false)
-                {
-                    dialogue.SettingParameter("Hint Block", 200, 200, "Light will guide you home", Color.Green);
-                    dialogue.Activation(true);
-                }
+                 
+                        dialogue.SettingParameter("Hint Block", 200, 200, "Light will guide you home", Color.Green);
+                        dialogue.Activation(true);
+                
         
                     }
             

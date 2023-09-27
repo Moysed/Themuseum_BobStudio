@@ -27,6 +27,8 @@ namespace Themuseum
         private SpriteFont Font;
         private KeyboardState KeyControls;
         private KeyboardState OldKey;
+        private int timer;
+        private int countdown = 30;
         public bool IsActive = false;
 
         public DialogueBox(string Input,int Width,int Height)
@@ -67,12 +69,20 @@ namespace Themuseum
 
         public void behavior()
         {
+            timer--;
             KeyControls = Keyboard.GetState();
             if(IsActive == true)
             {
                 DialogueBoxPos = new Vector2(0, 487);
                 PortraitBoxPos = new Vector2(640-(PortraitWidth/2), 40);
 
+                if(timer <= 0)
+                {
+                    if(KeyControls.IsKeyDown(Keys.E) && OldKey.IsKeyUp(Keys.E) )
+                    {
+                        IsActive = false;
+                    }
+                }
                 
             }
             else
@@ -87,6 +97,7 @@ namespace Themuseum
         public void Activation(bool isShow)
         {
             IsActive = isShow;
+            timer = countdown;
         }
     }
 }
