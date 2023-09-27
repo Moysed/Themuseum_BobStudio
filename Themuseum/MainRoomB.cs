@@ -59,10 +59,7 @@ namespace Themuseum
            SB.Draw(statue, statuePos, Color.White);
            SB.Draw(piece3, piece3Pos, Color.White);
            SB.Draw(hint, hintPos, Color.White);
-            if (room1.showMap == true)
-            {
-                SB.Draw(Map_Sprite, new Vector2(320, 0), Color.White);
-            }
+           
         }
         public void Function(GraphicsDeviceManager _graphics, Player player, RoomManager roomManager, KeyManagement Keymanager, float elapsed, DialogueBox dialogue, LanternLight light)
         {
@@ -160,14 +157,6 @@ namespace Themuseum
                 dialogue.Activation(false);
             }
 
-            if (room1.mapActive = true && Keyboard.GetState().IsKeyDown(Keys.M))
-            {
-                room1.showMap = true;
-            }
-            else
-            {
-                room1.showMap = false;
-            }
 
             Oldkey_ = keycontrols;
         }

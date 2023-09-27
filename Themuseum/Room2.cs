@@ -93,10 +93,6 @@ namespace Themuseum
 
             lanternRefill.DrawSprite(SB);
 
-            if (room1.showMap == true)
-            {
-                SB.Draw(Map_Sprite, new Vector2(320, 0), Color.White);
-            }
         }
 
         public void Function(GraphicsDeviceManager _graphics, Player player, RoomManager roomManager, KeyManagement Keymanager, float elapsed, DialogueBox dialogue, LanternLight light)
@@ -218,15 +214,6 @@ namespace Themuseum
                 Console.WriteLine(player.CurrentFuel);
             }
             
-            if (room1.mapActive = true && Keyboard.GetState().IsKeyDown(Keys.M))
-            {
-                room1.showMap = true;
-            }
-            else
-            {
-                room1.showMap = false;
-            }
-
             OldKey = KeyControls;
         }
     }

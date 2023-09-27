@@ -50,23 +50,10 @@ namespace Themuseum
             }
             SB.Draw(Door, DoorPos_Room3, new Rectangle(6 * 32, 8 * 32, 32, 64), Color.White);
             SB.Draw(Door, DoorPos_MRC, new Rectangle(6 * 32, 8 * 32, 32, 64), Color.White);
-            if (room1.showMap == true)
-            {
-                SB.Draw(Map_Sprite, new Vector2(320, 0), Color.White);
-            }
         }
 
         public void Function(GraphicsDeviceManager _graphics, Player player, RoomManager roomManager, KeyManagement Keymanager, float elapsed, DialogueBox dialogue, LanternLight light)
         {
-            KeyControls = Keyboard.GetState();
-            if (room1.mapActive = true && Keyboard.GetState().IsKeyDown(Keys.G))
-            {
-                room1.showMap = true;
-            }
-            else
-            {
-                room1.showMap = false;
-            }
 
             //Wall Collision
             for (int i = 0; i < WallArea_Col.Count; i++)

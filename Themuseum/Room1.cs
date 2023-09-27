@@ -15,6 +15,7 @@ namespace Themuseum
 {
     class Room1
     {
+        public Map map;
         public bool showMap = false;
         public bool mapActive = false;
         private Texture2D Lantern;
@@ -44,7 +45,7 @@ namespace Themuseum
         private int player_pieceActive = 0;
         private KeyboardState KeyControls;
         private KeyboardState OldKey;
-        KeyboardMethod method;
+        //KeyboardMethod method;
         private SoundSystem sound;
 
         Random r = new Random();
@@ -65,7 +66,7 @@ namespace Themuseum
             HiddenSwitch_03_Col = new Rectangle((int)HiddenSwitch_03_Pos.X, (int)HiddenSwitch_03_Pos.Y, 64, 64);
             R1_Shire = new Shire(new Vector2(1100, 70));
             sound = new SoundSystem();
-            method = new KeyboardMethod();
+            //method = new KeyboardMethod();
             piece1Pos = new Vector2(r.Next(110, 200), r.Next(80, 250));
         }
 
@@ -114,11 +115,6 @@ namespace Themuseum
             R1_Shire.Draw(SB);
             SB.Draw(Map, mapPos, Color.White);
 
-            if (showMap == true)
-            {
-                SB.Draw(Map_Sprite, new Vector2(320, 0), Color.White);
-                Console.WriteLine(showMap);
-            }
         }
 
         public void Function(GraphicsDeviceManager _graphics, Player player, RoomManager roomManager, KeyManagement Keymanager, float elapsed, DialogueBox dialogue, LanternLight light )
@@ -286,22 +282,8 @@ namespace Themuseum
             if (player.collision.Intersects(map) == true && KeyControls.IsKeyDown(Keys.E))
             {
                 mapActive = true;
-                mapPos.X = 20000;
+                //mapPos.X = 20000;
                 Console.WriteLine(mapActive);
-            }
-
-            else
-            {
-                mapActive = false;
-            }
-
-            if (mapActive = true && Keyboard.GetState().IsKeyDown(Keys.M))
-            {
-                showMap = true;
-            }
-            else
-            {
-                showMap = false;
             }
 
             OldKey = KeyControls;

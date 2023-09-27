@@ -18,6 +18,7 @@ namespace Themuseum
         private Ghost ghost;
         private DialogueBox dialogue;
         private SoundSystem soundSystem;
+        private Map map;
         RoomManager roomManager;
         
 
@@ -38,6 +39,7 @@ namespace Themuseum
             roomManager = new RoomManager(1);
             roomManager.LoadAssets(game.Content);
             light.LoadSprite(game.Content);
+            map.LoadSprite(game.Content);
             this._graphics = game._graphics;
             this.game = game;
 
@@ -52,7 +54,7 @@ namespace Themuseum
             player.Controls(Keystate, light);
             player.UpdateAnimation(elapsed);
 
-                staminabar.UpdateBar(player.CurrentStamina, player.CurrentFuel, elapsed) ;
+            staminabar.UpdateBar(player.CurrentStamina, player.CurrentFuel, elapsed) ;
             ghost.Behavior(player, light);
             ghost.UpdateAnimation(elapsed);
             dialogue.behavior();
@@ -83,6 +85,7 @@ namespace Themuseum
             ghost.Draw(theBatch);
             dialogue.Draw(theBatch);
             staminabar.Drawbar(theBatch);
+            map.DrawMap(theBatch);
         }
     }
 }

@@ -61,10 +61,6 @@ namespace Themuseum
             }
             SB.Draw(Door, DoorPos, new Rectangle(6 * 32, 8 * 32, 32, 64), Color.White);
             SB.Draw(Door, DoorPos_MRB_MRC_C, new Rectangle(6 * 32, 8 * 32, 32, 64), Color.White);
-            if (room1.showMap == true)
-            {
-                SB.Draw(Map_Sprite, new Vector2(320, 0), Color.White);
-            }
         }
         public void Function(GraphicsDeviceManager _graphics, Player player, RoomManager roomManager, KeyManagement Keymanager, float elapsed, DialogueBox dialogue, LanternLight light)
         {
@@ -167,22 +163,14 @@ namespace Themuseum
                         roomManager.Roomchange(4);
                     }
                 }
-                if(player.collision.Intersects(DoorCollision_MRB_MRC_C) == true)
+            if (player.collision.Intersects(DoorCollision_MRB_MRC_C) == true)
+            {
+                if (KeyControls.IsKeyDown(Keys.E) && Oldkey_.IsKeyUp(Keys.E) && Keymanager.MRB_StatueActive == true)
                 {
-                    if (KeyControls.IsKeyDown(Keys.E) && Oldkey_.IsKeyUp(Keys.E) && Keymanager.MRB_StatueActive == true)
-                    {
-                        
-                        player.ChangeStartingPosition(new Vector2(75,player.SelfPosition.Y));
-                        roomManager.Roomchange(5);
-                    }
+
+                    player.ChangeStartingPosition(new Vector2(75, player.SelfPosition.Y));
+                    roomManager.Roomchange(5);
                 }
-            if (room1.mapActive = true && Keyboard.GetState().IsKeyDown(Keys.M))
-            {
-                room1.showMap = true;
-            }
-            else
-            {
-                room1.showMap = false;
             }
         }
 

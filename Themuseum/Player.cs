@@ -154,6 +154,15 @@ namespace Themuseum
             {
                 Light.LightDeactivate();
             }
+
+            if(KeyControls.IsKeyUp(Keys.M) && room1.mapActive == true)
+            {
+                Map.MapActivate();
+            }
+            else if(room1.mapActive == false)
+            {
+                Map.MapDeactivate();
+            }
         }
 
 
