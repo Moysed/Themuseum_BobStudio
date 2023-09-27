@@ -204,15 +204,21 @@ namespace Themuseum
                 }
             }
             
-            if (player.collision.Intersects(lanternRefill.Collision) == true && KeyControls.IsKeyUp(Keys.E) && OldKey.IsKeyDown(Keys.E))
+            if (player.collision.Intersects(lanternRefill.Collision) == true && KeyControls.IsKeyUp(Keys.E) && OldKey.IsKeyDown(Keys.E) && lanternRefill.refill == true)
             {
+                
                 lanternRefill.IsCollected = true;
-                player.CurrentFuel += 300;
-                if(player.CurrentFuel > 300)
-                {
-                    player.CurrentFuel = 300;
-                }
-                Console.WriteLine(player.CurrentFuel);
+                    player.CurrentFuel += 300;
+
+                    if (player.CurrentFuel > 300)
+                    {
+                        player.CurrentFuel = 300;
+                    }
+                    Console.WriteLine(player.CurrentFuel);
+                    lanternRefill.refill = false;
+                
+                
+                
             }
             
             OldKey = KeyControls;

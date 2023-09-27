@@ -20,7 +20,7 @@ namespace Themuseum
         private Ghost ghost;
         private DialogueBox dialogue;
         private Screen mCurrentScreen;
-        private Mainmenu mMainmenu;
+        public Mainmenu mMainmenu;
         public GameOver mGameoverScreen;
         public WinScreen  winScreen;
         public GamePlay mGameplay;

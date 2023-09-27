@@ -51,6 +51,8 @@ namespace Themuseum
             {
                 Console.WriteLine("Clicked");
                 ScreenEvent.Invoke(game.mGameplay, new EventArgs());
+                game.mGameplay.ResetElapsedTime();
+                KeyManagement.loss = false;
                 return;
             }
 

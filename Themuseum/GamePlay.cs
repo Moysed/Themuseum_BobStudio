@@ -2,7 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
-
+using System.Windows.Forms;
 
 namespace Themuseum
 {
@@ -12,6 +12,7 @@ namespace Themuseum
         private SpriteBatch _spriteBatch;
         private Player player;
         private LanternLight light;
+        private LanternRefill refill;
         private Staminabar staminabar;
         private KeyboardState Keystate;
         private KeyManagement KeyManagement;
@@ -24,7 +25,7 @@ namespace Themuseum
 
         Game1 game; public GamePlay(Game1 game, EventHandler theScreenEvent) : base(theScreenEvent)
         {
-            
+            refill = new LanternRefill(Vector2.Zero);
             player = new Player(new Vector2(game._graphics.GraphicsDevice.Viewport.Width / 2, game._graphics.GraphicsDevice.Viewport.Height / 2));
             light = new LanternLight();
             map = new Map();
@@ -52,7 +53,7 @@ namespace Themuseum
 
             roomManager.RoomFunction(_graphics, player, KeyManagement, elapsed, dialogue, light,map);
 
-            player.Controls(Keystate, light);
+            player.Controls(Keystate, light,KeyManagement);
             player.UpdateAnimation(elapsed);
             map.Behavior(roomManager);
             staminabar.UpdateBar(player.CurrentStamina, player.CurrentFuel, elapsed) ;
@@ -74,6 +75,19 @@ namespace Themuseum
             {
                 Console.WriteLine("Game Over");
                 ScreenEvent.Invoke(game.mGameoverScreen, new EventArgs());
+                ghost.gameOver = false; 
+                player.IsHaunted = false;
+                roomManager.Roomchange(1);
+                KeyManagement.loss = true;
+                player.SelfPosition = new Vector2(game._graphics.GraphicsDevice.Viewport.Width / 2, game._graphics.GraphicsDevice.Viewport.Height / 2);
+                KeyManagement.MRB_Pieces = 0;
+                refill.refill = true;
+                refill.IsCollected = false;
+                KeyManagement.loss = true;
+                light.IsActive = false;
+                map.IsActive = false;
+
+
                 return;
             }
             base.Update(theTime);

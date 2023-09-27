@@ -72,11 +72,12 @@ namespace Themuseum
             }
         }
 
-        public void Controls(KeyboardState Keystate, LanternLight Light)
+        public void Controls(KeyboardState Keystate, LanternLight Light, KeyManagement keyManagement)
         {
             KeyControls = Keystate;
             collision = new Rectangle((int)SelfPosition.X, (int)SelfPosition.Y, 42, 84);
 
+            
 
             if (KeyControls.IsKeyDown(Keys.A))
             {

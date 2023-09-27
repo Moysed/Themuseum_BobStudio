@@ -114,7 +114,12 @@ namespace Themuseum
                 }
             }
             SB.Draw(hint, hintPos, Color.White);
-            SB.Draw(Lantern, lanternPos, Color.White);
+            
+            if(light.IsActive == false)
+            {
+                SB.Draw(Lantern, lanternPos, Color.White);
+            }
+            
             R1_Shire.Draw(SB);
             SB.Draw(Map, mapPos, Color.White);
 
@@ -211,7 +216,10 @@ namespace Themuseum
                 }
             }
 
-
+            if(Keymanager.loss == true)
+            {
+                lanternPos = new Vector2(740, 250);
+            }
 
                     //COunter col
 
@@ -245,6 +253,7 @@ namespace Themuseum
                         if (KeyControls.IsKeyDown(Keys.E) && OldKey.IsKeyUp(Keys.E) && Keymanager.R1_S1 == true)
                         {
                             sound.PlaySfx(1);
+
                             player.ChangeStartingPosition(new Vector2(player.SelfPosition.X, _graphics.GraphicsDevice.Viewport.Bounds.Bottom - 128));
                             roomManager.Roomchange(2);
                             Console.WriteLine("Door Opened");

@@ -13,6 +13,7 @@ namespace Themuseum
     {
         Texture2D gameOver;
         private Player player;
+        Ghost ghost;
         Game1 game; public GameOver(Game1 game,
          EventHandler theScreenEvent) : base(theScreenEvent)
         {
@@ -23,12 +24,14 @@ namespace Themuseum
         }
         public override void Update(GameTime theTime)
         {
-            /*if (Keyboard.GetState().IsKeyDown(Keys.R) == true)
+            if (Keyboard.GetState().IsKeyDown(Keys.R) == true)
             {
-                ScreenEvent.Invoke(game.mGameplay, new EventArgs());
+                ScreenEvent.Invoke(game.mMainmenu, new EventArgs());
                 player.IsHaunted = false;
+           
+                
                 return;
-            }*/
+            }
           
             base.Update(theTime);
         }
