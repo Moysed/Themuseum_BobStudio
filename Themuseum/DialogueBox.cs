@@ -24,6 +24,8 @@ namespace Themuseum
         private Vector2 PortraitBoxPos;
         private Color Textcolor;
         private SpriteFont Font;
+        private KeyboardState KeyControls;
+        private KeyboardState OldKey;
         public bool IsActive = false;
 
         public DialogueBox(string Input,int Width,int Height)
@@ -64,21 +66,26 @@ namespace Themuseum
 
         public void behavior()
         {
-            
+            KeyControls = Keyboard.GetState();
             if(IsActive == true)
             {
                 DialogueBoxPos = new Vector2(0, 440);
                 PortraitBoxPos = new Vector2(640-(PortraitWidth/2), 40);
-                if (Keyboard.GetState().IsKeyDown(Keys.Enter))
+
+                
+                if (KeyControls.IsKeyDown(Keys.Escape) && OldKey.IsKeyUp(Keys.Escape))
                 {
                     IsActive = false;
                 }
+                
             }
             else
             {
                 DialogueBoxPos = new Vector2(10000, 10000);
                 PortraitBoxPos = new Vector2(10000, 10000);
             }
+
+            OldKey = KeyControls;
         }
 
         public void Activation(bool isShow)

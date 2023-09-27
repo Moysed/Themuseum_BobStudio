@@ -45,7 +45,7 @@ namespace Themuseum
         private int player_pieceActive = 0;
         private KeyboardState KeyControls;
         private KeyboardState OldKey;
-        //KeyboardMethod method;
+        
         private SoundSystem sound;
 
         Random r = new Random();
@@ -66,7 +66,7 @@ namespace Themuseum
             HiddenSwitch_03_Col = new Rectangle((int)HiddenSwitch_03_Pos.X, (int)HiddenSwitch_03_Pos.Y, 64, 64);
             R1_Shire = new Shire(new Vector2(1100, 70));
             sound = new SoundSystem();
-            //method = new KeyboardMethod();
+            
             piece1Pos = new Vector2(r.Next(110, 200), r.Next(80, 250));
         }
 
@@ -251,19 +251,13 @@ namespace Themuseum
             }
 
             //hint Collision
-            if (player.collision.Intersects(hint) == true && KeyControls.IsKeyDown(Keys.E) && dialogue.IsActive == false && !OldKey.IsKeyDown(Keys.E))
+            if (player.collision.Intersects(hint) == true && KeyControls.IsKeyDown(Keys.E) && OldKey.IsKeyUp(Keys.E))
             {
                 
                 dialogue.SettingParameter("Hint Block", 200, 200, "Light will guide you home", Color.Green);
                 dialogue.Activation(true);
                 OldKey = KeyControls;
             }
-
-            else if(player.collision.Intersects(hint) == true && dialogue.IsActive == true && KeyControls.IsKeyDown(Keys.E) && !OldKey.IsKeyDown(Keys.E))
-            {
-                dialogue.Activation(false);
-            }
-
            
               
             /*else
@@ -271,7 +265,7 @@ namespace Themuseum
                 dialogue.Activation(false);
             }*/
 
-            if (player.collision.Intersects(Lantern) == true && KeyControls.IsKeyDown(Keys.F))
+            if (player.collision.Intersects(Lantern) == true && KeyControls.IsKeyDown(Keys.E))
             {
                 sound.PlaySfx(0);
                 light.IsActive = true;
