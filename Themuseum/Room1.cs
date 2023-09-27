@@ -16,7 +16,7 @@ namespace Themuseum
     class Room1
     {
         public Map map;
-        
+
         private Texture2D Lantern;
         private Vector2 lanternPos;
         private Texture2D Map;
@@ -44,7 +44,8 @@ namespace Themuseum
         private int player_pieceActive = 0;
         private KeyboardState KeyControls;
         private KeyboardState OldKey;
-        
+
+        List<Rectangle> Counter_Col = new List<Rectangle>();
         private SoundSystem sound;
 
         Random r = new Random();
@@ -53,19 +54,22 @@ namespace Themuseum
         public Room1()
         {
             mapPos = new Vector2(430, 290);
-            hintPos = new Vector2(300, 400);
+            hintPos = new Vector2(200, 400);
             lanternPos = new Vector2(740, 250);
             DoorPos = new Vector2(200, 0);
-            DoorCollision = new Rectangle(520, 200 , 200, 300);
+            DoorCollision = new Rectangle(520, 200, 200, 300);
             HiddenSwitch_01_Pos = new Vector2(1000, 320);
             HiddenSwitch_01_Col = new Rectangle((int)HiddenSwitch_01_Pos.X, (int)HiddenSwitch_01_Pos.Y, 64, 64);
             HiddenSwitch_02_Pos = new Vector2(10000, 10000);
             HiddenSwitch_02_Col = new Rectangle((int)HiddenSwitch_02_Pos.X, (int)HiddenSwitch_02_Pos.Y, 64, 64);
             HiddenSwitch_03_Pos = new Vector2(10000, 10000);
             HiddenSwitch_03_Col = new Rectangle((int)HiddenSwitch_03_Pos.X, (int)HiddenSwitch_03_Pos.Y, 64, 64);
+            Counter_Col.Add(new Rectangle(465, 254, 345, 68));
+            Counter_Col.Add(new Rectangle(383, 164, 88, 157));
+            Counter_Col.Add(new Rectangle(806, 164, 88, 157));
             R1_Shire = new Shire(new Vector2(1100, 70));
             sound = new SoundSystem();
-            
+
             piece1Pos = new Vector2(r.Next(110, 200), r.Next(80, 250));
         }
 
@@ -116,7 +120,7 @@ namespace Themuseum
 
         }
 
-        public void Function(GraphicsDeviceManager _graphics, Player player, RoomManager roomManager, KeyManagement Keymanager, float elapsed, DialogueBox dialogue, LanternLight light, Map map )
+        public void Function(GraphicsDeviceManager _graphics, Player player, RoomManager roomManager, KeyManagement Keymanager, float elapsed, DialogueBox dialogue, LanternLight light, Map map)
         {
 
             KeyControls = Keyboard.GetState();
@@ -161,127 +165,181 @@ namespace Themuseum
                 else
                     player.SelfPosition.Y -= player.speed;
             }
-            //Objects Behavior
-            Rectangle hint = new Rectangle((int)hintPos.X, (int)hintPos.Y, 64, 64);
-            Rectangle Lantern = new Rectangle((int)lanternPos.X, (int)lanternPos.Y, 40, 70);
-            Rectangle mapCol = new Rectangle((int)mapPos.X, (int)mapPos.Y, 74, 34);
-            DoorCollision = new Rectangle(540, 0, 200,140);
-            R1_Shire.Behavior(player, elapsed);
-            HiddenSwitch_01_Pos = new Vector2(1000, 320);
-            HiddenSwitch_01_Col = new Rectangle((int)HiddenSwitch_01_Pos.X, (int)HiddenSwitch_01_Pos.Y, 64, 64);
-            HiddenSwitch_02_Col = new Rectangle((int)HiddenSwitch_02_Pos.X, (int)HiddenSwitch_02_Pos.Y, 64, 64);
-            HiddenSwitch_03_Col = new Rectangle((int)HiddenSwitch_03_Pos.X, (int)HiddenSwitch_03_Pos.Y, 64, 64);
 
-            piece1Col = new Rectangle((int)piece1Pos.X, (int)piece1Pos.Y, 64, 64);
-
-            if (Keymanager.R2_T1 == false)
+            for (int i = 0; i < Counter_Col.Count; i++)
             {
-                HiddenSwitch_02_Pos = new Vector2(10000, 10000);
-                HiddenSwitch_03_Pos = new Vector2(10000, 10000);
-            }
-            else if (Keymanager.R2_T1 == true)
-            {
-                HiddenSwitch_02_Pos = new Vector2(320, 128);
-                HiddenSwitch_03_Pos = new Vector2(540, 512);
-            }
-
-            //Object Interaction
-            if (player.collision.Intersects(DoorCollision) == true)
-            {
-                if (KeyControls.IsKeyDown(Keys.E) && OldKey.IsKeyUp(Keys.E) && Keymanager.R1_S1 == true)
+                if (Counter_Col[i].Intersects(player.collision))
                 {
-                    sound.PlaySfx(1);
-                    player.ChangeStartingPosition(new Vector2(player.SelfPosition.X, _graphics.GraphicsDevice.Viewport.Bounds.Bottom - 128));
-                    roomManager.Roomchange(2);
-                    Console.WriteLine("Door Opened");
-                }
+                    if (player.collision.Right >= Counter_Col[i].Right)
+                    {
+                        if (player.speed == 4)
+                        {
+                            player.SelfPosition.X += player.speed * 2;
+                        }
+                        else
+                            player.SelfPosition.X += player.speed;
+                    }
+                    if (player.collision.Left <= Counter_Col[i].Left)
+                    {
+                        if (player.speed == 4)
+                        {
+                            player.SelfPosition.X -= player.speed * 2;
+                        }
+                        else
+                            player.SelfPosition.X -= player.speed;
+                    }
+                    if (player.collision.Top >= Counter_Col[i].Top)
+                    {
+                        if (player.speed == 4)
+                        {
+                            player.SelfPosition.Y += player.speed * 2;
+                        }
+                        else
+                            player.SelfPosition.Y += player.speed;
+                    }
+                    if (player.collision.Bottom <= Counter_Col[i].Bottom)
+                    {
+                        if (player.speed == 4)
+                        {
 
-            }
-            else if (KeyControls.IsKeyDown(Keys.E) && OldKey.IsKeyUp(Keys.E))
-            {
-                sound.PlaySfx(2);
-            }
+                            player.SelfPosition.Y -= player.speed * 2;
+                        }
+                        else
+                            player.SelfPosition.Y -= player.speed;
 
-            if (player.collision.Intersects(HiddenSwitch_02_Col) == true)
-            {
-                if (KeyControls.IsKeyDown(Keys.E) && OldKey.IsKeyUp(Keys.E))
-                {
-                    sound.PlaySfx(1);
-                    Keymanager.KeyTrigger("R1_S2");
-                    Console.WriteLine("R1_S2");
-                }
-            }
-            if (player.collision.Intersects(HiddenSwitch_03_Col) == true)
-            {
-                if (KeyControls.IsKeyDown(Keys.E) && OldKey.IsKeyUp(Keys.E))
-                {
-                    sound.PlaySfx(1);
-                    Keymanager.KeyTrigger("R1_S3");
-                    Console.WriteLine("R1_S3");
-                }
-            }
-            if (Keymanager.MRB_PieceActive == true)
-            {
-                player_pieceActive = 1;
-            }
-
-            //Piece Collect
-            if (player.collision.Intersects(piece1Col) == true)
-            {
-                if (KeyControls.IsKeyDown(Keys.E) && OldKey.IsKeyUp(Keys.E))
-                {
-                    sound.PlaySfx(0);
-                    Keymanager.MRB_Pieces += 1;
-                    Console.WriteLine(Keymanager.MRB_Pieces);
-                    piece1Pos.X = 5000;
-                }
-            }
-            if (player.collision.Intersects(HiddenSwitch_01_Col) == true)
-            {
-                if (KeyControls.IsKeyDown(Keys.E) && OldKey.IsKeyUp(Keys.E))
-                {
-                    sound.PlaySfx(1);
-                    Keymanager.KeyTrigger("R1_S1");
-                    dialogue.SettingParameter("placeholderblock", 200, 200, "1st Hidden Switch Activated", Color.Green);
-                    //dialogue.Activation(true);
-                    Console.WriteLine("R1_S1");
+                    }
                 }
             }
 
-            //hint Collision
-            if (player.collision.Intersects(hint) == true && KeyControls.IsKeyDown(Keys.E) && OldKey.IsKeyUp(Keys.E))
-            {
-                
-                dialogue.SettingParameter("Hint Block", 200, 200, "Light will guide you home", Color.Green);
-                dialogue.Activation(true);
-                OldKey = KeyControls;
-            }
-           
-              
+
+
+                    //COunter col
+
+                    //Objects Behavior
+                    Rectangle hint = new Rectangle((int)hintPos.X, (int)hintPos.Y, 64, 64);
+                    Rectangle Lantern = new Rectangle((int)lanternPos.X, (int)lanternPos.Y , 40, 95);
+                    Rectangle mapCol = new Rectangle((int)mapPos.X, (int)mapPos.Y, 74, 60);
+                    DoorCollision = new Rectangle(540, 0, 200, 140);
+                    R1_Shire.Behavior(player, elapsed);
+                    HiddenSwitch_01_Pos = new Vector2(1000, 320);
+                    HiddenSwitch_01_Col = new Rectangle((int)HiddenSwitch_01_Pos.X, (int)HiddenSwitch_01_Pos.Y, 64, 64);
+                    HiddenSwitch_02_Col = new Rectangle((int)HiddenSwitch_02_Pos.X, (int)HiddenSwitch_02_Pos.Y, 64, 64);
+                    HiddenSwitch_03_Col = new Rectangle((int)HiddenSwitch_03_Pos.X, (int)HiddenSwitch_03_Pos.Y, 64, 64);
+
+                    piece1Col = new Rectangle((int)piece1Pos.X, (int)piece1Pos.Y, 64, 64);
+
+                    if (Keymanager.R2_T1 == false)
+                    {
+                        HiddenSwitch_02_Pos = new Vector2(10000, 10000);
+                        HiddenSwitch_03_Pos = new Vector2(10000, 10000);
+                    }
+                    else if (Keymanager.R2_T1 == true)
+                    {
+                        HiddenSwitch_02_Pos = new Vector2(320, 128);
+                        HiddenSwitch_03_Pos = new Vector2(540, 512);
+                    }
+
+                    //Object Interaction
+                    if (player.collision.Intersects(DoorCollision) == true)
+                    {
+                        if (KeyControls.IsKeyDown(Keys.E) && OldKey.IsKeyUp(Keys.E) && Keymanager.R1_S1 == true)
+                        {
+                            sound.PlaySfx(1);
+                            player.ChangeStartingPosition(new Vector2(player.SelfPosition.X, _graphics.GraphicsDevice.Viewport.Bounds.Bottom - 128));
+                            roomManager.Roomchange(2);
+                            Console.WriteLine("Door Opened");
+                        }
+
+                    }
+                    else if (KeyControls.IsKeyDown(Keys.E) && OldKey.IsKeyUp(Keys.E))
+                    {
+                        sound.PlaySfx(2);
+                    }
+
+                    if (player.collision.Intersects(HiddenSwitch_02_Col) == true)
+                    {
+                        if (KeyControls.IsKeyDown(Keys.E) && OldKey.IsKeyUp(Keys.E))
+                        {
+                            sound.PlaySfx(1);
+                            Keymanager.KeyTrigger("R1_S2");
+                            Console.WriteLine("R1_S2");
+                        }
+                    }
+                    if (player.collision.Intersects(HiddenSwitch_03_Col) == true)
+                    {
+                        if (KeyControls.IsKeyDown(Keys.E) && OldKey.IsKeyUp(Keys.E))
+                        {
+                            sound.PlaySfx(1);
+                            Keymanager.KeyTrigger("R1_S3");
+                            Console.WriteLine("R1_S3");
+                        }
+                    }
+                    if (Keymanager.MRB_PieceActive == true)
+                    {
+                        player_pieceActive = 1;
+                    }
+
+                    //Piece Collect
+                    if (player.collision.Intersects(piece1Col) == true)
+                    {
+                        if (KeyControls.IsKeyDown(Keys.E) && OldKey.IsKeyUp(Keys.E))
+                        {
+                            sound.PlaySfx(0);
+                            Keymanager.MRB_Pieces += 1;
+                            Console.WriteLine(Keymanager.MRB_Pieces);
+                            piece1Pos.X = 5000;
+                        }
+                    }
+                    if (player.collision.Intersects(HiddenSwitch_01_Col) == true)
+                    {
+                        if (KeyControls.IsKeyDown(Keys.E) && OldKey.IsKeyUp(Keys.E))
+                        {
+                            sound.PlaySfx(1);
+                            Keymanager.KeyTrigger("R1_S1");
+                            dialogue.SettingParameter("placeholderblock", 200, 200, "1st Hidden Switch Activated", Color.Green);
+                            //dialogue.Activation(true);
+                            Console.WriteLine("R1_S1");
+                        }
+                    }
+
+                    //hint Collision
+                    if (KeyControls.IsKeyDown(Keys.E) && OldKey.IsKeyDown(Keys.E) && player.collision.Intersects(hint))
+                    {
+                if (dialogue.IsActive == false)
+                {
+                    dialogue.SettingParameter("Hint Block", 200, 200, "Light will guide you home", Color.Green);
+                    dialogue.Activation(true);
+                }
+        
+                    }
+            
+
+
             /*else
             {
                 dialogue.Activation(false);
             }*/
 
             if (player.collision.Intersects(Lantern) == true && KeyControls.IsKeyDown(Keys.E))
-            {
-                sound.PlaySfx(0);
-                light.IsActive = true;
-                lanternPos.X = 20000;
-                Console.WriteLine(player.CurrentFuel);
-            }
+                    {
+                        sound.PlaySfx(0);
+                        light.IsActive = true;
+                        lanternPos.X = 20000;
+                        Console.WriteLine(player.CurrentFuel);
+                    }
 
-            if (player.collision.Intersects(mapCol) == true && KeyControls.IsKeyDown(Keys.E))
-            {
-                map.IsActive = true;
-                mapPos.X = 20000;
-                Console.WriteLine("Map Collected");
-            }
+                    if (player.collision.Intersects(mapCol) == true && KeyControls.IsKeyDown(Keys.E))
+                    {
+                        map.IsActive = true;
+                        mapPos.X = 20000;
+                        Console.WriteLine("Map Collected");
+                    }
 
-            OldKey = KeyControls;
+                    OldKey = KeyControls;
+                }
+            }
         }
-    }
-}
+ 
     
            
 

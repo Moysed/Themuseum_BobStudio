@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.Window;
 
 namespace Themuseum
 {
@@ -72,11 +73,6 @@ namespace Themuseum
                 DialogueBoxPos = new Vector2(0, 487);
                 PortraitBoxPos = new Vector2(640-(PortraitWidth/2), 40);
 
-                
-                if (KeyControls.IsKeyDown(Keys.Escape) && OldKey.IsKeyUp(Keys.Escape))
-                {
-                    IsActive = false;
-                }
                 
             }
             else
