@@ -40,6 +40,9 @@ namespace Themuseum
                 collision = new Rectangle((int)SelfPosition.X, (int)SelfPosition.Y, 82, 200);
 
                 Vector2 Dir = player.SelfPosition - SelfPosition;
+                
+                
+                
                 Dir.Normalize();
                 if (collision.Intersects(Lantern.Collision))
                 {
@@ -49,11 +52,13 @@ namespace Themuseum
                 {
                     speed = 3;
                 }
-                SelfPosition += new Vector2(Dir.X * speed, Dir.Y * speed);
+                
+                
+                SelfPosition += new Vector2(Dir.X * speed , Dir.Y * speed);
             }
             else
             {
-                Changestartingposition(new Vector2(1300, 1300));
+                Prechase(player);
             }
 
             if(collision.Intersects(player.collision) == true)
@@ -66,6 +71,25 @@ namespace Themuseum
         {
             SelfPosition = newPos;
             collision = new Rectangle((int)SelfPosition.X, (int)SelfPosition.Y, 82, 200);
+        }
+        public void Prechase(Player player)
+        {
+            if (player.KeyControls.IsKeyDown(Keys.A))
+            {
+                Changestartingposition(new Vector2(1300, 640/2));
+            }
+            else if (player.KeyControls.IsKeyDown(Keys.D))
+            {
+                Changestartingposition(new Vector2(-1300, 640 / 2));
+            }
+            else if (player.KeyControls.IsKeyDown(Keys.W))
+            {
+                Changestartingposition(new Vector2(1300/2, 1000));
+            }
+            else if (player.KeyControls.IsKeyDown(Keys.S))
+            {
+                Changestartingposition(new Vector2(1300 / 2, -1000));
+            }
         }
         public void UpdateAnimation(float elasped)
         {

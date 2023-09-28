@@ -30,6 +30,7 @@ namespace Themuseum
         private Vector2 statuePos;
         KeyboardState Oldkey_;
         KeyboardState keycontrols;
+        private List<Rectangle> WallArea_Col = new List<Rectangle>();
         Random random;
 
         public MainRoomB()
@@ -40,6 +41,10 @@ namespace Themuseum
             statuePos = new Vector2(500, 500);
             piece3Pos = new Vector2(random.Next(64,200), random.Next(100,200));
             hintPos = new Vector2(500, 200);
+            WallArea_Col.Add(new Rectangle(0, 0, 1280, 64));
+            WallArea_Col.Add(new Rectangle(0, 0, 64, 640));
+            WallArea_Col.Add(new Rectangle(1280-64, 0, 64, 640));
+            WallArea_Col.Add(new Rectangle(0, 640-64, 1280, 64));
         }
 
         public void LoadContent(ContentManager content)
@@ -69,47 +74,54 @@ namespace Themuseum
             Rectangle piece3Col = new Rectangle((int)piece3Pos.X, (int)piece3Pos.Y, 64, 64);
             Rectangle hint = new Rectangle((int)hintPos.X, (int)hintPos.Y, 64, 64);
 
-            DoorCollision = new Rectangle((int)DoorPos.X , (int)DoorPos.Y, 32, 30);
+            DoorCollision = new Rectangle((int)DoorPos.X , (int)DoorPos.Y, 32, 64);
 
             //Wall Collision
-            if (player.SelfPosition.X >= _graphics.GraphicsDevice.Viewport.Bounds.Right - 116)
+            for (int i = 0; i < WallArea_Col.Count; i++)
             {
-                if (player.speed == 4)
+                if (WallArea_Col[i].Intersects(player.collision))
                 {
-                    player.SelfPosition.X -= player.speed * 2;
-                }
-                else
-                    player.SelfPosition.X -= player.speed;
-            }
+                    if (player.collision.Right >= WallArea_Col[i].Right)
+                    {
+                        if (player.speed == 4)
+                        {
+                            player.SelfPosition.X += player.speed * 2;
+                        }
+                        else
+                            player.SelfPosition.X += player.speed;
+                    }
+                    if (player.collision.Left <= WallArea_Col[i].Left)
+                    {
+                        if (player.speed == 4)
+                        {
+                            player.SelfPosition.X -= player.speed * 2;
+                        }
+                        else
+                            player.SelfPosition.X -= player.speed;
+                    }
+                    if (player.collision.Top >= WallArea_Col[i].Top)
+                    {
+                        if (player.speed == 4)
+                        {
+                            player.SelfPosition.Y += player.speed * 2;
+                        }
+                        else
+                            player.SelfPosition.Y += player.speed;
+                    }
+                    if (player.collision.Bottom <= WallArea_Col[i].Bottom)
+                    {
+                        if (player.speed == 4)
+                        {
 
-            else if (player.SelfPosition.X <= _graphics.GraphicsDevice.Viewport.Bounds.Left + 52)
-            {
-                if (player.speed == 4)
-                {
-                    player.SelfPosition.X += player.speed * 2;
-                }
-                else
-                    player.SelfPosition.X += player.speed;
-            }
+                            player.SelfPosition.Y -= player.speed * 2;
+                        }
+                        else
+                            player.SelfPosition.Y -= player.speed;
 
-            else if (player.SelfPosition.Y <= _graphics.GraphicsDevice.Viewport.Bounds.Top + 64)
-            {
-                if (player.speed == 4)
-                {
-                    player.SelfPosition.Y += player.speed * 2;
+                    }
                 }
-                else
-                    player.SelfPosition.Y += player.speed;
             }
-            else if(player.SelfPosition.Y >= _graphics.GraphicsDevice.Viewport.Bounds.Bottom - 145)
-            {
-                if (player.speed == 4)
-                {
-                    player.SelfPosition.Y -= player.speed * 2;
-                }
-                else
-                    player.SelfPosition.Y -= player.speed;
-            }
+           
             
             if (player.collision.Intersects(DoorCollision))
             {
