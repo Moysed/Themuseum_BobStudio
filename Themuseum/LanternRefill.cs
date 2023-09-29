@@ -13,7 +13,7 @@ using Microsoft.Xna.Framework.Media;
 
 namespace Themuseum
 {
-    public class LanternRefill 
+    class LanternRefill 
     {
         
         
@@ -21,6 +21,8 @@ namespace Themuseum
         private Vector2 DeployPosition;
         private Vector2 StorePosition;
         public Rectangle Collision;
+        private KeyboardState KeyInteract;
+        private KeyboardState OldKey;
         private Texture2D unCollected;
         private Texture2D Collected;
 
@@ -51,6 +53,27 @@ namespace Themuseum
             }
         }
 
+        public void Behavior(Player player,SoundSystem sound)
+        {
+            Collision = new Rectangle((int)DeployPosition.X, (int)DeployPosition.Y, 44, 50);
+            KeyInteract = Keyboard.GetState();
+
+            if (player.collision.Intersects(Collision) == true)
+            {
+                if (KeyInteract.IsKeyDown(Keys.E) && OldKey.IsKeyUp(Keys.E) && IsCollected == false)
+                {
+                    player.CurrentFuel = 300;
+                    IsCollected = true;
+                    sound.PlaySfx(4);
+                    Console.WriteLine("Candles Collected!");
+                   
+                }
+
+            }
+            
+
+            OldKey = KeyInteract;
+        }
         public void ChangePosition(Vector2 NewPosition)
         {
             DeployPosition = NewPosition;

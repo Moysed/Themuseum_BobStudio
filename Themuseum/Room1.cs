@@ -46,7 +46,7 @@ namespace Themuseum
         private KeyboardState OldKey;
 
         List<Rectangle> Counter_Col = new List<Rectangle>();
-        private SoundSystem sound;
+        
 
         Random r = new Random();
 
@@ -68,7 +68,7 @@ namespace Themuseum
             Counter_Col.Add(new Rectangle(383, 164, 88, 157));
             Counter_Col.Add(new Rectangle(806, 164, 88, 157));
             R1_Shire = new Shire(new Vector2(1100, 70));
-            sound = new SoundSystem();
+            
 
             piece1Pos = new Vector2(r.Next(110, 200), r.Next(80, 250));
         }
@@ -86,7 +86,7 @@ namespace Themuseum
             HiddenSwitch_03_Tex = content.Load<Texture2D>("hiddenswtich03_placeholder");
             R1_Shire.LoadSprite(content);
             piece1 = content.Load<Texture2D>("Piece1");
-            sound.LoadContent(content);
+            
         }
 
         public void Draw(SpriteBatch SB, LanternLight light)
@@ -125,7 +125,7 @@ namespace Themuseum
 
         }
 
-        public void Function(GraphicsDeviceManager _graphics, Player player, RoomManager roomManager, KeyManagement Keymanager, float elapsed, DialogueBox dialogue, LanternLight light, Map map)
+        public void Function(GraphicsDeviceManager _graphics, Player player, RoomManager roomManager, KeyManagement Keymanager, float elapsed, DialogueBox dialogue, LanternLight light, Map map,SoundSystem sound)
         {
 
             KeyControls = Keyboard.GetState();
@@ -226,13 +226,21 @@ namespace Themuseum
                     Rectangle Lantern = new Rectangle((int)lanternPos.X, (int)lanternPos.Y , 40, 95);
                     Rectangle mapCol = new Rectangle((int)mapPos.X, (int)mapPos.Y, 74, 60);
                     DoorCollision = new Rectangle(540, 0, 200, 140);
-                    R1_Shire.Behavior(player, elapsed);
+                    R1_Shire.Behavior(player, elapsed,sound);
                     HiddenSwitch_01_Pos = new Vector2(1000, 320);
                     HiddenSwitch_01_Col = new Rectangle((int)HiddenSwitch_01_Pos.X, (int)HiddenSwitch_01_Pos.Y, 64, 64);
                     HiddenSwitch_02_Col = new Rectangle((int)HiddenSwitch_02_Pos.X, (int)HiddenSwitch_02_Pos.Y, 64, 64);
                     HiddenSwitch_03_Col = new Rectangle((int)HiddenSwitch_03_Pos.X, (int)HiddenSwitch_03_Pos.Y, 64, 64);
 
                     piece1Col = new Rectangle((int)piece1Pos.X, (int)piece1Pos.Y, 64, 64);
+                    if(Keymanager.R1_T0 == false)
+                    {
+                        HiddenSwitch_01_Pos = new Vector2(10000, 10000);
+                    }
+                    else if(Keymanager.R1_T0 == true)
+                    {
+                        HiddenSwitch_01_Pos = new Vector2(1000, 320);
+                    }
 
                     if (Keymanager.R2_T1 == false)
                     {
@@ -255,6 +263,13 @@ namespace Themuseum
                             player.ChangeStartingPosition(new Vector2(player.SelfPosition.X, _graphics.GraphicsDevice.Viewport.Bounds.Bottom - 128));
                             roomManager.Roomchange(2);
                             Console.WriteLine("Door Opened");
+                        }
+                        else if (KeyControls.IsKeyDown(Keys.E) && OldKey.IsKeyUp(Keys.E) && Keymanager.R1_S1 == false)
+                        {
+                            sound.PlaySfx(2);
+                            Keymanager.R1_T0 = true;
+                            dialogue.SettingParameter("Hint Block", 200, 200, "The door is locked, Find hidden switch", Color.Red);
+                            dialogue.Activation(true);
                         }
 
                     }
@@ -307,9 +322,9 @@ namespace Themuseum
                     }
 
                     //hint Collision
-                    if (KeyControls.IsKeyDown(Keys.E) && OldKey.IsKeyDown(Keys.E) && player.collision.Intersects(hint) == true)
+                    if (KeyControls.IsKeyDown(Keys.E) && OldKey.IsKeyUp(Keys.E) && player.collision.Intersects(hint) == true)
                     {
-                 
+                        sound.PlaySfx(3);
                         dialogue.SettingParameter("Hint Block", 200, 200, "Light will guide you home", Color.Green);
                         dialogue.Activation(true);
                 
@@ -333,6 +348,7 @@ namespace Themuseum
 
                     if (player.collision.Intersects(mapCol) == true && KeyControls.IsKeyDown(Keys.E))
                     {
+                        sound.PlaySfx(3);
                         map.IsActive = true;
                         mapPos.X = 20000;
                         Console.WriteLine("Map Collected");
@@ -345,6 +361,7 @@ namespace Themuseum
 
             lanternPos = new Vector2(740, 250);
             mapPos = new Vector2(430, 290);
+            piece1Pos = new Vector2(r.Next(110, 200), r.Next(80, 250));
         }
     }
             

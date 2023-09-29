@@ -48,7 +48,7 @@ namespace Themuseum
             MediaPlayer.IsRepeating = true;
         }
 
-        public void StopBGM(int i)
+        public void StopBGM()
         {
             MediaPlayer.Stop();
         }

@@ -7,6 +7,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using SharpDX.DXGI;
 
 namespace Themuseum
 {
@@ -41,7 +42,7 @@ namespace Themuseum
             }
         }
 
-        public void Behavior(Player player, float elasped)
+        public void Behavior(Player player, float elasped,SoundSystem sound)
         {
             Collision = new Rectangle((int)SelfPosition.X, (int)SelfPosition.Y, 50, 109);
             Sprite.UpdateFrame(elasped);
@@ -53,6 +54,10 @@ namespace Themuseum
                 if (KeyInteract.IsKeyDown(Keys.E) && OldKey.IsKeyUp(Keys.E))
                 {
                     player.IsHaunted = false;
+                    sound.PlaySfx(4);
+                    sound.StopBGM();
+                    sound.PlayBGM(0);
+
                     Console.WriteLine("Shire Used!");
                     animateActive = true;
                 }

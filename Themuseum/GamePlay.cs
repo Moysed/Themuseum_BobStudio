@@ -30,7 +30,7 @@ namespace Themuseum
             light = new LanternLight();
             map = new Map();
             staminabar = new Staminabar(player.MaxStamina,player.MaxFuel);
-
+            soundSystem = new SoundSystem();
             KeyManagement = new KeyManagement();
             ghost = new Ghost(new Vector2(10000, 10000));
             dialogue = new DialogueBox("placeholderblock", 200, 200);
@@ -42,6 +42,9 @@ namespace Themuseum
             roomManager.LoadAssets(game.Content);
             light.LoadSprite(game.Content);
             map.LoadSprite(game.Content);
+            soundSystem.LoadContent(game.Content);
+
+            soundSystem.PlayBGM(0);
             this._graphics = game._graphics;
             this.game = game;
 
@@ -51,7 +54,7 @@ namespace Themuseum
             float elapsed = (float)theTime.ElapsedGameTime.TotalSeconds;
             Keystate = Keyboard.GetState();
 
-            roomManager.RoomFunction(_graphics, player, KeyManagement, elapsed, dialogue, light,map);
+            roomManager.RoomFunction(_graphics, player, KeyManagement, elapsed, dialogue, light,map,soundSystem);
 
             player.Controls(Keystate, light,KeyManagement);
             player.UpdateAnimation(elapsed);
@@ -98,7 +101,7 @@ namespace Themuseum
 
         public void Reset()
         {
-            
+            soundSystem.StopBGM();
             ghost.gameOver = false;
             player.Reset();
             KeyManagement.Reset();

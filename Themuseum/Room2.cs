@@ -79,7 +79,7 @@ namespace Themuseum
             SB.Draw(TileStatic, Vector2.Zero, Color.White);
             //TileAnimated.DrawFrame(SB, Vector2.Zero, 1);
             //SB.Draw(Door, DoorPos, new Rectangle(6 * 32, 8 * 32, 32, 64), Color.White);
-            SB.Draw(R2_T1_Trigger_Tex, R2_T1_Trigger_Pos, new Rectangle(0, 0, 64, 64), Color.White);
+            //SB.Draw(R2_T1_Trigger_Tex, R2_T1_Trigger_Pos, new Rectangle(0, 0, 64, 64), Color.White);
 
             /*for(int i = 0; i < WallArea_Col.Count; i++)
             {
@@ -95,7 +95,7 @@ namespace Themuseum
 
         }
 
-        public void Function(GraphicsDeviceManager _graphics, Player player, RoomManager roomManager, KeyManagement Keymanager, float elapsed, DialogueBox dialogue, LanternLight light)
+        public void Function(GraphicsDeviceManager _graphics, Player player, RoomManager roomManager, KeyManagement Keymanager, float elapsed, DialogueBox dialogue, LanternLight light, SoundSystem sound)
         {
            
             KeyControls = Keyboard.GetState();
@@ -181,6 +181,7 @@ namespace Themuseum
                 Keymanager.KeyTrigger("R2_T1");
                 Console.WriteLine("R2_T1 Triggered");
                 player.IsHaunted = true;
+                sound.PlayBGM(1);
             }
 
             if(player.collision.Intersects(EndofHallway) == true)
@@ -203,20 +204,8 @@ namespace Themuseum
                     piece2Pos.X = 5000;
                 }
             }
-            
-            if (player.collision.Intersects(lanternRefill.Collision) == true && KeyControls.IsKeyUp(Keys.E) && OldKey.IsKeyDown(Keys.E) && lanternRefill.IsCollected == false)
-            {
-                
-                    lanternRefill.IsCollected = true;
-                    player.CurrentFuel = 300;
 
-                    
-                    Console.WriteLine(player.CurrentFuel);
-                    
-                
-                
-                
-            }
+            lanternRefill.Behavior(player, sound);
             
             OldKey = KeyControls;
         }

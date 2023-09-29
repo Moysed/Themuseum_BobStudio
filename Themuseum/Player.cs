@@ -149,7 +149,7 @@ namespace Themuseum
             {
                 CurrentFuel--;
                 Light.LightActivate(this);
-                Console.WriteLine(CurrentFuel);
+               // Console.WriteLine(CurrentFuel);
             }
             else if (KeyControls.IsKeyUp(Keys.F) || CurrentFuel <= 0 && Light.IsActive == false)
             {
