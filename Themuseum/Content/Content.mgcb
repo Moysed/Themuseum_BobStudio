@@ -524,6 +524,18 @@
 /processorParam:TextureFormat=Color
 /build:LongTalkingInterface.png
 
+#begin Low opacity  (1).png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Low opacity  (1).png
+
 #begin Low opacity .png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -1105,6 +1117,30 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Statue.png
+
+#begin switch_Closed.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:switch_Closed.png
+
+#begin switch_Opened.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:switch_Opened.png
 
 #begin Talking interface.png
 /importer:TextureImporter

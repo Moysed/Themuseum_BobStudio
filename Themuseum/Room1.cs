@@ -16,7 +16,9 @@ namespace Themuseum
     class Room1
     {
         public Map map;
-
+        bool switch1_opened = false;
+        bool switch2_opened = false;
+        bool switch3_opened = false;
         private Texture2D Lantern;
         private Vector2 lanternPos;
         private Texture2D Map;
@@ -27,6 +29,7 @@ namespace Themuseum
         private Texture2D TileStatic;
         private Texture2D Door;
         private Texture2D HiddenSwitch_01_Tex;
+        private Texture2D openedSwitch;
         private Rectangle HiddenSwitch_01_Col;
         private Vector2 HiddenSwitch_01_Pos;
         private Texture2D HiddenSwitch_02_Tex;
@@ -81,9 +84,10 @@ namespace Themuseum
             Lantern = content.Load<Texture2D>("Lantern");
             TileStatic = content.Load<Texture2D>("Bg");
             Door = content.Load<Texture2D>("placeholderdoor");
-            HiddenSwitch_01_Tex = content.Load<Texture2D>("hiddenswitch01_placeholder");
-            HiddenSwitch_02_Tex = content.Load<Texture2D>("hiddenswitch02_placeholder");
-            HiddenSwitch_03_Tex = content.Load<Texture2D>("hiddenswtich03_placeholder");
+            openedSwitch = content.Load<Texture2D>("switch_Opened");
+            HiddenSwitch_01_Tex = content.Load<Texture2D>("switch_Closed");
+            HiddenSwitch_02_Tex = content.Load<Texture2D>("switch_Closed");
+            HiddenSwitch_03_Tex = content.Load<Texture2D>("switch_Closed");
             R1_Shire.LoadSprite(content);
             piece1 = content.Load<Texture2D>("Piece1");
             
@@ -95,15 +99,36 @@ namespace Themuseum
             //SB.Draw(Door, DoorPos, new Rectangle(6 * 32, 8 * 32, 32, 64), Color.White);
             if (light.Collision.Intersects(HiddenSwitch_01_Col))
             {
-                SB.Draw(HiddenSwitch_01_Tex, HiddenSwitch_01_Pos, Color.White);
+                if(switch1_opened == true)
+                {
+                    SB.Draw(openedSwitch, HiddenSwitch_01_Pos, Color.White);
+                }
+                else
+                {
+                    SB.Draw(HiddenSwitch_01_Tex, HiddenSwitch_01_Pos, Color.White);
+                }
             }
             else if (light.Collision.Intersects(HiddenSwitch_02_Col))
             {
-                SB.Draw(HiddenSwitch_02_Tex, HiddenSwitch_02_Pos, Color.White);
+                if (switch2_opened == true)
+                {
+                    SB.Draw(openedSwitch, HiddenSwitch_02_Pos, Color.White);
+                }
+                else
+                {
+                    SB.Draw(HiddenSwitch_02_Tex, HiddenSwitch_02_Pos, Color.White);
+                }
             }
             else if (light.Collision.Intersects(HiddenSwitch_03_Col))
             {
-                SB.Draw(HiddenSwitch_03_Tex, HiddenSwitch_03_Pos, Color.White);
+                if (switch3_opened == true)
+                {
+                    SB.Draw(openedSwitch, HiddenSwitch_03_Pos, Color.White);
+                }
+                else
+                {
+                    SB.Draw(HiddenSwitch_03_Tex, HiddenSwitch_03_Pos, Color.White);
+                }
             }
 
             if (player_pieceActive == 1)
@@ -227,7 +252,6 @@ namespace Themuseum
                     Rectangle mapCol = new Rectangle((int)mapPos.X, (int)mapPos.Y, 74, 60);
                     DoorCollision = new Rectangle(540, 0, 200, 140);
                     R1_Shire.Behavior(player, elapsed,sound);
-                    HiddenSwitch_01_Pos = new Vector2(1000, 320);
                     HiddenSwitch_01_Col = new Rectangle((int)HiddenSwitch_01_Pos.X, (int)HiddenSwitch_01_Pos.Y, 64, 64);
                     HiddenSwitch_02_Col = new Rectangle((int)HiddenSwitch_02_Pos.X, (int)HiddenSwitch_02_Pos.Y, 64, 64);
                     HiddenSwitch_03_Col = new Rectangle((int)HiddenSwitch_03_Pos.X, (int)HiddenSwitch_03_Pos.Y, 64, 64);
@@ -235,22 +259,22 @@ namespace Themuseum
                     piece1Col = new Rectangle((int)piece1Pos.X, (int)piece1Pos.Y, 64, 64);
                     if(Keymanager.R1_T0 == false)
                     {
-                        HiddenSwitch_01_Pos = new Vector2(10000, 10000);
-                    }
+                        HiddenSwitch_01_Pos = new Vector2(950, 28);
+            }
                     else if(Keymanager.R1_T0 == true)
                     {
-                        HiddenSwitch_01_Pos = new Vector2(1000, 320);
+                        HiddenSwitch_01_Pos = new Vector2(950, 28);
                     }
 
                     if (Keymanager.R2_T1 == false)
                     {
-                        HiddenSwitch_02_Pos = new Vector2(10000, 10000);
-                        HiddenSwitch_03_Pos = new Vector2(10000, 10000);
-                    }
+                        HiddenSwitch_02_Pos = new Vector2(320, 28);
+                        HiddenSwitch_03_Pos = new Vector2(540, 572);
+            }
                     else if (Keymanager.R2_T1 == true)
                     {
-                        HiddenSwitch_02_Pos = new Vector2(320, 128);
-                        HiddenSwitch_03_Pos = new Vector2(540, 512);
+                        HiddenSwitch_02_Pos = new Vector2(320, 28);
+                        HiddenSwitch_03_Pos = new Vector2(540, 572);
                     }
 
                     //Object Interaction
@@ -279,6 +303,7 @@ namespace Themuseum
                     {
                         if (KeyControls.IsKeyDown(Keys.E) && OldKey.IsKeyUp(Keys.E))
                         {
+                            switch2_opened = true;
                             sound.PlaySfx(1);
                             Keymanager.KeyTrigger("R1_S2");
                             Console.WriteLine("R1_S2");
@@ -288,6 +313,7 @@ namespace Themuseum
                     {
                         if (KeyControls.IsKeyDown(Keys.E) && OldKey.IsKeyUp(Keys.E))
                         {
+                            switch3_opened = true;
                             sound.PlaySfx(1);
                             Keymanager.KeyTrigger("R1_S3");
                             Console.WriteLine("R1_S3");
@@ -313,6 +339,7 @@ namespace Themuseum
                     {
                         if (KeyControls.IsKeyDown(Keys.E) && OldKey.IsKeyUp(Keys.E))
                         {
+                            switch1_opened = true;
                             sound.PlaySfx(1);
                             Keymanager.KeyTrigger("R1_S1");
                             dialogue.SettingParameter("placeholderblock", 200, 200, "1st Hidden Switch Activated", Color.Green);
