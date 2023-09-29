@@ -169,7 +169,7 @@ namespace Themuseum
 
             if (player.collision.Intersects(DoorCollision) == true)
             {
-                
+                    sound.PlaySfx(1);
                     Console.WriteLine("Door Opened");
                     player.ChangeStartingPosition(new Vector2(player.SelfPosition.X, 72));
                     roomManager.Roomchange(1);
@@ -188,6 +188,7 @@ namespace Themuseum
             {
                 if(KeyControls.IsKeyDown(Keys.E) && OldKey.IsKeyUp(Keys.E)){
                     Console.WriteLine("Changed to Room3");
+                    sound.PlaySfx(1);
                     player.ChangeStartingPosition(new Vector2(player.SelfPosition.X, 500));
                     roomManager.Roomchange(3);
                 }
@@ -199,6 +200,7 @@ namespace Themuseum
             {
                 if (KeyControls.IsKeyDown(Keys.E) && OldKey.IsKeyUp(Keys.E))
                 {
+                    sound.PlaySfx(0);
                     Keymanager.MRB_Pieces += 1;
                     Console.WriteLine(Keymanager.MRB_Pieces);
                     piece2Pos.X = 5000;

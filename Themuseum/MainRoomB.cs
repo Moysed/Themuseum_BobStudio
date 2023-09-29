@@ -66,7 +66,7 @@ namespace Themuseum
            SB.Draw(hint, hintPos, Color.White);
            
         }
-        public void Function(GraphicsDeviceManager _graphics, Player player, RoomManager roomManager, KeyManagement Keymanager, float elapsed, DialogueBox dialogue, LanternLight light)
+        public void Function(GraphicsDeviceManager _graphics, Player player, RoomManager roomManager, KeyManagement Keymanager, float elapsed, DialogueBox dialogue, LanternLight light,SoundSystem sound)
         {
             keycontrols = Keyboard.GetState();
             //Object Hitbox
@@ -125,9 +125,10 @@ namespace Themuseum
             
             if (player.collision.Intersects(DoorCollision))
             {
-                Console.WriteLine("Hit");
+                //Console.WriteLine("Hit");
                 if (keycontrols.IsKeyDown(Keys.E) && Oldkey_.IsKeyUp(Keys.E))
                 {
+                    sound.PlaySfx(1);
                     player.ChangeStartingPosition(new Vector2(player.SelfPosition.X, 240));
                     roomManager.Roomchange(3);
                 }
@@ -138,6 +139,7 @@ namespace Themuseum
             {
                 if (keycontrols.IsKeyDown(Keys.E) && Oldkey_.IsKeyUp(Keys.E))
                 {
+                    sound.PlaySfx(0);
                     Keymanager.MRB_Pieces += 1;
                     Console.WriteLine(Keymanager.MRB_Pieces);
                     piece3Pos.X = 5000;
@@ -161,13 +163,11 @@ namespace Themuseum
             //hint Collision
             if(player.collision.Intersects(hint) == true && keycontrols.IsKeyDown(Keys.E))
             {
+                sound.PlaySfx(3);
                 dialogue.SettingParameter("Hint Block", 200, 200, "Full Statue", Color.Green);
                 dialogue.Activation(true);
             }
-            else 
-            {
-                dialogue.Activation(false);
-            }
+            
 
 
             Oldkey_ = keycontrols;

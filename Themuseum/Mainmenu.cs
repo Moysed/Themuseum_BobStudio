@@ -49,7 +49,7 @@ namespace Themuseum
             
             if (Keyboard.GetState().IsKeyDown(Keys.Enter) == true)
             {
-                Console.WriteLine("Clicked");
+                Console.WriteLine("Game Enter");
                 ScreenEvent.Invoke(game.mGameplay, new EventArgs());
                 game.mGameplay.ResetElapsedTime();
                 return;

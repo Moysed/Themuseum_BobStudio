@@ -64,7 +64,7 @@ namespace Themuseum
                 {
                     player.CurrentFuel = 300;
                     IsCollected = true;
-                    sound.PlaySfx(4);
+                    sound.PlaySfx(0);
                     Console.WriteLine("Candles Collected!");
                    
                 }

@@ -259,7 +259,7 @@ namespace Themuseum
                     piece1Col = new Rectangle((int)piece1Pos.X, (int)piece1Pos.Y, 64, 64);
                     if(Keymanager.R1_T0 == false)
                     {
-                        HiddenSwitch_01_Pos = new Vector2(950, 28);
+                        HiddenSwitch_01_Pos = new Vector2(10000, 10000);
             }
                     else if(Keymanager.R1_T0 == true)
                     {
@@ -268,8 +268,8 @@ namespace Themuseum
 
                     if (Keymanager.R2_T1 == false)
                     {
-                        HiddenSwitch_02_Pos = new Vector2(320, 28);
-                        HiddenSwitch_03_Pos = new Vector2(540, 572);
+                        HiddenSwitch_02_Pos = new Vector2(10000, 10000);
+                        HiddenSwitch_03_Pos = new Vector2(10000, 10000);
             }
                     else if (Keymanager.R2_T1 == true)
                     {
@@ -292,7 +292,7 @@ namespace Themuseum
                         {
                             sound.PlaySfx(2);
                             Keymanager.R1_T0 = true;
-                            dialogue.SettingParameter("Hint Block", 200, 200, "The door is locked, Find hidden switch", Color.Red);
+                            dialogue.SettingParameter("Hint Block", 0, 0, "The door is locked, Find hidden switch", Color.Red);
                             dialogue.Activation(true);
                         }
 
@@ -385,7 +385,9 @@ namespace Themuseum
                 }
         public void Reset()
         {
-
+            switch1_opened = false;
+            switch2_opened = false;
+            switch3_opened = false;
             lanternPos = new Vector2(740, 250);
             mapPos = new Vector2(430, 290);
             piece1Pos = new Vector2(r.Next(110, 200), r.Next(80, 250));

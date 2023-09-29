@@ -52,7 +52,7 @@ namespace Themuseum
             SB.Draw(Door, DoorPos_MRC, new Rectangle(6 * 32, 8 * 32, 32, 64), Color.White);
         }
 
-        public void Function(GraphicsDeviceManager _graphics, Player player, RoomManager roomManager, KeyManagement Keymanager, float elapsed, DialogueBox dialogue, LanternLight light)
+        public void Function(GraphicsDeviceManager _graphics, Player player, RoomManager roomManager, KeyManagement Keymanager, float elapsed, DialogueBox dialogue, LanternLight light,SoundSystem sound)
         {
 
             //Wall Collision
@@ -113,7 +113,7 @@ namespace Themuseum
 
                     if (KeyControls.IsKeyDown(Keys.E) && OldKey.IsKeyUp(Keys.E))
                     {
-                        
+                        sound.PlaySfx(1);
                         player.ChangeStartingPosition(new Vector2(1180-65, player.SelfPosition.Y));
                         roomManager.Roomchange(3);
                     }
@@ -123,7 +123,7 @@ namespace Themuseum
 
                     if (KeyControls.IsKeyDown(Keys.E) && OldKey.IsKeyUp(Keys.E))
                     {
-
+                        sound.PlaySfx(1);
                         player.ChangeStartingPosition(new Vector2(64, player.SelfPosition.Y));
                         roomManager.Roomchange(6);
                     }

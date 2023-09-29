@@ -45,6 +45,7 @@ namespace Themuseum
             soundSystem.LoadContent(game.Content);
 
             soundSystem.PlayBGM(0);
+
             this._graphics = game._graphics;
             this.game = game;
 
@@ -101,8 +102,10 @@ namespace Themuseum
 
         public void Reset()
         {
+            soundSystem.PlayBGM(0);
             soundSystem.StopBGM();
             ghost.gameOver = false;
+            ghost.Changestartingposition(new Vector2(10000, 10000));
             player.Reset();
             KeyManagement.Reset();
             light.IsActive = false;

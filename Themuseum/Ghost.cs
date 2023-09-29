@@ -58,6 +58,7 @@ namespace Themuseum
             }
             else
             {
+                Changestartingposition(new Vector2(10000, 10000));
                 Prechase(player);
             }
 
