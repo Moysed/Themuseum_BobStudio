@@ -163,7 +163,7 @@ namespace Themuseum
                     if(Keymanager.MRB_Pieces == 3)
                     {
                         sound.PlaySfx(4);
-                        dialogue.SettingParameter("Hint Block", 200, 200, "You assembled the statue!, But something is happening", Color.Green);
+                        dialogue.SettingParameter("Hint Block", 200, 200, "You assembled the statue!, But something is happening", Color.DarkRed);
                         dialogue.Activation(true);
                         Keymanager.KeyTrigger("MRB_Statue");
                         player.IsHaunted = true;

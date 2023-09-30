@@ -58,7 +58,7 @@ namespace Themuseum
             }
             else
             {
-                Changestartingposition(new Vector2(10000, 10000));
+                
                 Prechase(player);
             }
 
@@ -90,6 +90,10 @@ namespace Themuseum
             else if (player.KeyControls.IsKeyDown(Keys.S))
             {
                 Changestartingposition(new Vector2(1300 / 2, -1000));
+            }
+            else
+            {
+                Changestartingposition(new Vector2(1300, 1300));
             }
         }
         public void UpdateAnimation(float elasped)
