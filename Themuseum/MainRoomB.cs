@@ -37,7 +37,7 @@ namespace Themuseum
 
         public MainRoomB()
         {
-            LanternRefillPos = new Vector2(650, 500);
+            LanternRefillPos = new Vector2(650, 250);
             lanternRefill = new LanternRefill(LanternRefillPos);
             room1 = new Room1();    
             random = new Random();
@@ -49,6 +49,7 @@ namespace Themuseum
             WallArea_Col.Add(new Rectangle(0, 0, 64, 640));
             WallArea_Col.Add(new Rectangle(1280-64, 0, 64, 640));
             WallArea_Col.Add(new Rectangle(0, 640-64, 1280, 64));
+            lanternRefill.IsCollected = false;
         }
 
         public void LoadContent(ContentManager content)

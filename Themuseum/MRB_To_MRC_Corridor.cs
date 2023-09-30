@@ -25,10 +25,12 @@ namespace Themuseum
         private KeyboardState KeyControls;
         private KeyboardState OldKey;
         private Texture2D WallArea_Tex;
+        Shire shire;
         private List<Rectangle> WallArea_Col = new List<Rectangle>();
         public MRB_To_MRC_Corridor()
         {
             room1 = new Room1();
+            shire = new Shire(new Vector2(600,240));
             WallArea_Col.Add(new Rectangle(0, 0, 1280, 64));
             WallArea_Col.Add(new Rectangle(0, 0, 64, 640));
             WallArea_Col.Add(new Rectangle(0, 400, 1280, 640));
@@ -40,6 +42,7 @@ namespace Themuseum
             Map_Sprite = content.Load<Texture2D>("MapSheet");
             WallArea_Tex = content.Load<Texture2D>("wallplaceholder");
             Door = content.Load<Texture2D>("placeholderdoor");
+            shire.LoadSprite(content);
         }
 
         public void Draw(SpriteBatch SB)
@@ -50,6 +53,7 @@ namespace Themuseum
             }
             SB.Draw(Door, DoorPos_Room3, new Rectangle(6 * 32, 8 * 32, 32, 64), Color.White);
             SB.Draw(Door, DoorPos_MRC, new Rectangle(6 * 32, 8 * 32, 32, 64), Color.White);
+            shire.Draw(SB);
         }
 
         public void Function(GraphicsDeviceManager _graphics, Player player, RoomManager roomManager, KeyManagement Keymanager, float elapsed, DialogueBox dialogue, LanternLight light,SoundSystem sound)
@@ -128,7 +132,7 @@ namespace Themuseum
                         roomManager.Roomchange(6);
                     }
                 }
-
+            shire.Behavior(player, elapsed, sound);
                 OldKey = KeyControls;
             }
         }

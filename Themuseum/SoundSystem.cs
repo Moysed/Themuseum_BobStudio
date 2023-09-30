@@ -19,8 +19,8 @@ namespace Themuseum
         List<Song> BGM = new List<Song>();
 
         public SoundSystem(){
-            
-        
+
+            MediaPlayer.Volume = 0.1f;
         }
 
         public void LoadContent(ContentManager content)

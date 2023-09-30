@@ -151,6 +151,7 @@ namespace Themuseum
                         sound.PlaySfx(1);
                         Keymanager.MRB_PieceActive = true;
                         player.ChangeStartingPosition(new Vector2(player.SelfPosition.X, 75*7));
+                        
                         roomManager.Roomchange(4);
                     }
                     else if(KeyControls.IsKeyDown(Keys.E) && Oldkey_.IsKeyUp(Keys.E) && Keymanager.R1_S2 == false || KeyControls.IsKeyDown(Keys.E) && Oldkey_.IsKeyUp(Keys.E) && Keymanager.R1_S3 == false)
