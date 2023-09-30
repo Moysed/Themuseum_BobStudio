@@ -54,7 +54,7 @@ namespace Themuseum
 
         public void Function(GraphicsDeviceManager _graphics, Player player, RoomManager roomManager, KeyManagement Keymanager, float elapsed, DialogueBox dialogue, LanternLight light,SoundSystem sound)
         {
-
+            KeyControls = Keyboard.GetState();
             //Wall Collision
             for (int i = 0; i < WallArea_Col.Count; i++)
             {
@@ -114,7 +114,7 @@ namespace Themuseum
                     if (KeyControls.IsKeyDown(Keys.E) && OldKey.IsKeyUp(Keys.E))
                     {
                         sound.PlaySfx(1);
-                        player.ChangeStartingPosition(new Vector2(1180-65, player.SelfPosition.Y));
+                        player.ChangeStartingPosition(new Vector2(1180-65, 8*32));
                         roomManager.Roomchange(3);
                     }
                 }

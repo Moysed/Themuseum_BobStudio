@@ -56,7 +56,7 @@ namespace Themuseum
         {
             KeyControls = Keyboard.GetState();
             //Object Hitbox
-            DoorCollision_MRB_MRC_C = new Rectangle(1262, 158, 64, 300);
+            DoorCollision_MRB_MRC_C = new Rectangle(1200, 0, 64, 640);
             BacktoRoom2 = new Rectangle(400, 600, 400, 200);
             DoorCollision = new Rectangle(568, 57, 138, 194);
             
@@ -153,7 +153,7 @@ namespace Themuseum
                         player.ChangeStartingPosition(new Vector2(player.SelfPosition.X, 75*7));
                         roomManager.Roomchange(4);
                     }
-                    else if(KeyControls.IsKeyDown(Keys.E) && Oldkey_.IsKeyUp(Keys.E) && Keymanager.R1_S2 == false && Keymanager.R1_S3 == false)
+                    else if(KeyControls.IsKeyDown(Keys.E) && Oldkey_.IsKeyUp(Keys.E) && Keymanager.R1_S2 == false || KeyControls.IsKeyDown(Keys.E) && Oldkey_.IsKeyUp(Keys.E) && Keymanager.R1_S3 == false)
                     {
                         sound.PlaySfx(2);
                         dialogue.SettingParameter("Hint Block", 0, 0, "The door is locked, Find a way to open it", Color.Red);
@@ -164,8 +164,8 @@ namespace Themuseum
             {
                 if (KeyControls.IsKeyDown(Keys.E) && Oldkey_.IsKeyUp(Keys.E) && Keymanager.MRB_StatueActive == true)
                 {
-
-                    player.ChangeStartingPosition(new Vector2(75, player.SelfPosition.Y));
+                    sound.PlaySfx(1);
+                    player.ChangeStartingPosition(new Vector2(75, 8*32));
                     roomManager.Roomchange(5);
                 }
                 else if(KeyControls.IsKeyDown(Keys.E) && Oldkey_.IsKeyUp(Keys.E) && Keymanager.MRB_StatueActive == false)
@@ -176,6 +176,10 @@ namespace Themuseum
                 }
             }
             Oldkey_ = KeyControls;
+        }
+        public void Reset()
+        {
+
         }
 
         }

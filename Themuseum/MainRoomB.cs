@@ -154,14 +154,26 @@ namespace Themuseum
                     Console.WriteLine(Keymanager.MRB_StatueActive);
                     if(Keymanager.MRB_Pieces == 3)
                     {
+                        sound.PlaySfx(4);
+                        dialogue.SettingParameter("Hint Block", 200, 200, "You assembled the statue!, But something is happening", Color.Green);
+                        dialogue.Activation(true);
                         Keymanager.KeyTrigger("MRB_Statue");
+                        player.IsHaunted = true;
+                        sound.StopBGM();
+                        sound.PlayBGM(1);
+                    }
+                    else
+                    {
+                        sound.PlaySfx(5);
+                        dialogue.SettingParameter("Hint Block", 200, 200, "Find pieces to complete the statue", Color.Purple);
+                        dialogue.Activation(true);
                     }
                     Console.WriteLine(Keymanager.MRB_StatueActive); 
                 }
             }
 
             //hint Collision
-            if(player.collision.Intersects(hint) == true && keycontrols.IsKeyDown(Keys.E))
+            if(player.collision.Intersects(hint) == true && keycontrols.IsKeyDown(Keys.E) && Oldkey_.IsKeyUp(Keys.E))
             {
                 sound.PlaySfx(3);
                 dialogue.SettingParameter("Hint Block", 200, 200, "Full Statue", Color.Green);
@@ -172,7 +184,10 @@ namespace Themuseum
 
             Oldkey_ = keycontrols;
         }
-
+        public void Reset()
+        {
+            piece3Pos = new Vector2(random.Next(64, 200), random.Next(100, 200));
+        }
         
     }
 }

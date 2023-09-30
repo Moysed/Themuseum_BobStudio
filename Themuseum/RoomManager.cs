@@ -48,7 +48,7 @@ namespace Themuseum
             switch (roomnum)
             {
                 case 1: room1.Draw(SB,light); break;
-                case 2: room2.Draw(SB); break;
+                case 2: room2.Draw(SB,light); break;
                 case 3: room3.Draw(SB); break;
                 case 4: MRB.Draw(SB); break;
                 case 5: MRB_MRC_Cor.Draw(SB); break;
@@ -64,7 +64,7 @@ namespace Themuseum
                 case 3: room3.Function(_graphics, player, this, keymanager, elapsed, dialogue, light,sound); break;       
                 case 4: MRB.Function(_graphics, player, this, keymanager, elapsed, dialogue, light,sound); break;
                 case 5: MRB_MRC_Cor.Function(_graphics, player, this, keymanager, elapsed, dialogue, light,sound); break;
-                case 6: mrc.Function(_graphics, player, this, keymanager, elapsed, dialogue, light); break;
+                case 6: mrc.Function(_graphics, player, this, keymanager, elapsed, dialogue, light,sound); break;
 
             }
         }

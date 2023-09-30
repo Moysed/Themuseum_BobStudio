@@ -44,7 +44,7 @@ namespace Themuseum
         private Texture2D piece1;
         private Vector2 piece1Pos;
         private Rectangle piece1Col;
-        private int player_pieceActive = 0;
+        private bool player_pieceActive = false;
         private KeyboardState KeyControls;
         private KeyboardState OldKey;
 
@@ -131,7 +131,7 @@ namespace Themuseum
                 }
             }
 
-            if (player_pieceActive == 1)
+            if (player_pieceActive == true)
             {
                 if (light.Collision.Intersects(piece1Col))
                 {
@@ -321,11 +321,15 @@ namespace Themuseum
                     }
                     if (Keymanager.MRB_PieceActive == true)
                     {
-                        player_pieceActive = 1;
+                        player_pieceActive = true;
+                    }
+                    else
+                    {
+                        player_pieceActive = false;
                     }
 
                     //Piece Collect
-                    if (player.collision.Intersects(piece1Col) == true)
+                    if (player.collision.Intersects(piece1Col) == true && player_pieceActive == true)
                     {
                         if (KeyControls.IsKeyDown(Keys.E) && OldKey.IsKeyUp(Keys.E))
                         {

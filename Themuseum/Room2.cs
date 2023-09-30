@@ -33,10 +33,11 @@ namespace Themuseum
         private Texture2D R2_T1_Trigger_Tex;
         private Vector2 R2_T1_Trigger_Pos;
         private Rectangle R2_T1_Trigger_Col;
+        private Rectangle piece2Col;
         private KeyboardState KeyControls;
         private Texture2D piece2;
         private Vector2 piece2Pos;
-        private int player_pieceActive = 0;
+        private bool player_pieceActive = false;
         private KeyboardState OldKey;
         Random random = new Random();
         public Room2()
@@ -74,7 +75,7 @@ namespace Themuseum
             lanternRefill.LoadSprite(content);
         }
 
-        public void Draw(SpriteBatch SB)
+        public void Draw(SpriteBatch SB, LanternLight light)
         {
             SB.Draw(TileStatic, Vector2.Zero, Color.White);
             //TileAnimated.DrawFrame(SB, Vector2.Zero, 1);
@@ -86,9 +87,12 @@ namespace Themuseum
                 SB.Draw(WallArea_Tex, WallArea_Col[i], Color.White);
             }*/
 
-            if(player_pieceActive == 1) 
+            if(player_pieceActive == true) 
             {
-                SB.Draw(piece2, piece2Pos, Color.White);
+                if(light.Collision.Intersects(piece2Col)){
+                    SB.Draw(piece2, piece2Pos, Color.White);
+                }
+                
             }
 
             lanternRefill.DrawSprite(SB);
@@ -149,9 +153,14 @@ namespace Themuseum
                 }
 
                if(Keymanager.MRB_PieceActive == true)
-                {
-                    player_pieceActive = 1;
-                }
+               {
+                    player_pieceActive = true;
+               }
+               else
+               {
+                    player_pieceActive = false;
+               }
+               
 
                 //TileAnimated.UpdateFrame(elapsed);
 
@@ -163,7 +172,7 @@ namespace Themuseum
             R2_T1_Trigger_Pos = new Vector2(540, 256);
             R2_T1_Trigger_Col = new Rectangle((int)R2_T1_Trigger_Pos.X, (int)R2_T1_Trigger_Pos.Y, 128, 128);
 
-            Rectangle piece2Col = new Rectangle((int)piece2Pos.X, (int)piece2Pos.Y, 64, 64);
+            piece2Col = new Rectangle((int)piece2Pos.X, (int)piece2Pos.Y, 64, 64);
 
             //Object Interaction
 
@@ -196,7 +205,7 @@ namespace Themuseum
             }
 
             //Piece Collect
-            if (player.collision.Intersects(piece2Col) == true)
+            if (player.collision.Intersects(piece2Col) == true && Keymanager.MRB_PieceActive == true)
             {
                 if (KeyControls.IsKeyDown(Keys.E) && OldKey.IsKeyUp(Keys.E))
                 {
@@ -215,6 +224,7 @@ namespace Themuseum
         public void Reset()
         {
             lanternRefill.ResetState();
+            piece2Pos = new Vector2(random.Next(520, 600), random.Next(190, 200));
         }
 
     }

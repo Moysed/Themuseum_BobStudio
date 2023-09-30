@@ -90,7 +90,7 @@ namespace Themuseum
             
         }
 
-        public void Function(GraphicsDeviceManager _graphics, Player player, RoomManager roomManager, KeyManagement Keymanager, float elapsed, DialogueBox dialogue, LanternLight light)
+        public void Function(GraphicsDeviceManager _graphics, Player player, RoomManager roomManager, KeyManagement Keymanager, float elapsed, DialogueBox dialogue, LanternLight light,SoundSystem sound)
         {
             KeyControls = Keyboard.GetState();
             //Wall Collision
@@ -226,7 +226,7 @@ namespace Themuseum
 
                 if (KeyControls.IsKeyDown(Keys.E) && OldKey.IsKeyUp(Keys.E))
                 {
-
+                    sound.PlaySfx(1);
                     player.ChangeStartingPosition(new Vector2(1180 - 32, player.SelfPosition.Y));
                     roomManager.Roomchange(5);
                 }
@@ -239,10 +239,14 @@ namespace Themuseum
                 {
                     if (Keymanager.MRC_Unlock == false)
                     {
+                        sound.PlaySfx(2);
+                        dialogue.SettingParameter("Hint Block", 0, 0, "The door is locked, Find a way to open it", Color.Red);
+                        dialogue.Activation(true);
                         Console.WriteLine("MRC_Locked");
                     }
                     else if (Keymanager.MRC_Unlock == true)
                     {
+                        sound.PlaySfx(1);
                         Console.WriteLine("MRC_Unlocked");
                         Keymanager.GameEnded = true;
                     }
@@ -254,7 +258,7 @@ namespace Themuseum
 
                 if (KeyControls.IsKeyDown(Keys.E) && OldKey.IsKeyUp(Keys.E))
                 {
-
+                    sound.PlaySfx(4);
                     Console.WriteLine("Puzzle Blocks Reset");
                     for (int i = 0; i < puzzleBlocks.Count; i++)
                     {
@@ -263,6 +267,15 @@ namespace Themuseum
                 }
             }
             OldKey = KeyControls;
+        }
+        public void Reset()
+        {
+            for (int i = 0; i < puzzleBlocks.Count; i++)
+            {
+                puzzleBlocks[i].ResetPosition();
+            }
+
+
         }
        
     }
