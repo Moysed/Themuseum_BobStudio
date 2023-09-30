@@ -172,7 +172,7 @@ namespace Themuseum
                 else if(KeyControls.IsKeyDown(Keys.E) && Oldkey_.IsKeyUp(Keys.E) && Keymanager.MRB_StatueActive == false)
                 {
                     sound.PlaySfx(2);
-                    dialogue.SettingParameter("Hint Block", 0, 0, "The door is locked, Find a way to open it", Color.Red);
+                    dialogue.SettingParameter("Hint Block", 0, 0, "There's something blocking the way. But I can't see it", Color.Red);
                     dialogue.Activation(true);
                 }
             }

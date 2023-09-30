@@ -292,7 +292,7 @@ namespace Themuseum
                         {
                             sound.PlaySfx(2);
                             Keymanager.R1_T0 = true;
-                            dialogue.SettingParameter("Hint Block", 0, 0, "The door is locked, Find hidden switch", Color.Red);
+                            dialogue.SettingParameter("Hint Block", 0, 0, "There's something blocking the way. But I can't see it. Find the switch to break it", Color.Red);
                             dialogue.Activation(true);
                         }
 
@@ -374,7 +374,9 @@ namespace Themuseum
                         sound.PlaySfx(0);
                         light.IsActive = true;
                         lanternPos.X = 20000;
-                        Console.WriteLine(player.CurrentFuel);
+                dialogue.SettingParameter("Hint Block", 0, 0, "There's Lantern. it could be useful.  Hold F to use Lantern", Color.Red);
+                dialogue.Activation(true);
+                Console.WriteLine(player.CurrentFuel);
                     }
 
                     if (player.collision.Intersects(mapCol) == true && KeyControls.IsKeyDown(Keys.E))
@@ -382,7 +384,9 @@ namespace Themuseum
                         sound.PlaySfx(3);
                         map.IsActive = true;
                         mapPos.X = 20000;
-                        Console.WriteLine("Map Collected");
+                dialogue.SettingParameter("Hint Block", 0, 0, "There's map. let check it out.  Press M to Open Map" , Color.Red);
+                dialogue.Activation(true);
+                Console.WriteLine("Map Collected");
                     }
 
                     OldKey = KeyControls;
