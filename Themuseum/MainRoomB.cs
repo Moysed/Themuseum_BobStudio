@@ -16,6 +16,8 @@ namespace Themuseum
     class MainRoomB
     {
         Room1 room1;
+        private LanternRefill lanternRefill;
+        private Vector2 LanternRefillPos;
         private Texture2D Map_Sprite;
         private Texture2D hint;
         private Vector2 hintPos;
@@ -35,6 +37,8 @@ namespace Themuseum
 
         public MainRoomB()
         {
+            LanternRefillPos = new Vector2(650, 500);
+            lanternRefill = new LanternRefill(LanternRefillPos);
             room1 = new Room1();    
             random = new Random();
             DoorPos = new Vector2(610, 72 * 8);
@@ -55,6 +59,7 @@ namespace Themuseum
             Door = content.Load<Texture2D>("placeholderdoor");
             statue = content.Load<Texture2D>("Statue");
             piece3 = content.Load<Texture2D>("Piece3");
+            lanternRefill.LoadSprite(content);
         }
 
         public void Draw(SpriteBatch SB)
@@ -63,8 +68,10 @@ namespace Themuseum
            SB.Draw(Door, DoorPos, new Rectangle(6 * 32, 8 * 32, 32, 64), Color.White);
            SB.Draw(statue, statuePos, Color.White);
            SB.Draw(piece3, piece3Pos, Color.White);
+           lanternRefill.DrawSprite(SB);
            SB.Draw(hint, hintPos, Color.White);
-           
+            
+
         }
         public void Function(GraphicsDeviceManager _graphics, Player player, RoomManager roomManager, KeyManagement Keymanager, float elapsed, DialogueBox dialogue, LanternLight light,SoundSystem sound)
         {
@@ -179,8 +186,8 @@ namespace Themuseum
                 dialogue.SettingParameter("Hint Block", 200, 200, "Full Statue", Color.Green);
                 dialogue.Activation(true);
             }
-            
 
+            lanternRefill.Behavior(player, sound);
 
             Oldkey_ = keycontrols;
         }
