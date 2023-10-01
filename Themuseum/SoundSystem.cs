@@ -20,7 +20,7 @@ namespace Themuseum
 
         public SoundSystem(){
 
-            MediaPlayer.Volume = 0.1f;
+            MediaPlayer.Volume = 1f;
         }
 
         public void LoadContent(ContentManager content)
@@ -33,8 +33,8 @@ namespace Themuseum
             soundEffects.Add(content.Load<SoundEffect>("140-Darkness03")); // Crystal Denied sfx 5
             soundEffects.Add(content.Load<SoundEffect>("081-Monster03")); // Monster Sound 6
 
-            BGM.Add(content.Load<Song>("BGM(Concept)")); //0
-            BGM.Add(content.Load<Song>("Marked")); //1
+            BGM.Add(content.Load<Song>("Horror Thai ambi")); //0
+            BGM.Add(content.Load<Song>("Ancient Horror")); //1
         }
 
         public void PlaySfx(int i)

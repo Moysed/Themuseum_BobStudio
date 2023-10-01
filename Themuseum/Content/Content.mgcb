@@ -295,6 +295,12 @@
 /processorParam:TextureFormat=Color
 /build:9.png
 
+#begin Ancient Horror.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Ancient Horror.mp3
+
 #begin AnimatedRoom2Sprite.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -564,6 +570,12 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Hint.png
+
+#begin Horror Thai ambi.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Horror Thai ambi.mp3
 
 #begin key-white.png
 /importer:TextureImporter
