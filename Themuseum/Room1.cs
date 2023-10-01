@@ -287,6 +287,7 @@ namespace Themuseum
                     //Object Interaction
                     if (player.collision.Intersects(DoorCollision) == true)
                     {
+                            player.StatusTextDisplay("Press E to Interact");
                         if (KeyControls.IsKeyDown(Keys.E) && OldKey.IsKeyUp(Keys.E) && Keymanager.R1_S1 == true)
                         {
                             sound.PlaySfx(1);
@@ -354,26 +355,28 @@ namespace Themuseum
                             sound.PlaySfx(1);
                             Keymanager.KeyTrigger("R1_S1");
                             dialogue.SettingParameter("placeholderblock", 200, 200, "1st Hidden Switch Activated", Color.Green);
-                            //dialogue.Activation(true);
+                            dialogue.Activation(true);
                             Console.WriteLine("R1_S1");
                         }
                     }
 
                     //hint Collision
-                    if (KeyControls.IsKeyDown(Keys.E) && OldKey.IsKeyUp(Keys.E) && player.collision.Intersects(hint) == true)
+                    if ( player.collision.Intersects(hint) == true)
                     {
-                        sound.PlaySfx(3);
-                        dialogue.SettingParameter("Hint Block", 200, 200, "Light will guide you home", Color.Green);
-                        dialogue.Activation(true);
+                            player.StatusTextDisplay("Press E to Interact");
+                        if (KeyControls.IsKeyDown(Keys.E) && OldKey.IsKeyUp(Keys.E))
+                        {
+                            sound.PlaySfx(3);
+                            dialogue.SettingParameter("Hint Block", 200, 200, "Light will guide you home", Color.Green);
+                            dialogue.Activation(true);
+                        }
+                        
                 
         
                     }
 
             
-            if(KeyControls.IsKeyDown(Keys.E) == true)
-            {
-                dialogue.IsActive = false;
-            }
+           
 
 
 
@@ -382,24 +385,35 @@ namespace Themuseum
                 dialogue.Activation(false);
             }*/
 
-            if (player.collision.Intersects(Lantern) == true && KeyControls.IsKeyDown(Keys.E))
+            if (player.collision.Intersects(Lantern) == true)
                     {
-                        sound.PlaySfx(0);
-                        light.IsActive = true;
-                        lanternPos.X = 20000;
-                dialogue.SettingParameter("Hint Block", 0, 0, "There's Lantern. It could be useful.  Hold F to use Lantern", Color.Red);
-                dialogue.Activation(true);
-                Console.WriteLine(player.CurrentFuel);
+                        player.StatusTextDisplay("Press E to Interact");
+                        if(KeyControls.IsKeyDown(Keys.E) == true && OldKey.IsKeyUp(Keys.E))
+                        {
+                            sound.PlaySfx(0);
+                            light.IsActive = true;
+                            lanternPos.X = 20000;
+                            dialogue.SettingParameter("Hint Block", 0, 0, "There's Lantern. It could be useful.  Hold F to use Lantern", Color.Red);
+                            dialogue.Activation(true);
+                            Console.WriteLine(player.CurrentFuel);
+                        }
+                       
                     }
 
-                    if (player.collision.Intersects(mapCol) == true && KeyControls.IsKeyDown(Keys.E))
+                    if (player.collision.Intersects(mapCol) == true)
                     {
-                        sound.PlaySfx(3);
-                        map.IsActive = true;
-                        mapPos.X = 20000;
-                dialogue.SettingParameter("Hint Block", 0, 0, "There's map. It's contained the layout of this building.  Press M to Open Map" , Color.Red);
-                dialogue.Activation(true);
-                Console.WriteLine("Map Collected");
+                        player.StatusTextDisplay("Press E to Interact");
+                        if (KeyControls.IsKeyDown(Keys.E) == true && OldKey.IsKeyUp(Keys.E))
+                        {
+
+                            sound.PlaySfx(3);
+                            map.IsActive = true;
+                            mapPos.X = 20000;
+                            dialogue.SettingParameter("Hint Block", 0, 0, "There's map. It's contained the layout of this building.  Press M to Open Map", Color.Red);
+                            dialogue.Activation(true);
+                            Console.WriteLine("Map Collected");
+                        }
+                   
                     }
   
 

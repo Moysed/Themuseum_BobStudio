@@ -129,9 +129,9 @@ namespace Themuseum
                 DoorCollision_MRC = new Rectangle((int)DoorPos_MRC.X - 10, (int)DoorPos_MRC.Y, 32, 64);
 
                 //Player Interaction
-                /*if (player.collision.Intersects(DoorCollision_Room3) == true)
+                if (player.collision.Intersects(DoorCollision_Room3) == true)
                 {
-
+                    player.StatusTextDisplay("Press E to Interact");
                     if (KeyControls.IsKeyDown(Keys.E) && OldKey.IsKeyUp(Keys.E))
                     {
                         sound.PlaySfx(1);
@@ -141,6 +141,7 @@ namespace Themuseum
                 }
                 if (player.collision.Intersects(DoorCollision_MRC) == true)
                 {
+                    player.StatusTextDisplay("Press E to Interact");
 
                     if (KeyControls.IsKeyDown(Keys.E) && OldKey.IsKeyUp(Keys.E))
                     {
@@ -148,7 +149,7 @@ namespace Themuseum
                         player.ChangeStartingPosition(new Vector2(64, player.SelfPosition.Y));
                         roomManager.Roomchange(6);
                     }
-                }*/
+                }
             shire.Behavior(player, elapsed, sound);
                 OldKey = KeyControls;
             }

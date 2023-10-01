@@ -145,7 +145,7 @@ namespace Themuseum
                 }
                 if (player.collision.Intersects(DoorCollision) == true)
                 {
-                    
+                    player.StatusTextDisplay("Press E to Interact");
                     if (KeyControls.IsKeyDown(Keys.E) && Oldkey_.IsKeyUp(Keys.E) && Keymanager.R1_S2 == true && Keymanager.R1_S3 == true)
                     {
                         sound.PlaySfx(1);
@@ -163,6 +163,7 @@ namespace Themuseum
                 }
             if (player.collision.Intersects(DoorCollision_MRB_MRC_C) == true)
             {
+                player.StatusTextDisplay("Press E to Interact");
                 if (KeyControls.IsKeyDown(Keys.E) && Oldkey_.IsKeyUp(Keys.E) && Keymanager.MRB_StatueActive == true)
                 {
                     sound.PlaySfx(1);

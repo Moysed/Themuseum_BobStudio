@@ -54,6 +54,8 @@ namespace Themuseum
 
             if (player.collision.Intersects(Collision) == true)
             {
+                player.StatusTextDisplay("Press E to Interact");
+
                 if (KeyInteract.IsKeyDown(Keys.E) && OldKey.IsKeyUp(Keys.E))
                 {
 

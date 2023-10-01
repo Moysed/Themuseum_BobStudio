@@ -187,6 +187,8 @@ namespace Themuseum
 
             if(R2_T1_Trigger_Col.Intersects(player.collision) == true && Keymanager.R2_T1 == false)
             {
+                dialogue.SettingParameter("Hint Block", 0, 0, "You feel evil presence pursuing you, find shire to repel it", Color.DarkRed);
+                dialogue.Activation(true);
                 Keymanager.KeyTrigger("R2_T1");
                 Console.WriteLine("R2_T1 Triggered");
                 player.IsHaunted = true;
@@ -195,7 +197,8 @@ namespace Themuseum
 
             if(player.collision.Intersects(EndofHallway) == true)
             {
-                if(KeyControls.IsKeyDown(Keys.E) && OldKey.IsKeyUp(Keys.E)){
+                player.StatusTextDisplay("Press E to Interact");
+                if (KeyControls.IsKeyDown(Keys.E) && OldKey.IsKeyUp(Keys.E)){
                     Console.WriteLine("Changed to Room3");
                     sound.PlaySfx(1);
                     player.ChangeStartingPosition(new Vector2(player.SelfPosition.X, 500));

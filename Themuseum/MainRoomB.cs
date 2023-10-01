@@ -178,6 +178,7 @@ namespace Themuseum
             //Piece Collect
             if (player.collision.Intersects(piece3Col) == true)
             {
+                player.StatusTextDisplay("Press E to Interact");
                 if (keycontrols.IsKeyDown(Keys.E) && Oldkey_.IsKeyUp(Keys.E))
                 {
                     sound.PlaySfx(0);
@@ -190,6 +191,7 @@ namespace Themuseum
             //Statue Collision
             if (player.collision.Intersects(statueCollision) == true)
             {
+                player.StatusTextDisplay("Press E to Interact");
                 if (keycontrols.IsKeyDown(Keys.E) && Oldkey_.IsKeyUp(Keys.E))
                 {
                     Console.WriteLine(Keymanager.MRB_StatueActive);
@@ -214,11 +216,16 @@ namespace Themuseum
             }
 
             //hint Collision
-            if(player.collision.Intersects(hint) == true && keycontrols.IsKeyDown(Keys.E) && Oldkey_.IsKeyUp(Keys.E))
+            if(player.collision.Intersects(hint) == true )
             {
-                sound.PlaySfx(3);
-                dialogue.SettingParameter("Hint Block", 200, 200, "Full Statue", Color.Green);
-                dialogue.Activation(true);
+                player.StatusTextDisplay("Press E to Interact");
+                if (keycontrols.IsKeyDown(Keys.E) && Oldkey_.IsKeyUp(Keys.E))
+                {
+                    sound.PlaySfx(3);
+                    dialogue.SettingParameter("Hint Block", 200, 200, "Full Statue", Color.Green);
+                    dialogue.Activation(true);
+                }
+               
             }
 
             lanternRefill.Behavior(player, sound);

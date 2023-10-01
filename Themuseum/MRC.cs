@@ -223,7 +223,7 @@ namespace Themuseum
             //Player Interaction
             if (player.collision.Intersects(DoorCollision_MB_MC_C) == true)
             {
-
+                player.StatusTextDisplay("Press E to Interact");
                 if (KeyControls.IsKeyDown(Keys.E) && OldKey.IsKeyUp(Keys.E))
                 {
                     sound.PlaySfx(1);
@@ -233,7 +233,7 @@ namespace Themuseum
             }
             if (player.collision.Intersects(DoorCollision_End) == true)
             {
-
+                player.StatusTextDisplay("Press E to Interact");
 
                 if (KeyControls.IsKeyDown(Keys.E) && OldKey.IsKeyUp(Keys.E))
                 {
@@ -255,7 +255,7 @@ namespace Themuseum
             }
             if (player.collision.Intersects(BlockReset_Col) == true)
             {
-
+                player.StatusTextDisplay("Press E to Interact");
                 if (KeyControls.IsKeyDown(Keys.E) && OldKey.IsKeyUp(Keys.E))
                 {
                     sound.PlaySfx(4);

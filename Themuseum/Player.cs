@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Metadata;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
@@ -25,6 +26,9 @@ namespace Themuseum
         public float MaxFuel = 300;
         public float CurrentFuel = 300;
         public KeyboardState KeyControls;
+        private SpriteFont Font;
+        private string StatusText = "";
+        private float texttime = 60;
         public bool IsHaunted = false;
         
       
@@ -41,11 +45,14 @@ namespace Themuseum
 
         public void LoadSprite(ContentManager Content)
         {
-            Sprite.Load(Content, "Mini player", 4, 4, 4);
+            Sprite.Load(Content, "Mini player", 4, 4, 15);
+            Font = Content.Load<SpriteFont>("Keycollect");
         }
 
         public void Draw(SpriteBatch SB, KeyboardState Keystate)
         {
+            SB.DrawString(Font, StatusText, new Vector2(SelfPosition.X, SelfPosition.Y - 32), Color.White);
+
             if (Keystate.IsKeyDown(Keys.A))
             {
                 framerow = 3;
@@ -76,7 +83,17 @@ namespace Themuseum
         {
             KeyControls = Keystate;
             collision = new Rectangle((int)SelfPosition.X, (int)SelfPosition.Y, 42, 84);
+            
 
+            if(texttime > 0)
+            {
+                texttime--;
+            }
+            else
+            {
+                StatusText = "";
+            }
+            
             
 
             if (KeyControls.IsKeyDown(Keys.A))
@@ -183,6 +200,11 @@ namespace Themuseum
         public float UpdateSpeed()
         {
             return speed;
+        }
+        public void StatusTextDisplay(string DisplayText)
+        {
+            texttime = 60;
+            StatusText = DisplayText;
         }
         public void Reset()
         {
