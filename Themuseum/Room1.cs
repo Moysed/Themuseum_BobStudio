@@ -56,6 +56,7 @@ namespace Themuseum
 
         public Room1()
         {
+        
             mapPos = new Vector2(430, 290);
             hintPos = new Vector2(200, 400);
             lanternPos = new Vector2(740, 250);
@@ -70,7 +71,7 @@ namespace Themuseum
             Counter_Col.Add(new Rectangle(465, 254, 345, 68));
             Counter_Col.Add(new Rectangle(383, 164, 88, 157));
             Counter_Col.Add(new Rectangle(806, 164, 88, 157));
-            R1_Shire = new Shire(new Vector2(1100, 70));
+            R1_Shire = new Shire(new Vector2(440, 33));
             
 
             piece1Pos = new Vector2(r.Next(110, 200), r.Next(80, 250));
@@ -89,12 +90,15 @@ namespace Themuseum
             HiddenSwitch_02_Tex = content.Load<Texture2D>("switch_Closed");
             HiddenSwitch_03_Tex = content.Load<Texture2D>("switch_Closed");
             R1_Shire.LoadSprite(content);
+            
             piece1 = content.Load<Texture2D>("Piece1");
+
             
         }
 
         public void Draw(SpriteBatch SB, LanternLight light)
         {
+
             SB.Draw(TileStatic, Vector2.Zero, Color.White);
             //SB.Draw(Door, DoorPos, new Rectangle(6 * 32, 8 * 32, 32, 64), Color.White);
             if (light.Collision.Intersects(HiddenSwitch_01_Col))
@@ -144,9 +148,12 @@ namespace Themuseum
             {
                 SB.Draw(Lantern, lanternPos, Color.White);
             }
+
+            
             
             R1_Shire.Draw(SB);
             SB.Draw(Map, mapPos, Color.White);
+
 
         }
 
@@ -361,7 +368,13 @@ namespace Themuseum
                 
         
                     }
+
             
+            if(KeyControls.IsKeyDown(Keys.E) == true)
+            {
+                dialogue.IsActive = false;
+            }
+
 
 
             /*else
@@ -388,6 +401,7 @@ namespace Themuseum
                 dialogue.Activation(true);
                 Console.WriteLine("Map Collected");
                     }
+  
 
                     OldKey = KeyControls;
                 }

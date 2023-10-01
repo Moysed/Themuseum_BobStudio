@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Timers;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
@@ -20,10 +21,12 @@ namespace Themuseum
         private Rectangle Collision;
         private KeyboardState KeyInteract;
         private KeyboardState OldKey;
+        Timer timer;
         public Shire(Vector2 startingposition){
             SelfPosition = startingposition;
             Sprite = new AnimatedTexture(Vector2.Zero, 0, 1, 0.5f);
-            
+            timer = new Timer();
+            timer.Interval = 1000;
             Collision = new Rectangle((int)SelfPosition.X, (int)SelfPosition.Y, 50, 109);
         }
 
@@ -53,6 +56,9 @@ namespace Themuseum
             {
                 if (KeyInteract.IsKeyDown(Keys.E) && OldKey.IsKeyUp(Keys.E))
                 {
+
+                    timer.Start();
+                    timer.Interval--;
                     player.IsHaunted = false;
                     sound.PlaySfx(4);
                     sound.StopBGM();

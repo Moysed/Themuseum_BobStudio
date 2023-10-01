@@ -30,6 +30,7 @@ namespace Themuseum
         private int timer;
         private int countdown = 30;
         public bool IsActive = false;
+        
 
         public DialogueBox(string Input,int Width,int Height)
         {
