@@ -50,7 +50,7 @@ namespace Themuseum
         public void Draw(SpriteBatch SB)
         {
             SB.Draw(Dialoguebox_Sprite,DialogueBoxPos,new Rectangle(0,0,1280,200),Color.White);
-            SB.Draw(PortraitSprite,PortraitBoxPos , new Rectangle(0, 0, PortraitWidth, PortraitHeight), Color.White);
+            //SB.Draw(PortraitSprite,PortraitBoxPos , new Rectangle(0, 0, PortraitWidth, PortraitHeight), Color.White);
             SB.DrawString(Font, DialogueText, new Vector2(DialogueBoxPos.X + 32, DialogueBoxPos.Y + 32),Textcolor);
         }
 
