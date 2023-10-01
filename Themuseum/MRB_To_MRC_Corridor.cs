@@ -17,6 +17,7 @@ namespace Themuseum
         Room1 room1;
         private Texture2D Map_Sprite;
         private Texture2D TileStatic;
+        private Texture2D Wallpaper;
         private Texture2D Door;
         private Vector2 DoorPos_Room3;
         private Vector2 DoorPos_MRC;
@@ -31,14 +32,15 @@ namespace Themuseum
         {
             room1 = new Room1();
             shire = new Shire(new Vector2(600,240));
-            WallArea_Col.Add(new Rectangle(0, 0, 1280, 64));
-            WallArea_Col.Add(new Rectangle(0, 0, 64, 640));
-            WallArea_Col.Add(new Rectangle(0, 400, 1280, 640));
-            WallArea_Col.Add(new Rectangle(1280 - 64, 0, 64, 640));
+            WallArea_Col.Add(new Rectangle(0, 0, 1280, 150));
+            WallArea_Col.Add(new Rectangle(0, 0, 15, 640));
+            WallArea_Col.Add(new Rectangle(0, 485, 1280, 640));
+            WallArea_Col.Add(new Rectangle(1280 - 15, 0, 64, 640));
         }
 
         public void LoadSprite(ContentManager content)
         {
+            Wallpaper = content.Load<Texture2D>("Hallway3");
             Map_Sprite = content.Load<Texture2D>("MapSheet");
             WallArea_Tex = content.Load<Texture2D>("wallplaceholder");
             Door = content.Load<Texture2D>("placeholderdoor");
@@ -47,12 +49,13 @@ namespace Themuseum
 
         public void Draw(SpriteBatch SB)
         {
-            for (int i = 0; i < WallArea_Col.Count; i++)
+            /*for (int i = 0; i < WallArea_Col.Count; i++)
             {
                 SB.Draw(WallArea_Tex, WallArea_Col[i], Color.White);
-            }
-            SB.Draw(Door, DoorPos_Room3, new Rectangle(6 * 32, 8 * 32, 32, 64), Color.White);
-            SB.Draw(Door, DoorPos_MRC, new Rectangle(6 * 32, 8 * 32, 32, 64), Color.White);
+            }*/
+            SB.Draw(Wallpaper, Vector2.Zero, Color.White);
+            //SB.Draw(Door, DoorPos_Room3, new Rectangle(6 * 32, 8 * 32, 32, 64), Color.White);
+            //SB.Draw(Door, DoorPos_MRC, new Rectangle(6 * 32, 8 * 32, 32, 64), Color.White);
             shire.Draw(SB);
         }
 
@@ -72,6 +75,13 @@ namespace Themuseum
                         }
                         else
                             player.SelfPosition.X += player.speed;
+
+                        if (KeyControls.IsKeyDown(Keys.E) && OldKey.IsKeyUp(Keys.E))
+                        { 
+                            sound.PlaySfx(1);
+                            player.ChangeStartingPosition(new Vector2(1180 - 65, 8 * 32));
+                            roomManager.Roomchange(3);
+                        }
                     }
                     if (player.collision.Left <= WallArea_Col[i].Left)
                     {
@@ -81,6 +91,13 @@ namespace Themuseum
                         }
                         else
                             player.SelfPosition.X -= player.speed;
+
+                        if (KeyControls.IsKeyDown(Keys.E) && OldKey.IsKeyUp(Keys.E))
+                        {
+                            sound.PlaySfx(1);
+                            player.ChangeStartingPosition(new Vector2(64, player.SelfPosition.Y));
+                            roomManager.Roomchange(6);
+                        }
                     }
                     if (player.collision.Top >= WallArea_Col[i].Top)
                     {
@@ -112,7 +129,7 @@ namespace Themuseum
                 DoorCollision_MRC = new Rectangle((int)DoorPos_MRC.X - 10, (int)DoorPos_MRC.Y, 32, 64);
 
                 //Player Interaction
-                if (player.collision.Intersects(DoorCollision_Room3) == true)
+                /*if (player.collision.Intersects(DoorCollision_Room3) == true)
                 {
 
                     if (KeyControls.IsKeyDown(Keys.E) && OldKey.IsKeyUp(Keys.E))
@@ -131,7 +148,7 @@ namespace Themuseum
                         player.ChangeStartingPosition(new Vector2(64, player.SelfPosition.Y));
                         roomManager.Roomchange(6);
                     }
-                }
+                }*/
             shire.Behavior(player, elapsed, sound);
                 OldKey = KeyControls;
             }
