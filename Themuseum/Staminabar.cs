@@ -66,9 +66,9 @@ namespace Themuseum
 
         public void UpdateBar(float StaminaValue,float OilValue,float elapsed)
         {
-            SpritePosition = new Vector2(32, 32);
-            OilPosition = new Vector2(110 + 48, 32);
-            Staminaposition = new Vector2(32, 110 + 32);
+            SpritePosition = new Vector2(15, 10);
+            OilPosition = new Vector2(110 + 35, 0);
+            Staminaposition = new Vector2(5, 120);
 
             int StaminaIndicator = (int)MathF.Round(StaminaValue * (BarBackground.Width / MaxStamina));
             int OilIndicator = (int)MathF.Round(OilValue * (CandleBackground.Height / MaxOil));
@@ -96,7 +96,7 @@ namespace Themuseum
 
         public void Drawbar(SpriteBatch SB)
         {
-                SB.Draw(KeynCandlebg , new Vector2(145, 43) , Color.White);
+                SB.Draw(KeynCandlebg , new Vector2(130, 7) , Color.White);
                 SB.Draw(BarBackground, Staminaposition, Color.White);
                 SB.Draw(BarColor, Staminaposition, BarIndicator, Color.White);
                 SB.Draw(CandleBackground, OilPosition, Color.White);

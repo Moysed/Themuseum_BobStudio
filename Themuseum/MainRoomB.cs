@@ -43,7 +43,7 @@ namespace Themuseum
             random = new Random();
             DoorPos = new Vector2(610, 72 * 8);
             statuePos = new Vector2(500, 500);
-            piece3Pos = new Vector2(random.Next(64,200), random.Next(100,200));
+            piece3Pos = new Vector2(random.Next(100,700), random.Next(250,400));
             hintPos = new Vector2(500, 200);
             //top
             WallArea_Col.Add(new Rectangle(0, 0, 1280, 200));

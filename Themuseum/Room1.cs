@@ -74,7 +74,7 @@ namespace Themuseum
             R1_Shire = new Shire(new Vector2(440, 33));
             
 
-            piece1Pos = new Vector2(r.Next(110, 200), r.Next(80, 250));
+            piece1Pos = new Vector2(r.Next(150, 200), r.Next(150, 400));
         }
 
         public void LoadSprite(ContentManager content)

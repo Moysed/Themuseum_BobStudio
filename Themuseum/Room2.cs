@@ -60,7 +60,7 @@ namespace Themuseum
             R2_T1_Trigger_Pos = new Vector2(640,256);
             R2_T1_Trigger_Col = new Rectangle((int)R2_T1_Trigger_Pos.X, (int)R2_T1_Trigger_Pos.X, 128, 128);
 
-            piece2Pos = new Vector2(random.Next(520,600), random.Next(190,200));
+            piece2Pos = new Vector2(random.Next(520,600), random.Next(200,250));
         }
 
        
