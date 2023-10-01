@@ -41,7 +41,7 @@ namespace Themuseum
 
         public void LoadSprite(ContentManager Content)
         {
-            Sprite.Load(Content, "Mini player", 4, 4, 15);
+            Sprite.Load(Content, "Mini player", 4, 4, 4);
         }
 
         public void Draw(SpriteBatch SB, KeyboardState Keystate)
@@ -147,7 +147,7 @@ namespace Themuseum
 
             if (KeyControls.IsKeyDown(Keys.F) && CurrentFuel > 0 && Light.IsActive == true)
             {
-                CurrentFuel--;
+                CurrentFuel -= 0.3f;
                 Light.LightActivate(this);
                // Console.WriteLine(CurrentFuel);
             }

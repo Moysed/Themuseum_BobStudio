@@ -21,7 +21,7 @@ namespace Themuseum
 
         public void LoadSprite(ContentManager Content)
         {
-            MapSprite = Content.Load<Texture2D>("MapSheet");
+            MapSprite = Content.Load<Texture2D>("MapWEWEWE");
         }
 
         public void Behavior(RoomManager Rooms)
@@ -30,7 +30,7 @@ namespace Themuseum
             {
                 if(Keyboard.GetState().IsKeyDown(Keys.M))
                 {
-                    mapPosition = new Vector2(320, 0);
+                    mapPosition = new Vector2(0, 0);
                 }
                 else
                 {

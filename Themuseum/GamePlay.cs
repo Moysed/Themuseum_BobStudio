@@ -2,7 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
-using System.Windows.Forms;
+using System.Reflection.Metadata;
 
 namespace Themuseum
 {
@@ -21,6 +21,8 @@ namespace Themuseum
         private SoundSystem soundSystem;
         private Map map;
         RoomManager roomManager;
+        Texture2D guide;
+        Vector2 guidepos = Vector2.Zero;
         
 
         Game1 game; public GamePlay(Game1 game, EventHandler theScreenEvent) : base(theScreenEvent)
@@ -43,6 +45,7 @@ namespace Themuseum
             light.LoadSprite(game.Content);
             map.LoadSprite(game.Content);
             soundSystem.LoadContent(game.Content);
+            guide = game.Content.Load<Texture2D>("GuidelineEIEi");
 
             soundSystem.PlayBGM(0);
 
@@ -87,17 +90,24 @@ namespace Themuseum
 
                 return;
             }
+
+            if(Keyboard.GetState().IsKeyDown(Keys.E)== true)
+            {
+                guidepos = new Vector2(1000, 2000000);
+            }
             base.Update(theTime);
         }
         public override void Draw(SpriteBatch theBatch)
         {
+            
             roomManager.Draw(theBatch, light);
             player.Draw(theBatch, Keystate);
             light.Drawlight(theBatch);
             ghost.Draw(theBatch);
-            dialogue.Draw(theBatch);
             staminabar.Drawbar(theBatch);
             map.DrawMap(theBatch);
+            dialogue.Draw(theBatch);
+            theBatch.Draw(guide, guidepos, Color.White);
         }
 
         public void Reset()

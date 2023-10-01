@@ -45,10 +45,18 @@ namespace Themuseum
             statuePos = new Vector2(500, 500);
             piece3Pos = new Vector2(random.Next(64,200), random.Next(100,200));
             hintPos = new Vector2(500, 200);
-            WallArea_Col.Add(new Rectangle(0, 0, 1280, 64));
-            WallArea_Col.Add(new Rectangle(0, 0, 64, 640));
-            WallArea_Col.Add(new Rectangle(1280-64, 0, 64, 640));
-            WallArea_Col.Add(new Rectangle(0, 640-64, 1280, 64));
+            //top
+            WallArea_Col.Add(new Rectangle(0, 0, 1280, 200));
+            //left
+            WallArea_Col.Add(new Rectangle(0, 0, 80, 640));
+            //right
+            WallArea_Col.Add(new Rectangle(1280-80, 0, 80, 640));
+            //down(Door)
+            WallArea_Col.Add(new Rectangle(430, 610, 413, 15));
+            //down(left)
+            WallArea_Col.Add(new Rectangle(68, 542-5, 375, 102));
+            //down(right)
+            WallArea_Col.Add(new Rectangle(843-10, 542-5, 365, 102));
             lanternRefill.IsCollected = false;
         }
 
@@ -56,7 +64,7 @@ namespace Themuseum
         {
             Map_Sprite = content.Load<Texture2D>("MapSheet");
             hint = content.Load<Texture2D>("Hint");
-            TileStatic = content.Load<Texture2D>("room3_placeholder");
+            TileStatic = content.Load<Texture2D>("Room B bg");
             Door = content.Load<Texture2D>("placeholderdoor");
             statue = content.Load<Texture2D>("Statue");
             piece3 = content.Load<Texture2D>("Piece3");
@@ -66,7 +74,7 @@ namespace Themuseum
         public void Draw(SpriteBatch SB)
         {
            SB.Draw(TileStatic, Vector2.Zero, Color.White);
-           SB.Draw(Door, DoorPos, new Rectangle(6 * 32, 8 * 32, 32, 64), Color.White);
+           //SB.Draw(Door, DoorPos, new Rectangle(6 * 32, 8 * 32, 32, 64), Color.White);
            SB.Draw(statue, statuePos, Color.White);
            SB.Draw(piece3, piece3Pos, Color.White);
            lanternRefill.DrawSprite(SB);
@@ -126,12 +134,37 @@ namespace Themuseum
                         else
                             player.SelfPosition.Y -= player.speed;
 
+                        if ((keycontrols.IsKeyDown(Keys.E) && Oldkey_.IsKeyUp(Keys.E)))
+                        {
+                            sound.PlaySfx(1);
+                            player.ChangeStartingPosition(new Vector2(638-21, 240));
+                            roomManager.Roomchange(3);
+                        }
+
+                    }
+                    if (player.collision.Top >= WallArea_Col[i].Bottom)
+                    {
+                        if (player.speed == 4)
+                        {
+                            player.SelfPosition.Y += player.speed * 2;
+                        }
+                        else
+                            player.SelfPosition.Y += player.speed;
+                    }
+                    if (player.collision.Top >= WallArea_Col[i].Bottom)
+                    {
+                        if (player.speed == 4)
+                        {
+                            player.SelfPosition.Y += player.speed * 2;
+                        }
+                        else
+                            player.SelfPosition.Y += player.speed;
                     }
                 }
             }
            
             
-            if (player.collision.Intersects(DoorCollision))
+            /*if (player.collision.Intersects(DoorCollision))
             {
                 //Console.WriteLine("Hit");
                 if (keycontrols.IsKeyDown(Keys.E) && Oldkey_.IsKeyUp(Keys.E))
@@ -140,7 +173,7 @@ namespace Themuseum
                     player.ChangeStartingPosition(new Vector2(player.SelfPosition.X, 240));
                     roomManager.Roomchange(3);
                 }
-            }
+            }*/
 
             //Piece Collect
             if (player.collision.Intersects(piece3Col) == true)
