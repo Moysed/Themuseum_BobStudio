@@ -82,7 +82,7 @@ namespace Themuseum
             
 
         }
-        public void Function(GraphicsDeviceManager _graphics, Player player, RoomManager roomManager, KeyManagement Keymanager, float elapsed, DialogueBox dialogue, LanternLight light,SoundSystem sound)
+        public void Function(GraphicsDeviceManager _graphics, Player player, RoomManager roomManager, KeyManagement Keymanager, float elapsed, DialogueBox dialogue, LanternLight light,SoundSystem sound, Ghost ghost)
         {
             keycontrols = Keyboard.GetState();
             //Object Hitbox
@@ -164,16 +164,18 @@ namespace Themuseum
             }
            
             
-            /*if (player.collision.Intersects(DoorCollision))
+            if (player.collision.Intersects(DoorCollision))
             {
+                player.StatusTextDisplay("Press E to Interact");
                 //Console.WriteLine("Hit");
                 if (keycontrols.IsKeyDown(Keys.E) && Oldkey_.IsKeyUp(Keys.E))
                 {
+                    ghost.Prechase(player);
                     sound.PlaySfx(1);
                     player.ChangeStartingPosition(new Vector2(player.SelfPosition.X, 240));
                     roomManager.Roomchange(3);
                 }
-            }*/
+            }
 
             //Piece Collect
             if (player.collision.Intersects(piece3Col) == true)
@@ -181,6 +183,8 @@ namespace Themuseum
                 player.StatusTextDisplay("Press E to Interact");
                 if (keycontrols.IsKeyDown(Keys.E) && Oldkey_.IsKeyUp(Keys.E))
                 {
+                    dialogue.SettingParameter("placeholderblock", 200, 200, "Statue piece collected", Color.Green);
+                    dialogue.Activation(true);
                     sound.PlaySfx(0);
                     Keymanager.MRB_Pieces += 1;
                     Console.WriteLine(Keymanager.MRB_Pieces);

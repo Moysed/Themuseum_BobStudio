@@ -55,16 +55,16 @@ namespace Themuseum
                 case 6: mrc.Draw(SB); break;
             }
         }
-        public void RoomFunction(GraphicsDeviceManager _graphics, Player player , KeyManagement keymanager, float elapsed, DialogueBox dialogue, LanternLight light,Map map,SoundSystem sound)
+        public void RoomFunction(GraphicsDeviceManager _graphics, Player player , KeyManagement keymanager, float elapsed, DialogueBox dialogue, LanternLight light,Map map,SoundSystem sound, Ghost ghost)
         {
             switch (roomnum)
             {
-                case 1: room1.Function(_graphics,player,this, keymanager, elapsed,dialogue,light,map,sound); break;
-                case 2: room2.Function(_graphics, player,this, keymanager, elapsed,dialogue, light,sound); break;
-                case 3: room3.Function(_graphics, player, this, keymanager, elapsed, dialogue, light,sound); break;       
-                case 4: MRB.Function(_graphics, player, this, keymanager, elapsed, dialogue, light,sound); break;
-                case 5: MRB_MRC_Cor.Function(_graphics, player, this, keymanager, elapsed, dialogue, light,sound); break;
-                case 6: mrc.Function(_graphics, player, this, keymanager, elapsed, dialogue, light,sound); break;
+                case 1: room1.Function(_graphics,player,this, keymanager, elapsed,dialogue,light,map,sound,ghost); break;
+                case 2: room2.Function(_graphics, player,this, keymanager, elapsed,dialogue, light,sound, ghost); break;
+                case 3: room3.Function(_graphics, player, this, keymanager, elapsed, dialogue, light,sound, ghost); break;       
+                case 4: MRB.Function(_graphics, player, this, keymanager, elapsed, dialogue, light,sound, ghost); break;
+                case 5: MRB_MRC_Cor.Function(_graphics, player, this, keymanager, elapsed, dialogue, light,sound, ghost); break;
+                case 6: mrc.Function(_graphics, player, this, keymanager, elapsed, dialogue, light,sound, ghost); break;
 
             }
         }

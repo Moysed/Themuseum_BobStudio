@@ -11,6 +11,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+
 namespace Themuseum
 {
     class Room2 
@@ -96,10 +97,9 @@ namespace Themuseum
             }
 
             lanternRefill.DrawSprite(SB);
-
         }
 
-        public void Function(GraphicsDeviceManager _graphics, Player player, RoomManager roomManager, KeyManagement Keymanager, float elapsed, DialogueBox dialogue, LanternLight light, SoundSystem sound)
+        public void Function(GraphicsDeviceManager _graphics, Player player, RoomManager roomManager, KeyManagement Keymanager, float elapsed, DialogueBox dialogue, LanternLight light, SoundSystem sound,Ghost ghost)
         {
            
             KeyControls = Keyboard.GetState();
@@ -178,6 +178,7 @@ namespace Themuseum
 
             if (player.collision.Intersects(DoorCollision) == true)
             {
+                    ghost.Prechase(player);
                     sound.PlaySfx(1);
                     Console.WriteLine("Door Opened");
                     player.ChangeStartingPosition(new Vector2(player.SelfPosition.X, 72));
@@ -199,6 +200,7 @@ namespace Themuseum
             {
                 player.StatusTextDisplay("Press E to Interact");
                 if (KeyControls.IsKeyDown(Keys.E) && OldKey.IsKeyUp(Keys.E)){
+                    ghost.Prechase(player);
                     Console.WriteLine("Changed to Room3");
                     sound.PlaySfx(1);
                     player.ChangeStartingPosition(new Vector2(player.SelfPosition.X, 500));
@@ -212,6 +214,8 @@ namespace Themuseum
             {
                 if (KeyControls.IsKeyDown(Keys.E) && OldKey.IsKeyUp(Keys.E))
                 {
+                    dialogue.SettingParameter("placeholderblock", 200, 200, "Statue piece collected", Color.Green);
+                    dialogue.Activation(true);
                     sound.PlaySfx(0);
                     Keymanager.MRB_Pieces += 1;
                     Console.WriteLine(Keymanager.MRB_Pieces);

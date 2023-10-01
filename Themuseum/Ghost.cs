@@ -81,15 +81,15 @@ namespace Themuseum
             }
             else if (player.KeyControls.IsKeyDown(Keys.D))
             {
-                Changestartingposition(new Vector2(-1300, 640 / 2));
+                Changestartingposition(new Vector2(-400, 640 / 2));
             }
             else if (player.KeyControls.IsKeyDown(Keys.W))
             {
-                Changestartingposition(new Vector2(1300/2, 1000));
+                Changestartingposition(new Vector2(1300/2, 800));
             }
             else if (player.KeyControls.IsKeyDown(Keys.S))
             {
-                Changestartingposition(new Vector2(1300 / 2, -1000));
+                Changestartingposition(new Vector2(1300 / 2, -400));
             }
             else
             {

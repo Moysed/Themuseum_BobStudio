@@ -52,7 +52,7 @@ namespace Themuseum
         {
             SB.Draw(TileStatic, Vector2.Zero, Color.White);
         }
-        public void Function(GraphicsDeviceManager _graphics, Player player, RoomManager roomManager, KeyManagement Keymanager, float elapsed, DialogueBox dialogue, LanternLight light,SoundSystem sound)
+        public void Function(GraphicsDeviceManager _graphics, Player player, RoomManager roomManager, KeyManagement Keymanager, float elapsed, DialogueBox dialogue, LanternLight light,SoundSystem sound, Ghost ghost)
         {
             KeyControls = Keyboard.GetState();
             //Object Hitbox
@@ -137,6 +137,7 @@ namespace Themuseum
             }
                 if (player.collision.Intersects(BacktoRoom2) == true)
                 {
+                    ghost.Prechase(player);
                     Console.WriteLine("Changed to Room2");
                     sound.PlaySfx(1);
                     player.ChangeStartingPosition(new Vector2(player.SelfPosition.X, 200));
@@ -148,6 +149,7 @@ namespace Themuseum
                     player.StatusTextDisplay("Press E to Interact");
                     if (KeyControls.IsKeyDown(Keys.E) && Oldkey_.IsKeyUp(Keys.E) && Keymanager.R1_S2 == true && Keymanager.R1_S3 == true)
                     {
+                        ghost.Prechase(player);
                         sound.PlaySfx(1);
                         Keymanager.MRB_PieceActive = true;
                         player.ChangeStartingPosition(new Vector2(player.SelfPosition.X, 75*7));
@@ -166,6 +168,7 @@ namespace Themuseum
                 player.StatusTextDisplay("Press E to Interact");
                 if (KeyControls.IsKeyDown(Keys.E) && Oldkey_.IsKeyUp(Keys.E) && Keymanager.MRB_StatueActive == true)
                 {
+                    ghost.Prechase(player);
                     sound.PlaySfx(1);
                     player.ChangeStartingPosition(new Vector2(75, 8*32));
                     roomManager.Roomchange(5);

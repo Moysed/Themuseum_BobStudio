@@ -157,7 +157,7 @@ namespace Themuseum
 
         }
 
-        public void Function(GraphicsDeviceManager _graphics, Player player, RoomManager roomManager, KeyManagement Keymanager, float elapsed, DialogueBox dialogue, LanternLight light, Map map,SoundSystem sound)
+        public void Function(GraphicsDeviceManager _graphics, Player player, RoomManager roomManager, KeyManagement Keymanager, float elapsed, DialogueBox dialogue, LanternLight light, Map map,SoundSystem sound,Ghost ghost)
         {
 
             KeyControls = Keyboard.GetState();
@@ -291,7 +291,7 @@ namespace Themuseum
                         if (KeyControls.IsKeyDown(Keys.E) && OldKey.IsKeyUp(Keys.E) && Keymanager.R1_S1 == true)
                         {
                             sound.PlaySfx(1);
-
+                            ghost.Prechase(player);
                             player.ChangeStartingPosition(new Vector2(player.SelfPosition.X, _graphics.GraphicsDevice.Viewport.Bounds.Bottom - 128));
                             roomManager.Roomchange(2);
                             Console.WriteLine("Door Opened");
@@ -299,6 +299,7 @@ namespace Themuseum
                         else if (KeyControls.IsKeyDown(Keys.E) && OldKey.IsKeyUp(Keys.E) && Keymanager.R1_S1 == false)
                         {
                             sound.PlaySfx(2);
+                    
                             Keymanager.R1_T0 = true;
                             dialogue.SettingParameter("Hint Block", 0, 0, "There's something blocking the way. But I can't see it. Find the switch to break it", Color.Red);
                             dialogue.Activation(true);
@@ -313,6 +314,8 @@ namespace Themuseum
                         {
                             switch2_opened = true;
                             sound.PlaySfx(1);
+                            dialogue.SettingParameter("placeholderblock", 200, 200, "2nd Hidden Switch Activated", Color.Green);
+                            dialogue.Activation(true);
                             Keymanager.KeyTrigger("R1_S2");
                             Console.WriteLine("R1_S2");
                         }
@@ -323,6 +326,8 @@ namespace Themuseum
                         {
                             switch3_opened = true;
                             sound.PlaySfx(1);
+                            dialogue.SettingParameter("placeholderblock", 200, 200, "3rd Hidden Switch Activated", Color.Green);
+                            dialogue.Activation(true);
                             Keymanager.KeyTrigger("R1_S3");
                             Console.WriteLine("R1_S3");
                         }
@@ -343,6 +348,8 @@ namespace Themuseum
                         {
                             sound.PlaySfx(0);
                             Keymanager.MRB_Pieces += 1;
+                            dialogue.SettingParameter("placeholderblock", 200, 200, "Statue piece collected", Color.Green);
+                            dialogue.Activation(true);
                             Console.WriteLine(Keymanager.MRB_Pieces);
                             piece1Pos.X = 5000;
                         }

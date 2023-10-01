@@ -90,7 +90,7 @@ namespace Themuseum
             
         }
 
-        public void Function(GraphicsDeviceManager _graphics, Player player, RoomManager roomManager, KeyManagement Keymanager, float elapsed, DialogueBox dialogue, LanternLight light,SoundSystem sound)
+        public void Function(GraphicsDeviceManager _graphics, Player player, RoomManager roomManager, KeyManagement Keymanager, float elapsed, DialogueBox dialogue, LanternLight light,SoundSystem sound, Ghost ghost)
         {
             KeyControls = Keyboard.GetState();
             //Wall Collision
@@ -226,6 +226,7 @@ namespace Themuseum
                 player.StatusTextDisplay("Press E to Interact");
                 if (KeyControls.IsKeyDown(Keys.E) && OldKey.IsKeyUp(Keys.E))
                 {
+                    ghost.Prechase(player);
                     sound.PlaySfx(1);
                     player.ChangeStartingPosition(new Vector2(1180 - 32, player.SelfPosition.Y));
                     roomManager.Roomchange(5);

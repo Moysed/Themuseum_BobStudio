@@ -58,7 +58,7 @@ namespace Themuseum
             float elapsed = (float)theTime.ElapsedGameTime.TotalSeconds;
             Keystate = Keyboard.GetState();
 
-            roomManager.RoomFunction(_graphics, player, KeyManagement, elapsed, dialogue, light,map,soundSystem);
+            roomManager.RoomFunction(_graphics, player, KeyManagement, elapsed, dialogue, light,map,soundSystem,ghost);
 
             player.Controls(Keystate, light,KeyManagement);
             player.UpdateAnimation(elapsed);
