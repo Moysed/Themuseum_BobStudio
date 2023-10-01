@@ -374,7 +374,7 @@ namespace Themuseum
                         sound.PlaySfx(0);
                         light.IsActive = true;
                         lanternPos.X = 20000;
-                dialogue.SettingParameter("Hint Block", 0, 0, "There's Lantern. it could be useful.  Hold F to use Lantern", Color.Red);
+                dialogue.SettingParameter("Hint Block", 0, 0, "There's Lantern. It could be useful.  Hold F to use Lantern", Color.Red);
                 dialogue.Activation(true);
                 Console.WriteLine(player.CurrentFuel);
                     }
@@ -384,7 +384,7 @@ namespace Themuseum
                         sound.PlaySfx(3);
                         map.IsActive = true;
                         mapPos.X = 20000;
-                dialogue.SettingParameter("Hint Block", 0, 0, "There's map. let check it out.  Press M to Open Map" , Color.Red);
+                dialogue.SettingParameter("Hint Block", 0, 0, "There's map. It's contained the layout of this building.  Press M to Open Map" , Color.Red);
                 dialogue.Activation(true);
                 Console.WriteLine("Map Collected");
                     }

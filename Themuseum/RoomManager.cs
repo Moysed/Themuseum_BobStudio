@@ -79,6 +79,9 @@ namespace Themuseum
             roomnum = 1;
             room1.Reset();
             room2.Reset();
+            room3.Reset();
+            MRB.Reset();
+            mrc.Reset();
 
         }
 

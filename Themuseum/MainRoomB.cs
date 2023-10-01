@@ -195,6 +195,7 @@ namespace Themuseum
         public void Reset()
         {
             piece3Pos = new Vector2(random.Next(64, 200), random.Next(100, 200));
+            lanternRefill.ResetState();
         }
         
     }
