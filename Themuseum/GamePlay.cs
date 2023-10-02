@@ -46,7 +46,7 @@ namespace Themuseum
             light.LoadSprite(game.Content);
             map.LoadSprite(game.Content);
             soundSystem.LoadContent(game.Content);
-            guide = game.Content.Load<Texture2D>("GuidelineEIEi");
+            guide = game.Content.Load<Texture2D>("Instruction");
 
             soundSystem.PlayBGM(0);
 

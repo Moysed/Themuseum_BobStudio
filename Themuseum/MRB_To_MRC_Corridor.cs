@@ -69,39 +69,25 @@ namespace Themuseum
                 {
                     if (player.collision.Right >= WallArea_Col[i].Right)
                     {
-                        if (player.speed == 4)
+                        if (player.speed == 3)
                         {
                             player.SelfPosition.X += player.speed * 2;
                         }
                         else
                             player.SelfPosition.X += player.speed;
-
-                        if (KeyControls.IsKeyDown(Keys.E) && OldKey.IsKeyUp(Keys.E))
-                        { 
-                            sound.PlaySfx(1);
-                            player.ChangeStartingPosition(new Vector2(1180 - 65, 8 * 32));
-                            roomManager.Roomchange(3);
-                        }
                     }
                     if (player.collision.Left <= WallArea_Col[i].Left)
                     {
-                        if (player.speed == 4)
+                        if (player.speed == 3)
                         {
                             player.SelfPosition.X -= player.speed * 2;
                         }
                         else
                             player.SelfPosition.X -= player.speed;
-
-                        if (KeyControls.IsKeyDown(Keys.E) && OldKey.IsKeyUp(Keys.E))
-                        {
-                            sound.PlaySfx(1);
-                            player.ChangeStartingPosition(new Vector2(64, player.SelfPosition.Y));
-                            roomManager.Roomchange(6);
-                        }
                     }
                     if (player.collision.Top >= WallArea_Col[i].Top)
                     {
-                        if (player.speed == 4)
+                        if (player.speed == 3)
                         {
                             player.SelfPosition.Y += player.speed * 2;
                         }
@@ -110,7 +96,7 @@ namespace Themuseum
                     }
                     if (player.collision.Bottom <= WallArea_Col[i].Bottom)
                     {
-                        if (player.speed == 4)
+                        if (player.speed == 3)
                         {
 
                             player.SelfPosition.Y -= player.speed * 2;
@@ -123,10 +109,10 @@ namespace Themuseum
                 }
             }
                 //Object Behavior
-                DoorPos_Room3 = new Vector2(32,200);
-                DoorCollision_Room3 = new Rectangle((int)DoorPos_Room3.X + 10, (int)DoorPos_Room3.Y, 32, 64);
-                DoorPos_MRC = new Vector2(1280 - 64, 200);
-                DoorCollision_MRC = new Rectangle((int)DoorPos_MRC.X - 10, (int)DoorPos_MRC.Y, 32, 64);
+                DoorPos_Room3 = new Vector2(32,0);
+                DoorCollision_Room3 = new Rectangle((int)DoorPos_Room3.X, (int)DoorPos_Room3.Y, 32, 640);
+                DoorPos_MRC = new Vector2(1280 - 64, 0);
+                DoorCollision_MRC = new Rectangle((int)DoorPos_MRC.X, (int)DoorPos_MRC.Y, 32, 640);
 
                 //Player Interaction
                 if (player.collision.Intersects(DoorCollision_Room3) == true)

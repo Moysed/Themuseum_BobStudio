@@ -99,7 +99,7 @@ namespace Themuseum
                 {
                     if (player.collision.Right >= WallArea_Col[i].Right)
                     {
-                        if (player.speed == 4)
+                        if (player.speed == 3)
                         {
                             player.SelfPosition.X += player.speed * 2;
                         }
@@ -108,7 +108,7 @@ namespace Themuseum
                     }
                     if (player.collision.Left <= WallArea_Col[i].Left)
                     {
-                        if (player.speed == 4)
+                        if (player.speed == 3)
                         {
                             player.SelfPosition.X -= player.speed * 2;
                         }
@@ -117,7 +117,7 @@ namespace Themuseum
                     }
                     if (player.collision.Top >= WallArea_Col[i].Top)
                     {
-                        if (player.speed == 4)
+                        if (player.speed == 3)
                         {
                             player.SelfPosition.Y += player.speed * 2;
                         }
@@ -126,7 +126,7 @@ namespace Themuseum
                     }
                     if (player.collision.Bottom <= WallArea_Col[i].Bottom)
                     {
-                        if (player.speed == 4)
+                        if (player.speed == 3)
                         {
 
                             player.SelfPosition.Y -= player.speed * 2;
@@ -134,37 +134,13 @@ namespace Themuseum
                         else
                             player.SelfPosition.Y -= player.speed;
 
-                        if ((keycontrols.IsKeyDown(Keys.E) && Oldkey_.IsKeyUp(Keys.E)))
-                        {
-                            sound.PlaySfx(1);
-                            player.ChangeStartingPosition(new Vector2(638-21, 240));
-                            roomManager.Roomchange(3);
-                        }
+                    }
 
-                    }
-                    if (player.collision.Top >= WallArea_Col[i].Bottom)
-                    {
-                        if (player.speed == 4)
-                        {
-                            player.SelfPosition.Y += player.speed * 2;
-                        }
-                        else
-                            player.SelfPosition.Y += player.speed;
-                    }
-                    if (player.collision.Top >= WallArea_Col[i].Bottom)
-                    {
-                        if (player.speed == 4)
-                        {
-                            player.SelfPosition.Y += player.speed * 2;
-                        }
-                        else
-                            player.SelfPosition.Y += player.speed;
-                    }
                 }
             }
-           
-            
-            if (player.collision.Intersects(DoorCollision))
+
+
+                if (player.collision.Intersects(DoorCollision))
             {
                 player.StatusTextDisplay("Press E to Interact");
                 //Console.WriteLine("Hit");
@@ -206,7 +182,7 @@ namespace Themuseum
                         dialogue.Activation(true);
                         Keymanager.KeyTrigger("MRB_Statue");
                         player.IsHaunted = true;
-                        roomManager.mapcolor = Color.DarkRed;
+                        roomManager.mapcolor = Color.Red;
                         sound.StopBGM();
                         sound.PlayBGM(1);
                     }
