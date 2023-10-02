@@ -63,7 +63,7 @@ namespace Themuseum
         public void LoadContent(ContentManager content)
         {
             Map_Sprite = content.Load<Texture2D>("MapSheet");
-            hint = content.Load<Texture2D>("Hint");
+            hint = content.Load<Texture2D>("Note");
             TileStatic = content.Load<Texture2D>("Room B bg");
             Door = content.Load<Texture2D>("placeholderdoor");
             statue = content.Load<Texture2D>("Statue");

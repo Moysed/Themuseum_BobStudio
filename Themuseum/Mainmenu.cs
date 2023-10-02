@@ -24,14 +24,14 @@ namespace Themuseum
         {
             //Load
             
-            mainMenuTexture = game.Content.Load<Texture2D>("mainmenu_placeholder");
+            mainMenuTexture = game.Content.Load<Texture2D>("Main menu");
             Button = game.Content.Load<Texture2D>("startbutton_placeholder");
             KeyManagement = new KeyManagement();
             player = new Player(new Vector2(0,0));
-            buttonPos = new Vector2(600, 320);
+            buttonPos = new Vector2(558, 528);
             light = new LanternLight();
             KeyManagement = new KeyManagement();
-            dialogue = new DialogueBox("placeholderblock", 200, 200);
+            dialogue = new DialogueBox("placeholderblock", 300, 200);
             this.game = game;
             IsMouseVisible = true;
         }

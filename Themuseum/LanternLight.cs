@@ -43,7 +43,7 @@ namespace Themuseum
 
         public void Drawlight(SpriteBatch SB)
         {
-            SB.Draw(LightSprite, SelfPosition, Color.White);
+            SB.Draw(LightSprite, SelfPosition, Color.White * 0.3f);
         }
     }
 }

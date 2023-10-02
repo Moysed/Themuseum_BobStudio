@@ -25,6 +25,7 @@ namespace Themuseum
         private KeyboardState OldKey;
         private Texture2D unCollected;
         private Texture2D Collected;
+        
 
         public LanternRefill(Vector2 NewPosition)
         {
@@ -39,6 +40,7 @@ namespace Themuseum
         {
             unCollected = Content.Load<Texture2D>("LightUncollect");
             Collected = Content.Load<Texture2D>("LightCollected");
+            
         }
 
         public void DrawSprite(SpriteBatch SB)
@@ -64,6 +66,7 @@ namespace Themuseum
 
                 if (KeyInteract.IsKeyDown(Keys.E) && OldKey.IsKeyUp(Keys.E) && IsCollected == false)
                 {
+                    
                     player.CurrentFuel = 300;
                     IsCollected = true;
                     sound.PlaySfx(0);

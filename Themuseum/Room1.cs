@@ -80,7 +80,7 @@ namespace Themuseum
         public void LoadSprite(ContentManager content)
         {
             Map_Sprite = content.Load<Texture2D>("MapSheet");
-            hint = content.Load<Texture2D>("Hint");
+            hint = content.Load<Texture2D>("Note");
             Map = content.Load<Texture2D>("Map");
             Lantern = content.Load<Texture2D>("Lantern");
             TileStatic = content.Load<Texture2D>("Bg");
@@ -374,7 +374,7 @@ namespace Themuseum
                         if (KeyControls.IsKeyDown(Keys.E) && OldKey.IsKeyUp(Keys.E))
                         {
                             sound.PlaySfx(3);
-                            dialogue.SettingParameter("Hint Block", 200, 200, "Light will guide you home", Color.Green);
+                            dialogue.SettingParameter("Hint Block", 200, 200, "Survive, be careful not to get caught by that creature. \r\nIf you are followed, the shire may be able to help you.", Color.Green);
                             dialogue.Activation(true);
                         }
                         
@@ -400,7 +400,7 @@ namespace Themuseum
                             sound.PlaySfx(0);
                             light.IsActive = true;
                             lanternPos.X = 20000;
-                            dialogue.SettingParameter("Hint Block", 0, 0, "There's Lantern. It could be useful.  Hold F to use Lantern", Color.Red);
+                            dialogue.SettingParameter("Hint Block", 0, 0, "There's Lantern. It could be useful.  Hold F to use Lantern\r\n Light may show you \"H I D D E N \" objects", Color.Red);
                             dialogue.Activation(true);
                             Console.WriteLine(player.CurrentFuel);
                         }

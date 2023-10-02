@@ -45,7 +45,7 @@ namespace Themuseum
 
         public void LoadSprite(ContentManager Content)
         {
-            Sprite.Load(Content, "Mini player", 4, 4, 15);
+            Sprite.Load(Content, "Mini player", 4, 4, 4);
             Font = Content.Load<SpriteFont>("Keycollect");
         }
 
@@ -102,7 +102,7 @@ namespace Themuseum
 
                 if (KeyControls.IsKeyDown(Keys.A) && KeyControls.IsKeyDown(Keys.LeftShift) && CurrentStamina > 0 && KeyControls.IsKeyUp(Keys.F))
                 {
-                    speed = 4;
+                    speed = 3;
                     CurrentStamina--;
                     //currentSpeed = speed;
                     SelfPosition.X -= speed;
@@ -115,7 +115,7 @@ namespace Themuseum
 
                 if (KeyControls.IsKeyDown(Keys.D) && KeyControls.IsKeyDown(Keys.LeftShift) && CurrentStamina > 0 && KeyControls.IsKeyUp(Keys.F))
                 {
-                    speed = 4;
+                    speed = 3;
                     CurrentStamina--;
                     //currentSpeed = speed;
                     SelfPosition.X += speed;
@@ -128,7 +128,7 @@ namespace Themuseum
 
                 if (KeyControls.IsKeyDown(Keys.W) && KeyControls.IsKeyDown(Keys.LeftShift) && CurrentStamina > 0 && KeyControls.IsKeyUp(Keys.F))
                 {
-                    speed = 4;
+                    speed = 3;
                     CurrentStamina--;
                     //currentSpeed = speed;
                     SelfPosition.Y -= speed;
@@ -141,7 +141,7 @@ namespace Themuseum
 
                 if (KeyControls.IsKeyDown(Keys.S) && KeyControls.IsKeyDown(Keys.LeftShift) && CurrentStamina > 0 && KeyControls.IsKeyUp(Keys.F))
                 {
-                    speed = 4;
+                    speed = 3;
                     CurrentStamina--;
                     //currentSpeed = speed;
                     SelfPosition.Y += speed;
@@ -152,7 +152,7 @@ namespace Themuseum
             if (KeyControls.IsKeyUp(Keys.LeftShift))
             {
                 CurrentStamina += 0.10f;
-                speed = 3;
+                speed = 2;
                 //currentSpeed = speed;
             }
 
