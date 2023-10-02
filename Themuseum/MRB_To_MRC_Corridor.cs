@@ -47,13 +47,13 @@ namespace Themuseum
             shire.LoadSprite(content);
         }
 
-        public void Draw(SpriteBatch SB)
+        public void Draw(SpriteBatch SB, Color roomcolor)
         {
             /*for (int i = 0; i < WallArea_Col.Count; i++)
             {
                 SB.Draw(WallArea_Tex, WallArea_Col[i], Color.White);
             }*/
-            SB.Draw(Wallpaper, Vector2.Zero, Color.White);
+            SB.Draw(Wallpaper, Vector2.Zero, roomcolor);
             //SB.Draw(Door, DoorPos_Room3, new Rectangle(6 * 32, 8 * 32, 32, 64), Color.White);
             //SB.Draw(Door, DoorPos_MRC, new Rectangle(6 * 32, 8 * 32, 32, 64), Color.White);
             shire.Draw(SB);
@@ -152,7 +152,7 @@ namespace Themuseum
                         roomManager.Roomchange(6);
                     }
                 }
-            shire.Behavior(player, elapsed, sound);
+                shire.Behavior(player, elapsed, sound,roomManager);
                 OldKey = KeyControls;
             }
         }

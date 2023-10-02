@@ -45,7 +45,7 @@ namespace Themuseum
             }
         }
 
-        public void Behavior(Player player, float elasped,SoundSystem sound)
+        public void Behavior(Player player, float elasped,SoundSystem sound,RoomManager roommanager)
         {
             Collision = new Rectangle((int)SelfPosition.X, (int)SelfPosition.Y, 50, 109);
             Sprite.UpdateFrame(elasped);
@@ -65,7 +65,7 @@ namespace Themuseum
                     sound.PlaySfx(4);
                     sound.StopBGM();
                     sound.PlayBGM(0);
-
+                    roommanager.mapcolor = Color.White;
                     Console.WriteLine("Shire Used!");
                     animateActive = true;
                 }

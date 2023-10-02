@@ -20,7 +20,7 @@ namespace Themuseum
 
         public SoundSystem(){
 
-            MediaPlayer.Volume = 1f;
+            MediaPlayer.Volume = 0.5f;
         }
 
         public void LoadContent(ContentManager content)

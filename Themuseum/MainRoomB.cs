@@ -71,9 +71,9 @@ namespace Themuseum
             lanternRefill.LoadSprite(content);
         }
 
-        public void Draw(SpriteBatch SB)
+        public void Draw(SpriteBatch SB, Color roomcolor)
         {
-           SB.Draw(TileStatic, Vector2.Zero, Color.White);
+           SB.Draw(TileStatic, Vector2.Zero, roomcolor);
            //SB.Draw(Door, DoorPos, new Rectangle(6 * 32, 8 * 32, 32, 64), Color.White);
            SB.Draw(statue, statuePos, Color.White);
            SB.Draw(piece3, piece3Pos, Color.White);
@@ -206,6 +206,7 @@ namespace Themuseum
                         dialogue.Activation(true);
                         Keymanager.KeyTrigger("MRB_Statue");
                         player.IsHaunted = true;
+                        roomManager.mapcolor = Color.DarkRed;
                         sound.StopBGM();
                         sound.PlayBGM(1);
                     }

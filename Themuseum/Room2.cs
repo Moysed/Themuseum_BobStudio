@@ -76,9 +76,9 @@ namespace Themuseum
             lanternRefill.LoadSprite(content);
         }
 
-        public void Draw(SpriteBatch SB, LanternLight light)
+        public void Draw(SpriteBatch SB, LanternLight light, Color roomcolor)
         {
-            SB.Draw(TileStatic, Vector2.Zero, Color.White);
+            SB.Draw(TileStatic, Vector2.Zero, roomcolor);
             //TileAnimated.DrawFrame(SB, Vector2.Zero, 1);
             //SB.Draw(Door, DoorPos, new Rectangle(6 * 32, 8 * 32, 32, 64), Color.White);
             //SB.Draw(R2_T1_Trigger_Tex, R2_T1_Trigger_Pos, new Rectangle(0, 0, 64, 64), Color.White);
@@ -193,6 +193,7 @@ namespace Themuseum
                 Keymanager.KeyTrigger("R2_T1");
                 Console.WriteLine("R2_T1 Triggered");
                 player.IsHaunted = true;
+                roomManager.mapcolor = Color.DarkRed;
                 sound.PlayBGM(1);
             }
 

@@ -22,6 +22,7 @@ namespace Themuseum
         private Map map;
         RoomManager roomManager;
         Texture2D guide;
+        
         Vector2 guidepos = Vector2.Zero;
         
 

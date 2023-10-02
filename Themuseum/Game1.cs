@@ -24,7 +24,9 @@ namespace Themuseum
         public GameOver mGameoverScreen;
         public WinScreen  winScreen;
         public GamePlay mGameplay;
-
+        private bool enablefullscreen = false;
+        private KeyboardState keyboardState;
+        private KeyboardState oldkey;
         MouseState m;
         public Game1()
         {
@@ -64,17 +66,40 @@ namespace Themuseum
 
         protected override void Update(GameTime gameTime)
         {
-            /*
+            keyboardState = Keyboard.GetState();
+
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
+            
+            if(keyboardState.IsKeyDown(Keys.D1) && oldkey.IsKeyUp(Keys.D1) /*&& enablefullscreen == false*/)
+            {
+                //enablefullscreen = true;
+                _graphics.ToggleFullScreen();
+                _graphics.ApplyChanges();
+            }
+            /*
+            else if(keyboardState.IsKeyDown(Keys.D1) && oldkey.IsKeyUp(Keys.D1) && enablefullscreen == true)
+            {
+                enablefullscreen = false;
+            }
+
+
+            if(enablefullscreen == false)
+            {
+                _graphics.ToggleFullScreen();
+            }
+            else if(enablefullscreen == true)
+            {
+                _graphics.IsFullScreen = true;
+            }
             */
             float elapsed = (float)gameTime.ElapsedGameTime.TotalSeconds;
 
             //roomManager.RoomFunction(_graphics, player, KeyManagement, elapsed,dialogue,light);
             dialogue.behavior();
             mCurrentScreen.Update(gameTime);
-            
 
+            oldkey = keyboardState;
             // TODO: Add your update logic here
 
             base.Update(gameTime);

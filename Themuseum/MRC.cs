@@ -69,7 +69,7 @@ namespace Themuseum
             }
         }
 
-        public void Draw(SpriteBatch SB)
+        public void Draw(SpriteBatch SB, Color roomcolor)
         {
             SB.Draw(BlockArea, BlockAreaPos_R, new Rectangle(0, 0, 64, 64), Color.Red);
             SB.Draw(BlockArea, BlockAreaPos_B, new Rectangle(0, 0, 64, 64), Color.Blue);

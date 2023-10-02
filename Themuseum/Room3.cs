@@ -48,9 +48,9 @@ namespace Themuseum
             
         }
 
-        public void Draw(SpriteBatch SB)
+        public void Draw(SpriteBatch SB, Color roomcolor)
         {
-            SB.Draw(TileStatic, Vector2.Zero, Color.White);
+            SB.Draw(TileStatic, Vector2.Zero, roomcolor);
         }
         public void Function(GraphicsDeviceManager _graphics, Player player, RoomManager roomManager, KeyManagement Keymanager, float elapsed, DialogueBox dialogue, LanternLight light,SoundSystem sound, Ghost ghost)
         {
