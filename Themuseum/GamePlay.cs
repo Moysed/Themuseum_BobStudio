@@ -105,7 +105,7 @@ namespace Themuseum
             player.Draw(theBatch, Keystate);
             light.Drawlight(theBatch);
             ghost.Draw(theBatch);
-            staminabar.Drawbar(theBatch);
+            staminabar.Drawbar(theBatch, player, light);
             map.DrawMap(theBatch);
             dialogue.Draw(theBatch);
             theBatch.Draw(guide, guidepos, Color.White);

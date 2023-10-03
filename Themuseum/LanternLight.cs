@@ -14,7 +14,8 @@ namespace Themuseum
 {
     class LanternLight 
     {
-        private Vector2 SelfPosition;
+        public bool lightStart = false;
+        public Vector2 SelfPosition;
         public Rectangle Collision;
         private Texture2D LightSprite;
         public bool IsActive = false;
@@ -37,7 +38,7 @@ namespace Themuseum
 
         public void LightDeactivate()
         {
-            SelfPosition = new Vector2(10000, 10000);
+            SelfPosition = new Vector2(10000000, 10000000);
             Collision = new Rectangle((int)SelfPosition.X, (int)SelfPosition.Y, 256, 256);
         }
 
