@@ -65,7 +65,7 @@ namespace Themuseum
             player.UpdateAnimation(elapsed);
             map.Behavior(roomManager);
             staminabar.UpdateBar(player.CurrentStamina, player.CurrentFuel, elapsed) ;
-            ghost.Behavior(player, light);
+            ghost.Behavior(player, light,theTime);
             ghost.UpdateAnimation(elapsed);
             dialogue.behavior();
             

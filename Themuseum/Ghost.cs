@@ -15,7 +15,7 @@ namespace Themuseum
 {
     class Ghost 
     {
-        private float speed = 3f;
+        private float speed = 2f;
         private Vector2 SelfPosition;
         public Rectangle collision;
         private AnimatedTexture Sprite;
@@ -33,16 +33,24 @@ namespace Themuseum
         {
             Sprite.DrawFrame(SB, SelfPosition, 1);
         }
-        public void Behavior(Player player,LanternLight Lantern)
+        public void Behavior(Player player,LanternLight Lantern , GameTime gameTime)
         {
             if(player.IsHaunted == true)
             {
                 collision = new Rectangle((int)SelfPosition.X, (int)SelfPosition.Y, 82, 200);
 
-                Vector2 Dir = player.SelfPosition - SelfPosition;
-                
-                
-                
+                Vector2 Dir = Vector2.Normalize(player.SelfPosition - SelfPosition);
+
+
+                if (Math.Abs(Dir.X) > Math.Abs(Dir.Y))
+                {
+                    Dir.Y = 0;
+                }
+                else
+                {
+                    Dir.X = 0;
+                }
+                SelfPosition += new Vector2(Dir.X * speed, Dir.Y * speed);
                 Dir.Normalize();
                 if (collision.Intersects(Lantern.Collision))
                 {
@@ -50,11 +58,12 @@ namespace Themuseum
                 }
                 else
                 {
-                    speed = 3;
+                    speed = 2;
                 }
                 
                 
-                SelfPosition += new Vector2(Dir.X * speed , Dir.Y * speed);
+                
+                SelfPosition += Dir * speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
             }
             else
             {
