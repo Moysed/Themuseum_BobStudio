@@ -41,7 +41,7 @@ namespace Themuseum
         public MainRoomB()
         {
             keyManagement = new KeyManagement();
-            LanternRefillPos = new Vector2(850, 250);
+            LanternRefillPos = new Vector2(900, 250);
             lanternRefill = new LanternRefill(LanternRefillPos);
             room1 = new Room1();    
             random = new Random();
@@ -49,7 +49,7 @@ namespace Themuseum
             uncomStatuePos = new Vector2(536, 0);
             comStatuePos = new Vector2(20000, 0);
             piece3Pos = new Vector2(random.Next(100,700), random.Next(250,400));
-            hintPos = new Vector2(500, 200);
+            hintPos = new Vector2(400, 200);
             //top
             WallArea_Col.Add(new Rectangle(0, 0, 1280, 200));
             //left
@@ -69,7 +69,7 @@ namespace Themuseum
         {
             Map_Sprite = content.Load<Texture2D>("MapSheet");
             hint = content.Load<Texture2D>("Note");
-            TileStatic = content.Load<Texture2D>("Room B bg");
+            TileStatic = content.Load<Texture2D>("RoomBbg");
             Door = content.Load<Texture2D>("placeholderdoor");
             uncompletedStatue = content.Load<Texture2D>("uncompletedStatue");
             completedStatue = content.Load<Texture2D>("completedStatue");
