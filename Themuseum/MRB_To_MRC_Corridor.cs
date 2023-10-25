@@ -32,11 +32,13 @@ namespace Themuseum
         public MRB_To_MRC_Corridor()
         {
             room1 = new Room1();
-            shire = new Shire(new Vector2(475,240));
+            shire = new Shire(new Vector2(600,250));
             WallArea_Col.Add(new Rectangle(0, 0, 1280, 150));
             WallArea_Col.Add(new Rectangle(0, 0, 15, 640));
             WallArea_Col.Add(new Rectangle(0, 485, 1280, 640));
             WallArea_Col.Add(new Rectangle(1280 - 15, 0, 64, 640));
+            //Tree
+            WallArea_Col.Add(new Rectangle(600, 240, 50, 50));
         }
 
         public void LoadSprite(ContentManager content)

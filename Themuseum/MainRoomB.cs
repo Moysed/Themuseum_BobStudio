@@ -35,6 +35,8 @@ namespace Themuseum
         KeyboardState Oldkey_;
         KeyboardState keycontrols;
         private List<Rectangle> WallArea_Col = new List<Rectangle>();
+        private List<Rectangle> Hitbox_Showcase = new List<Rectangle>();
+        private List<Texture2D> Showcase = new List<Texture2D> ();
         Random random;
         private KeyManagement keyManagement;
 
@@ -62,6 +64,16 @@ namespace Themuseum
             WallArea_Col.Add(new Rectangle(68, 542-5, 375, 102));
             //down(right)
             WallArea_Col.Add(new Rectangle(843-10, 542-5, 365, 102));
+
+            // Showcase Hitbox
+            Hitbox_Showcase.Add(new Rectangle(152, 290, 74, 30));
+            Hitbox_Showcase.Add(new Rectangle(262, 394, 74, 30));
+            Hitbox_Showcase.Add(new Rectangle(368, 290, 74, 30));
+            Hitbox_Showcase.Add(new Rectangle(803, 290, 74, 30));
+            Hitbox_Showcase.Add(new Rectangle(914, 395, 74, 30));
+            Hitbox_Showcase.Add(new Rectangle(1038, 290, 74, 30));
+            //Statue hitbox
+            Hitbox_Showcase.Add(new Rectangle(536, 0, 207, 270));
             lanternRefill.IsCollected = false;
         }
 
@@ -69,12 +81,17 @@ namespace Themuseum
         {
             Map_Sprite = content.Load<Texture2D>("MapSheet");
             hint = content.Load<Texture2D>("Note");
-            TileStatic = content.Load<Texture2D>("RoomBbg");
+            TileStatic = content.Load<Texture2D>("MainRoomBSeperate BG");
             Door = content.Load<Texture2D>("placeholderdoor");
             uncompletedStatue = content.Load<Texture2D>("uncompletedStatue");
             completedStatue = content.Load<Texture2D>("completedStatue");
             piece3 = content.Load<Texture2D>("leftPiece");
             lanternRefill.LoadSprite(content);
+            //Showcase
+            for(int i = 1; i < 7; i++)
+            { 
+                Showcase.Add(content.Load<Texture2D>("Showcase " +  i));
+            }  
         }
 
         public void Draw(SpriteBatch SB, Color roomcolor)
@@ -88,7 +105,14 @@ namespace Themuseum
             SB.Draw(piece3, piece3Pos, Color.White);
            lanternRefill.DrawSprite(SB);
            SB.Draw(hint, hintPos, Color.White);
-            
+            SB.Draw(Showcase[0], new Vector2(152, 271), Color.White);
+            SB.Draw(Showcase[1], new Vector2(262, 394), Color.White);
+            SB.Draw(Showcase[2], new Vector2(368, 278), Color.White);
+            SB.Draw(Showcase[3], new Vector2(803, 271), Color.White);
+            SB.Draw(Showcase[4], new Vector2(914, 395), Color.White);
+            SB.Draw(Showcase[5], new Vector2(1038, 272), Color.White);
+
+
 
         }
         public void Function(GraphicsDeviceManager _graphics, Player player, RoomManager roomManager, KeyManagement Keymanager, float elapsed, DialogueBox dialogue, LanternLight light,SoundSystem sound, Ghost ghost)
@@ -134,6 +158,52 @@ namespace Themuseum
                             player.SelfPosition.Y += player.speed;
                     }
                     if (player.collision.Bottom <= WallArea_Col[i].Bottom)
+                    {
+                        if (player.speed == 3)
+                        {
+
+                            player.SelfPosition.Y -= player.speed * 2;
+                        }
+                        else
+                            player.SelfPosition.Y -= player.speed;
+
+                    }
+
+                }
+            }
+
+            for (int i = 0; i < Hitbox_Showcase.Count; i++)
+            {
+                if (Hitbox_Showcase[i].Intersects(player.collision))
+                {
+                    if (player.collision.Right >= Hitbox_Showcase[i].Right)
+                    {
+                        if (player.speed == 3)
+                        {
+                            player.SelfPosition.X += player.speed * 2;
+                        }
+                        else
+                            player.SelfPosition.X += player.speed;
+                    }
+                    if (player.collision.Left <= Hitbox_Showcase[i].Left)
+                    {
+                        if (player.speed == 3)
+                        {
+                            player.SelfPosition.X -= player.speed * 2;
+                        }
+                        else
+                            player.SelfPosition.X -= player.speed;
+                    }
+                    if (player.collision.Top >= Hitbox_Showcase[i].Top)
+                    {
+                        if (player.speed == 3)
+                        {
+                            player.SelfPosition.Y += player.speed * 2;
+                        }
+                        else
+                            player.SelfPosition.Y += player.speed;
+                    }
+                    if (player.collision.Bottom <= Hitbox_Showcase[i].Bottom)
                     {
                         if (player.speed == 3)
                         {
