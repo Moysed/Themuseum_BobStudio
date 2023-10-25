@@ -19,6 +19,7 @@ namespace Themuseum
         private Texture2D TileStatic;
         private Texture2D Wallpaper;
         private Texture2D Door;
+        private Texture2D Tree;
         private Vector2 DoorPos_Room3;
         private Vector2 DoorPos_MRC;
         private Rectangle DoorCollision_Room3;
@@ -31,7 +32,7 @@ namespace Themuseum
         public MRB_To_MRC_Corridor()
         {
             room1 = new Room1();
-            shire = new Shire(new Vector2(600,240));
+            shire = new Shire(new Vector2(475,240));
             WallArea_Col.Add(new Rectangle(0, 0, 1280, 150));
             WallArea_Col.Add(new Rectangle(0, 0, 15, 640));
             WallArea_Col.Add(new Rectangle(0, 485, 1280, 640));
@@ -40,7 +41,8 @@ namespace Themuseum
 
         public void LoadSprite(ContentManager content)
         {
-            Wallpaper = content.Load<Texture2D>("Hallway3");
+            Tree = content.Load<Texture2D>("Tree");
+            Wallpaper = content.Load<Texture2D>("HallwayBG");
             Map_Sprite = content.Load<Texture2D>("MapSheet");
             WallArea_Tex = content.Load<Texture2D>("wallplaceholder");
             Door = content.Load<Texture2D>("placeholderdoor");
@@ -54,6 +56,7 @@ namespace Themuseum
                 SB.Draw(WallArea_Tex, WallArea_Col[i], Color.White);
             }*/
             SB.Draw(Wallpaper, Vector2.Zero, roomcolor);
+            SB.Draw(Tree, new Vector2(447, 0), Color.White);
             //SB.Draw(Door, DoorPos_Room3, new Rectangle(6 * 32, 8 * 32, 32, 64), Color.White);
             //SB.Draw(Door, DoorPos_MRC, new Rectangle(6 * 32, 8 * 32, 32, 64), Color.White);
             shire.Draw(SB);
