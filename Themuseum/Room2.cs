@@ -41,8 +41,10 @@ namespace Themuseum
         private bool player_pieceActive = false;
         private KeyboardState OldKey;
         Random random = new Random();
+        private KeyManagement keyManagement;
         public Room2()
         {
+            keyManagement = new KeyManagement();    
             room1 = new Room1();
             LanternRefillPos = new Vector2(550, 500);
             lanternRefill = new LanternRefill(LanternRefillPos);
@@ -72,7 +74,7 @@ namespace Themuseum
             Door = content.Load<Texture2D>("placeholderdoor");
             WallArea_Tex = content.Load<Texture2D>("wallplaceholder");
             R2_T1_Trigger_Tex = content.Load<Texture2D>("199-Support07");
-            piece2 = content.Load<Texture2D>("Piece2");
+            piece2 = content.Load<Texture2D>("middlePiece");
             lanternRefill.LoadSprite(content);
         }
 
@@ -172,7 +174,7 @@ namespace Themuseum
             R2_T1_Trigger_Pos = new Vector2(540, 256);
             R2_T1_Trigger_Col = new Rectangle((int)R2_T1_Trigger_Pos.X, (int)R2_T1_Trigger_Pos.Y, 128, 128);
 
-            piece2Col = new Rectangle((int)piece2Pos.X, (int)piece2Pos.Y, 64, 64);
+            piece2Col = new Rectangle((int)piece2Pos.X, (int)piece2Pos.Y, 24, 54);
 
             //Object Interaction
 
@@ -222,6 +224,10 @@ namespace Themuseum
                     Console.WriteLine(Keymanager.MRB_Pieces);
                     piece2Pos.X = 5000;
                 }
+            }
+            if (Keymanager.MRB_Pieces == 3)
+            {
+                Keymanager.MRB_StatueActive = true;
             }
 
             lanternRefill.Behavior(player, sound);

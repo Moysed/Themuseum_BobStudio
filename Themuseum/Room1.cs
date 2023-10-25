@@ -47,6 +47,7 @@ namespace Themuseum
         private bool player_pieceActive = false;
         private KeyboardState KeyControls;
         private KeyboardState OldKey;
+        private KeyManagement keyManagement;
 
         List<Rectangle> Counter_Col = new List<Rectangle>();
         
@@ -56,7 +57,7 @@ namespace Themuseum
 
         public Room1()
         {
-        
+            keyManagement = new KeyManagement();
             mapPos = new Vector2(430, 290);
             hintPos = new Vector2(200, 400);
             lanternPos = new Vector2(740, 250);
@@ -91,7 +92,7 @@ namespace Themuseum
             HiddenSwitch_03_Tex = content.Load<Texture2D>("switch_Closed");
             R1_Shire.LoadSprite(content);
             
-            piece1 = content.Load<Texture2D>("Piece1");
+            piece1 = content.Load<Texture2D>("rightPiece");
 
             
         }
@@ -263,7 +264,7 @@ namespace Themuseum
                     HiddenSwitch_02_Col = new Rectangle((int)HiddenSwitch_02_Pos.X, (int)HiddenSwitch_02_Pos.Y, 64, 64);
                     HiddenSwitch_03_Col = new Rectangle((int)HiddenSwitch_03_Pos.X, (int)HiddenSwitch_03_Pos.Y, 64, 64);
 
-                    piece1Col = new Rectangle((int)piece1Pos.X, (int)piece1Pos.Y, 64, 64);
+                    piece1Col = new Rectangle((int)piece1Pos.X, (int)piece1Pos.Y, 24, 54);
                     if(Keymanager.R1_T0 == false)
                     {
                         HiddenSwitch_01_Pos = new Vector2(10000, 10000);
@@ -366,9 +367,13 @@ namespace Themuseum
                             Console.WriteLine("R1_S1");
                         }
                     }
+            if (Keymanager.MRB_Pieces == 3)
+            {
+               Keymanager.MRB_StatueActive = true;
+            }
 
-                    //hint Collision
-                    if ( player.collision.Intersects(hint) == true)
+            //hint Collision
+            if ( player.collision.Intersects(hint) == true)
                     {
                             player.StatusTextDisplay("Press E to Interact");
                         if (KeyControls.IsKeyDown(Keys.E) && OldKey.IsKeyUp(Keys.E))

@@ -28,21 +28,26 @@ namespace Themuseum
         private Texture2D WallArea_Tex;
         private Texture2D piece3;
         private Vector2 piece3Pos;
-        private Texture2D statue;
-        private Vector2 statuePos;
+        private Texture2D uncompletedStatue;
+        private Texture2D completedStatue;
+        private Vector2 uncomStatuePos;
+        private Vector2 comStatuePos;
         KeyboardState Oldkey_;
         KeyboardState keycontrols;
         private List<Rectangle> WallArea_Col = new List<Rectangle>();
         Random random;
+        private KeyManagement keyManagement;
 
         public MainRoomB()
         {
-            LanternRefillPos = new Vector2(650, 250);
+            keyManagement = new KeyManagement();
+            LanternRefillPos = new Vector2(850, 250);
             lanternRefill = new LanternRefill(LanternRefillPos);
             room1 = new Room1();    
             random = new Random();
             DoorPos = new Vector2(610, 72 * 8);
-            statuePos = new Vector2(500, 500);
+            uncomStatuePos = new Vector2(536, 0);
+            comStatuePos = new Vector2(20000, 0);
             piece3Pos = new Vector2(random.Next(100,700), random.Next(250,400));
             hintPos = new Vector2(500, 200);
             //top
@@ -66,17 +71,21 @@ namespace Themuseum
             hint = content.Load<Texture2D>("Note");
             TileStatic = content.Load<Texture2D>("Room B bg");
             Door = content.Load<Texture2D>("placeholderdoor");
-            statue = content.Load<Texture2D>("Statue");
-            piece3 = content.Load<Texture2D>("Piece3");
+            uncompletedStatue = content.Load<Texture2D>("uncompletedStatue");
+            completedStatue = content.Load<Texture2D>("completedStatue");
+            piece3 = content.Load<Texture2D>("leftPiece");
             lanternRefill.LoadSprite(content);
         }
 
         public void Draw(SpriteBatch SB, Color roomcolor)
         {
            SB.Draw(TileStatic, Vector2.Zero, roomcolor);
-           //SB.Draw(Door, DoorPos, new Rectangle(6 * 32, 8 * 32, 32, 64), Color.White);
-           SB.Draw(statue, statuePos, Color.White);
-           SB.Draw(piece3, piece3Pos, Color.White);
+            //SB.Draw(Door, DoorPos, new Rectangle(6 * 32, 8 * 32, 32, 64), Color.White);
+
+                SB.Draw(uncompletedStatue, uncomStatuePos, Color.White);
+                SB.Draw(completedStatue, comStatuePos, Color.White);
+
+            SB.Draw(piece3, piece3Pos, Color.White);
            lanternRefill.DrawSprite(SB);
            SB.Draw(hint, hintPos, Color.White);
             
@@ -86,8 +95,8 @@ namespace Themuseum
         {
             keycontrols = Keyboard.GetState();
             //Object Hitbox
-            Rectangle statueCollision = new Rectangle((int)statuePos.X, (int)statuePos.Y, 64, 64);
-            Rectangle piece3Col = new Rectangle((int)piece3Pos.X, (int)piece3Pos.Y, 64, 64);
+            Rectangle statueCollision = new Rectangle(536, 0, 207, 329);
+            Rectangle piece3Col = new Rectangle((int)piece3Pos.X, (int)piece3Pos.Y, 24, 54);
             Rectangle hint = new Rectangle((int)hintPos.X, (int)hintPos.Y, 64, 64);
 
             DoorCollision = new Rectangle((int)DoorPos.X , (int)DoorPos.Y, 32, 64);
@@ -154,6 +163,8 @@ namespace Themuseum
             }
 
             //Piece Collect
+            
+
             if (player.collision.Intersects(piece3Col) == true)
             {
                 player.StatusTextDisplay("Press E to Interact");
@@ -166,6 +177,11 @@ namespace Themuseum
                     Console.WriteLine(Keymanager.MRB_Pieces);
                     piece3Pos.X = 5000;
                 }
+            }
+
+            if (Keymanager.MRB_Pieces == 3)
+            {
+                Keymanager.MRB_StatueActive = true;
             }
 
             //Statue Collision
@@ -197,7 +213,7 @@ namespace Themuseum
             }
 
             //hint Collision
-            if(player.collision.Intersects(hint) == true )
+            if (player.collision.Intersects(hint) == true )
             {
                 player.StatusTextDisplay("Press E to Interact");
                 if (keycontrols.IsKeyDown(Keys.E) && Oldkey_.IsKeyUp(Keys.E))
@@ -207,6 +223,17 @@ namespace Themuseum
                     dialogue.Activation(true);
                 }
                
+            }
+
+            if(Keymanager.MRB_StatueActive == false)
+            {
+                uncomStatuePos = new Vector2(536, 0);
+                comStatuePos = new Vector2(20000, 0);
+            }
+            if (Keymanager.MRB_StatueActive == true)
+            {
+                uncomStatuePos = new Vector2(20000, 0);
+                comStatuePos = new Vector2(536, 0);
             }
 
             lanternRefill.Behavior(player, sound);

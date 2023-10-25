@@ -403,6 +403,18 @@
 /processorParam:TextureFormat=Color
 /build:Candle_KeyBG.png
 
+#begin completedStatue.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:completedStatue.png
+
 #begin EmptyBar.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -680,6 +692,18 @@
 /processorParam:TextureFormat=Color
 /build:Large_Map.png
 
+#begin leftPiece.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:leftPiece.png
+
 #begin LightCollected.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -889,6 +913,18 @@
 /processor:SongProcessor
 /processorParam:Quality=Best
 /build:Marked.mp3
+
+#begin middlePiece.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:middlePiece.png
 
 #begin Mini player.png
 /importer:TextureImporter
@@ -1202,6 +1238,18 @@
 /processorParam:TextureFormat=Color
 /build:player.png
 
+#begin rightPiece.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:rightPiece.png
+
 #begin Room B bg.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -1417,6 +1465,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:UI_Status_Sprite.png
+
+#begin uncompletedStatue.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:uncompletedStatue.png
 
 #begin wallplaceholder.png
 /importer:TextureImporter
