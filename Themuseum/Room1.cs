@@ -58,7 +58,7 @@ namespace Themuseum
         public Room1()
         {
             keyManagement = new KeyManagement();
-            mapPos = new Vector2(430, 290);
+            mapPos = new Vector2(500, 290);
             hintPos = new Vector2(200, 400);
             lanternPos = new Vector2(740, 250);
             DoorPos = new Vector2(200, 0);
@@ -72,7 +72,7 @@ namespace Themuseum
             Counter_Col.Add(new Rectangle(465, 254, 345, 68));
             Counter_Col.Add(new Rectangle(383, 164, 88, 157));
             Counter_Col.Add(new Rectangle(806, 164, 88, 157));
-            R1_Shire = new Shire(new Vector2(440, 33));
+            R1_Shire = new Shire(new Vector2(400, 340));
             
 
             piece1Pos = new Vector2(r.Next(150, 200), r.Next(150, 400));

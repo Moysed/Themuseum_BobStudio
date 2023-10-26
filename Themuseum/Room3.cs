@@ -194,7 +194,7 @@ namespace Themuseum
                     }
                 }
             
-                if (player.collision.Intersects(piece3col) == true)
+                if (player.collision.Intersects(piece3col) == true && Keymanager.MRB_PieceActive == true)
             {
                 player.StatusTextDisplay("Press E to Interact");
                 if (KeyControls.IsKeyDown(Keys.E) && Oldkey_.IsKeyUp(Keys.E))

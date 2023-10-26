@@ -58,7 +58,7 @@ namespace Themuseum
                 }
                 else
                 {
-                    speed = 2.5f;
+                    speed = 3f;
                 }
                 
                 
@@ -86,19 +86,21 @@ namespace Themuseum
         {
             if (player.KeyControls.IsKeyDown(Keys.A))
             {
-                Changestartingposition(new Vector2(1300, 640/2));
+                Changestartingposition(new Vector2(-80, 640 / 2));
+                
             }
             else if (player.KeyControls.IsKeyDown(Keys.D))
             {
-                Changestartingposition(new Vector2(-400, 640 / 2));
+                Changestartingposition(new Vector2(1300, 640 / 2));
             }
             else if (player.KeyControls.IsKeyDown(Keys.W))
             {
-                Changestartingposition(new Vector2(1300/2, 800));
+                Changestartingposition(new Vector2(1300 / 2, -300));
             }
             else if (player.KeyControls.IsKeyDown(Keys.S))
             {
-                Changestartingposition(new Vector2(1300 / 2, -400));
+                Changestartingposition(new Vector2(1300 / 2, 900));
+                
             }
             else
             {
