@@ -239,8 +239,8 @@ namespace Themuseum
 
             if(player.collision.Intersects(keyChitbox))
             {
-                player.StatusTextDisplay("Press E to Interact");
-                if (KeyControls.IsKeyDown(Keys.E) && OldKey.IsKeyUp(Keys.E))
+                player.StatusTextDisplay("Press K to Interact");
+                if (KeyControls.IsKeyDown(Keys.K) && OldKey.IsKeyUp(Keys.K))
                 {
                     dialogue.SettingParameter("placeholderblock", 200, 200, "Key collected", Color.Green);
                     UI.ChangeObjectiveText("Process through the next room", "");
@@ -258,8 +258,8 @@ namespace Themuseum
             //Player Interaction
             if (player.collision.Intersects(DoorCollision_MB_MC_C) == true)
             {
-                player.StatusTextDisplay("Press E to Interact");
-                if (KeyControls.IsKeyDown(Keys.E) && OldKey.IsKeyUp(Keys.E))
+                player.StatusTextDisplay("Press K to Interact");
+                if (KeyControls.IsKeyDown(Keys.K) && OldKey.IsKeyUp(Keys.K))
                 {
                     ghost.Prechase(player);
                     sound.PlaySfx(1);
@@ -269,9 +269,9 @@ namespace Themuseum
             }
             if (player.collision.Intersects(DoorCollision_End) == true)
             {
-                player.StatusTextDisplay("Press E to Interact");
+                player.StatusTextDisplay("Press K to Interact");
 
-                if (KeyControls.IsKeyDown(Keys.E) && OldKey.IsKeyUp(Keys.E))
+                if (KeyControls.IsKeyDown(Keys.K) && OldKey.IsKeyUp(Keys.K))
                 {
                     if (Keymanager.KeyCollectC == false)
                     {
@@ -292,8 +292,8 @@ namespace Themuseum
             }
             if (player.collision.Intersects(BlockReset_Col) == true)
             {
-                player.StatusTextDisplay("Press E to Interact");
-                if (KeyControls.IsKeyDown(Keys.E) && OldKey.IsKeyUp(Keys.E))
+                player.StatusTextDisplay("Press K to Interact");
+                if (KeyControls.IsKeyDown(Keys.K) && OldKey.IsKeyUp(Keys.K))
                 {
                     sound.PlaySfx(4);
                     Console.WriteLine("Puzzle Blocks Reset");

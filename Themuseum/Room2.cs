@@ -202,8 +202,8 @@ namespace Themuseum
 
             if(player.collision.Intersects(EndofHallway) == true)
             {
-                player.StatusTextDisplay("Press E to Interact");
-                if (KeyControls.IsKeyDown(Keys.E) && OldKey.IsKeyUp(Keys.E)){
+                player.StatusTextDisplay("Press K to Interact");
+                if (KeyControls.IsKeyDown(Keys.K) && OldKey.IsKeyUp(Keys.K)){
                     ghost.Prechase(player);
                     Console.WriteLine("Changed to Room3");
                     sound.PlaySfx(1);
@@ -216,7 +216,7 @@ namespace Themuseum
             //Piece Collect
             if (player.collision.Intersects(piece2Col) == true && Keymanager.MRB_PieceActive == true)
             {
-                if (KeyControls.IsKeyDown(Keys.E) && OldKey.IsKeyUp(Keys.E))
+                if (KeyControls.IsKeyDown(Keys.K) && OldKey.IsKeyUp(Keys.K))
                 {
                     dialogue.SettingParameter("placeholderblock", 200, 200, "Statue piece collected", Color.Green);
                     dialogue.Activation(true);

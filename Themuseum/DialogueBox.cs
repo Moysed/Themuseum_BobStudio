@@ -79,7 +79,7 @@ namespace Themuseum
 
                 if(timer <= 0)
                 {
-                    if(KeyControls.IsKeyDown(Keys.E) && OldKey.IsKeyUp(Keys.E) )
+                    if(KeyControls.IsKeyDown(Keys.K) && OldKey.IsKeyUp(Keys.K) )
                     {
                         IsActive = false;
                     }

@@ -84,28 +84,55 @@ namespace Themuseum
         }
         public void Prechase(Player player)
         {
-            if (player.KeyControls.IsKeyDown(Keys.A))
+            if(player.IsHaunted == false)
             {
-                Changestartingposition(new Vector2(-80, 640 / 2));
-                
+                if (player.KeyControls.IsKeyDown(Keys.A))
+                {
+                    Changestartingposition(new Vector2(-80, 640 / 2));
+
+                }
+                else if (player.KeyControls.IsKeyDown(Keys.D))
+                {
+                    Changestartingposition(new Vector2(1300, 640 / 2));
+                }
+                else if (player.KeyControls.IsKeyDown(Keys.W))
+                {
+                    Changestartingposition(new Vector2(1300 / 2, -300));
+                }
+                else if (player.KeyControls.IsKeyDown(Keys.S))
+                {
+                    Changestartingposition(new Vector2(1300 / 2, 900));
+
+                }
             }
-            else if (player.KeyControls.IsKeyDown(Keys.D))
-            {
-                Changestartingposition(new Vector2(1300, 640 / 2));
+            if(player.IsHaunted == true){
+
+                if (player.KeyControls.IsKeyDown(Keys.A))
+                {
+                    Changestartingposition(new Vector2(1300, 640 / 2));
+
+                }
+                else if (player.KeyControls.IsKeyDown(Keys.D))
+                {
+                    Changestartingposition(new Vector2(-80, 640 / 2));
+                    
+                }
+                else if (player.KeyControls.IsKeyDown(Keys.W))
+                {
+                    Changestartingposition(new Vector2(1300 / 2, 900));
+                }
+                else if (player.KeyControls.IsKeyDown(Keys.S))
+                {
+                    Changestartingposition(new Vector2(1300 / 2, -300));
+                    
+
+                }
             }
-            else if (player.KeyControls.IsKeyDown(Keys.W))
-            {
-                Changestartingposition(new Vector2(1300 / 2, -300));
-            }
-            else if (player.KeyControls.IsKeyDown(Keys.S))
-            {
-                Changestartingposition(new Vector2(1300 / 2, 900));
-                
-            }
-            else
-            {
-                Changestartingposition(new Vector2(1300, 1300));
-            }
+            
+        }
+        public void ChaseSeq(Player player)
+        {
+
         }
         public void UpdateAnimation(float elasped)
         {

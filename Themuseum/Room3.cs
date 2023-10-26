@@ -175,8 +175,8 @@ namespace Themuseum
                 }
                 if (player.collision.Intersects(DoorCollision) == true)
                 {
-                    player.StatusTextDisplay("Press E to Interact");
-                    if (KeyControls.IsKeyDown(Keys.E) && Oldkey_.IsKeyUp(Keys.E) && Keymanager.R1_S2 == true && Keymanager.R1_S3 == true)
+                    player.StatusTextDisplay("Press K to Interact");
+                    if (KeyControls.IsKeyDown(Keys.K) && Oldkey_.IsKeyUp(Keys.K) && Keymanager.R1_S2 == true && Keymanager.R1_S3 == true)
                     {
                         ghost.Prechase(player);
                         sound.PlaySfx(1);
@@ -185,7 +185,7 @@ namespace Themuseum
                         UI.ChangeObjectiveText("Find Clues and Useful items", "");
                         roomManager.Roomchange(4);
                     }
-                    else if(KeyControls.IsKeyDown(Keys.E) && Oldkey_.IsKeyUp(Keys.E) && Keymanager.R1_S2 == false || KeyControls.IsKeyDown(Keys.E) && Oldkey_.IsKeyUp(Keys.E) && Keymanager.R1_S3 == false)
+                    else if(KeyControls.IsKeyDown(Keys.K) && Oldkey_.IsKeyUp(Keys.K) && Keymanager.R1_S2 == false || KeyControls.IsKeyDown(Keys.K) && Oldkey_.IsKeyUp(Keys.K) && Keymanager.R1_S3 == false)
                     {
                         sound.PlaySfx(2);
                         dialogue.SettingParameter("Hint Block", 0, 0, "The door is locked, Find a way to open it", Color.Red);
@@ -196,8 +196,8 @@ namespace Themuseum
             
                 if (player.collision.Intersects(piece3col) == true && Keymanager.MRB_PieceActive == true)
             {
-                player.StatusTextDisplay("Press E to Interact");
-                if (KeyControls.IsKeyDown(Keys.E) && Oldkey_.IsKeyUp(Keys.E))
+                player.StatusTextDisplay("Press K to Interact");
+                if (KeyControls.IsKeyDown(Keys.K) && Oldkey_.IsKeyUp(Keys.K))
                 {
                     dialogue.SettingParameter("placeholderblock", 200, 200, "Statue piece collected", Color.Green);
                     dialogue.Activation(true);
@@ -211,7 +211,7 @@ namespace Themuseum
             if (player.collision.Intersects(DoorCollision_MRB_MRC_C) == true)
             {
                 player.StatusTextDisplay("Press E to Interact");
-                if (KeyControls.IsKeyDown(Keys.E) && Oldkey_.IsKeyUp(Keys.E) && Keymanager.KeyCollectB == true)
+                if (KeyControls.IsKeyDown(Keys.K) && Oldkey_.IsKeyUp(Keys.K) && Keymanager.KeyCollectB == true)
                 {
                     ghost.Prechase(player);
                     sound.PlaySfx(1);
@@ -219,7 +219,7 @@ namespace Themuseum
                     UI.ChangeObjectiveText("Find a way through the courtyard", "");
                     roomManager.Roomchange(5);
                 }
-                else if(KeyControls.IsKeyDown(Keys.E) && Oldkey_.IsKeyUp(Keys.E) && Keymanager.KeyCollectB == false)
+                else if(KeyControls.IsKeyDown(Keys.K) && Oldkey_.IsKeyUp(Keys.K) && Keymanager.KeyCollectB == false)
                 {
                     sound.PlaySfx(2);
                     dialogue.SettingParameter("Hint Block", 0, 0, "There's something blocking the way. But I can't see it", Color.Red);
@@ -228,8 +228,8 @@ namespace Themuseum
             }
             if (player.collision.Intersects(keyBcol) == true)
             {
-                player.StatusTextDisplay("Press E to Interact");
-                if (KeyControls.IsKeyDown(Keys.E) && Oldkey_.IsKeyUp(Keys.E))
+                player.StatusTextDisplay("Press K to Interact");
+                if (KeyControls.IsKeyDown(Keys.K) && Oldkey_.IsKeyUp(Keys.K))
                 {
                     dialogue.SettingParameter("placeholderblock", 200, 200, "Key collected", Color.Green);
                     dialogue.Activation(true);

@@ -94,7 +94,7 @@ namespace Themuseum
                 return;
             }
 
-            if(Keyboard.GetState().IsKeyDown(Keys.E)== true)
+            if(Keyboard.GetState().IsKeyDown(Keys.K)== true)
             {
                 guidepos = new Vector2(1000, 2000000);
             }

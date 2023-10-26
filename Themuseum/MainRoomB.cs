@@ -220,9 +220,9 @@ namespace Themuseum
 
                 if (player.collision.Intersects(DoorCollision))
             {
-                player.StatusTextDisplay("Press E to Interact");
+                player.StatusTextDisplay("Press K to Interact");
                 //Console.WriteLine("Hit");
-                if (keycontrols.IsKeyDown(Keys.E) && Oldkey_.IsKeyUp(Keys.E))
+                if (keycontrols.IsKeyDown(Keys.K) && Oldkey_.IsKeyUp(Keys.K))
                 {
                     ghost.Prechase(player);
                     sound.PlaySfx(1);
@@ -239,11 +239,11 @@ namespace Themuseum
             //Statue Collision
             if (player.collision.Intersects(statueCollision) == true)
             {
-                player.StatusTextDisplay("Press E to Interact");
-                if (keycontrols.IsKeyDown(Keys.E) && Oldkey_.IsKeyUp(Keys.E))
+                player.StatusTextDisplay("Press K to Interact");
+                if (keycontrols.IsKeyDown(Keys.K) && Oldkey_.IsKeyUp(Keys.K))
                 {
                     Console.WriteLine(Keymanager.MRB_StatueActive);
-                    if(Keymanager.MRB_Pieces == 3 && keycontrols.IsKeyDown(Keys.E) && Oldkey_.IsKeyUp(Keys.E))
+                    if(Keymanager.MRB_Pieces == 3 && keycontrols.IsKeyDown(Keys.K) && Oldkey_.IsKeyUp(Keys.K))
                     {
                         sound.PlaySfx(4);
                         dialogue.SettingParameter("Hint Block", 200, 200, "You assembled the statue!, But something is happening", Color.DarkRed);
@@ -269,8 +269,8 @@ namespace Themuseum
             //hint Collision
             if (player.collision.Intersects(hint) == true )
             {
-                player.StatusTextDisplay("Press E to Interact");
-                if (keycontrols.IsKeyDown(Keys.E) && Oldkey_.IsKeyUp(Keys.E))
+                player.StatusTextDisplay("Press K to Interact");
+                if (keycontrols.IsKeyDown(Keys.K) && Oldkey_.IsKeyUp(Keys.K))
                 {
                     sound.PlaySfx(3);
                     dialogue.SettingParameter("Hint Block", 200, 200, "Full Statue", Color.Green);

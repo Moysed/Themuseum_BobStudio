@@ -288,8 +288,8 @@ namespace Themuseum
                     //Object Interaction
                     if (player.collision.Intersects(DoorCollision) == true)
                     {
-                            player.StatusTextDisplay("Press E to Interact");
-                        if (KeyControls.IsKeyDown(Keys.E) && OldKey.IsKeyUp(Keys.E) && Keymanager.R1_S1 == true)
+                            player.StatusTextDisplay("Press K to Interact");
+                        if (KeyControls.IsKeyDown(Keys.K) && OldKey.IsKeyUp(Keys.K) && Keymanager.R1_S1 == true)
                         {
                             sound.PlaySfx(1);
                             ghost.Prechase(player);
@@ -297,7 +297,7 @@ namespace Themuseum
                             roomManager.Roomchange(2);
                             Console.WriteLine("Door Opened");
                         }
-                        else if (KeyControls.IsKeyDown(Keys.E) && OldKey.IsKeyUp(Keys.E) && Keymanager.R1_S1 == false)
+                        else if (KeyControls.IsKeyDown(Keys.K) && OldKey.IsKeyUp(Keys.K) && Keymanager.R1_S1 == false)
                         {
                             sound.PlaySfx(2);
                     
@@ -312,7 +312,7 @@ namespace Themuseum
 
                     if (player.collision.Intersects(HiddenSwitch_02_Col) == true && Keymanager.R1_S2 == false)
                     {
-                        if (KeyControls.IsKeyDown(Keys.E) && OldKey.IsKeyUp(Keys.E))
+                        if (KeyControls.IsKeyDown(Keys.K) && OldKey.IsKeyUp(Keys.K))
                         {
                             switch2_opened = true;
                             sound.PlaySfx(1);
@@ -326,7 +326,7 @@ namespace Themuseum
                     }
                     if (player.collision.Intersects(HiddenSwitch_03_Col) == true && Keymanager.R1_S3 == false)
                     {
-                        if (KeyControls.IsKeyDown(Keys.E) && OldKey.IsKeyUp(Keys.E))
+                        if (KeyControls.IsKeyDown(Keys.K) && OldKey.IsKeyUp(Keys.K))
                         {
                             switch3_opened = true;
                             sound.PlaySfx(1);
@@ -351,7 +351,7 @@ namespace Themuseum
                     //Piece Collect
                     if (player.collision.Intersects(piece1Col) == true && player_pieceActive == true)
                     {
-                        if (KeyControls.IsKeyDown(Keys.E) && OldKey.IsKeyUp(Keys.E))
+                        if (KeyControls.IsKeyDown(Keys.K) && OldKey.IsKeyUp(Keys.K))
                         {
                             sound.PlaySfx(0);
                             Keymanager.MRB_Pieces += 1;
@@ -364,7 +364,7 @@ namespace Themuseum
                     }
                     if (player.collision.Intersects(HiddenSwitch_01_Col) == true)
                     {
-                        if (KeyControls.IsKeyDown(Keys.E) && OldKey.IsKeyUp(Keys.E))
+                        if (KeyControls.IsKeyDown(Keys.K) && OldKey.IsKeyUp(Keys.K))
                         {
                             switch1_opened = true;
                             sound.PlaySfx(1);
@@ -380,8 +380,8 @@ namespace Themuseum
             //hint Collision
             if ( player.collision.Intersects(hint) == true)
                     {
-                            player.StatusTextDisplay("Press E to Interact");
-                        if (KeyControls.IsKeyDown(Keys.E) && OldKey.IsKeyUp(Keys.E))
+                            player.StatusTextDisplay("Press K to Interact");
+                        if (KeyControls.IsKeyDown(Keys.K) && OldKey.IsKeyUp(Keys.K))
                         {
                             sound.PlaySfx(3);
                             dialogue.SettingParameter("Hint Block", 200, 200, "Survive, be careful not to get caught by that creature. \r\nIf you are followed, the shire may be able to help you.", Color.Green);
@@ -404,8 +404,8 @@ namespace Themuseum
 
             if (player.collision.Intersects(Lantern) == true)
                     {
-                        player.StatusTextDisplay("Press E to Interact");
-                        if(KeyControls.IsKeyDown(Keys.E) == true && OldKey.IsKeyUp(Keys.E))
+                        player.StatusTextDisplay("Press K to Interact");
+                        if(KeyControls.IsKeyDown(Keys.K) == true && OldKey.IsKeyUp(Keys.K))
                         {
                             sound.PlaySfx(0);
                             light.IsActive = true;
@@ -420,8 +420,8 @@ namespace Themuseum
 
                     if (player.collision.Intersects(mapCol) == true)
                     {
-                        player.StatusTextDisplay("Press E to Interact");
-                        if (KeyControls.IsKeyDown(Keys.E) == true && OldKey.IsKeyUp(Keys.E))
+                        player.StatusTextDisplay("Press K to Interact");
+                        if (KeyControls.IsKeyDown(Keys.K) == true && OldKey.IsKeyUp(Keys.K))
                         {
 
                             sound.PlaySfx(3);

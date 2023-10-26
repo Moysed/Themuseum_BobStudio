@@ -62,9 +62,9 @@ namespace Themuseum
 
             if (player.collision.Intersects(Collision) == true)
             {
-                player.StatusTextDisplay("Press E to Interact");
+                player.StatusTextDisplay("Press K to Interact");
 
-                if (KeyInteract.IsKeyDown(Keys.E) && OldKey.IsKeyUp(Keys.E) && IsCollected == false)
+                if (KeyInteract.IsKeyDown(Keys.K) && OldKey.IsKeyUp(Keys.K) && IsCollected == false)
                 {
                     
                     player.CurrentFuel = 300;
