@@ -38,7 +38,8 @@ namespace Themuseum
         private Rectangle OilBarIndicator;
         private SpriteFont ObjectiveHeader;
         private SpriteFont ObjectiveFooter;
-        private string Objectstatustext = "Placeholder Placeholder Placeholder";
+        private string Objectstatustext = "Find clues and useful items";
+        private string Hinttext = "";
         List<Texture2D> Keys = new List<Texture2D>();
 
         private float MaxStamina;
@@ -108,9 +109,10 @@ namespace Themuseum
 
         }
 
-        public void ChangeObjectiveText(string text)
+        public void ChangeObjectiveText(string text,string hint)
         {
             Objectstatustext = text;
+            Hinttext = hint;
         }
 
         public void Drawbar(SpriteBatch SB, Player player, LanternLight light)
@@ -118,8 +120,9 @@ namespace Themuseum
             SB.Draw(KeynCandlebg, new Vector2(130 + 12, 7 + 5), Color.White);
             SB.Draw(BarBackground, Staminaposition, Color.White);
             SB.Draw(BarColor, Staminaposition, BarIndicator, Color.White);
-            SB.DrawString(ObjectiveHeader, "Current Objective",new Vector2(Staminaposition.X,640 - 72), Color.MediumPurple * 0.75f,0,Vector2.Zero,new Vector2(0.8f,0.8f),SpriteEffects.None,0);
-            SB.DrawString(ObjectiveFooter, Objectstatustext, new Vector2(Staminaposition.X, 640 - 48), Color.LightYellow * 0.75f, 0, Vector2.Zero, new Vector2(1f, 1f), SpriteEffects.None, 0);
+            SB.DrawString(ObjectiveHeader, "Current Objective",new Vector2(Staminaposition.X,640 - 120), Color.MediumPurple * 0.75f,0,Vector2.Zero,new Vector2(0.8f,0.8f),SpriteEffects.None,0);
+            SB.DrawString(ObjectiveFooter, Objectstatustext, new Vector2(Staminaposition.X, 640 - 96), Color.LightYellow * 0.75f, 0, Vector2.Zero, new Vector2(1f, 1f), SpriteEffects.None, 0);
+            SB.DrawString(ObjectiveFooter, Hinttext, new Vector2(Staminaposition.X, 640 - 72), Color.GreenYellow * 0.75f, 0, Vector2.Zero, new Vector2(1f, 1f), SpriteEffects.None, 0);
             //SB.Draw(CandleBackground, new Vector2(OilPosition.X + 64, OilPosition.Y), Color.White);
             if (light.lightStart == true)
             {

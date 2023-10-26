@@ -47,28 +47,28 @@ namespace Themuseum
             mrc.LoadSprite(content);
         }
 
-        public void Draw(SpriteBatch SB, LanternLight light , KeyManagement key)
+        public void Draw(SpriteBatch SB, LanternLight light,KeyManagement key)
         {
             switch (roomnum)
             {
                 case 1: room1.Draw(SB,light,mapcolor); break;
                 case 2: room2.Draw(SB,light, mapcolor); break;
-                case 3: room3.Draw(SB, mapcolor , key ); break;
+                case 3: room3.Draw(SB,light, mapcolor , key ); break;
                 case 4: MRB.Draw(SB, mapcolor); break;
                 case 5: MRB_MRC_Cor.Draw(SB, mapcolor); break;
                 case 6: mrc.Draw(SB, mapcolor , key); break;
             }
         }
-        public void RoomFunction(GraphicsDeviceManager _graphics, Player player , KeyManagement keymanager, float elapsed, DialogueBox dialogue, LanternLight light,Map map,SoundSystem sound, Ghost ghost)
+        public void RoomFunction(GraphicsDeviceManager _graphics, Player player , KeyManagement keymanager, float elapsed, DialogueBox dialogue, LanternLight light,Map map,SoundSystem sound, Ghost ghost,Staminabar UI)
         {
             switch (roomnum)
             {
-                case 1: room1.Function(_graphics,player,this, keymanager, elapsed,dialogue,light,map,sound,ghost); break;
-                case 2: room2.Function(_graphics, player,this, keymanager, elapsed,dialogue, light,sound, ghost); break;
-                case 3: room3.Function(_graphics, player, this, keymanager, elapsed, dialogue, light,sound, ghost); break;       
-                case 4: MRB.Function(_graphics, player, this, keymanager, elapsed, dialogue, light,sound, ghost); break;
-                case 5: MRB_MRC_Cor.Function(_graphics, player, this, keymanager, elapsed, dialogue, light,sound, ghost); break;
-                case 6: mrc.Function(_graphics, player, this, keymanager, elapsed, dialogue, light,sound, ghost); break;
+                case 1: room1.Function(_graphics,player,this, keymanager, elapsed,dialogue,light,map,sound,ghost,UI); break;
+                case 2: room2.Function(_graphics, player,this, keymanager, elapsed,dialogue, light,sound, ghost,UI); break;
+                case 3: room3.Function(_graphics, player, this, keymanager, elapsed, dialogue, light,sound, ghost,UI); break;       
+                case 4: MRB.Function(_graphics, player, this, keymanager, elapsed, dialogue, light,sound, ghost,UI); break;
+                case 5: MRB_MRC_Cor.Function(_graphics, player, this, keymanager, elapsed, dialogue, light,sound, ghost,UI); break;
+                case 6: mrc.Function(_graphics, player, this, keymanager, elapsed, dialogue, light,sound, ghost,UI); break;
 
             }
         }

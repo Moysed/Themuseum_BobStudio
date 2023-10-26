@@ -2,7 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
-using System.Reflection.Metadata;
+
 
 namespace Themuseum
 {
@@ -61,7 +61,7 @@ namespace Themuseum
             float elapsed = (float)theTime.ElapsedGameTime.TotalSeconds;
             Keystate = Keyboard.GetState();
 
-            roomManager.RoomFunction(_graphics, player, KeyManagement, elapsed, dialogue, light,map,soundSystem,ghost);
+            roomManager.RoomFunction(_graphics, player, KeyManagement, elapsed, dialogue, light,map,soundSystem,ghost,staminabar);
 
             player.Controls(Keystate, light,KeyManagement);
             player.UpdateAnimation(elapsed);
@@ -100,10 +100,10 @@ namespace Themuseum
             }
             base.Update(theTime);
         }
-        public override void Draw(SpriteBatch theBatch )
+        public override void Draw(SpriteBatch theBatch)
         {
             
-            roomManager.Draw(theBatch, light, KeyManagement);
+            roomManager.Draw(theBatch,light,KeyManagement);
             player.Draw(theBatch, Keystate);
             light.Drawlight(theBatch);
             ghost.Draw(theBatch);
@@ -124,6 +124,7 @@ namespace Themuseum
             light.IsActive = false;
             map.IsActive = false;
             roomManager.RoomReset();
+            staminabar.ChangeObjectiveText("Find clues and useful items","");
             
         }
     }

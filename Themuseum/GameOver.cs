@@ -24,7 +24,7 @@ namespace Themuseum
         }
         public override void Update(GameTime theTime)
         {
-            if (Keyboard.GetState().IsKeyDown(Keys.R) == true)
+            if (Keyboard.GetState().IsKeyDown(Keys.Enter) == true)
             {
                 ScreenEvent.Invoke(game.mMainmenu, new EventArgs());
                 player.IsHaunted = false;

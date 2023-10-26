@@ -22,6 +22,7 @@ namespace Themuseum
         Rectangle BacktoRoom2;
         private Texture2D piece3;
         private Vector2 piece3Pos;
+        private Rectangle piece3col;
         private Texture2D TileStatic;
         KeyboardState KeyControls;
         private Texture2D Door;
@@ -58,7 +59,7 @@ namespace Themuseum
             piece3 = content.Load<Texture2D>("leftPiece");
         }
 
-        public void Draw(SpriteBatch SB, Color roomcolor , KeyManagement key)
+        public void Draw(SpriteBatch SB,LanternLight light, Color roomcolor , KeyManagement key)
         {
             SB.Draw(TileStatic, Vector2.Zero, roomcolor);
             
@@ -66,13 +67,21 @@ namespace Themuseum
             {
                 SB.Draw(KeyB, keyBPos ,Color.White);
             }
-            SB.Draw(piece3, piece3Pos, Color.White);
+            if(key.MRB_PieceActive == true) {
+
+                if (light.Collision.Intersects(piece3col))
+                {
+                    SB.Draw(piece3, piece3Pos, Color.White);
+                }
+                
+            }
+            
         }
-        public void Function(GraphicsDeviceManager _graphics, Player player, RoomManager roomManager, KeyManagement Keymanager, float elapsed, DialogueBox dialogue, LanternLight light,SoundSystem sound, Ghost ghost)
+        public void Function(GraphicsDeviceManager _graphics, Player player, RoomManager roomManager, KeyManagement Keymanager, float elapsed, DialogueBox dialogue, LanternLight light,SoundSystem sound, Ghost ghost, Staminabar UI)
         {
             KeyControls = Keyboard.GetState();
             //Object Hitbox
-            Rectangle piece3Col = new Rectangle((int)piece3Pos.X, (int)piece3Pos.Y, 24, 54);
+            piece3col = new Rectangle((int)piece3Pos.X, (int)piece3Pos.Y, 24, 54);
             DoorCollision_MRB_MRC_C = new Rectangle(1200, 0, 64, 640);
             BacktoRoom2 = new Rectangle(400, 600, 400, 200);
             DoorCollision = new Rectangle(568, 57, 138, 194);
@@ -173,18 +182,19 @@ namespace Themuseum
                         sound.PlaySfx(1);
                         Keymanager.MRB_PieceActive = true;
                         player.ChangeStartingPosition(new Vector2(player.SelfPosition.X, 75*7));
-                        
+                        UI.ChangeObjectiveText("Find Clues and Useful items", "");
                         roomManager.Roomchange(4);
                     }
                     else if(KeyControls.IsKeyDown(Keys.E) && Oldkey_.IsKeyUp(Keys.E) && Keymanager.R1_S2 == false || KeyControls.IsKeyDown(Keys.E) && Oldkey_.IsKeyUp(Keys.E) && Keymanager.R1_S3 == false)
                     {
                         sound.PlaySfx(2);
                         dialogue.SettingParameter("Hint Block", 0, 0, "The door is locked, Find a way to open it", Color.Red);
+                        UI.ChangeObjectiveText($"Find Hidden Switches {Keymanager.MRBSwitchcount}/2", "Hint: Try exploring other rooms");
                         dialogue.Activation(true);
                     }
                 }
             
-                if (player.collision.Intersects(piece3Col) == true)
+                if (player.collision.Intersects(piece3col) == true)
             {
                 player.StatusTextDisplay("Press E to Interact");
                 if (KeyControls.IsKeyDown(Keys.E) && Oldkey_.IsKeyUp(Keys.E))
@@ -193,6 +203,7 @@ namespace Themuseum
                     dialogue.Activation(true);
                     sound.PlaySfx(0);
                     Keymanager.MRB_Pieces += 1;
+                    UI.ChangeObjectiveText($"Find pieces for statue {Keymanager.MRB_Pieces}/3", "Hint: Pieces are hidden items");
                     Console.WriteLine(Keymanager.MRB_Pieces);
                     piece3Pos.X = 5000;
                 }
@@ -205,6 +216,7 @@ namespace Themuseum
                     ghost.Prechase(player);
                     sound.PlaySfx(1);
                     player.ChangeStartingPosition(new Vector2(75, 8*32));
+                    UI.ChangeObjectiveText("Find a way through the courtyard", "");
                     roomManager.Roomchange(5);
                 }
                 else if(KeyControls.IsKeyDown(Keys.E) && Oldkey_.IsKeyUp(Keys.E) && Keymanager.KeyCollectB == false)

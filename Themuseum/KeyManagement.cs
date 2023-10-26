@@ -12,7 +12,7 @@ using Microsoft.Xna.Framework.Media;
 
 namespace Themuseum
 {
-    class KeyManagement
+     public class KeyManagement
     {
 
         //Trigger naming format {Room number}_{Type of triggers and its number}
@@ -24,6 +24,7 @@ namespace Themuseum
         public bool MRB_StatueActive = false;
         public bool MRB_PieceActive = false;
         public int MRB_Pieces = 0;
+        public int MRBSwitchcount = 0;
         public bool MRC_R_B = false;
         public bool MRC_B_B = false;
         public bool MRC_Y_B = false;
@@ -57,7 +58,7 @@ namespace Themuseum
         }
         public void Reset()
         {
-            R1_T0 = false;
+         R1_T0 = false;
          R1_S1 = false;
          R1_S2 = false;
          R1_S3 = false;
@@ -65,6 +66,7 @@ namespace Themuseum
          MRB_StatueActive = false;
          MRB_PieceActive = false;
          MRB_Pieces = 0;
+         MRBSwitchcount = 0;
          MRC_R_B = false;
          MRC_B_B = false;
          MRC_Y_B = false;

@@ -101,7 +101,7 @@ namespace Themuseum
             lanternRefill.DrawSprite(SB);
         }
 
-        public void Function(GraphicsDeviceManager _graphics, Player player, RoomManager roomManager, KeyManagement Keymanager, float elapsed, DialogueBox dialogue, LanternLight light, SoundSystem sound,Ghost ghost)
+        public void Function(GraphicsDeviceManager _graphics, Player player, RoomManager roomManager, KeyManagement Keymanager, float elapsed, DialogueBox dialogue, LanternLight light, SoundSystem sound,Ghost ghost, Staminabar UI)
         {
            
             KeyControls = Keyboard.GetState();
@@ -191,6 +191,7 @@ namespace Themuseum
             if(R2_T1_Trigger_Col.Intersects(player.collision) == true && Keymanager.R2_T1 == false)
             {
                 dialogue.SettingParameter("Hint Block", 0, 0, "You feel evil presence pursuing you, find shire to repel it", Color.DarkRed);
+                UI.ChangeObjectiveText("Evade evil spirit","Hint: Candlelight can slows down the spirit, Find shire to dispel it");
                 dialogue.Activation(true);
                 Keymanager.KeyTrigger("R2_T1");
                 Console.WriteLine("R2_T1 Triggered");
@@ -222,6 +223,7 @@ namespace Themuseum
                     sound.PlaySfx(0);
                     Keymanager.MRB_Pieces += 1;
                     Console.WriteLine(Keymanager.MRB_Pieces);
+                    UI.ChangeObjectiveText($"Find pieces for statue {Keymanager.MRB_Pieces}/3", "Hint: Pieces are hidden items");
                     piece2Pos.X = 5000;
                 }
             }

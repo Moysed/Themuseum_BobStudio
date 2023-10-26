@@ -114,7 +114,7 @@ namespace Themuseum
 
 
         }
-        public void Function(GraphicsDeviceManager _graphics, Player player, RoomManager roomManager, KeyManagement Keymanager, float elapsed, DialogueBox dialogue, LanternLight light,SoundSystem sound, Ghost ghost)
+        public void Function(GraphicsDeviceManager _graphics, Player player, RoomManager roomManager, KeyManagement Keymanager, float elapsed, DialogueBox dialogue, LanternLight light,SoundSystem sound, Ghost ghost, Staminabar UI)
         {
             keycontrols = Keyboard.GetState();
             //Object Hitbox
@@ -247,6 +247,7 @@ namespace Themuseum
                     {
                         sound.PlaySfx(4);
                         dialogue.SettingParameter("Hint Block", 200, 200, "You assembled the statue!, But something is happening", Color.DarkRed);
+                        UI.ChangeObjectiveText("Evade evil spirit", "Hint: Candlelight can slows down the spirit, Find shire to dispel it");
                         dialogue.Activation(true);
                         Keymanager.KeyTrigger("MRB_Statue");
                         player.IsHaunted = true;
@@ -257,6 +258,7 @@ namespace Themuseum
                     else
                     {
                         sound.PlaySfx(5);
+                        UI.ChangeObjectiveText($"Find pieces for statue {Keymanager.MRB_Pieces}/3", "Hint: Pieces are hidden items");
                         dialogue.SettingParameter("Hint Block", 200, 200, "Find pieces to complete the statue", Color.Purple);
                         dialogue.Activation(true);
                     }
@@ -272,6 +274,7 @@ namespace Themuseum
                 {
                     sound.PlaySfx(3);
                     dialogue.SettingParameter("Hint Block", 200, 200, "Full Statue", Color.Green);
+                    UI.ChangeObjectiveText($"Find pieces for statue {Keymanager.MRB_Pieces}/3", "Hint: Pieces are hidden items");
                     dialogue.Activation(true);
                 }
                

@@ -64,7 +64,7 @@ namespace Themuseum
             shire.Draw(SB);
         }
 
-        public void Function(GraphicsDeviceManager _graphics, Player player, RoomManager roomManager, KeyManagement Keymanager, float elapsed, DialogueBox dialogue, LanternLight light,SoundSystem sound, Ghost ghost)
+        public void Function(GraphicsDeviceManager _graphics, Player player, RoomManager roomManager, KeyManagement Keymanager, float elapsed, DialogueBox dialogue, LanternLight light,SoundSystem sound, Ghost ghost, Staminabar UI)
         {
             KeyControls = Keyboard.GetState();
             //Wall Collision
@@ -139,6 +139,7 @@ namespace Themuseum
                     {
                         ghost.Prechase(player);
                         sound.PlaySfx(1);
+                        UI.ChangeObjectiveText("Find clues and complete the puzzle","");
                         player.ChangeStartingPosition(new Vector2(64, player.SelfPosition.Y));
                         roomManager.Roomchange(6);
                     }

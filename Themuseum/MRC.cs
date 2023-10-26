@@ -103,7 +103,7 @@ namespace Themuseum
             
         }
 
-        public void Function(GraphicsDeviceManager _graphics, Player player, RoomManager roomManager, KeyManagement Keymanager, float elapsed, DialogueBox dialogue, LanternLight light,SoundSystem sound, Ghost ghost)
+        public void Function(GraphicsDeviceManager _graphics, Player player, RoomManager roomManager, KeyManagement Keymanager, float elapsed, DialogueBox dialogue, LanternLight light,SoundSystem sound, Ghost ghost, Staminabar UI)
         {
             KeyControls = Keyboard.GetState();
             //keyC hitbox
@@ -243,6 +243,7 @@ namespace Themuseum
                 if (KeyControls.IsKeyDown(Keys.E) && OldKey.IsKeyUp(Keys.E))
                 {
                     dialogue.SettingParameter("placeholderblock", 200, 200, "Key collected", Color.Green);
+                    UI.ChangeObjectiveText("Process through the next room", "");
                     dialogue.Activation(true);
                     sound.PlaySfx(0);
                     Keymanager.KeyCollectC = true;
@@ -276,6 +277,7 @@ namespace Themuseum
                     {
                         sound.PlaySfx(2);
                         dialogue.SettingParameter("Hint Block", 0, 0, "The door is locked, Find a key to open it", Color.Red);
+                        UI.ChangeObjectiveText("Find clues and complete the puzzle", "");
                         dialogue.Activation(true);
                         Console.WriteLine("KeyC didn't collected");
                     }

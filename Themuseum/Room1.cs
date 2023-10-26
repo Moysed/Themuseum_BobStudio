@@ -158,7 +158,7 @@ namespace Themuseum
 
         }
 
-        public void Function(GraphicsDeviceManager _graphics, Player player, RoomManager roomManager, KeyManagement Keymanager, float elapsed, DialogueBox dialogue, LanternLight light, Map map,SoundSystem sound,Ghost ghost)
+        public void Function(GraphicsDeviceManager _graphics, Player player, RoomManager roomManager, KeyManagement Keymanager, float elapsed, DialogueBox dialogue, LanternLight light, Map map,SoundSystem sound,Ghost ghost,Staminabar UI)
         {
 
             KeyControls = Keyboard.GetState();
@@ -302,6 +302,7 @@ namespace Themuseum
                             sound.PlaySfx(2);
                     
                             Keymanager.R1_T0 = true;
+                            UI.ChangeObjectiveText("Find Hidden Switch", "Hint: Use lantern to find hidden object");
                             dialogue.SettingParameter("Hint Block", 0, 0, "There's something blocking the way. But I can't see it. Find the switch to break it", Color.Red);
                             dialogue.Activation(true);
                         }
@@ -309,7 +310,7 @@ namespace Themuseum
                     }
                    
 
-                    if (player.collision.Intersects(HiddenSwitch_02_Col) == true)
+                    if (player.collision.Intersects(HiddenSwitch_02_Col) == true && Keymanager.R1_S2 == false)
                     {
                         if (KeyControls.IsKeyDown(Keys.E) && OldKey.IsKeyUp(Keys.E))
                         {
@@ -318,10 +319,12 @@ namespace Themuseum
                             dialogue.SettingParameter("placeholderblock", 200, 200, "2nd Hidden Switch Activated", Color.Green);
                             dialogue.Activation(true);
                             Keymanager.KeyTrigger("R1_S2");
+                            Keymanager.MRBSwitchcount++;
+                            UI.ChangeObjectiveText($"Find Hidden Switches {Keymanager.MRBSwitchcount}/2", "Hint: Try exploring other rooms");
                             Console.WriteLine("R1_S2");
                         }
                     }
-                    if (player.collision.Intersects(HiddenSwitch_03_Col) == true)
+                    if (player.collision.Intersects(HiddenSwitch_03_Col) == true && Keymanager.R1_S3 == false)
                     {
                         if (KeyControls.IsKeyDown(Keys.E) && OldKey.IsKeyUp(Keys.E))
                         {
@@ -331,6 +334,8 @@ namespace Themuseum
                             "placeholderblock", 200, 200, "3rd Hidden Switch Activated", Color.Green);
                             dialogue.Activation(true);
                             Keymanager.KeyTrigger("R1_S3");
+                            Keymanager.MRBSwitchcount++;
+                            UI.ChangeObjectiveText($"Find Hidden Switches {Keymanager.MRBSwitchcount}/2", "Hint: Try exploring other rooms");
                             Console.WriteLine("R1_S3");
                         }
                     }
@@ -353,6 +358,7 @@ namespace Themuseum
                             dialogue.SettingParameter("placeholderblock", 200, 200, "Statue piece collected", Color.Green);
                             dialogue.Activation(true);
                             Console.WriteLine(Keymanager.MRB_Pieces);
+                            UI.ChangeObjectiveText($"Find pieces for statue {Keymanager.MRB_Pieces}/3", "Hint: Pieces are hidden items");
                             piece1Pos.X = 5000;
                         }
                     }
@@ -363,6 +369,7 @@ namespace Themuseum
                             switch1_opened = true;
                             sound.PlaySfx(1);
                             Keymanager.KeyTrigger("R1_S1");
+                            UI.ChangeObjectiveText("Continue to the next room", "Hint: Candle is limited. Find some candles to replace old one");
                             dialogue.SettingParameter("placeholderblock", 200, 200, "1st Hidden Switch Activated", Color.Green);
                             dialogue.Activation(true);
                             Console.WriteLine("R1_S1");
