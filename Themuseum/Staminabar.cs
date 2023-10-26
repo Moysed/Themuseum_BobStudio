@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Metadata;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -35,6 +36,9 @@ namespace Themuseum
         private Vector2 SpritePosition;
         private Rectangle BarIndicator;
         private Rectangle OilBarIndicator;
+        private SpriteFont ObjectiveHeader;
+        private SpriteFont ObjectiveFooter;
+        private string Objectstatustext = "Placeholder Placeholder Placeholder";
         List<Texture2D> Keys = new List<Texture2D>();
 
         private float MaxStamina;
@@ -66,6 +70,8 @@ namespace Themuseum
             Lantern = Content.Load<Texture2D>("Big_candle");
             lanternButton = Content.Load<Texture2D>("Small_Flash_button");
             bg = Content.Load<Texture2D>("Bg_Map_n_Lanter");
+            ObjectiveHeader = Content.Load<SpriteFont>("Keycollect");
+            ObjectiveFooter = Content.Load<SpriteFont>("ObjectiveFont");
             //Key empthy
             Keys.Add(Content.Load<Texture2D>("Key1"));
             //Key
@@ -102,11 +108,18 @@ namespace Themuseum
 
         }
 
+        public void ChangeObjectiveText(string text)
+        {
+            Objectstatustext = text;
+        }
+
         public void Drawbar(SpriteBatch SB, Player player, LanternLight light)
         {
             SB.Draw(KeynCandlebg, new Vector2(130 + 12, 7 + 5), Color.White);
             SB.Draw(BarBackground, Staminaposition, Color.White);
             SB.Draw(BarColor, Staminaposition, BarIndicator, Color.White);
+            SB.DrawString(ObjectiveHeader, "Current Objective",new Vector2(Staminaposition.X,640 - 72), Color.MediumPurple * 0.75f,0,Vector2.Zero,new Vector2(0.8f,0.8f),SpriteEffects.None,0);
+            SB.DrawString(ObjectiveFooter, Objectstatustext, new Vector2(Staminaposition.X, 640 - 48), Color.LightYellow * 0.75f, 0, Vector2.Zero, new Vector2(1f, 1f), SpriteEffects.None, 0);
             //SB.Draw(CandleBackground, new Vector2(OilPosition.X + 64, OilPosition.Y), Color.White);
             if (light.lightStart == true)
             {
@@ -143,7 +156,7 @@ namespace Themuseum
             
         
     }
-                SB.Draw(bg, new Vector2(1280-135, 640-70), Color.White);
+            SB.Draw(bg, new Vector2(1280-135, 640-70), Color.White);
             SB.Draw(Map, new Vector2(1280 - 60, 640 - 65), Color.White);
             SB.Draw(Lantern, new Vector2(1280 - 120, 640 - 65), Color.White);
             SB.Draw(lanternButton, new Vector2(1280 - 135 + 10, 640 - 70 + 37), Color.White);

@@ -998,6 +998,13 @@
 /processorParam:TextureFormat=Color
 /build:Note.png
 
+#begin ObjectiveFont.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:ObjectiveFont.spritefont
+
 #begin Piece1.png
 /importer:TextureImporter
 /processor:TextureProcessor
