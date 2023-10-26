@@ -368,10 +368,7 @@ namespace Themuseum
                             Console.WriteLine("R1_S1");
                         }
                     }
-            if (Keymanager.MRB_Pieces == 3)
-            {
-               Keymanager.MRB_StatueActive = true;
-            }
+            
 
             //hint Collision
             if ( player.collision.Intersects(hint) == true)

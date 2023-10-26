@@ -100,10 +100,10 @@ namespace Themuseum
             }
             base.Update(theTime);
         }
-        public override void Draw(SpriteBatch theBatch)
+        public override void Draw(SpriteBatch theBatch )
         {
             
-            roomManager.Draw(theBatch, light);
+            roomManager.Draw(theBatch, light, KeyManagement);
             player.Draw(theBatch, Keystate);
             light.Drawlight(theBatch);
             ghost.Draw(theBatch);

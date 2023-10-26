@@ -22,8 +22,10 @@ namespace Themuseum
         private MRB_To_MRC_Corridor MRB_MRC_Cor;
         private MRC mrc;
         public Color mapcolor;
+       
          public RoomManager(int startingroom)
         {
+           
             roomnum = startingroom;
             room1 = new Room1();
             room2 = new Room2();
@@ -45,16 +47,16 @@ namespace Themuseum
             mrc.LoadSprite(content);
         }
 
-        public void Draw(SpriteBatch SB, LanternLight light)
+        public void Draw(SpriteBatch SB, LanternLight light , KeyManagement key)
         {
             switch (roomnum)
             {
                 case 1: room1.Draw(SB,light,mapcolor); break;
                 case 2: room2.Draw(SB,light, mapcolor); break;
-                case 3: room3.Draw(SB, mapcolor); break;
+                case 3: room3.Draw(SB, mapcolor , key ); break;
                 case 4: MRB.Draw(SB, mapcolor); break;
                 case 5: MRB_MRC_Cor.Draw(SB, mapcolor); break;
-                case 6: mrc.Draw(SB, mapcolor); break;
+                case 6: mrc.Draw(SB, mapcolor , key); break;
             }
         }
         public void RoomFunction(GraphicsDeviceManager _graphics, Player player , KeyManagement keymanager, float elapsed, DialogueBox dialogue, LanternLight light,Map map,SoundSystem sound, Ghost ghost)

@@ -26,8 +26,7 @@ namespace Themuseum
         private Vector2 DoorPos;
         private Rectangle DoorCollision;
         private Texture2D WallArea_Tex;
-        private Texture2D piece3;
-        private Vector2 piece3Pos;
+       
         private Texture2D uncompletedStatue;
         private Texture2D completedStatue;
         private Vector2 uncomStatuePos;
@@ -50,7 +49,7 @@ namespace Themuseum
             DoorPos = new Vector2(610, 72 * 8);
             uncomStatuePos = new Vector2(536, 0);
             comStatuePos = new Vector2(20000, 0);
-            piece3Pos = new Vector2(random.Next(100,700), random.Next(250,400));
+            
             hintPos = new Vector2(400, 200);
             //top
             WallArea_Col.Add(new Rectangle(0, 0, 1280, 200));
@@ -85,7 +84,7 @@ namespace Themuseum
             Door = content.Load<Texture2D>("placeholderdoor");
             uncompletedStatue = content.Load<Texture2D>("empthyStatue");
             completedStatue = content.Load<Texture2D>("fullStatue");
-            piece3 = content.Load<Texture2D>("leftPiece");
+            
             lanternRefill.LoadSprite(content);
             //Showcase
             for(int i = 1; i < 7; i++)
@@ -102,7 +101,7 @@ namespace Themuseum
                 SB.Draw(uncompletedStatue, uncomStatuePos, Color.White);
                 SB.Draw(completedStatue, comStatuePos, Color.White);
 
-            SB.Draw(piece3, piece3Pos, Color.White);
+            
            lanternRefill.DrawSprite(SB);
            SB.Draw(hint, hintPos, Color.White);
             SB.Draw(Showcase[0], new Vector2(152, 271), Color.White);
@@ -120,7 +119,7 @@ namespace Themuseum
             keycontrols = Keyboard.GetState();
             //Object Hitbox
             Rectangle statueCollision = new Rectangle(536, 0, 207, 329);
-            Rectangle piece3Col = new Rectangle((int)piece3Pos.X, (int)piece3Pos.Y, 24, 54);
+            
             Rectangle hint = new Rectangle((int)hintPos.X, (int)hintPos.Y, 64, 64);
 
             DoorCollision = new Rectangle((int)DoorPos.X , (int)DoorPos.Y, 32, 64);
@@ -235,24 +234,7 @@ namespace Themuseum
             //Piece Collect
             
 
-            if (player.collision.Intersects(piece3Col) == true)
-            {
-                player.StatusTextDisplay("Press E to Interact");
-                if (keycontrols.IsKeyDown(Keys.E) && Oldkey_.IsKeyUp(Keys.E))
-                {
-                    dialogue.SettingParameter("placeholderblock", 200, 200, "Statue piece collected", Color.Green);
-                    dialogue.Activation(true);
-                    sound.PlaySfx(0);
-                    Keymanager.MRB_Pieces += 1;
-                    Console.WriteLine(Keymanager.MRB_Pieces);
-                    piece3Pos.X = 5000;
-                }
-            }
 
-            if (Keymanager.MRB_Pieces == 3)
-            {
-                Keymanager.MRB_StatueActive = true;
-            }
 
             //Statue Collision
             if (player.collision.Intersects(statueCollision) == true)
@@ -261,7 +243,7 @@ namespace Themuseum
                 if (keycontrols.IsKeyDown(Keys.E) && Oldkey_.IsKeyUp(Keys.E))
                 {
                     Console.WriteLine(Keymanager.MRB_StatueActive);
-                    if(Keymanager.MRB_Pieces == 3)
+                    if(Keymanager.MRB_Pieces == 3 && keycontrols.IsKeyDown(Keys.E) && Oldkey_.IsKeyUp(Keys.E))
                     {
                         sound.PlaySfx(4);
                         dialogue.SettingParameter("Hint Block", 200, 200, "You assembled the statue!, But something is happening", Color.DarkRed);
@@ -300,16 +282,13 @@ namespace Themuseum
                 uncomStatuePos = new Vector2(536, 0);
                 comStatuePos = new Vector2(20000, 0);
             }
-            if (Keymanager.MRB_StatueActive == true)
+            if (Keymanager.MRB_StatueActive == true && player.collision.Intersects(statueCollision) == true && keycontrols.IsKeyDown(Keys.E) && Oldkey_.IsKeyUp(Keys.E))
             {
                 uncomStatuePos = new Vector2(20000, 0);
                 comStatuePos = new Vector2(536, 0);
             }
 
-            if(Keymanager.MRB_StatueActive == true)
-            {
-                Keymanager.KeyCollectB = true;
-            }
+            
 
             lanternRefill.Behavior(player, sound);
 
@@ -317,7 +296,7 @@ namespace Themuseum
         }
         public void Reset()
         {
-            piece3Pos = new Vector2(random.Next(100, 700), random.Next(250, 400));
+            
             lanternRefill.ResetState();
         }
         

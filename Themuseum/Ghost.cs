@@ -15,7 +15,7 @@ namespace Themuseum
 {
     class Ghost 
     {
-        private float speed = 2f;
+        private float speed = 3f;
         private Vector2 SelfPosition;
         public Rectangle collision;
         private AnimatedTexture Sprite;
@@ -58,7 +58,7 @@ namespace Themuseum
                 }
                 else
                 {
-                    speed = 2;
+                    speed = 2.5f;
                 }
                 
                 
@@ -80,7 +80,7 @@ namespace Themuseum
         public void Changestartingposition(Vector2 newPos)
         {
             SelfPosition = newPos;
-            collision = new Rectangle((int)SelfPosition.X, (int)SelfPosition.Y, 82, 200);
+            collision = new Rectangle((int)SelfPosition.X, (int)SelfPosition.Y , 82, 100);
         }
         public void Prechase(Player player)
         {

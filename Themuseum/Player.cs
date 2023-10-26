@@ -17,12 +17,12 @@ namespace Themuseum
     class Player 
     {
         Room1 room1;
-        public float speed = 3f;
+        public float speed = 1f;
         public Vector2 SelfPosition;
         public Rectangle collision;
         private AnimatedTexture Sprite;
-        public float MaxStamina = 100;
-        public float CurrentStamina = 100;
+        public float MaxStamina = 150;
+        public float CurrentStamina = 150;
         public float MaxFuel = 300;
         public float CurrentFuel = 300;
         public KeyboardState KeyControls;
@@ -102,7 +102,7 @@ namespace Themuseum
 
                 if (KeyControls.IsKeyDown(Keys.A) && KeyControls.IsKeyDown(Keys.LeftShift) && CurrentStamina > 0 && KeyControls.IsKeyUp(Keys.F))
                 {
-                    speed = 3;
+                    speed = 2;
                     CurrentStamina--;
                     //currentSpeed = speed;
                     SelfPosition.X -= speed;
@@ -115,7 +115,7 @@ namespace Themuseum
 
                 if (KeyControls.IsKeyDown(Keys.D) && KeyControls.IsKeyDown(Keys.LeftShift) && CurrentStamina > 0 && KeyControls.IsKeyUp(Keys.F))
                 {
-                    speed = 3;
+                    speed = 2;
                     CurrentStamina--;
                     //currentSpeed = speed;
                     SelfPosition.X += speed;
@@ -128,7 +128,7 @@ namespace Themuseum
 
                 if (KeyControls.IsKeyDown(Keys.W) && KeyControls.IsKeyDown(Keys.LeftShift) && CurrentStamina > 0 && KeyControls.IsKeyUp(Keys.F))
                 {
-                    speed = 3;
+                    speed = 2;
                     CurrentStamina--;
                     //currentSpeed = speed;
                     SelfPosition.Y -= speed;
@@ -141,7 +141,7 @@ namespace Themuseum
 
                 if (KeyControls.IsKeyDown(Keys.S) && KeyControls.IsKeyDown(Keys.LeftShift) && CurrentStamina > 0 && KeyControls.IsKeyUp(Keys.F))
                 {
-                    speed = 3;
+                    speed = 2;
                     CurrentStamina--;
                     //currentSpeed = speed;
                     SelfPosition.Y += speed;
@@ -156,10 +156,10 @@ namespace Themuseum
                 //currentSpeed = speed;
             }
 
-            if (CurrentStamina > 100)
+            if (CurrentStamina > 151)
             {
                 
-                CurrentStamina = 100;
+                CurrentStamina = 150;
             }
 
             if (KeyControls.IsKeyDown(Keys.F) && CurrentFuel > 0 && Light.IsActive == true)
@@ -209,7 +209,7 @@ namespace Themuseum
         public void Reset()
         {
             CurrentFuel = 300;
-            CurrentStamina = 100;
+            CurrentStamina = 150;
             IsHaunted = false;
             SelfPosition = new Vector2(1280/2,640/2);
         }

@@ -225,10 +225,7 @@ namespace Themuseum
                     piece2Pos.X = 5000;
                 }
             }
-            if (Keymanager.MRB_Pieces == 3)
-            {
-                Keymanager.MRB_StatueActive = true;
-            }
+            
 
             lanternRefill.Behavior(player, sound);
             
