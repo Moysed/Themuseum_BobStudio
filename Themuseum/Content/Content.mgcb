@@ -1509,6 +1509,18 @@
 /processorParam:TextureFormat=Color
 /build:Small_Map_button.png
 
+#begin smallKey.PNG
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:smallKey.PNG
+
 #begin spritesheet (3).png
 /importer:TextureImporter
 /processor:TextureProcessor

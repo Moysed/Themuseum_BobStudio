@@ -38,9 +38,9 @@ namespace Themuseum
 
 
 
-            if (Keyboard.GetState().IsKeyDown(Keys.A) == true)
+            if (Keyboard.GetState().IsKeyDown(Keys.R) == true)
             {
-                ScreenEvent.Invoke(game.mGameoverScreen, new EventArgs());
+                ScreenEvent.Invoke(game.mMainmenu, new EventArgs());
                 return;
             }
 

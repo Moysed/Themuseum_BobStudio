@@ -42,7 +42,7 @@ namespace Themuseum
             ghost.LoadSprite(game.Content);
             dialogue.LoadResource(game.Content);
 
-            roomManager = new RoomManager(4);
+            roomManager = new RoomManager(1);
 
             roomManager.LoadAssets(game.Content);
             light.LoadSprite(game.Content);
@@ -100,10 +100,10 @@ namespace Themuseum
             }
             base.Update(theTime);
         }
-        public override void Draw(SpriteBatch theBatch)
+        public override void Draw(SpriteBatch theBatch )
         {
             
-            roomManager.Draw(theBatch, light);
+            roomManager.Draw(theBatch, light, KeyManagement);
             player.Draw(theBatch, Keystate);
             light.Drawlight(theBatch);
             ghost.Draw(theBatch);

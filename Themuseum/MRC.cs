@@ -41,8 +41,16 @@ namespace Themuseum
         private Texture2D BlockReset_Tex;
         private Rectangle BlockReset_Col;
         private Vector2 BlockReset_Pos;
+
+        private Texture2D keyC;
+        private Vector2 keyCPos;
+        Rectangle keyChitbox;
+
+        
+        
         public MRC()
         {
+            keyCPos = new Vector2(5000,0);
             room1 = new Room1();    
             WallArea_Col.Add(new Rectangle(0, 0, 1280, 64));
             WallArea_Col.Add(new Rectangle(0, 0, 64, 640));
@@ -62,6 +70,7 @@ namespace Themuseum
             Door = content.Load<Texture2D>("placeholderdoor");
             BlockArea = content.Load<Texture2D>("placeholderblock");
             BlockReset_Tex = content.Load<Texture2D>("199-Support07");
+            keyC = content.Load<Texture2D>("smallKey");
 
             for (int i = 0; i < puzzleBlocks.Count; i++)
             {
@@ -69,7 +78,7 @@ namespace Themuseum
             }
         }
 
-        public void Draw(SpriteBatch SB, Color roomcolor)
+        public void Draw(SpriteBatch SB, Color roomcolor , KeyManagement key)
         {
             SB.Draw(BlockArea, BlockAreaPos_R, new Rectangle(0, 0, 64, 64), Color.Red);
             SB.Draw(BlockArea, BlockAreaPos_B, new Rectangle(0, 0, 64, 64), Color.Blue);
@@ -87,12 +96,18 @@ namespace Themuseum
             SB.Draw(Door, DoorPos_MB_MC_C, new Rectangle(6 * 32, 8 * 32, 32, 64), Color.White);
             SB.Draw(Door, DoorPos_End, new Rectangle(6 * 32, 8 * 32, 32, 64), Color.White);
             SB.Draw(BlockReset_Tex, BlockReset_Pos, new Rectangle(0, 128, 64, 64), Color.White);
+            if(key.MRC_Unlock == true)
+            {
+                SB.Draw(keyC, keyCPos, Color.White);
+            }
             
         }
 
         public void Function(GraphicsDeviceManager _graphics, Player player, RoomManager roomManager, KeyManagement Keymanager, float elapsed, DialogueBox dialogue, LanternLight light,SoundSystem sound, Ghost ghost)
         {
             KeyControls = Keyboard.GetState();
+            //keyC hitbox
+            keyChitbox = new Rectangle((int)keyCPos.X, (int)keyCPos.Y, 26, 10);
             //Wall Collision
             for (int i = 0; i < WallArea_Col.Count; i++)
             {
@@ -217,7 +232,26 @@ namespace Themuseum
             {
                 Console.WriteLine("All Combination in place");
                 Keymanager.MRC_Unlock = true;
+                dialogue.SettingParameter("Hint Block", 0, 0, "I heard something dropped", Color.Red);
+                dialogue.Activation(true);
+                keyCPos = new Vector2(400, 200);
             }
+
+            if(player.collision.Intersects(keyChitbox))
+            {
+                player.StatusTextDisplay("Press E to Interact");
+                if (KeyControls.IsKeyDown(Keys.E) && OldKey.IsKeyUp(Keys.E))
+                {
+                    dialogue.SettingParameter("placeholderblock", 200, 200, "Key collected", Color.Green);
+                    dialogue.Activation(true);
+                    sound.PlaySfx(0);
+                    Keymanager.KeyCollectC = true;
+                    keyCPos.X = 5000;
+                   
+                }
+            }
+
+            
 
             
             //Player Interaction
@@ -238,17 +272,17 @@ namespace Themuseum
 
                 if (KeyControls.IsKeyDown(Keys.E) && OldKey.IsKeyUp(Keys.E))
                 {
-                    if (Keymanager.MRC_Unlock == false)
+                    if (Keymanager.KeyCollectC == false)
                     {
                         sound.PlaySfx(2);
-                        dialogue.SettingParameter("Hint Block", 0, 0, "The door is locked, Find a way to open it", Color.Red);
+                        dialogue.SettingParameter("Hint Block", 0, 0, "The door is locked, Find a key to open it", Color.Red);
                         dialogue.Activation(true);
-                        Console.WriteLine("MRC_Locked");
+                        Console.WriteLine("KeyC didn't collected");
                     }
-                    else if (Keymanager.MRC_Unlock == true)
+                    else if (Keymanager.KeyCollectC == true)
                     {
                         sound.PlaySfx(1);
-                        Console.WriteLine("MRC_Unlocked");
+                        Console.WriteLine("Door unlocked");
                         Keymanager.GameEnded = true;
                     }
 
@@ -271,6 +305,7 @@ namespace Themuseum
         }
         public void Reset()
         {
+            keyCPos = new Vector2(400000, 200);
             for (int i = 0; i < puzzleBlocks.Count; i++)
             {
                 puzzleBlocks[i].ResetPosition();
