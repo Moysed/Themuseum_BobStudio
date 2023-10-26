@@ -30,7 +30,10 @@ namespace Themuseum
         public bool MRC_G_B = false;
         public bool MRC_Unlock = false;
         public bool GameEnded = false;
-        
+        public bool KeyCollectB = false;
+        public bool KeyCollectC = false;
+       
+
         public KeyManagement()
         {
             
@@ -46,6 +49,8 @@ namespace Themuseum
                 case "MRB_Statue": MRB_StatueActive = true; break;
                 case "MRB_Pieces": MRB_PieceActive = true; break;
                 case "MRC_Unlock": MRC_Unlock=true; break;
+                case "KeyCollectB": KeyCollectB = true; break;
+                case "KeyCollectC": KeyCollectC = true; break;
             }
             
             
@@ -66,6 +71,8 @@ namespace Themuseum
          MRC_G_B = false;
          MRC_Unlock = false;
          GameEnded = false;
+         KeyCollectC = false;
+         KeyCollectB = false;
         }
         
     }

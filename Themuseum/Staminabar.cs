@@ -35,6 +35,7 @@ namespace Themuseum
         private Vector2 SpritePosition;
         private Rectangle BarIndicator;
         private Rectangle OilBarIndicator;
+        List<Texture2D> Keys = new List<Texture2D>();
 
         private float MaxStamina;
         private float MaxOil;
@@ -65,6 +66,10 @@ namespace Themuseum
             Lantern = Content.Load<Texture2D>("Big_candle");
             lanternButton = Content.Load<Texture2D>("Small_Flash_button");
             bg = Content.Load<Texture2D>("Bg_Map_n_Lanter");
+            //Key empthy
+            Keys.Add(Content.Load<Texture2D>("Key1"));
+            //Key
+            Keys.Add(Content.Load<Texture2D>("Key2"));
         }
 
         public void UpdateBar(float StaminaValue, float OilValue, float elapsed)
@@ -144,6 +149,8 @@ namespace Themuseum
             SB.Draw(lanternButton, new Vector2(1280 - 135 + 10, 640 - 70 + 37), Color.White);
             SB.Draw(mapButton, new Vector2(1280 - 135 + 70, 640 - 70 + 37), Color.White);
             PlayerStatusUI.DrawFrame(SB, SpritePosition, currentrow);
+            SB.Draw(Keys[0], new Vector2(177, 93), Color.White);
+            SB.Draw(Keys[0], new Vector2(240, 93), Color.White);
         }
     }
 }

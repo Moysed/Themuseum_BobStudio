@@ -327,7 +327,8 @@ namespace Themuseum
                         {
                             switch3_opened = true;
                             sound.PlaySfx(1);
-                            dialogue.SettingParameter("placeholderblock", 200, 200, "3rd Hidden Switch Activated", Color.Green);
+                            dialogue.SettingParameter(
+                            "placeholderblock", 200, 200, "3rd Hidden Switch Activated", Color.Green);
                             dialogue.Activation(true);
                             Keymanager.KeyTrigger("R1_S3");
                             Console.WriteLine("R1_S3");

@@ -83,8 +83,8 @@ namespace Themuseum
             hint = content.Load<Texture2D>("Note");
             TileStatic = content.Load<Texture2D>("MainRoomBSeperate BG");
             Door = content.Load<Texture2D>("placeholderdoor");
-            uncompletedStatue = content.Load<Texture2D>("uncompletedStatue");
-            completedStatue = content.Load<Texture2D>("completedStatue");
+            uncompletedStatue = content.Load<Texture2D>("empthyStatue");
+            completedStatue = content.Load<Texture2D>("fullStatue");
             piece3 = content.Load<Texture2D>("leftPiece");
             lanternRefill.LoadSprite(content);
             //Showcase
@@ -304,6 +304,11 @@ namespace Themuseum
             {
                 uncomStatuePos = new Vector2(20000, 0);
                 comStatuePos = new Vector2(536, 0);
+            }
+
+            if(Keymanager.MRB_StatueActive == true)
+            {
+                Keymanager.KeyCollectB = true;
             }
 
             lanternRefill.Behavior(player, sound);

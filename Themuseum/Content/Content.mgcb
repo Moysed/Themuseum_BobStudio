@@ -415,6 +415,18 @@
 /processorParam:TextureFormat=Color
 /build:completedStatue.png
 
+#begin empthyStatue.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:empthyStatue.png
+
 #begin EmptyBar.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -474,6 +486,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:FullCandle.png
+
+#begin fullStatue.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:fullStatue.png
 
 #begin gameover_placeholder.jpg
 /importer:TextureImporter

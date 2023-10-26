@@ -167,7 +167,7 @@ namespace Themuseum
             if (player.collision.Intersects(DoorCollision_MRB_MRC_C) == true)
             {
                 player.StatusTextDisplay("Press E to Interact");
-                if (KeyControls.IsKeyDown(Keys.E) && Oldkey_.IsKeyUp(Keys.E) && Keymanager.MRB_StatueActive == true)
+                if (KeyControls.IsKeyDown(Keys.E) && Oldkey_.IsKeyUp(Keys.E) && Keymanager.KeyCollectB == true)
                 {
                     ghost.Prechase(player);
                     sound.PlaySfx(1);

@@ -42,7 +42,7 @@ namespace Themuseum
             ghost.LoadSprite(game.Content);
             dialogue.LoadResource(game.Content);
 
-            roomManager = new RoomManager(5);
+            roomManager = new RoomManager(4);
 
             roomManager.LoadAssets(game.Content);
             light.LoadSprite(game.Content);
