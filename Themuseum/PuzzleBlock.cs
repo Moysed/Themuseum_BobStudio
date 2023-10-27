@@ -16,34 +16,41 @@ namespace Themuseum
     
     class PuzzleBlock
     {
-        private AnimatedTexture Sprite;
+        private Texture2D Sprite;
+        private bool isvisible = true;
         private Vector2 SelfPosition;
         private Vector2 OriginalPosition;
         public Rectangle Collision;
         public string KeyDesignation = "";
-        public PuzzleBlock(Vector2 startingposition, string DefineID)
+        private string spritestring = "";
+        public PuzzleBlock(Vector2 startingposition, string DefineID,string Imagestring)
         {
             SelfPosition = startingposition;
             OriginalPosition = SelfPosition;
             KeyDesignation = DefineID;
-            Sprite = new AnimatedTexture(Vector2.Zero, 0, 1, 0.5f);
+            spritestring = Imagestring;
+            
         }
 
         public void LoadSprite(ContentManager content)
         {
-            Sprite.Load(content, "187-Lorry01", 4, 4, 15);
+            Sprite = content.Load<Texture2D>(spritestring);
         }
 
         public void Draw(SpriteBatch SB) 
         {
-            Sprite.DrawFrame(SB, SelfPosition, 1);
+            if(isvisible == true)
+            {
+                SB.Draw(Sprite, SelfPosition, Color.White);
+            }
+           
         }
 
         public void Behavior(Player player, float elapsed)
         {
-            Collision = new Rectangle((int)SelfPosition.X,(int)SelfPosition.Y,64,64);
+            Collision = new Rectangle((int)SelfPosition.X,(int)SelfPosition.Y,Sprite.Width,Sprite.Height);
 
-            if (player.collision.Intersects(Collision))
+            if (player.collision.Intersects(Collision) == true && isvisible == true)
             {
                 if (player.collision.Right >= Collision.Right)
                 {
@@ -93,12 +100,17 @@ namespace Themuseum
                 }
 
             }
-            Sprite.UpdateFrame(elapsed);
+            
         }
         
+        public void setvisible(bool status)
+        {
+            isvisible = status;
+        }
         public void ResetPosition()
         {
             SelfPosition = OriginalPosition;
+            isvisible = true;
         }
 
         
