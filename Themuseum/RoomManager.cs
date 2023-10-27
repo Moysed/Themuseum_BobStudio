@@ -21,6 +21,7 @@ namespace Themuseum
         private MainRoomB MRB;
         private MRB_To_MRC_Corridor MRB_MRC_Cor;
         private MRC mrc;
+        private ChasingScene chasingScene;
         public Color mapcolor;
        
          public RoomManager(int startingroom)
@@ -33,6 +34,7 @@ namespace Themuseum
             MRB = new MainRoomB();
             MRB_MRC_Cor = new MRB_To_MRC_Corridor();
             mrc = new MRC();
+            chasingScene = new ChasingScene();
             mapcolor = Color.White;
             
         }
@@ -45,6 +47,7 @@ namespace Themuseum
             MRB.LoadContent(content);
             MRB_MRC_Cor.LoadSprite(content);
             mrc.LoadSprite(content);
+            chasingScene.LoadSprite(content);
         }
 
         public void Draw(SpriteBatch SB, LanternLight light,KeyManagement key)
@@ -57,6 +60,7 @@ namespace Themuseum
                 case 4: MRB.Draw(SB, mapcolor); break;
                 case 5: MRB_MRC_Cor.Draw(SB, mapcolor); break;
                 case 6: mrc.Draw(SB, mapcolor , key); break;
+                case 7: chasingScene.Draw(SB, mapcolor); break;
             }
         }
         public void RoomFunction(GraphicsDeviceManager _graphics, Player player , KeyManagement keymanager, float elapsed, DialogueBox dialogue, LanternLight light,Map map,SoundSystem sound, Ghost ghost,Staminabar UI)
@@ -69,6 +73,7 @@ namespace Themuseum
                 case 4: MRB.Function(_graphics, player, this, keymanager, elapsed, dialogue, light,sound, ghost,UI); break;
                 case 5: MRB_MRC_Cor.Function(_graphics, player, this, keymanager, elapsed, dialogue, light,sound, ghost,UI); break;
                 case 6: mrc.Function(_graphics, player, this, keymanager, elapsed, dialogue, light,sound, ghost,UI); break;
+                case 7: chasingScene.Function(_graphics, player, this, keymanager, elapsed, dialogue, light, sound, ghost, UI); break;
 
             }
         }
