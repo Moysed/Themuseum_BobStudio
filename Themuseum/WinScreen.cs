@@ -41,6 +41,7 @@ namespace Themuseum
             if (Keyboard.GetState().IsKeyDown(Keys.Enter) == true)
             {
                 ScreenEvent.Invoke(game.mMainmenu, new EventArgs());
+                player.IsHaunted = false;
                 return;
             }
 

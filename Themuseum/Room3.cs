@@ -36,12 +36,16 @@ namespace Themuseum
         private List<Rectangle> WallArea_Col = new List<Rectangle>();
         Random random = new Random();
 
+        private Texture2D hint;
+        private Vector2 hintPos;
+
 
         public Room3()
         {
 
             piece3Pos = new Vector2(random.Next(100, 700), random.Next(250, 400));
             room1 = new Room1();
+            hintPos = new Vector2(400, 175);
             WallArea_Col.Add(new Rectangle(0, 450, 445, 300));
             WallArea_Col.Add(new Rectangle(835, 450, 1000, 2000));
             WallArea_Col.Add(new Rectangle(0, 0, 68, 2000));
@@ -52,11 +56,13 @@ namespace Themuseum
 
         public void Loadsprite(ContentManager content)
         {
+            hint = content.Load<Texture2D>("Note");
             Map_Sprite = content.Load<Texture2D>("MapSheet");
             TileStatic = content.Load<Texture2D>("Room3 bg");
             Door = content.Load<Texture2D>("placeholderdoor");
             KeyB = content.Load<Texture2D>("smallKey");
             piece3 = content.Load<Texture2D>("leftPiece");
+
         }
 
         public void Draw(SpriteBatch SB,LanternLight light, Color roomcolor , KeyManagement key)
@@ -75,12 +81,13 @@ namespace Themuseum
                 }
                 
             }
-            
+            SB.Draw(hint, hintPos, Color.White);
         }
         public void Function(GraphicsDeviceManager _graphics, Player player, RoomManager roomManager, KeyManagement Keymanager, float elapsed, DialogueBox dialogue, LanternLight light,SoundSystem sound, Ghost ghost, Staminabar UI)
         {
             KeyControls = Keyboard.GetState();
             //Object Hitbox
+            Rectangle hint = new Rectangle((int)hintPos.X, (int)hintPos.Y, 64, 64);
             piece3col = new Rectangle((int)piece3Pos.X, (int)piece3Pos.Y, 24, 54);
             DoorCollision_MRB_MRC_C = new Rectangle(1200, 0, 64, 640);
             BacktoRoom2 = new Rectangle(400, 600, 400, 200);
@@ -188,7 +195,7 @@ namespace Themuseum
                     else if(KeyControls.IsKeyDown(Keys.K) && Oldkey_.IsKeyUp(Keys.K) && Keymanager.R1_S2 == false || KeyControls.IsKeyDown(Keys.K) && Oldkey_.IsKeyUp(Keys.K) && Keymanager.R1_S3 == false)
                     {
                         sound.PlaySfx(2);
-                        dialogue.SettingParameter("Hint Block", 0, 0, "The door is locked, Find a way to open it", Color.Red);
+                        dialogue.SettingParameter("Hint Block", 0, 0, "The door is locked, Find a way to open it", Color.Purple);
                         UI.ChangeObjectiveText($"Find Hidden Switches {Keymanager.MRBSwitchcount}/2", "Hint: Try exploring other rooms");
                         dialogue.Activation(true);
                     }
@@ -222,7 +229,7 @@ namespace Themuseum
                 else if(KeyControls.IsKeyDown(Keys.K) && Oldkey_.IsKeyUp(Keys.K) && Keymanager.KeyCollectB == false)
                 {
                     sound.PlaySfx(2);
-                    dialogue.SettingParameter("Hint Block", 0, 0, "The door is locked, You need to find a key", Color.Red);
+                    dialogue.SettingParameter("Hint Block", 0, 0, "The door is locked, You need to find a key", Color.Purple);
                     dialogue.Activation(true);
                 }
             }
@@ -247,6 +254,21 @@ namespace Themuseum
                     keyBPos = new Vector2(500000, 300);
                 }
             }
+
+            if (player.collision.Intersects(hint) == true)
+            {
+                player.StatusTextDisplay("Press K to Interact");
+                if (KeyControls.IsKeyDown(Keys.K) && Oldkey_.IsKeyUp(Keys.K))
+                {
+                    sound.PlaySfx(3);
+                    dialogue.SettingParameter("Hint Block", 200, 200, "Turn back to where you first arrived. Two keys awaits.\r\nOne in the northwest, another in the south", Color.Brown);
+                    dialogue.Activation(true);
+                }
+
+
+
+            }
+
             Oldkey_ = KeyControls;
         }
         public void Reset()

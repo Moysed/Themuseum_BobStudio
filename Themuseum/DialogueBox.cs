@@ -50,9 +50,9 @@ namespace Themuseum
 
         public void Draw(SpriteBatch SB)
         {
-            SB.Draw(Dialoguebox_Sprite,DialogueBoxPos,new Rectangle(0,0,1280,200),Color.White * 0.75f);
+            SB.Draw(Dialoguebox_Sprite,DialogueBoxPos,new Rectangle(0,0,1280,200),Color.White);
             //SB.Draw(PortraitSprite,PortraitBoxPos , new Rectangle(0, 0, PortraitWidth, PortraitHeight), Color.White);
-            SB.DrawString(Font, DialogueText, new Vector2(DialogueBoxPos.X + 32, DialogueBoxPos.Y + 32),Textcolor);
+            SB.DrawString(Font, DialogueText, new Vector2(DialogueBoxPos.X + 10, DialogueBoxPos.Y + 10),Textcolor);
         }
 
         public void SettingParameter(string Input,int Width,int height, string displaytext, Color color)
@@ -79,7 +79,7 @@ namespace Themuseum
 
                 if(timer <= 0)
                 {
-                    if(KeyControls.IsKeyDown(Keys.K) && OldKey.IsKeyUp(Keys.K) )
+                    if(KeyControls.IsKeyDown(Keys.K) && OldKey.IsKeyUp(Keys.K) || KeyControls.IsKeyDown(Keys.W) || KeyControls.IsKeyDown(Keys.S) || KeyControls.IsKeyDown(Keys.A) || KeyControls.IsKeyDown(Keys.D))
                     {
                         IsActive = false;
                     }

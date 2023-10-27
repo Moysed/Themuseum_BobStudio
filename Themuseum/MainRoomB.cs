@@ -273,7 +273,7 @@ namespace Themuseum
                 if (keycontrols.IsKeyDown(Keys.K) && Oldkey_.IsKeyUp(Keys.K))
                 {
                     sound.PlaySfx(3);
-                    dialogue.SettingParameter("Hint Block", 200, 200, "Full Statue", Color.Green);
+                    dialogue.SettingParameter("Hint Block", 200, 200, "Pieces of past scattered among the path you've walked. \n One in the previous room, One in the hall of terror, One at the beginning.", Color.Brown);
                     UI.ChangeObjectiveText($"Find pieces for statue {Keymanager.MRB_Pieces}/3", "Hint: Pieces are hidden items");
                     dialogue.Activation(true);
                 }

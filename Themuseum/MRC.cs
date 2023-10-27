@@ -47,12 +47,17 @@ namespace Themuseum
         private Vector2 keyCPos;
         Rectangle keyChitbox;
 
-        
-        
+        private Texture2D hint;
+        private Vector2 hintPos;
+
+
+
+
         public MRC()
         {
             keyCPos = new Vector2(5000,0);
-            room1 = new Room1();    
+            room1 = new Room1();
+            hintPos = new Vector2(400, 250);
             WallArea_Col.Add(new Rectangle(0, 0, 1280, 200));
             WallArea_Col.Add(new Rectangle(0, 0, 79, 245));
             WallArea_Col.Add(new Rectangle(1280 - 75, 0, 64, 640));
@@ -60,8 +65,8 @@ namespace Themuseum
             WallArea_Col.Add(new Rectangle(0, 471, 79, 500));
             WallArea_Col.Add(new Rectangle(0, 242, 32, 233));
 
-            puzzleBlocks.Add(new PuzzleBlock(new Vector2(1280 - 256, 300), "Pillow","pillow_obj"));
-            puzzleBlocks.Add(new PuzzleBlock(new Vector2(256, 300), "Tusk", "tusk_obj"));
+            puzzleBlocks.Add(new PuzzleBlock(new Vector2(256, 300), "Pillow","pillow_obj"));
+            puzzleBlocks.Add(new PuzzleBlock(new Vector2(1280 - 256, 300), "Tusk", "tusk_obj"));
             puzzleBlocks.Add(new PuzzleBlock(new Vector2(500, 300), "Vase", "vase_obj"));
             puzzleBlocks.Add(new PuzzleBlock(new Vector2(900, 300), "Chest", "chest_obj"));
         }
@@ -69,6 +74,7 @@ namespace Themuseum
         public void LoadSprite(ContentManager content)
         {
             bg = content.Load<Texture2D>("RoomCbg");
+            hint = content.Load<Texture2D>("Note");
             Map_Sprite = content.Load<Texture2D>("MapSheet");
             WallArea_Tex = content.Load<Texture2D>("wallplaceholder");
             Door = content.Load<Texture2D>("placeholderdoor");
@@ -92,6 +98,7 @@ namespace Themuseum
             {
                 SB.Draw(WallArea_Tex, WallArea_Col[i], Color.White);
             }
+
             
 
             SB.Draw(bg, Vector2.Zero, Color.White);
@@ -145,7 +152,8 @@ namespace Themuseum
             {
                 SB.Draw(keyC, keyCPos, Color.White);
             }
-            
+
+            SB.Draw(hint, hintPos, Color.White);
         }
 
         public void Function(GraphicsDeviceManager _graphics, Player player, RoomManager roomManager, KeyManagement Keymanager, float elapsed, DialogueBox dialogue, LanternLight light,SoundSystem sound, Ghost ghost, Staminabar UI)
@@ -214,8 +222,8 @@ namespace Themuseum
             BlockAreaCol_Y = new Rectangle((int)BlockAreaPos_Y.X, (int)BlockAreaPos_Y.Y, 92, 165);
             BlockReset_Pos = new Vector2(1100, 240);
             BlockReset_Col = new Rectangle((int)BlockReset_Pos.X, (int)BlockReset_Pos.Y, 64, 64);
+            Rectangle hint = new Rectangle((int)hintPos.X, (int)hintPos.Y, 64, 64);
 
-            
 
             for (int i = 0; i < puzzleBlocks.Count; i++)
             {
@@ -329,7 +337,7 @@ namespace Themuseum
                     {
                         sound.PlaySfx(2);
                         dialogue.SettingParameter("Hint Block", 0, 0, "The door is locked, Find a key to open it", Color.Red);
-                        UI.ChangeObjectiveText("Find clues and complete the puzzle", "");
+                        UI.ChangeObjectiveText("Find clues and complete the puzzle", "Hint: A magic circle can reset object position");
                         dialogue.Activation(true);
                         Console.WriteLine("KeyC didn't collected");
                     }
@@ -355,6 +363,20 @@ namespace Themuseum
                         puzzleBlocks[i].ResetPosition();
                     }
                 }
+            }
+
+            if (player.collision.Intersects(hint) == true)
+            {
+                player.StatusTextDisplay("Press K to Interact");
+                if (KeyControls.IsKeyDown(Keys.K) && OldKey.IsKeyUp(Keys.K))
+                {
+                    sound.PlaySfx(3);
+                    dialogue.SettingParameter("Hint Block", 200, 200, "Each object has its place and time. First,ornated and used for keeping things.\nSecond, once belonged to a mighty beast. Third, the display for olden time delicacy,\nLast, a thing your head laid on at the end of day", Color.Brown);
+                    dialogue.Activation(true);
+                }
+
+
+
             }
             OldKey = KeyControls;
         }

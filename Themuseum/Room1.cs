@@ -303,7 +303,7 @@ namespace Themuseum
                     
                             Keymanager.R1_T0 = true;
                             UI.ChangeObjectiveText("Find Hidden Switch", "Hint: Use lantern to find hidden object");
-                            dialogue.SettingParameter("Hint Block", 0, 0, "There's something blocking the way. But I can't see it. Find the switch to break it", Color.Red);
+                            dialogue.SettingParameter("Hint Block", 0, 0, "The door is locked, Find a way to open it", Color.Purple);
                             dialogue.Activation(true);
                         }
 
@@ -384,7 +384,7 @@ namespace Themuseum
                         if (KeyControls.IsKeyDown(Keys.K) && OldKey.IsKeyUp(Keys.K))
                         {
                             sound.PlaySfx(3);
-                            dialogue.SettingParameter("Hint Block", 200, 200, "Survive, be careful not to get caught by that creature. \r\nIf you are followed, the shire may be able to help you.", Color.Green);
+                            dialogue.SettingParameter("Hint Block", 200, 200, "Light shall revealed the hidden and hinder the evil ones\r\nThe humble wooden shire shall chase the evil ones away.", Color.Brown);
                             dialogue.Activation(true);
                         }
                         
@@ -411,7 +411,7 @@ namespace Themuseum
                             light.IsActive = true;
                             light.lightStart = true;
                             lanternPos.X = 20000;
-                            dialogue.SettingParameter("Hint Block", 0, 0, "There's Lantern. It could be useful.  Hold L to use Lantern\r\n Light may show you \"H I D D E N \" objects", Color.Red);
+                            dialogue.SettingParameter("Hint Block", 0, 0, "There's Lantern. It could be useful.  Hold L to use Lantern\r\n Light may show you \"H I D D E N \" objects", Color.Brown);
                             dialogue.Activation(true);
                             Console.WriteLine(player.CurrentFuel);
                         }
@@ -427,7 +427,7 @@ namespace Themuseum
                             sound.PlaySfx(3);
                             map.IsActive = true;
                             mapPos.X = 20000;
-                            dialogue.SettingParameter("Hint Block", 0, 0, "There's map. It's contained the layout of this building.  Press M to Open Map", Color.Red);
+                            dialogue.SettingParameter("Hint Block", 0, 0, "There's map. It's contained the layout of this building.  Press M to Open Map", Color.Brown);
                             dialogue.Activation(true);
                             Console.WriteLine("Map Collected");
                         }

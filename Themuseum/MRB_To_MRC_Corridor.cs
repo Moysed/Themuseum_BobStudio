@@ -139,7 +139,7 @@ namespace Themuseum
                     {
                         ghost.Prechase(player);
                         sound.PlaySfx(1);
-                        UI.ChangeObjectiveText("Find clues and complete the puzzle","");
+                        UI.ChangeObjectiveText("Find clues and complete the puzzle", "Hint: A magic circle can reset object position");
                         player.ChangeStartingPosition(new Vector2(64, player.SelfPosition.Y));
                         roomManager.Roomchange(6);
                     }
