@@ -210,7 +210,7 @@ namespace Themuseum
             }
             if (player.collision.Intersects(DoorCollision_MRB_MRC_C) == true)
             {
-                player.StatusTextDisplay("Press E to Interact");
+                player.StatusTextDisplay("Press K to Interact");
                 if (KeyControls.IsKeyDown(Keys.K) && Oldkey_.IsKeyUp(Keys.K) && Keymanager.KeyCollectB == true)
                 {
                     ghost.Prechase(player);
@@ -222,7 +222,7 @@ namespace Themuseum
                 else if(KeyControls.IsKeyDown(Keys.K) && Oldkey_.IsKeyUp(Keys.K) && Keymanager.KeyCollectB == false)
                 {
                     sound.PlaySfx(2);
-                    dialogue.SettingParameter("Hint Block", 0, 0, "There's something blocking the way. But I can't see it", Color.Red);
+                    dialogue.SettingParameter("Hint Block", 0, 0, "The door is locked, You need to find a key", Color.Red);
                     dialogue.Activation(true);
                 }
             }
@@ -241,7 +241,7 @@ namespace Themuseum
             if (Keymanager.MRB_StatueActive == true)
             {
                 
-                keyBPos = new Vector2(500, 300);
+                keyBPos = new Vector2(240, 300);
                 if(Keymanager.KeyCollectB == true)
                 {
                     keyBPos = new Vector2(500000, 300);

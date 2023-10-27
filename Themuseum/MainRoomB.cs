@@ -285,7 +285,7 @@ namespace Themuseum
                 uncomStatuePos = new Vector2(536, 0);
                 comStatuePos = new Vector2(20000, 0);
             }
-            if (Keymanager.MRB_StatueActive == true && player.collision.Intersects(statueCollision) == true && keycontrols.IsKeyDown(Keys.E) && Oldkey_.IsKeyUp(Keys.E))
+            if (Keymanager.MRB_StatueActive == true && player.collision.Intersects(statueCollision) == true && keycontrols.IsKeyDown(Keys.K) && Oldkey_.IsKeyUp(Keys.K))
             {
                 uncomStatuePos = new Vector2(20000, 0);
                 comStatuePos = new Vector2(536, 0);

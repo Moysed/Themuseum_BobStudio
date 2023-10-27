@@ -411,7 +411,7 @@ namespace Themuseum
                             light.IsActive = true;
                             light.lightStart = true;
                             lanternPos.X = 20000;
-                            dialogue.SettingParameter("Hint Block", 0, 0, "There's Lantern. It could be useful.  Hold F to use Lantern\r\n Light may show you \"H I D D E N \" objects", Color.Red);
+                            dialogue.SettingParameter("Hint Block", 0, 0, "There's Lantern. It could be useful.  Hold L to use Lantern\r\n Light may show you \"H I D D E N \" objects", Color.Red);
                             dialogue.Activation(true);
                             Console.WriteLine(player.CurrentFuel);
                         }

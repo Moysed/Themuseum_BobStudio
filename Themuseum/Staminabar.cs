@@ -41,6 +41,7 @@ namespace Themuseum
         private string Objectstatustext = "Find clues and useful items";
         private string Hinttext = "";
         List<Texture2D> Keys = new List<Texture2D>();
+        
 
         private float MaxStamina;
         private float MaxOil;
@@ -73,7 +74,7 @@ namespace Themuseum
             bg = Content.Load<Texture2D>("Bg_Map_n_Lanter");
             ObjectiveHeader = Content.Load<SpriteFont>("Keycollect");
             ObjectiveFooter = Content.Load<SpriteFont>("ObjectiveFont");
-            //Key empthy
+            //Key empty
             Keys.Add(Content.Load<Texture2D>("Key1"));
             //Key
             Keys.Add(Content.Load<Texture2D>("Key2"));
@@ -115,7 +116,7 @@ namespace Themuseum
             Hinttext = hint;
         }
 
-        public void Drawbar(SpriteBatch SB, Player player, LanternLight light)
+        public void Drawbar(SpriteBatch SB, Player player, LanternLight light,KeyManagement keymanager)
         {
             SB.Draw(KeynCandlebg, new Vector2(130 + 12, 7 + 5), Color.White);
             SB.Draw(BarBackground, Staminaposition, Color.White);
@@ -165,8 +166,25 @@ namespace Themuseum
             SB.Draw(lanternButton, new Vector2(1280 - 135 + 10, 640 - 70 + 37), Color.White);
             SB.Draw(mapButton, new Vector2(1280 - 135 + 70, 640 - 70 + 37), Color.White);
             PlayerStatusUI.DrawFrame(SB, SpritePosition, currentrow);
-            SB.Draw(Keys[0], new Vector2(177, 93), Color.White);
-            SB.Draw(Keys[0], new Vector2(240, 93), Color.White);
+            
+            if(keymanager.KeyCollectB == true)
+            {
+                SB.Draw(Keys[1], new Vector2(177, 93), Color.White);
+            }
+            else if(keymanager.KeyCollectB == false)
+            {
+                SB.Draw(Keys[0], new Vector2(177, 93), Color.White);
+            }
+            
+            if(keymanager.KeyCollectC == true)
+            {
+                SB.Draw(Keys[1], new Vector2(240, 93), Color.White);
+            }
+            else if (keymanager.KeyCollectC == false)
+            {
+                SB.Draw(Keys[0], new Vector2(240, 93), Color.White);
+            }
+           
         }
     }
 }
