@@ -131,7 +131,7 @@ namespace Themuseum
                 {
                     if (player.collision.Right >= WallArea_Col[i].Right)
                     {
-                        if (player.speed == 3)
+                        if (player.speed == 2)
                         {
                             player.SelfPosition.X += player.speed * 2;
                         }
@@ -140,7 +140,7 @@ namespace Themuseum
                     }
                     if (player.collision.Left <= WallArea_Col[i].Left)
                     {
-                        if (player.speed == 3)
+                        if (player.speed == 2)
                         {
                             player.SelfPosition.X -= player.speed * 2;
                         }
@@ -149,7 +149,7 @@ namespace Themuseum
                     }
                     if (player.collision.Top >= WallArea_Col[i].Top)
                     {
-                        if (player.speed == 3)
+                        if (player.speed == 2)
                         {
                             player.SelfPosition.Y += player.speed * 2;
                         }
@@ -158,7 +158,7 @@ namespace Themuseum
                     }
                     if (player.collision.Bottom <= WallArea_Col[i].Bottom)
                     {
-                        if (player.speed == 3)
+                        if (player.speed == 2)
                         {
 
                             player.SelfPosition.Y -= player.speed * 2;
