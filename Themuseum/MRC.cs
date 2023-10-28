@@ -105,14 +105,16 @@ namespace Themuseum
                 SB.Draw(WallArea_Tex, WallArea_Col[i], Color.White);
             }
 
+
+            SB.Draw(bg, Vector2.Zero, Color.White);
+
+
             for (int i = 0; i < puzzleBlocks.Count; i++)
             {
                 puzzleBlocks[i].Draw(SB);
             }
 
-            SB.Draw(bg, Vector2.Zero, Color.White);
-
-            if(key.MRC_R_B == true)
+            if (key.MRC_R_B == true)
             {
                 SB.Draw(BlockArea[1], BlockAreaPos_R, new Rectangle(0, 0, 92, 165), Color.White);
             }
@@ -300,7 +302,7 @@ namespace Themuseum
                 Keymanager.MRC_Unlock = true;
                 dialogue.SettingParameter("Hint Block", 0, 0, "I heard something dropped", Color.Red);
                 dialogue.Activation(true);
-                keyCPos = new Vector2(400, 240);
+                keyCPos = new Vector2(600, 240);
             }
 
             if(player.collision.Intersects(keyChitbox))
@@ -494,9 +496,9 @@ namespace Themuseum
             //Player Interaction
             if (player.collision.Intersects(DoorCollision_MB_MC_C) == true)
             {
-                
-                
-                    ghost.Prechase(player);
+
+
+                    ghost.Prechase(player, Keymanager);
                     sound.PlaySfx(1);
                     player.ChangeStartingPosition(new Vector2(1180 - 32, player.SelfPosition.Y));
                     roomManager.Roomchange(5);

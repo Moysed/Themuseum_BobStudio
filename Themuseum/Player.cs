@@ -151,7 +151,7 @@ namespace Themuseum
 
             if (KeyControls.IsKeyUp(Keys.LeftShift))
             {
-                CurrentStamina += 0.10f;
+                CurrentStamina += 0.25f;
                 speed = 2;
                 //currentSpeed = speed;
             }

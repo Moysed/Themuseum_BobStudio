@@ -33,6 +33,7 @@ namespace Themuseum
         public bool GameEnded = false;
         public bool KeyCollectB = false;
         public bool KeyCollectC = false;
+        public bool chasescenetrigger = false;
        
 
         public KeyManagement()

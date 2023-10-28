@@ -225,7 +225,7 @@ namespace Themuseum
                 //player.StatusTextDisplay("Press K to Interact");
                 //Console.WriteLine("Hit");
                 
-                    ghost.Prechase(player);
+                    ghost.Prechase(player,Keymanager);
                     sound.PlaySfx(1);
                     player.ChangeStartingPosition(new Vector2(player.SelfPosition.X, 240));
                     roomManager.Roomchange(3);

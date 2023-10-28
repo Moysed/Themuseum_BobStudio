@@ -123,9 +123,9 @@ namespace Themuseum
                 //Player Interaction
                 if (player.collision.Intersects(DoorCollision_Room3) == true)
                 {
-                    
-                        ghost.Prechase(player);
-                        //sound.PlaySfx(1);
+
+                        ghost.Prechase(player, Keymanager);
+                //sound.PlaySfx(1);
                         player.ChangeStartingPosition(new Vector2(1180-65, 8*32));
                         roomManager.Roomchange(7);
                     
@@ -136,7 +136,7 @@ namespace Themuseum
 
                     if (KeyControls.IsKeyDown(Keys.K) && OldKey.IsKeyUp(Keys.K))
                     {
-                        ghost.Prechase(player);
+                        ghost.Prechase(player, Keymanager);
                         sound.PlaySfx(1);
                         UI.ChangeObjectiveText("Find clues and complete the puzzle", "Hint: A magic circle can reset object position");
                         player.ChangeStartingPosition(new Vector2(64, player.SelfPosition.Y));

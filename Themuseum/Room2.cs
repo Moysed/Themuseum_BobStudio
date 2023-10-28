@@ -181,7 +181,7 @@ namespace Themuseum
 
             if (player.collision.Intersects(DoorCollision) == true)
             {
-                    ghost.Prechase(player);
+                    ghost.Prechase(player, Keymanager);
                     sound.PlaySfx(1);
                     Console.WriteLine("Door Opened");
                     player.ChangeStartingPosition(new Vector2(player.SelfPosition.X, 72));
@@ -205,7 +205,7 @@ namespace Themuseum
             {
                 player.StatusTextDisplay("Press K to Interact");
                 if (KeyControls.IsKeyDown(Keys.K) && OldKey.IsKeyUp(Keys.K)){
-                    ghost.Prechase(player);
+                    ghost.Prechase(player, Keymanager);
                     Console.WriteLine("Changed to Room3");
                     sound.PlaySfx(1);
                     player.ChangeStartingPosition(new Vector2(player.SelfPosition.X, 500));

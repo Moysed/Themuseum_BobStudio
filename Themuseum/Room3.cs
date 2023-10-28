@@ -173,7 +173,7 @@ namespace Themuseum
             }
                 if (player.collision.Intersects(BacktoRoom2) == true)
                 {
-                    ghost.Prechase(player);
+                    ghost.Prechase(player, Keymanager);
                     Console.WriteLine("Changed to Room2");
                     sound.PlaySfx(1);
                     player.ChangeStartingPosition(new Vector2(player.SelfPosition.X, 200));
@@ -185,7 +185,7 @@ namespace Themuseum
                     player.StatusTextDisplay("Press K to Interact");
                     if (KeyControls.IsKeyDown(Keys.K) && Oldkey_.IsKeyUp(Keys.K) && Keymanager.R1_S2 == true && Keymanager.R1_S3 == true)
                     {
-                        ghost.Prechase(player);
+                        ghost.Prechase(player, Keymanager);
                         sound.PlaySfx(1);
                         Keymanager.MRB_PieceActive = true;
                         player.ChangeStartingPosition(new Vector2(player.SelfPosition.X, 75*6));
@@ -220,7 +220,7 @@ namespace Themuseum
                 player.StatusTextDisplay("Press K to Interact");
                 if (KeyControls.IsKeyDown(Keys.K) && Oldkey_.IsKeyUp(Keys.K) && Keymanager.KeyCollectB == true)
                 {
-                    ghost.Prechase(player);
+                    ghost.Prechase(player, Keymanager);
                     sound.PlaySfx(1);
                     player.ChangeStartingPosition(new Vector2(75, 8*32));
                     UI.ChangeObjectiveText("Find a way through the courtyard", "");

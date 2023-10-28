@@ -43,7 +43,7 @@ namespace Themuseum
             ghost.LoadSprite(game.Content);
             dialogue.LoadResource(game.Content);
 
-            roomManager = new RoomManager(5);
+            roomManager = new RoomManager(1);
 
             roomManager.LoadAssets(game.Content);
             light.LoadSprite(game.Content);
@@ -68,7 +68,7 @@ namespace Themuseum
             player.UpdateAnimation(elapsed);
             map.Behavior(roomManager);
             staminabar.UpdateBar(player.CurrentStamina, player.CurrentFuel, elapsed) ;
-            ghost.Behavior(player, light,theTime);
+            ghost.Behavior(player, light,theTime,KeyManagement);
             ghost.UpdateAnimation(elapsed);
             dialogue.behavior();
             

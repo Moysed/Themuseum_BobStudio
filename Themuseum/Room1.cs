@@ -294,7 +294,7 @@ namespace Themuseum
                         if (KeyControls.IsKeyDown(Keys.K) && OldKey.IsKeyUp(Keys.K) && Keymanager.R1_S1 == true)
                         {
                             sound.PlaySfx(1);
-                            ghost.Prechase(player);
+                            ghost.Prechase(player, Keymanager);
                             player.ChangeStartingPosition(new Vector2(player.SelfPosition.X, _graphics.GraphicsDevice.Viewport.Bounds.Bottom - 128));
                             roomManager.Roomchange(2);
                             Console.WriteLine("Door Opened");

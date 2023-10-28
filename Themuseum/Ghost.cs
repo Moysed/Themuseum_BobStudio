@@ -21,6 +21,7 @@ namespace Themuseum
         public Rectangle collision;
         private AnimatedTexture Sprite;
         public bool gameOver = false;
+        private int framerow = 1;
         
         public Ghost(Vector2 SpawningPosition)
         {
@@ -32,9 +33,9 @@ namespace Themuseum
 
         public void Draw(SpriteBatch SB)
         {
-            Sprite.DrawFrame(SB, SelfPosition, 1);
+            Sprite.DrawFrame(SB, SelfPosition, framerow);
         }
-        public void Behavior(Player player,LanternLight Lantern , GameTime gameTime)
+        public void Behavior(Player player,LanternLight Lantern , GameTime gameTime,KeyManagement key)
         {
             if(player.IsHaunted == true)
             {
@@ -61,15 +62,31 @@ namespace Themuseum
                 {
                     speed = 3f;
                 }
-                
-                
+
+                if(Dir.X < 0)
+                {
+                    framerow = 2;
+                }
+                else if(Dir.X > 0)
+                {
+                    framerow = 3;
+                }
+                else if(Dir.Y > 0)
+                {
+                    framerow = 1;
+                }
+                else if(Dir.Y < 0)
+                {
+                    framerow = 4;
+                }
+                //Console.WriteLine($"ghost dir| X:{Dir.X} Y:{Dir.Y}");
                 
                 SelfPosition += Dir * speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
             }
             else
             {
                 
-                Prechase(player);
+                Prechase(player,key);
             }
 
             if(collision.Intersects(player.collision) == true)
@@ -83,9 +100,9 @@ namespace Themuseum
             SelfPosition = newPos;
             collision = new Rectangle((int)SelfPosition.X, (int)SelfPosition.Y , 82, 100);
         }
-        public void Prechase(Player player)
+        public void Prechase(Player player, KeyManagement key)
         {
-            if(player.IsHaunted == false)
+            if(player.IsHaunted == false || key.chasescenetrigger == true)
             {
                 if (player.KeyControls.IsKeyDown(Keys.A))
                 {
@@ -138,7 +155,7 @@ namespace Themuseum
         }
         public void LoadSprite(ContentManager Content)
         {
-            Sprite.Load(Content, "Ghost", 1, 1, 1);
+            Sprite.Load(Content, "ghost_anim", 4, 4, 15);
         }    
     }
 }

@@ -36,6 +36,9 @@ namespace Themuseum
         private Texture2D wood2;
         private Texture2D wood3;
         Random r = new Random();
+
+        private Vector2 ChaseTriggerPos;
+        private Rectangle ChaseTriggerCol;
         public ChasingScene()
         {
             room1 = new Room1();
@@ -54,7 +57,9 @@ namespace Themuseum
             Obstacles.Add(new Rectangle(680, 252, 30, 95));
             Obstacles.Add(new Rectangle(820, 350, 30, 135));
             Obstacles.Add(new Rectangle(950, 400, 30, 85));
-            Obstacles.Add(new Rectangle(950, 252, 30, 60)); 
+            Obstacles.Add(new Rectangle(950, 252, 30, 60));
+
+            ChaseTriggerPos = new Vector2(200,0);
         }
 
         public void LoadSprite(ContentManager content)
@@ -111,6 +116,8 @@ namespace Themuseum
         public void Function(GraphicsDeviceManager _graphics, Player player, RoomManager roomManager, KeyManagement Keymanager, float elapsed, DialogueBox dialogue, LanternLight light,SoundSystem sound, Ghost ghost, Staminabar UI)
         {
             KeyControls = Keyboard.GetState();
+
+            
             //Wall Collision
             for (int i = 0; i < WallArea_Col.Count; i++)
             {
@@ -208,13 +215,14 @@ namespace Themuseum
                 DoorCollision_Room3 = new Rectangle((int)DoorPos_Room3.X, (int)DoorPos_Room3.Y, 32, 640);
                 DoorPos_MRC = new Vector2(1280 - 64, 0);
                 DoorCollision_MRC = new Rectangle((int)DoorPos_MRC.X, (int)DoorPos_MRC.Y, 32, 640);
-                Slowdownpath = new Rectangle(0, 0, 100, 2000);
+                Slowdownpath = new Rectangle(0, 0, 1280, 640);
+            ChaseTriggerCol = new Rectangle((int)ChaseTriggerPos.X, (int)ChaseTriggerPos.Y, 32, 640);
 
             //Player Interaction
             if (player.collision.Intersects(DoorCollision_Room3) == true)
                 {
                    
-                        ghost.Prechase(player);
+                        ghost.Prechase(player,Keymanager);
                         sound.PlaySfx(1);
                         player.ChangeStartingPosition(new Vector2(1180-65, 8*32));
                         roomManager.Roomchange(3);
@@ -222,16 +230,29 @@ namespace Themuseum
                 }
                 if (player.collision.Intersects(DoorCollision_MRC) == true)
                 {
-                    
 
-                    
-                        ghost.Prechase(player);
-                        //sound.PlaySfx(1);
+
+
+                        ghost.Prechase(player, Keymanager);
+                //sound.PlaySfx(1);
                         UI.ChangeObjectiveText("Continue through the courtyard", "");
                         player.ChangeStartingPosition(new Vector2(64, player.SelfPosition.Y));
                         roomManager.Roomchange(5);
                     
                 }
+            if(player.collision.Intersects(ChaseTriggerCol) == true && Keymanager.chasescenetrigger == false)
+            {
+                dialogue.SettingParameter("Hint Block", 0, 0, "Run", Color.DarkRed);
+                dialogue.Activation(true);
+                UI.ChangeObjectiveText("Evade evil spirit", "Hint: Candlelight can slows down the spirit, Find shire to dispel it");
+                Keymanager.chasescenetrigger = true;
+                player.IsHaunted = true;
+                ghost.Prechase(player, Keymanager);
+                
+                roomManager.mapcolor = Color.Red;
+                sound.PlayBGM(1);
+
+            }
             if (ghost.collision.Intersects(Slowdownpath) == true || player.collision.Intersects(Slowdownpath) == true)
             {
                 ghost.speed = 1.5f;
