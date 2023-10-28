@@ -28,17 +28,25 @@ namespace Themuseum
         private KeyboardState keyboardState;
         private KeyboardState oldkey;
         MouseState m;
+        private GameWindow _window;
+        bool _isFullscreen = false;
+        bool _isBorderless = false;
+        int _width = 1280;
+        int _height = 640;
         public Game1()
         {
             _graphics = new GraphicsDeviceManager(this);
             _graphics.PreferredBackBufferWidth = 1280;
             _graphics.PreferredBackBufferHeight = 640;
+            
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
+            
         }
 
         protected override void Initialize()
         {
+            
             // TODO: Add your initialization logic here
             
             //roomManager = new RoomManager(6);
@@ -71,28 +79,19 @@ namespace Themuseum
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
             
-            if(keyboardState.IsKeyDown(Keys.D1) && oldkey.IsKeyUp(Keys.D1) /*&& enablefullscreen == false*/)
+            
+            if(keyboardState.IsKeyDown(Keys.D1) && oldkey.IsKeyUp(Keys.D1) && enablefullscreen == false)
             {
-                //enablefullscreen = true;
-                _graphics.ToggleFullScreen();
-                _graphics.ApplyChanges();
+                enablefullscreen = true;
+                SetFullscreen();
             }
-            /*
             else if(keyboardState.IsKeyDown(Keys.D1) && oldkey.IsKeyUp(Keys.D1) && enablefullscreen == true)
             {
                 enablefullscreen = false;
+                UnsetFullscreen();
             }
+            
 
-
-            if(enablefullscreen == false)
-            {
-                _graphics.ToggleFullScreen();
-            }
-            else if(enablefullscreen == true)
-            {
-                _graphics.IsFullScreen = true;
-            }
-            */
             float elapsed = (float)gameTime.ElapsedGameTime.TotalSeconds;
 
             //roomManager.RoomFunction(_graphics, player, KeyManagement, elapsed,dialogue,light);
@@ -105,12 +104,93 @@ namespace Themuseum
             base.Update(gameTime);
         }
 
+        public void ToggleFullscreen()
+        {
+            bool oldIsFullscreen = _isFullscreen;
+
+            if (_isBorderless)
+            {
+                _isBorderless = false;
+            }
+            else
+            {
+                _isFullscreen = !_isFullscreen;
+            }
+
+            ApplyFullscreenChange(oldIsFullscreen);
+        }
+        public void ToggleBorderless()
+        {
+            bool oldIsFullscreen = _isFullscreen;
+
+            _isBorderless = !_isBorderless;
+            _isFullscreen = _isBorderless;
+
+            ApplyFullscreenChange(oldIsFullscreen);
+        }
+
+        private void ApplyFullscreenChange(bool oldIsFullscreen)
+        {
+            if (_isFullscreen)
+            {
+                if (oldIsFullscreen)
+                {
+                    ApplyHardwareMode();
+                }
+                else
+                {
+                    SetFullscreen();
+                }
+            }
+            else
+            {
+                UnsetFullscreen();
+            }
+        }
+        private void ApplyHardwareMode()
+        {
+            _graphics.HardwareModeSwitch = !_isBorderless;
+            _graphics.ApplyChanges();
+        }
+        private void SetFullscreen()
+        {
+            _width = Window.ClientBounds.Width;
+            _height = Window.ClientBounds.Height;
+
+            _graphics.PreferredBackBufferWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
+            _graphics.PreferredBackBufferHeight = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
+            _graphics.HardwareModeSwitch = !_isBorderless;
+
+            _graphics.IsFullScreen = true;
+            _graphics.ApplyChanges();
+        }
+        private void UnsetFullscreen()
+        {
+            _graphics.PreferredBackBufferWidth = _width;
+            _graphics.PreferredBackBufferHeight = _height;
+            _graphics.IsFullScreen = false;
+            _graphics.ApplyChanges();
+        }
         protected override void Draw(GameTime gameTime)
         {
+            var ScaleX = (float)GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width / _width;
+            var ScaleY = (float)GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height / _height;
+            var matrix = Matrix.CreateScale(ScaleX, ScaleY, 1f);
+
+            if (enablefullscreen == true)
+            {
+                _spriteBatch.Begin(transformMatrix: matrix);
+            }
+            else if(enablefullscreen == false)
+            {
+                _spriteBatch.Begin();
+            }
+            
+            
+
+            
+
             GraphicsDevice.Clear(Color.CornflowerBlue);
-
-            _spriteBatch.Begin();
-
             //roomManager.Draw(_spriteBatch,light);
 
             dialogue.Draw(_spriteBatch);
