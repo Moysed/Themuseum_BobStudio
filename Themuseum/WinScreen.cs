@@ -15,6 +15,7 @@ namespace Themuseum
         Player player;
         LanternLight light;
         DialogueBox dialogue;
+        SpriteFont font;
 
         Game1 game; public WinScreen(Game1 game, EventHandler theScreenEvent) : base(theScreenEvent)
         {
@@ -49,8 +50,10 @@ namespace Themuseum
         }
         public override void Draw(SpriteBatch theBatch)
         {
-
-            theBatch.Draw(winScreen, Vector2.Zero, Color.White); base.Draw(theBatch);
+            game.GraphicsDevice.Clear(Color.Black);
+            string str = "You escaped";
+            //theBatch.DrawString(str, str, new Vector2(500, 100), Color.White);
+            //theBatch.Draw(winScreen, Vector2.Zero, Color.White); base.Draw(theBatch);
          
 
         }

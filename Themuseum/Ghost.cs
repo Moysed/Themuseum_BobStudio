@@ -39,7 +39,7 @@ namespace Themuseum
         {
             if(player.IsHaunted == true)
             {
-                collision = new Rectangle((int)SelfPosition.X, (int)SelfPosition.Y, 82, 200);
+                collision = new Rectangle((int)SelfPosition.X, (int)SelfPosition.Y + 75, 82, 40);
 
                 Vector2 Dir = Vector2.Normalize(player.SelfPosition - SelfPosition);
 
@@ -155,7 +155,7 @@ namespace Themuseum
         }
         public void LoadSprite(ContentManager Content)
         {
-            Sprite.Load(Content, "ghost_anim", 4, 4, 15);
+            Sprite.Load(Content, "ghost_anim", 4, 4, 4);
         }    
     }
 }

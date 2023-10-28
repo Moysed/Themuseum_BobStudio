@@ -3,7 +3,6 @@ using System;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
-
 namespace Themuseum
 {
     public class Mainmenu : Screen
@@ -16,29 +15,33 @@ namespace Themuseum
         RoomManager roomManager;
         KeyManagement KeyManagement;
         GraphicsDeviceManager _graphics;
+        SpriteFont spriteFont;
         Player player;
         LanternLight light;
         DialogueBox dialogue;
+        int countdown = 20;
          
         Game1 game; public Mainmenu(Game1 game, EventHandler theScreenEvent) : base(theScreenEvent)
         {
             //Load
             
-            mainMenuTexture = game.Content.Load<Texture2D>("Main menu");
-            Button = game.Content.Load<Texture2D>("startbutton_placeholder");
+            mainMenuTexture = game.Content.Load<Texture2D>("Mainmenu_BG");
+            spriteFont = game.Content.Load<SpriteFont>("Start");
+            //Button = game.Content.Load<Texture2D>("startbutton_placeholder");
             KeyManagement = new KeyManagement();
             player = new Player(new Vector2(0,0));
             buttonPos = new Vector2(558, 528);
             light = new LanternLight();
             KeyManagement = new KeyManagement();
             dialogue = new DialogueBox("placeholderblock", 300, 200);
+         
             this.game = game;
             IsMouseVisible = true;
         }
         public override void Update(GameTime theTime)
         {
             mouseState = Mouse.GetState();
-            Rectangle StartHitbox = new Rectangle((int)buttonPos.X, (int)buttonPos.Y, 150, 80);
+            countdown--;
 
             /*if (StartHitbox.Contains(mouseState.X, mouseState.Y) && Mouse.GetState().LeftButton == ButtonState.Pressed)
             {
@@ -61,9 +64,18 @@ namespace Themuseum
         }
         public override void Draw(SpriteBatch theBatch)
         {
-            
+            string srt;
+            srt = "Press \"Enter\" to Start";
             theBatch.Draw(mainMenuTexture, Vector2.Zero, Color.White); base.Draw(theBatch);
-            theBatch.Draw(Button, buttonPos, Color.White);
+            if( countdown<= 20 )
+            {
+                theBatch.DrawString(spriteFont, srt, new Vector2(515, 550), Color.Red);
+            }
+            if(countdown <= -10 )
+            {
+                countdown = 80;
+            }
+            
             
         }
     }
