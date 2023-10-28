@@ -224,7 +224,7 @@ namespace Themuseum
                     sound.PlaySfx(1);
                     player.ChangeStartingPosition(new Vector2(75, 8*32));
                     UI.ChangeObjectiveText("Find a way through the courtyard", "");
-                    roomManager.Roomchange(5);
+                    roomManager.Roomchange(7);
                 }
                 else if(KeyControls.IsKeyDown(Keys.K) && Oldkey_.IsKeyUp(Keys.K) && Keymanager.KeyCollectB == false)
                 {
@@ -248,7 +248,7 @@ namespace Themuseum
             if (Keymanager.MRB_StatueActive == true)
             {
                 
-                keyBPos = new Vector2(240, 300);
+                keyBPos = new Vector2(800, 300);
                 if(Keymanager.KeyCollectB == true)
                 {
                     keyBPos = new Vector2(500000, 300);

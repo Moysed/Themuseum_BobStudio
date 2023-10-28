@@ -13,9 +13,10 @@ using Microsoft.Xna.Framework.Media;
 
 namespace Themuseum
 {
+
     class Ghost 
     {
-        private float speed = 3f;
+        public float speed = 3f;
         private Vector2 SelfPosition;
         public Rectangle collision;
         private AnimatedTexture Sprite;
