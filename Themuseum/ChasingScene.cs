@@ -135,7 +135,7 @@ namespace Themuseum
                 {
                     if (player.collision.Right >= Obstacles[i].Right)
                     {
-                        if (player.speed == 3)
+                        if (player.speed == 2)
                         {
                             player.SelfPosition.X += player.speed * 2;
                         }
@@ -144,7 +144,7 @@ namespace Themuseum
                     }
                     if (player.collision.Left <= Obstacles[i].Left)
                     {
-                        if (player.speed == 3)
+                        if (player.speed == 2)
                         {
                             player.SelfPosition.X -= player.speed * 2;
                         }
@@ -153,7 +153,7 @@ namespace Themuseum
                     }
                     if (player.collision.Top >= Obstacles[i].Top)
                     {
-                        if (player.speed == 3)
+                        if (player.speed == 2)
                         {
                             player.SelfPosition.Y += player.speed * 2;
                         }
@@ -162,7 +162,7 @@ namespace Themuseum
                     }
                     if (player.collision.Bottom <= Obstacles[i].Bottom)
                     {
-                        if (player.speed == 3)
+                        if (player.speed == 2)
                         {
 
                             player.SelfPosition.Y -= player.speed * 2;
@@ -184,35 +184,27 @@ namespace Themuseum
             //Player Interaction
             if (player.collision.Intersects(DoorCollision_Room3) == true)
                 {
-                    player.StatusTextDisplay("Press K to Interact");
-                    if (KeyControls.IsKeyDown(Keys.K) && OldKey.IsKeyUp(Keys.K))
-                    {
+                   
                         ghost.Prechase(player);
                         sound.PlaySfx(1);
                         player.ChangeStartingPosition(new Vector2(1180-65, 8*32));
                         roomManager.Roomchange(3);
-                    }
+                    
                 }
                 if (player.collision.Intersects(DoorCollision_MRC) == true)
                 {
-                    player.StatusTextDisplay("Press K to Interact");
+                    
 
-                    if (KeyControls.IsKeyDown(Keys.K) && OldKey.IsKeyUp(Keys.K))
-                    {
+                    
                         ghost.Prechase(player);
-                        sound.PlaySfx(1);
-                        UI.ChangeObjectiveText("Find clues and complete the puzzle", "Hint: A magic circle can reset object position");
+                        //sound.PlaySfx(1);
+                        UI.ChangeObjectiveText("Continue through the courtyard", "");
                         player.ChangeStartingPosition(new Vector2(64, player.SelfPosition.Y));
                         roomManager.Roomchange(5);
-                    }
+                    
                 }
-            if (ghost.collision.Intersects(Slowdownpath) == true || player.collision.Intersects(Slowdownpath) == true) { }
+            if (ghost.collision.Intersects(Slowdownpath) == true || player.collision.Intersects(Slowdownpath) == true)
             {
-
-                if (KeyControls.IsKeyDown(Keys.K) && OldKey.IsKeyUp(Keys.K))
-                {
-                    ghost.Prechase(player);
-                }
                 ghost.speed = 1.5f;
             }
             //shire.Behavior(player, elapsed, sound,roomManager);

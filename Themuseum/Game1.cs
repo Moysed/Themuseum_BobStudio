@@ -24,7 +24,7 @@ namespace Themuseum
         public GameOver mGameoverScreen;
         public WinScreen  winScreen;
         public GamePlay mGameplay;
-        private bool enablefullscreen = false;
+        public bool enablefullscreen = false;
         private KeyboardState keyboardState;
         private KeyboardState oldkey;
         MouseState m;
@@ -78,19 +78,22 @@ namespace Themuseum
 
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
+
+            // Fullscreen system WIP (Do not use)
             
-            
+            /*
             if(keyboardState.IsKeyDown(Keys.D1) && oldkey.IsKeyUp(Keys.D1) && enablefullscreen == false)
             {
                 enablefullscreen = true;
                 SetFullscreen();
+                
             }
             else if(keyboardState.IsKeyDown(Keys.D1) && oldkey.IsKeyUp(Keys.D1) && enablefullscreen == true)
             {
                 enablefullscreen = false;
                 UnsetFullscreen();
             }
-            
+            */
 
             float elapsed = (float)gameTime.ElapsedGameTime.TotalSeconds;
 
@@ -175,20 +178,23 @@ namespace Themuseum
         {
             var ScaleX = (float)GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width / _width;
             var ScaleY = (float)GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height / _height;
-            var matrix = Matrix.CreateScale(ScaleX, ScaleY, 1f);
+            
 
             if (enablefullscreen == true)
             {
-                _spriteBatch.Begin(transformMatrix: matrix);
+                ScaleX = (float)GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width / _width;
+                ScaleY = (float)GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height / _height;
             }
             else if(enablefullscreen == false)
             {
-                _spriteBatch.Begin();
+                ScaleX = 1f;
+                ScaleY = 1f;
             }
-            
-            
 
-            
+            var matrix = Matrix.CreateScale(ScaleX, ScaleY, 1f);
+            _spriteBatch.Begin(transformMatrix: matrix);
+
+
 
             GraphicsDevice.Clear(Color.CornflowerBlue);
             //roomManager.Draw(_spriteBatch,light);

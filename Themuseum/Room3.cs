@@ -188,7 +188,7 @@ namespace Themuseum
                         ghost.Prechase(player);
                         sound.PlaySfx(1);
                         Keymanager.MRB_PieceActive = true;
-                        player.ChangeStartingPosition(new Vector2(player.SelfPosition.X, 75*7));
+                        player.ChangeStartingPosition(new Vector2(player.SelfPosition.X, 75*6));
                         UI.ChangeObjectiveText("Find Clues and Useful items", "");
                         roomManager.Roomchange(4);
                     }

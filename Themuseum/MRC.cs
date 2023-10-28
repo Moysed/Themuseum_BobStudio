@@ -209,7 +209,7 @@ namespace Themuseum
             }
             //Object Behavior
             //DoorPos_MB_MC_C = new Vector2(32, 200);
-            DoorCollision_MB_MC_C = new Rectangle(0, 242, 32, 233);
+            DoorCollision_MB_MC_C = new Rectangle(0, 242, 40, 233);
             DoorPos_End = new Vector2(640, 0);
             DoorCollision_End = new Rectangle(570, 57, 138, 182);
             BlockAreaPos_R = new Vector2(149, 400);
@@ -318,14 +318,13 @@ namespace Themuseum
             //Player Interaction
             if (player.collision.Intersects(DoorCollision_MB_MC_C) == true)
             {
-                player.StatusTextDisplay("Press K to Interact");
-                if (KeyControls.IsKeyDown(Keys.K) && OldKey.IsKeyUp(Keys.K))
-                {
+                
+                
                     ghost.Prechase(player);
                     sound.PlaySfx(1);
                     player.ChangeStartingPosition(new Vector2(1180 - 32, player.SelfPosition.Y));
                     roomManager.Roomchange(5);
-                }
+                
             }
             if (player.collision.Intersects(DoorCollision_End) == true)
             {

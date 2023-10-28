@@ -122,14 +122,12 @@ namespace Themuseum
                 //Player Interaction
                 if (player.collision.Intersects(DoorCollision_Room3) == true)
                 {
-                    player.StatusTextDisplay("Press K to Interact");
-                    if (KeyControls.IsKeyDown(Keys.K) && OldKey.IsKeyUp(Keys.K))
-                    {
+                    
                         ghost.Prechase(player);
-                        sound.PlaySfx(1);
+                        //sound.PlaySfx(1);
                         player.ChangeStartingPosition(new Vector2(1180-65, 8*32));
-                        roomManager.Roomchange(3);
-                    }
+                        roomManager.Roomchange(7);
+                    
                 }
                 if (player.collision.Intersects(DoorCollision_MRC) == true)
                 {

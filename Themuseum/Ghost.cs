@@ -131,10 +131,7 @@ namespace Themuseum
             }
             
         }
-        public void ChaseSeq(Player player)
-        {
-
-        }
+        
         public void UpdateAnimation(float elasped)
         {
             Sprite.UpdateFrame(elasped);

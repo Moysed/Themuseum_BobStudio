@@ -122,7 +122,7 @@ namespace Themuseum
             
             Rectangle hint = new Rectangle((int)hintPos.X, (int)hintPos.Y, 64, 64);
 
-            DoorCollision = new Rectangle((int)DoorPos.X , (int)DoorPos.Y, 32, 64);
+            DoorCollision = new Rectangle((int)DoorPos.X , (int)DoorPos.Y, 200, 64);
 
             //Wall Collision
             for (int i = 0; i < WallArea_Col.Count; i++)
@@ -177,7 +177,7 @@ namespace Themuseum
                 {
                     if (player.collision.Right >= Hitbox_Showcase[i].Right)
                     {
-                        if (player.speed == 3)
+                        if (player.speed == 2)
                         {
                             player.SelfPosition.X += player.speed * 2;
                         }
@@ -186,7 +186,7 @@ namespace Themuseum
                     }
                     if (player.collision.Left <= Hitbox_Showcase[i].Left)
                     {
-                        if (player.speed == 3)
+                        if (player.speed == 2)
                         {
                             player.SelfPosition.X -= player.speed * 2;
                         }
@@ -195,7 +195,7 @@ namespace Themuseum
                     }
                     if (player.collision.Top >= Hitbox_Showcase[i].Top)
                     {
-                        if (player.speed == 3)
+                        if (player.speed == 2)
                         {
                             player.SelfPosition.Y += player.speed * 2;
                         }
@@ -204,7 +204,7 @@ namespace Themuseum
                     }
                     if (player.collision.Bottom <= Hitbox_Showcase[i].Bottom)
                     {
-                        if (player.speed == 3)
+                        if (player.speed == 2)
                         {
 
                             player.SelfPosition.Y -= player.speed * 2;
@@ -218,17 +218,16 @@ namespace Themuseum
             }
 
 
-                if (player.collision.Intersects(DoorCollision))
+            if (player.collision.Intersects(DoorCollision))
             {
-                player.StatusTextDisplay("Press K to Interact");
+                //player.StatusTextDisplay("Press K to Interact");
                 //Console.WriteLine("Hit");
-                if (keycontrols.IsKeyDown(Keys.K) && Oldkey_.IsKeyUp(Keys.K))
-                {
+                
                     ghost.Prechase(player);
                     sound.PlaySfx(1);
                     player.ChangeStartingPosition(new Vector2(player.SelfPosition.X, 240));
                     roomManager.Roomchange(3);
-                }
+                
             }
 
             //Piece Collect
