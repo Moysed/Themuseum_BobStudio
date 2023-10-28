@@ -41,6 +41,7 @@ namespace Themuseum
         private string Objectstatustext = "Find clues and useful items";
         private string Hinttext = "";
         List<Texture2D> Keys = new List<Texture2D>();
+        List<Texture2D> Lantern_list = new List<Texture2D> ();
         
 
         private float MaxStamina;
@@ -74,6 +75,10 @@ namespace Themuseum
             bg = Content.Load<Texture2D>("Bg_Map_n_Lanter");
             ObjectiveHeader = Content.Load<SpriteFont>("Keycollect");
             ObjectiveFooter = Content.Load<SpriteFont>("ObjectiveFont");
+            //fullcandle
+            Lantern_list.Add(Content.Load<Texture2D>("FullCandle"));
+            //empty candle
+            Lantern_list.Add(Content.Load<Texture2D>("EmptyCandle"));
             //Key empty
             Keys.Add(Content.Load<Texture2D>("Key1"));
             //Key
@@ -87,14 +92,14 @@ namespace Themuseum
             Staminaposition = new Vector2(5, 120);
 
             int StaminaIndicator = (int)MathF.Round(StaminaValue * (BarBackground.Width / MaxStamina));
-            //int OilIndicator = (int)MathF.Round(OilValue * (CandleBackground.Height / MaxOil));
+            int OilIndicator = (int)MathF.Round(OilValue * (CandleBackground.Height /MaxOil));
 
             if (StaminaIndicator > BarBackground.Width)
             {
                 StaminaIndicator = BarBackground.Width;
             }
             BarIndicator = new Rectangle(0, 0, StaminaIndicator, BarBackground.Height);
-            //OilBarIndicator = new Rectangle(0, 0, CandleBackground.Width, OilIndicator);
+            OilBarIndicator = new Rectangle(0, 0, CandleBackground.Width, OilIndicator);
 
             if (StaminaValue <= MaxStamina * 0.3)
             {
@@ -118,6 +123,7 @@ namespace Themuseum
 
         public void Drawbar(SpriteBatch SB, Player player, LanternLight light,KeyManagement keymanager)
         {
+            Rectangle oilBarPosition = new Rectangle((int)OilPosition.X, (int)(OilPosition.Y + CandleBackground.Height - OilBarIndicator.Height), CandleBackground.Width, OilBarIndicator.Height);
             SB.Draw(KeynCandlebg, new Vector2(130 + 12, 7 + 5), Color.White);
             SB.Draw(BarBackground, Staminaposition, Color.White);
             SB.Draw(BarColor, Staminaposition, BarIndicator, Color.White);
@@ -129,21 +135,21 @@ namespace Themuseum
             {
                 if (player.CurrentFuel > 200)
                 {
-                    SB.Draw(CandleBar, new Vector2(OilPosition.X + 128, OilPosition.Y), Color.White);
+                    SB.Draw(CandleBar, new Vector2(OilPosition.X + 128, OilPosition.Y), OilBarIndicator, Color.White);
                     SB.Draw(CandleBar, new Vector2(OilPosition.X + 64, OilPosition.Y), Color.White);
                     SB.Draw(CandleBar, OilPosition, Color.White);
                 }
                 else if (player.CurrentFuel > 100 && player.CurrentFuel <= 200)
                 {
                     SB.Draw(CandleBarEmpty, new Vector2(OilPosition.X + 128 - 10 + 5, OilPosition.Y + 50 + 3), Color.White);
-                    SB.Draw(CandleBar, new Vector2(OilPosition.X + 64, OilPosition.Y), Color.White);
+                    SB.Draw(CandleBar, new Vector2(OilPosition.X + 64, OilPosition.Y), OilBarIndicator, Color.White);
                     SB.Draw(CandleBar, OilPosition, Color.White);
                 }
                 else if (player.CurrentFuel > 0 && player.CurrentFuel <= 100)
                 {
                     SB.Draw(CandleBarEmpty, new Vector2(OilPosition.X + 128 - 10 + 5, OilPosition.Y + 50 + 3), Color.White);
                     SB.Draw(CandleBarEmpty, new Vector2(OilPosition.X + 64 - 7 + 5, OilPosition.Y + 50 + 3), Color.White);
-                    SB.Draw(CandleBar, OilPosition, Color.White);
+                    SB.Draw(CandleBar, OilPosition, OilBarIndicator, Color.White);
                 }
                 else if (player.CurrentFuel <= 0)
                 {

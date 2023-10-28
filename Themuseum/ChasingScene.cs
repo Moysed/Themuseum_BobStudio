@@ -255,7 +255,7 @@ namespace Themuseum
             }
             if (ghost.collision.Intersects(Slowdownpath) == true || player.collision.Intersects(Slowdownpath) == true)
             {
-                ghost.speed = 1.5f;
+                ghost.speed = 1.30f;
             }
             //shire.Behavior(player, elapsed, sound,roomManager);
             OldKey = KeyControls;

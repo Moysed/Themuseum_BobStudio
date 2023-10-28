@@ -48,9 +48,10 @@ namespace Themuseum
         private KeyboardState KeyControls;
         private KeyboardState OldKey;
         private KeyManagement keyManagement;
+        private Texture2D lantern_ins;
 
+      
         List<Rectangle> Counter_Col = new List<Rectangle>();
-        
 
         Random r = new Random();
 
@@ -92,6 +93,7 @@ namespace Themuseum
             HiddenSwitch_01_Tex = content.Load<Texture2D>("switch_Closed");
             HiddenSwitch_02_Tex = content.Load<Texture2D>("switch_Closed");
             HiddenSwitch_03_Tex = content.Load<Texture2D>("switch_Closed");
+            //lantern_ins = content.Load<Texture2D>("Lantern_instruction");
             R1_Shire.LoadSprite(content);
             
             piece1 = content.Load<Texture2D>("rightPiece");
@@ -156,6 +158,7 @@ namespace Themuseum
             
             R1_Shire.Draw(SB);
             SB.Draw(Map, mapPos, Color.White);
+            
 
 
         }
@@ -164,6 +167,10 @@ namespace Themuseum
         {
 
             KeyControls = Keyboard.GetState();
+            
+
+            
+            
 
             //Wall Collision
             if (player.SelfPosition.X >= _graphics.GraphicsDevice.Viewport.Bounds.Right - 150)
@@ -265,7 +272,7 @@ namespace Themuseum
                     HiddenSwitch_01_Col = new Rectangle((int)HiddenSwitch_01_Pos.X, (int)HiddenSwitch_01_Pos.Y, 64, 64);
                     HiddenSwitch_02_Col = new Rectangle((int)HiddenSwitch_02_Pos.X, (int)HiddenSwitch_02_Pos.Y, 64, 64);
                     HiddenSwitch_03_Col = new Rectangle((int)HiddenSwitch_03_Pos.X, (int)HiddenSwitch_03_Pos.Y, 64, 64);
-
+                    
                     piece1Col = new Rectangle((int)piece1Pos.X, (int)piece1Pos.Y, 24, 54);
                     if(Keymanager.R1_T0 == false)
                     {
@@ -413,10 +420,12 @@ namespace Themuseum
                             light.IsActive = true;
                             light.lightStart = true;
                             lanternPos.X = 20000;
-                            dialogue.SettingParameter("Hint Block", 0, 0, "There's Lantern. It could be useful.  Hold L to use Lantern\r\n Light may show you \"H I D D E N \" objects", Color.Brown);
+                            dialogue.SettingParameter("Hint Block", 0, 0, "There's Lantern. It could be useful.  \r\n Hold L to use Lantern\r\n Light may show you \"H I D D E N \" objects", Color.Brown);
                             dialogue.Activation(true);
                             Console.WriteLine(player.CurrentFuel);
-                        }
+                           
+                             
+                }
                        
                     }
 
@@ -435,9 +444,13 @@ namespace Themuseum
                         }
                    
                     }
-  
 
-                    OldKey = KeyControls;
+                    
+                 
+
+
+
+            OldKey = KeyControls;
                 }
         public void Reset()
         {

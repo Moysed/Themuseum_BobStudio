@@ -16,7 +16,7 @@ namespace Themuseum
 
     class Ghost 
     {
-        public float speed = 3f;
+        public float speed = 2.4f;
         private Vector2 SelfPosition;
         public Rectangle collision;
         private AnimatedTexture Sprite;
@@ -60,7 +60,7 @@ namespace Themuseum
                 }
                 else
                 {
-                    speed = 3f;
+                    speed = 2.4f;
                 }
 
                 if(Dir.X < 0)

@@ -46,7 +46,7 @@ namespace Themuseum
         {
             keyManagement = new KeyManagement();    
             room1 = new Room1();
-            LanternRefillPos = new Vector2(550, 500);
+            LanternRefillPos = new Vector2(550, 440);
             lanternRefill = new LanternRefill(LanternRefillPos);
             random = new Random();
             DoorPos = new Vector2(840, 252);

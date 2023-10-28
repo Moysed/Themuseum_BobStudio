@@ -21,13 +21,12 @@ namespace Themuseum
         private Rectangle Collision;
         private KeyboardState KeyInteract;
         private KeyboardState OldKey;
-        Timer timer;
+        private int cooldown;
         public Shire(Vector2 startingposition){
             SelfPosition = startingposition;
             Sprite = new AnimatedTexture(Vector2.Zero, 0, 1, 0.5f);
-            timer = new Timer();
-            timer.Interval = 1000;
             Collision = new Rectangle((int)SelfPosition.X, (int)SelfPosition.Y, 50, 109);
+            cooldown = 0;
         }
 
         public void LoadSprite(ContentManager content)
@@ -51,16 +50,15 @@ namespace Themuseum
             Sprite.UpdateFrame(elasped);
 
             KeyInteract = Keyboard.GetState();
+            cooldown--;
 
-            if (player.collision.Intersects(Collision) == true)
+            if (player.collision.Intersects(Collision) == true && cooldown <= 0)
             {
                 player.StatusTextDisplay("Press K to Interact");
 
-                if (KeyInteract.IsKeyDown(Keys.K) && OldKey.IsKeyUp(Keys.K))
+                if (KeyInteract.IsKeyDown(Keys.K) && OldKey.IsKeyUp(Keys.K) && cooldown <= 0)
                 {
 
-                    timer.Start();
-                    timer.Interval--;
                     player.IsHaunted = false;
                     sound.PlaySfx(4);
                     sound.StopBGM();
@@ -68,9 +66,16 @@ namespace Themuseum
                     roommanager.mapcolor = Color.White;
                     Console.WriteLine("Shire Used!");
                     animateActive = true;
+                    cooldown = 300;
                 }
             }
-            else
+            else if(player.collision.Intersects(Collision) == true  && cooldown <= 300) 
+            {
+                player.StatusTextDisplay("Shire is cooling down");
+                
+            }
+
+            if (cooldown <= 250)
             {
                 animateActive = false;
             }

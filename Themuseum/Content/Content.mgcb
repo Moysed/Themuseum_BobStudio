@@ -740,6 +740,18 @@
 /processorParam:TextureFormat=Compressed
 /build:Keycollect.spritefont
 
+#begin Lantern_instruction.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Lantern_instruction.png
+
 #begin Lantern_Placeholder.png
 /importer:TextureImporter
 /processor:TextureProcessor
