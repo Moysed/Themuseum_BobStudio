@@ -32,13 +32,14 @@ namespace Themuseum
         public MRB_To_MRC_Corridor()
         {
             room1 = new Room1();
-            shire = new Shire(new Vector2(600,250));
-            WallArea_Col.Add(new Rectangle(0, 0, 1280, 150));
+            shire = new Shire(new Vector2(600,300));
+            WallArea_Col.Add(new Rectangle(0, 0, 1280, 200));
             WallArea_Col.Add(new Rectangle(0, 0, 15, 640));
             WallArea_Col.Add(new Rectangle(0, 485, 1280, 640));
             WallArea_Col.Add(new Rectangle(1280 - 15, 0, 64, 640));
             //Tree
-            WallArea_Col.Add(new Rectangle(600, 240, 50, 50));
+            WallArea_Col.Add(new Rectangle(475, 240, 300, 50));
+            WallArea_Col.Add(new Rectangle(600, 240, 56, 95));
         }
 
         public void LoadSprite(ContentManager content)
@@ -58,7 +59,7 @@ namespace Themuseum
                 SB.Draw(WallArea_Tex, WallArea_Col[i], Color.White);
             }*/
             SB.Draw(Wallpaper, Vector2.Zero, roomcolor);
-            SB.Draw(Tree, new Vector2(447, 0), Color.White);
+            SB.Draw(Tree, new Vector2(447, 50), Color.White);
             //SB.Draw(Door, DoorPos_Room3, new Rectangle(6 * 32, 8 * 32, 32, 64), Color.White);
             //SB.Draw(Door, DoorPos_MRC, new Rectangle(6 * 32, 8 * 32, 32, 64), Color.White);
             shire.Draw(SB);

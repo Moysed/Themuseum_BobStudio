@@ -72,6 +72,8 @@ namespace Themuseum
             Counter_Col.Add(new Rectangle(465, 254, 345, 68));
             Counter_Col.Add(new Rectangle(383, 164, 88, 157));
             Counter_Col.Add(new Rectangle(806, 164, 88, 157));
+            //shire
+            Counter_Col.Add(new Rectangle(400, 340, 50, 50));
             R1_Shire = new Shire(new Vector2(400, 340));
             
 

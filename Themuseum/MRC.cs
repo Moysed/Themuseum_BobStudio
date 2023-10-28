@@ -65,6 +65,12 @@ namespace Themuseum
             WallArea_Col.Add(new Rectangle(0, 471, 79, 500));
             WallArea_Col.Add(new Rectangle(0, 242, 32, 233));
 
+            //Box
+            WallArea_Col.Add(new Rectangle((int)BlockAreaCol_R.X, (int)BlockAreaCol_R.Y,92,165));
+            WallArea_Col.Add(new Rectangle((int)BlockAreaCol_B.X, (int)BlockAreaCol_B.Y, 92, 165));
+            WallArea_Col.Add(new Rectangle((int)BlockAreaCol_G.X, (int)BlockAreaCol_G.Y, 92, 165));
+            WallArea_Col.Add(new Rectangle((int)BlockAreaCol_Y.X, (int)BlockAreaCol_Y.Y, 92, 165));
+
             puzzleBlocks.Add(new PuzzleBlock(new Vector2(256, 300), "Pillow","pillow_obj"));
             puzzleBlocks.Add(new PuzzleBlock(new Vector2(1280 - 256, 300), "Tusk", "tusk_obj"));
             puzzleBlocks.Add(new PuzzleBlock(new Vector2(500, 300), "Vase", "vase_obj"));
@@ -99,7 +105,10 @@ namespace Themuseum
                 SB.Draw(WallArea_Tex, WallArea_Col[i], Color.White);
             }
 
-            
+            for (int i = 0; i < puzzleBlocks.Count; i++)
+            {
+                puzzleBlocks[i].Draw(SB);
+            }
 
             SB.Draw(bg, Vector2.Zero, Color.White);
 
@@ -141,10 +150,7 @@ namespace Themuseum
            
             
             
-            for (int i = 0; i < puzzleBlocks.Count; i++)
-            {
-                puzzleBlocks[i].Draw(SB);
-            }
+            
             //SB.Draw(Door, DoorPos_MB_MC_C, new Rectangle(6 * 32, 8 * 32, 32, 64), Color.White);
             //SB.Draw(Door, DoorPos_End, new Rectangle(6 * 32, 8 * 32, 32, 64), Color.White);
             SB.Draw(BlockReset_Tex, BlockReset_Pos, new Rectangle(0, 128, 64, 64), Color.White);
@@ -312,9 +318,179 @@ namespace Themuseum
                 }
             }
 
-            
+            if (BlockAreaCol_R.Intersects(player.collision))
+            {
+                if (player.collision.Right >= BlockAreaCol_R.Right)
+                {
+                    if (player.speed == 2)
+                    {
+                        player.SelfPosition.X += player.speed * 2;
+                    }
+                    else
+                        player.SelfPosition.X += player.speed;
+                }
+                if (player.collision.Left <= BlockAreaCol_R.Left)
+                {
+                    if (player.speed == 2)
+                    {
+                        player.SelfPosition.X -= player.speed * 2;
+                    }
+                    else
+                        player.SelfPosition.X -= player.speed;
+                }
+                if (player.collision.Top >= BlockAreaCol_R.Top)
+                {
+                    if (player.speed == 2)
+                    {
+                        player.SelfPosition.Y += player.speed * 2;
+                    }
+                    else
+                        player.SelfPosition.Y += player.speed;
+                }
+                if (player.collision.Bottom <= BlockAreaCol_R.Bottom)
+                {
+                    if (player.speed == 2)
+                    {
 
-            
+                        player.SelfPosition.Y -= player.speed * 2;
+                    }
+                    else
+                        player.SelfPosition.Y -= player.speed;
+
+                }
+
+            }
+
+            if (BlockAreaCol_B.Intersects(player.collision))
+            {
+                if (player.collision.Right >= BlockAreaCol_B.Right)
+                {
+                    if (player.speed == 2)
+                    {
+                        player.SelfPosition.X += player.speed * 2;
+                    }
+                    else
+                        player.SelfPosition.X += player.speed;
+                }
+                if (player.collision.Left <= BlockAreaCol_B.Left)
+                {
+                    if (player.speed == 2)
+                    {
+                        player.SelfPosition.X -= player.speed * 2;
+                    }
+                    else
+                        player.SelfPosition.X -= player.speed;
+                }
+                if (player.collision.Top >= BlockAreaCol_B.Top)
+                {
+                    if (player.speed == 2)
+                    {
+                        player.SelfPosition.Y += player.speed * 2;
+                    }
+                    else
+                        player.SelfPosition.Y += player.speed;
+                }
+                if (player.collision.Bottom <= BlockAreaCol_B.Bottom)
+                {
+                    if (player.speed == 2)
+                    {
+
+                        player.SelfPosition.Y -= player.speed * 2;
+                    }
+                    else
+                        player.SelfPosition.Y -= player.speed;
+
+                }
+
+            }
+
+            if (BlockAreaCol_G.Intersects(player.collision))
+            {
+                if (player.collision.Right >= BlockAreaCol_G.Right)
+                {
+                    if (player.speed == 2)
+                    {
+                        player.SelfPosition.X += player.speed * 2;
+                    }
+                    else
+                        player.SelfPosition.X += player.speed;
+                }
+                if (player.collision.Left <= BlockAreaCol_G.Left)
+                {
+                    if (player.speed == 2)
+                    {
+                        player.SelfPosition.X -= player.speed * 2;
+                    }
+                    else
+                        player.SelfPosition.X -= player.speed;
+                }
+                if (player.collision.Top >= BlockAreaCol_G.Top)
+                {
+                    if (player.speed == 2)
+                    {
+                        player.SelfPosition.Y += player.speed * 2;
+                    }
+                    else
+                        player.SelfPosition.Y += player.speed;
+                }
+                if (player.collision.Bottom <= BlockAreaCol_G.Bottom)
+                {
+                    if (player.speed == 2)
+                    {
+
+                        player.SelfPosition.Y -= player.speed * 2;
+                    }
+                    else
+                        player.SelfPosition.Y -= player.speed;
+
+                }
+
+            }
+
+            if (BlockAreaCol_Y.Intersects(player.collision))
+            {
+                if (player.collision.Right >= BlockAreaCol_Y.Right)
+                {
+                    if (player.speed == 2)
+                    {
+                        player.SelfPosition.X += player.speed * 2;
+                    }
+                    else
+                        player.SelfPosition.X += player.speed;
+                }
+                if (player.collision.Left <= BlockAreaCol_Y.Left)
+                {
+                    if (player.speed == 2)
+                    {
+                        player.SelfPosition.X -= player.speed * 2;
+                    }
+                    else
+                        player.SelfPosition.X -= player.speed;
+                }
+                if (player.collision.Top >= BlockAreaCol_Y.Top)
+                {
+                    if (player.speed == 2)
+                    {
+                        player.SelfPosition.Y += player.speed * 2;
+                    }
+                    else
+                        player.SelfPosition.Y += player.speed;
+                }
+                if (player.collision.Bottom <= BlockAreaCol_Y.Bottom)
+                {
+                    if (player.speed == 2)
+                    {
+
+                        player.SelfPosition.Y -= player.speed * 2;
+                    }
+                    else
+                        player.SelfPosition.Y -= player.speed;
+
+                }
+
+            }
+
+
             //Player Interaction
             if (player.collision.Intersects(DoorCollision_MB_MC_C) == true)
             {

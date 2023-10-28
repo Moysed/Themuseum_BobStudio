@@ -42,7 +42,7 @@ namespace Themuseum
         public MainRoomB()
         {
             keyManagement = new KeyManagement();
-            LanternRefillPos = new Vector2(900, 250);
+            LanternRefillPos = new Vector2(950,240);
             lanternRefill = new LanternRefill(LanternRefillPos);
             room1 = new Room1();    
             random = new Random();
@@ -50,7 +50,7 @@ namespace Themuseum
             uncomStatuePos = new Vector2(536, 0);
             comStatuePos = new Vector2(20000, 0);
             
-            hintPos = new Vector2(400, 200);
+            hintPos = new Vector2(600,400);
             //top
             WallArea_Col.Add(new Rectangle(0, 0, 1280, 200));
             //left
@@ -63,6 +63,8 @@ namespace Themuseum
             WallArea_Col.Add(new Rectangle(68, 542-5, 375, 102));
             //down(right)
             WallArea_Col.Add(new Rectangle(843-10, 542-5, 365, 102));
+            //lanterncol
+            WallArea_Col.Add(new Rectangle((int)LanternRefillPos.X, (int)LanternRefillPos.Y,44,20));
 
             // Showcase Hitbox
             Hitbox_Showcase.Add(new Rectangle(152, 290, 74, 30));

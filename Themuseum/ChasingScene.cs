@@ -31,19 +31,24 @@ namespace Themuseum
         Shire shire;
         private List<Rectangle> WallArea_Col = new List<Rectangle>();
         private List<Rectangle> Obstacles = new List<Rectangle>();
+        private List<Texture2D> Wood = new List<Texture2D>();
+        private Texture2D wood1;
+        private Texture2D wood2;
+        private Texture2D wood3;
+        Random r = new Random();
         public ChasingScene()
         {
             room1 = new Room1();
             shire = new Shire(new Vector2(600,250));
-            WallArea_Col.Add(new Rectangle(0, 0, 1280, 150));
+            WallArea_Col.Add(new Rectangle(0, 0, 1280, 200));
             WallArea_Col.Add(new Rectangle(0, 0, 15, 640));
             WallArea_Col.Add(new Rectangle(0, 485, 1280, 640));
             WallArea_Col.Add(new Rectangle(1280 - 15, 0, 64, 640));
             //Tree
             WallArea_Col.Add(new Rectangle(600, 240, 50, 50));
             //Obstacles for chasing event
-            Obstacles.Add(new Rectangle(200, 252, 30, 100));
-            Obstacles.Add(new Rectangle(305, 390, 30, 95));
+            Obstacles.Add(new Rectangle(200, 252-20, 54, 110));
+            Obstacles.Add(new Rectangle(305, 390+20, 54, 70));
             Obstacles.Add(new Rectangle(430, 252, 30, 130));
             Obstacles.Add(new Rectangle(560, 390, 30, 95));
             Obstacles.Add(new Rectangle(680, 252, 30, 95));
@@ -60,6 +65,9 @@ namespace Themuseum
             WallArea_Tex = content.Load<Texture2D>("wallplaceholder");
             Door = content.Load<Texture2D>("placeholderdoor");
             shire.LoadSprite(content);
+            Wood.Add(content.Load<Texture2D>("Wood"));
+            Wood.Add(content.Load<Texture2D>("Wood2"));
+            Wood.Add(content.Load<Texture2D>("Wood3"));
         }
 
         public void Draw(SpriteBatch SB, Color roomcolor)
@@ -70,9 +78,30 @@ namespace Themuseum
             }*/
             SB.Draw(Wallpaper, Vector2.Zero, roomcolor);
             //SB.Draw(Tree, new Vector2(447, 0), Color.White);
-            for (int i = 0; i < Obstacles.Count; i++)
+            
+            
+
+            for (int i = 0; i < 2; i++)
             {
-                SB.Draw(WallArea_Tex, Obstacles[i], Color.White);
+                
+                    SB.Draw(Wood[0], Obstacles[i], Color.White);
+                
+                
+            }
+
+            for (int i = 2; i < 5; i++)
+            {
+
+                SB.Draw(Wood[2], Obstacles[i], Color.White);
+
+
+            }
+            for (int i = 5; i < 8; i++)
+            {
+
+                SB.Draw(Wood[1], Obstacles[i], Color.White);
+
+
             }
             //SB.Draw(Door, DoorPos_Room3, new Rectangle(6 * 32, 8 * 32, 32, 64), Color.White);
             //SB.Draw(Door, DoorPos_MRC, new Rectangle(6 * 32, 8 * 32, 32, 64), Color.White);

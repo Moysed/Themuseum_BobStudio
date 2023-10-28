@@ -20,6 +20,7 @@ namespace Themuseum
         private DialogueBox dialogue;
         private SoundSystem soundSystem;
         private Map map;
+
         RoomManager roomManager;
         Texture2D guide;
         
@@ -42,13 +43,13 @@ namespace Themuseum
             ghost.LoadSprite(game.Content);
             dialogue.LoadResource(game.Content);
 
-            roomManager = new RoomManager(1);
+            roomManager = new RoomManager(5);
 
             roomManager.LoadAssets(game.Content);
             light.LoadSprite(game.Content);
             map.LoadSprite(game.Content);
             soundSystem.LoadContent(game.Content);
-            guide = game.Content.Load<Texture2D>("Instruction");
+            guide = game.Content.Load<Texture2D>("Instruction_bg");
 
             soundSystem.PlayBGM(0);
 

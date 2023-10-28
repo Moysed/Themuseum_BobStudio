@@ -45,7 +45,7 @@ namespace Themuseum
 
             piece3Pos = new Vector2(random.Next(100, 700), random.Next(250, 400));
             room1 = new Room1();
-            hintPos = new Vector2(400, 175);
+            hintPos = new Vector2(400, 270);
             WallArea_Col.Add(new Rectangle(0, 450, 445, 300));
             WallArea_Col.Add(new Rectangle(835, 450, 1000, 2000));
             WallArea_Col.Add(new Rectangle(0, 0, 68, 2000));

@@ -57,7 +57,8 @@ namespace Themuseum
             WallArea_Col.Add(new Rectangle(850, 0, 432, 400));
             WallArea_Col.Add(new Rectangle(740, 360, 432, 400));
             WallArea_Col.Add(new Rectangle(0, 0, 1280, 200));
-
+            //lanterncol
+            WallArea_Col.Add(new Rectangle((int)LanternRefillPos.X, (int)LanternRefillPos.Y,44,20));
 
             R2_T1_Trigger_Pos = new Vector2(640,256);
             R2_T1_Trigger_Col = new Rectangle((int)R2_T1_Trigger_Pos.X, (int)R2_T1_Trigger_Pos.X, 128, 128);
