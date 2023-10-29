@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Media;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,17 +15,25 @@ namespace Themuseum
         Texture2D gameOver;
         private Player player;
         Ghost ghost;
+        SpriteFont font;
+        int counter = 120;
+        SoundSystem sound;
+       
         Game1 game; public GameOver(Game1 game,
          EventHandler theScreenEvent) : base(theScreenEvent)
         {
             //Load
-            gameOver = game.Content.Load<Texture2D>("gameover_placeholder");
+            font = game.Content.Load<SpriteFont>("Start");
+            gameOver = game.Content.Load<Texture2D>("GameOver");
             player = new Player(Vector2.Zero);
+            sound = new SoundSystem();
             this.game = game;
         }
         public override void Update(GameTime theTime)
         {
-            if (Keyboard.GetState().IsKeyDown(Keys.Enter) == true)
+            counter--;
+            sound.PlayBGM(2);
+            if (Keyboard.GetState().IsKeyDown(Keys.R) == true)
             {
                 ScreenEvent.Invoke(game.mMainmenu, new EventArgs());
                 player.IsHaunted = false;
@@ -37,8 +46,15 @@ namespace Themuseum
         }
         public override void Draw(SpriteBatch theBatch)
         {
-
+            string str = "Press \" R \" to return to Main menu";
            theBatch.Draw(gameOver , Vector2.Zero, Color.White);
+            
+            if (counter <= 0)
+            {
+                theBatch.DrawString(font, str, new Vector2(450, 550), Color.White);
+                
+            } 
+
 
         }
     }

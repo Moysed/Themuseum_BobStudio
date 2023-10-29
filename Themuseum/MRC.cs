@@ -302,7 +302,7 @@ namespace Themuseum
                 Keymanager.MRC_Unlock = true;
                 dialogue.SettingParameter("Hint Block", 0, 0, "I heard something dropped", Color.Red);
                 dialogue.Activation(true);
-                keyCPos = new Vector2(600, 240);
+                keyCPos = new Vector2(600, 350);
             }
 
             if (player.collision.Intersects(keyChitbox))

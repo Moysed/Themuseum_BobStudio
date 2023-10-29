@@ -13,6 +13,30 @@
 
 #---------------------------------- Content ---------------------------------#
 
+#begin ../../../../../Downloads/ghost_anim.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:../../../../../Downloads/ghost_anim.png;ghost_anim.png
+
+#begin ../../../../../Downloads/L.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:../../../../../Downloads/L.png;L.png
+
 #begin 005-System05.mp3
 /importer:Mp3Importer
 /processor:SoundEffectProcessor
@@ -439,6 +463,12 @@
 /processorParam:TextureFormat=Color
 /build:completedStatue.png
 
+#begin deathsfx_short.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:deathsfx_short.mp3
+
 #begin empthyStatue.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -571,7 +601,7 @@
 /processorParam:TextureFormat=Color
 /build:gameover_placeholder.jpg
 
-#begin ghost_anim.png
+#begin GameOver.PNG
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -581,7 +611,7 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:ghost_anim.png
+/build:GameOver.PNG
 
 #begin Ghost.png
 /importer:TextureImporter

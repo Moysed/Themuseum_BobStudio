@@ -71,7 +71,7 @@ namespace Themuseum
             Map = Content.Load<Texture2D>("Large_Map");
             mapButton = Content.Load<Texture2D>("Small_Map_button");
             Lantern = Content.Load<Texture2D>("Big_candle");
-            lanternButton = Content.Load<Texture2D>("Small_Flash_button");
+            lanternButton = Content.Load<Texture2D>("L");
             bg = Content.Load<Texture2D>("Bg_Map_n_Lanter");
             ObjectiveHeader = Content.Load<SpriteFont>("Keycollect");
             ObjectiveFooter = Content.Load<SpriteFont>("ObjectiveFont");

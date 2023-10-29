@@ -16,7 +16,7 @@ namespace Themuseum
 
     class Ghost 
     {
-        public float speed = 2.4f;
+        public float speed = 1.5f;
         private Vector2 SelfPosition;
         public Rectangle collision;
         private AnimatedTexture Sprite;
@@ -142,11 +142,8 @@ namespace Themuseum
                 else if (player.KeyControls.IsKeyDown(Keys.S))
                 {
                     Changestartingposition(new Vector2(1300 / 2, -300));
-                    
-
                 }
-            }
-            
+            } 
         }
         
         public void Banish()

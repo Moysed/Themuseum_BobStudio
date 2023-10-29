@@ -99,6 +99,17 @@ namespace Themuseum
             {
                 guidepos = new Vector2(1000, 2000000);
             }
+
+            if (Keyboard.GetState().IsKeyDown(Keys.R) == true)
+            {
+                Console.WriteLine("Game Enter");
+                ScreenEvent.Invoke(game.mMainmenu, new EventArgs());
+                game.mGameplay.ResetElapsedTime();
+
+                Reset();
+                
+                return;
+            }
             base.Update(theTime);
         }
         public override void Draw(SpriteBatch theBatch)
@@ -128,5 +139,7 @@ namespace Themuseum
             staminabar.ChangeObjectiveText("Find clues and useful items","");
             
         }
+
+
     }
 }

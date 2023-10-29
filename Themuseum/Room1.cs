@@ -461,9 +461,6 @@ namespace Themuseum
                    
                     }
 
-                    
-                 
-
 
 
             OldKey = KeyControls;
