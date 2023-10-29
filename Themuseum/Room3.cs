@@ -261,7 +261,7 @@ namespace Themuseum
             if (Keymanager.MRB_StatueActive == true)
             {
                 
-                keyBPos = new Vector2(200, 300);
+                keyBPos = new Vector2(250, 300);
                 if(Keymanager.KeyCollectB == true)
                 {
                     keyBPos = new Vector2(500000, 300);
