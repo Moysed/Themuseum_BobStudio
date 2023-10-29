@@ -499,6 +499,12 @@
 /processorParam:Quality=Best
 /build:Ending Laugh.mp3
 
+#begin Ending.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Ending.mp3
+
 #begin Escape1.PNG
 /importer:TextureImporter
 /processor:TextureProcessor

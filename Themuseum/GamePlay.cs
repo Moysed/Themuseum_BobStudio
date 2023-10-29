@@ -84,8 +84,9 @@ namespace Themuseum
                 ScreenEvent.Invoke(game.winScreen, new EventArgs());
 
                 Reset();
+                soundSystem.PlayBGM(3);
+                soundSystem.setrepeat(true);
 
-                
 
 
                 return;
