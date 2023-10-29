@@ -44,7 +44,7 @@ namespace Themuseum
             }
         }
 
-        public void Behavior(Player player, float elasped,SoundSystem sound,RoomManager roommanager)
+        public void Behavior(Player player, float elasped,SoundSystem sound,RoomManager roommanager,Ghost ghost)
         {
             Collision = new Rectangle((int)SelfPosition.X, (int)SelfPosition.Y, 50, 109);
             Sprite.UpdateFrame(elasped);
@@ -58,8 +58,9 @@ namespace Themuseum
 
                 if (KeyInteract.IsKeyDown(Keys.K) && OldKey.IsKeyUp(Keys.K) && cooldown <= 0)
                 {
-
+                    
                     player.IsHaunted = false;
+                    ghost.Banish();
                     sound.PlaySfx(4);
                     sound.StopBGM();
                     sound.PlayBGM(0);

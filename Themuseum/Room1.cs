@@ -268,7 +268,7 @@ namespace Themuseum
                     Rectangle Lantern = new Rectangle((int)lanternPos.X, (int)lanternPos.Y , 40, 95);
                     Rectangle mapCol = new Rectangle((int)mapPos.X, (int)mapPos.Y, 74, 60);
                     DoorCollision = new Rectangle(540, 0, 200, 140);
-                    R1_Shire.Behavior(player, elapsed,sound, roomManager);
+                    R1_Shire.Behavior(player, elapsed,sound, roomManager, ghost);
                     HiddenSwitch_01_Col = new Rectangle((int)HiddenSwitch_01_Pos.X, (int)HiddenSwitch_01_Pos.Y, 64, 64);
                     HiddenSwitch_02_Col = new Rectangle((int)HiddenSwitch_02_Pos.X, (int)HiddenSwitch_02_Pos.Y, 64, 64);
                     HiddenSwitch_03_Col = new Rectangle((int)HiddenSwitch_03_Pos.X, (int)HiddenSwitch_03_Pos.Y, 64, 64);

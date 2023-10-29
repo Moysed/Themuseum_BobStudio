@@ -149,6 +149,10 @@ namespace Themuseum
             
         }
         
+        public void Banish()
+        {
+            Changestartingposition(new Vector2(1300, 1300));
+        }
         public void UpdateAnimation(float elasped)
         {
             Sprite.UpdateFrame(elasped);

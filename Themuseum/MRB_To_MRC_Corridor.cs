@@ -143,7 +143,7 @@ namespace Themuseum
                         roomManager.Roomchange(6);
                     }
                 }
-                shire.Behavior(player, elapsed, sound,roomManager);
+                shire.Behavior(player, elapsed, sound,roomManager,ghost);
                 OldKey = KeyControls;
             }
         }
