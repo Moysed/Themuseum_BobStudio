@@ -51,6 +51,7 @@ namespace Themuseum
             soundSystem.LoadContent(game.Content);
             guide = game.Content.Load<Texture2D>("Instruction_bg");
 
+            
             soundSystem.PlayBGM(0);
 
             this._graphics = game._graphics;
@@ -80,7 +81,8 @@ namespace Themuseum
                 Console.WriteLine("Game Won");
                 ScreenEvent.Invoke(game.winScreen, new EventArgs());
 
-                Reset();
+                soundSystem.StopBGM();
+                //Reset();
 
                 return;
             }
@@ -91,7 +93,8 @@ namespace Themuseum
                 ScreenEvent.Invoke(game.mGameoverScreen, new EventArgs());
 
                 Reset();
-                soundSystem.PlaySfx(7);
+                soundSystem.PlayBGM(2);
+                soundSystem.setrepeat(false);
 
                 return;
             }
@@ -133,6 +136,7 @@ namespace Themuseum
             
             soundSystem.StopBGM();
             soundSystem.PlayBGM(0);
+            soundSystem.setrepeat(true);
             ghost.gameOver = false;
             ghost.Changestartingposition(new Vector2(10000, 10000));
             player.Reset();

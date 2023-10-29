@@ -199,6 +199,7 @@ namespace Themuseum
                 player.IsHaunted = true;
                 roomManager.mapcolor = Color.Red;
                 sound.PlayBGM(1);
+                sound.setrepeat(true);
             }
 
             if(player.collision.Intersects(EndofHallway) == true)

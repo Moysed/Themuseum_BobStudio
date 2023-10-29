@@ -255,6 +255,7 @@ namespace Themuseum
                         roomManager.mapcolor = Color.Red;
                         sound.StopBGM();
                         sound.PlayBGM(1);
+                        sound.setrepeat(true);
                     }
                     else
                     {

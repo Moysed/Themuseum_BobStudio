@@ -251,6 +251,7 @@ namespace Themuseum
                 
                 roomManager.mapcolor = Color.Red;
                 sound.PlayBGM(1);
+                sound.setrepeat(true);
 
             }
             if (ghost.collision.Intersects(Slowdownpath) == true || player.collision.Intersects(Slowdownpath) == true)

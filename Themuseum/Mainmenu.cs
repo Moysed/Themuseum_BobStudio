@@ -55,6 +55,7 @@ namespace Themuseum
                 Console.WriteLine("Game Enter");
                 ScreenEvent.Invoke(game.mGameplay, new EventArgs());
                 game.mGameplay.ResetElapsedTime();
+                //game.mGameplay.Reset();
                
                 return;
             }

@@ -64,6 +64,7 @@ namespace Themuseum
                     sound.PlaySfx(4);
                     sound.StopBGM();
                     sound.PlayBGM(0);
+                    sound.setrepeat(true);
                     roommanager.mapcolor = Color.White;
                     Console.WriteLine("Shire Used!");
                     animateActive = true;
