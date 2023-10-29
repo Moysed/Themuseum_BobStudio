@@ -55,7 +55,7 @@ namespace Themuseum
 
         public MRC()
         {
-            keyCPos = new Vector2(5000,0);
+            keyCPos = new Vector2(5000, 0);
             room1 = new Room1();
             hintPos = new Vector2(400, 250);
             WallArea_Col.Add(new Rectangle(0, 0, 1280, 200));
@@ -66,14 +66,14 @@ namespace Themuseum
             WallArea_Col.Add(new Rectangle(0, 242, 32, 233));
 
             //Box
-            WallArea_Col.Add(new Rectangle((int)BlockAreaCol_R.X, (int)BlockAreaCol_R.Y,92,165));
+            WallArea_Col.Add(new Rectangle((int)BlockAreaCol_R.X, (int)BlockAreaCol_R.Y, 92, 165));
             WallArea_Col.Add(new Rectangle((int)BlockAreaCol_B.X, (int)BlockAreaCol_B.Y, 92, 165));
             WallArea_Col.Add(new Rectangle((int)BlockAreaCol_G.X, (int)BlockAreaCol_G.Y, 92, 165));
             WallArea_Col.Add(new Rectangle((int)BlockAreaCol_Y.X, (int)BlockAreaCol_Y.Y, 92, 165));
 
-            puzzleBlocks.Add(new PuzzleBlock(new Vector2(256, 300), "Pillow","pillow_obj"));
-            puzzleBlocks.Add(new PuzzleBlock(new Vector2(1280 - 256, 300), "Tusk", "tusk_obj"));
-            puzzleBlocks.Add(new PuzzleBlock(new Vector2(500, 300), "Vase", "vase_obj"));
+            puzzleBlocks.Add(new PuzzleBlock(new Vector2(256, 300), "Pillow", "pillow_obj"));
+            puzzleBlocks.Add(new PuzzleBlock(new Vector2(500, 250), "Tusk", "tusk_obj"));
+            puzzleBlocks.Add(new PuzzleBlock(new Vector2(1280 - 256, 300), "Vase", "vase_obj"));
             puzzleBlocks.Add(new PuzzleBlock(new Vector2(900, 300), "Chest", "chest_obj"));
         }
 
@@ -98,7 +98,7 @@ namespace Themuseum
             }
         }
 
-        public void Draw(SpriteBatch SB, Color roomcolor , KeyManagement key)
+        public void Draw(SpriteBatch SB, Color roomcolor, KeyManagement key)
         {
             for (int i = 0; i < WallArea_Col.Count; i++)
             {
@@ -118,45 +118,45 @@ namespace Themuseum
             {
                 SB.Draw(BlockArea[1], BlockAreaPos_R, new Rectangle(0, 0, 92, 165), Color.White);
             }
-            else if(key.MRC_R_B == false)
+            else if (key.MRC_R_B == false)
             {
                 SB.Draw(BlockArea[0], BlockAreaPos_R, new Rectangle(0, 0, 92, 165), Color.White);
             }
 
-            if(key.MRC_B_B == true) 
+            if (key.MRC_B_B == true)
             {
                 SB.Draw(BlockArea[2], BlockAreaPos_B, new Rectangle(0, 0, 92, 165), Color.White);
             }
-            else if(key.MRC_B_B == false)
+            else if (key.MRC_B_B == false)
             {
                 SB.Draw(BlockArea[0], BlockAreaPos_B, new Rectangle(0, 0, 92, 165), Color.White);
             }
 
-            if(key.MRC_G_B == true)
+            if (key.MRC_G_B == true)
             {
                 SB.Draw(BlockArea[3], BlockAreaPos_G, new Rectangle(0, 0, 92, 165), Color.White);
             }
-            else if(key.MRC_G_B == false)
+            else if (key.MRC_G_B == false)
             {
                 SB.Draw(BlockArea[0], BlockAreaPos_G, new Rectangle(0, 0, 92, 165), Color.White);
             }
-            
-            if(key.MRC_Y_B == true)
+
+            if (key.MRC_Y_B == true)
             {
                 SB.Draw(BlockArea[4], BlockAreaPos_Y, new Rectangle(0, 0, 92, 165), Color.White);
             }
-            else if(key.MRC_Y_B== false)
+            else if (key.MRC_Y_B == false)
             {
                 SB.Draw(BlockArea[0], BlockAreaPos_Y, new Rectangle(0, 0, 92, 165), Color.White);
             }
-           
-            
-            
-            
+
+
+
+
             //SB.Draw(Door, DoorPos_MB_MC_C, new Rectangle(6 * 32, 8 * 32, 32, 64), Color.White);
             //SB.Draw(Door, DoorPos_End, new Rectangle(6 * 32, 8 * 32, 32, 64), Color.White);
             SB.Draw(BlockReset_Tex, BlockReset_Pos, new Rectangle(0, 128, 64, 64), Color.White);
-            if(key.MRC_Unlock == true)
+            if (key.MRC_Unlock == true)
             {
                 SB.Draw(keyC, keyCPos, Color.White);
             }
@@ -164,7 +164,7 @@ namespace Themuseum
             SB.Draw(hint, hintPos, Color.White);
         }
 
-        public void Function(GraphicsDeviceManager _graphics, Player player, RoomManager roomManager, KeyManagement Keymanager, float elapsed, DialogueBox dialogue, LanternLight light,SoundSystem sound, Ghost ghost, Staminabar UI)
+        public void Function(GraphicsDeviceManager _graphics, Player player, RoomManager roomManager, KeyManagement Keymanager, float elapsed, DialogueBox dialogue, LanternLight light, SoundSystem sound, Ghost ghost, Staminabar UI)
         {
             KeyControls = Keyboard.GetState();
             //keyC hitbox
@@ -305,7 +305,7 @@ namespace Themuseum
                 keyCPos = new Vector2(600, 240);
             }
 
-            if(player.collision.Intersects(keyChitbox))
+            if (player.collision.Intersects(keyChitbox))
             {
                 player.StatusTextDisplay("Press K to Interact");
                 if (KeyControls.IsKeyDown(Keys.K) && OldKey.IsKeyUp(Keys.K))
@@ -316,7 +316,7 @@ namespace Themuseum
                     sound.PlaySfx(0);
                     Keymanager.KeyCollectC = true;
                     keyCPos.X = 5000;
-                   
+
                 }
             }
 
@@ -498,11 +498,11 @@ namespace Themuseum
             {
 
 
-                    ghost.Prechase(player, Keymanager);
-                    sound.PlaySfx(1);
-                    player.ChangeStartingPosition(new Vector2(1180 - 32, player.SelfPosition.Y));
-                    roomManager.Roomchange(5);
-                
+                ghost.Prechase(player, Keymanager);
+                sound.PlaySfx(1);
+                player.ChangeStartingPosition(new Vector2(1180 - 32, player.SelfPosition.Y));
+                roomManager.Roomchange(5);
+
             }
             if (player.collision.Intersects(DoorCollision_End) == true)
             {
@@ -527,7 +527,7 @@ namespace Themuseum
 
                 }
             }
-            
+
             if (player.collision.Intersects(BlockReset_Col) == true)
             {
                 player.StatusTextDisplay("Press K to Interact");
@@ -567,9 +567,8 @@ namespace Themuseum
 
 
         }
-       
+
     }
-   
+
 
 }
-

@@ -7,7 +7,7 @@ namespace Themuseum
 {
     public class WinScreen : Screen
     {
-        Texture2D winScreen;
+        Texture2D[] winScreen;
         MouseState mouseState;
         RoomManager roomManager;
         KeyManagement KeyManagement;
@@ -15,13 +15,15 @@ namespace Themuseum
         Player player;
         LanternLight light;
         DialogueBox dialogue;
-        SpriteFont font;
+        int counter = 120;
+
 
         Game1 game; public WinScreen(Game1 game, EventHandler theScreenEvent) : base(theScreenEvent)
         {
             //Load
-
-            winScreen = game.Content.Load<Texture2D>("win_placeholder");    
+            winScreen = new Texture2D[2];
+            winScreen[0] = game.Content.Load<Texture2D>("Escape1");
+            winScreen[1] = game.Content.Load<Texture2D>("Escape2");
             KeyManagement = new KeyManagement();
             player = new Player(new Vector2(0, 0));
             light = new LanternLight();
@@ -32,6 +34,7 @@ namespace Themuseum
         }
         public override void Update(GameTime theTime)
         {
+            counter--;
             mouseState = Mouse.GetState();
             var mousePosition = new Point(mouseState.X, mouseState.Y);
             Rectangle StartHitbox = new Rectangle(600, 320, 150, 80);
@@ -51,10 +54,12 @@ namespace Themuseum
         public override void Draw(SpriteBatch theBatch)
         {
             game.GraphicsDevice.Clear(Color.Black);
-            string str = "You escaped";
-            //theBatch.DrawString(str, str, new Vector2(500, 100), Color.White);
-            //theBatch.Draw(winScreen, Vector2.Zero, Color.White); base.Draw(theBatch);
-         
+            theBatch.Draw(winScreen[0], Vector2.Zero, Color.White); base.Draw(theBatch);
+            if (counter <= 0)
+            {
+                theBatch.Draw(winScreen[1], Vector2.Zero, Color.White); base.Draw(theBatch);
+            }
+
 
         }
     }

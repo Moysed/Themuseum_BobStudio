@@ -92,14 +92,14 @@ namespace Themuseum
             Staminaposition = new Vector2(5, 120);
 
             int StaminaIndicator = (int)MathF.Round(StaminaValue * (BarBackground.Width / MaxStamina));
-            int OilIndicator = (int)MathF.Round(OilValue * (CandleBar.Height /MaxOil));
+            //int OilIndicator = (int)MathF.Round(OilValue * (CandleBar.Height /MaxOil));
 
             if (StaminaIndicator > BarBackground.Width)
             {
                 StaminaIndicator = BarBackground.Width;
             }
             BarIndicator = new Rectangle(0, 0, StaminaIndicator, BarBackground.Height);
-            OilBarIndicator = new Rectangle(0, 0, CandleBar.Width, OilIndicator);
+            //OilBarIndicator = new Rectangle(0, 0, CandleBar.Width, OilIndicator);
 
             if (StaminaValue <= MaxStamina * 0.3)
             {
@@ -135,21 +135,21 @@ namespace Themuseum
             {
                 if (player.CurrentFuel > 200)
                 {
-                    SB.Draw(CandleBar, new Vector2(OilPosition.X + 128, OilPosition.Y), OilBarIndicator, Color.White);
+                    SB.Draw(CandleBar, new Vector2(OilPosition.X + 128, OilPosition.Y), Color.White);
                     SB.Draw(CandleBar, new Vector2(OilPosition.X + 64, OilPosition.Y), Color.White);
                     SB.Draw(CandleBar, OilPosition, Color.White);
                 }
                 else if (player.CurrentFuel > 100 && player.CurrentFuel <= 200)
                 {
                     SB.Draw(CandleBarEmpty, new Vector2(OilPosition.X + 128 - 10 + 5, OilPosition.Y + 50 + 3), Color.White);
-                    SB.Draw(CandleBar, new Vector2(OilPosition.X + 64, OilPosition.Y), OilBarIndicator, Color.White);
+                    SB.Draw(CandleBar, new Vector2(OilPosition.X + 64, OilPosition.Y), Color.White);
                     SB.Draw(CandleBar, OilPosition, Color.White);
                 }
                 else if (player.CurrentFuel > 0 && player.CurrentFuel <= 100)
                 {
                     SB.Draw(CandleBarEmpty, new Vector2(OilPosition.X + 128 - 10 + 5, OilPosition.Y + 50 + 3), Color.White);
                     SB.Draw(CandleBarEmpty, new Vector2(OilPosition.X + 64 - 7 + 5, OilPosition.Y + 50 + 3), Color.White);
-                    SB.Draw(CandleBar, OilPosition, OilBarIndicator, Color.White);
+                    SB.Draw(CandleBar, OilPosition, Color.White);
                 }
                 else if (player.CurrentFuel <= 0)
                 {
