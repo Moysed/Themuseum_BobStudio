@@ -68,7 +68,7 @@ namespace Themuseum
         public void Draw(SpriteBatch SB,LanternLight light, Color roomcolor , KeyManagement key)
         {
            
-                SB.Draw(TileStatic, Vector2.Zero, roomcolor);
+            SB.Draw(TileStatic, Vector2.Zero, roomcolor);
             
             if (key.MRB_StatueActive == true)
             {
@@ -82,10 +82,9 @@ namespace Themuseum
                 }
                 
             }
-            if (light.Collision.Intersects(piece3col))
-            {
+            
                 SB.Draw(hint, hintPos, Color.White);
-            }
+            
         }
         public void Function(GraphicsDeviceManager _graphics, Player player, RoomManager roomManager, KeyManagement Keymanager, float elapsed, DialogueBox dialogue, LanternLight light,SoundSystem sound, Ghost ghost, Staminabar UI)
         {
