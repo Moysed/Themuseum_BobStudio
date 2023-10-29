@@ -28,6 +28,7 @@ namespace Themuseum
         private Texture2D BarBackground;
         private Texture2D BarColor;
         private AnimatedTexture PlayerStatusUI;
+        private AnimatedTexture playerScared;
         private Texture2D CandleBackground;
         private Texture2D CandleBar;
         private Texture2D CandleBarEmpty;
@@ -56,7 +57,7 @@ namespace Themuseum
             Console.WriteLine(MaxStamina);
             Console.WriteLine(MaxOil);
             PlayerStatusUI = new AnimatedTexture(Vector2.Zero, 0, 1, 0.5f);
-
+            playerScared = new AnimatedTexture(Vector2.Zero, 0, 1, 0.5f);
         }
 
         public void LoadSprite(ContentManager Content)
@@ -68,6 +69,7 @@ namespace Themuseum
             CandleBar = Content.Load<Texture2D>("FullCandle");
             CandleBarEmpty = Content.Load<Texture2D>("EmptyCandle");
             PlayerStatusUI.Load(Content, "UI_Status_Sprite", 8, 2, 4);
+            playerScared.Load(Content, "Player__Mana_Low", 4, 1, 4);
             Map = Content.Load<Texture2D>("Large_Map");
             mapButton = Content.Load<Texture2D>("Small_Map_button");
             Lantern = Content.Load<Texture2D>("Big_candle");
@@ -171,7 +173,15 @@ namespace Themuseum
             SB.Draw(Lantern, new Vector2(1280 - 120, 640 - 65), Color.White);
             SB.Draw(lanternButton, new Vector2(1280 - 135 + 10, 640 - 70 + 37), Color.White);
             SB.Draw(mapButton, new Vector2(1280 - 135 + 70, 640 - 70 + 37), Color.White);
-            PlayerStatusUI.DrawFrame(SB, SpritePosition, currentrow);
+            if (player.IsHaunted == false)
+            {
+                PlayerStatusUI.DrawFrame(SB, SpritePosition, currentrow);
+            }
+            
+            if(player.IsHaunted ==  true)
+            {
+                playerScared.DrawFrame(SB, SpritePosition, 1);
+            }
             
             if(keymanager.KeyCollectB == true)
             {
