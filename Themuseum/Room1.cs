@@ -139,7 +139,7 @@ namespace Themuseum
                     SB.Draw(HiddenSwitch_03_Tex, HiddenSwitch_03_Pos, Color.White);
                 }
             }
-
+            SB.Draw(Map, mapPos, Color.White);
             if (player_pieceActive == true)
             {
                 if (light.Collision.Intersects(piece1Col))
@@ -157,7 +157,7 @@ namespace Themuseum
             
             
             R1_Shire.Draw(SB);
-            SB.Draw(Map, mapPos, Color.White);
+            
             
 
 

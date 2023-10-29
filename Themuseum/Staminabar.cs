@@ -88,18 +88,18 @@ namespace Themuseum
         public void UpdateBar(float StaminaValue, float OilValue, float elapsed)
         {
             SpritePosition = new Vector2(15, 10);
-            OilPosition = new Vector2(110 + 35, 0);
+            //OilPosition = new Vector2(110 + 35, 0);
             Staminaposition = new Vector2(5, 120);
 
             int StaminaIndicator = (int)MathF.Round(StaminaValue * (BarBackground.Width / MaxStamina));
-            int OilIndicator = (int)MathF.Round(OilValue * (CandleBackground.Height /MaxOil));
+            int OilIndicator = (int)MathF.Round(OilValue * (CandleBar.Height /MaxOil));
 
             if (StaminaIndicator > BarBackground.Width)
             {
                 StaminaIndicator = BarBackground.Width;
             }
             BarIndicator = new Rectangle(0, 0, StaminaIndicator, BarBackground.Height);
-            OilBarIndicator = new Rectangle(0, 0, CandleBackground.Width, OilIndicator);
+            OilBarIndicator = new Rectangle(0, 0, CandleBar.Width, OilIndicator);
 
             if (StaminaValue <= MaxStamina * 0.3)
             {
