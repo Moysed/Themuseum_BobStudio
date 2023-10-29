@@ -69,7 +69,7 @@ namespace Themuseum
             CandleBar = Content.Load<Texture2D>("FullCandle");
             CandleBarEmpty = Content.Load<Texture2D>("EmptyCandle");
             PlayerStatusUI.Load(Content, "UI_Status_Sprite", 8, 2, 4);
-            playerScared.Load(Content, "Player__Mana_Low", 4, 1, 4);
+            playerScared.Load(Content, "scared", 4, 1, 4);
             Map = Content.Load<Texture2D>("Large_Map");
             mapButton = Content.Load<Texture2D>("Small_Map_button");
             Lantern = Content.Load<Texture2D>("Big_candle");
@@ -114,6 +114,7 @@ namespace Themuseum
 
 
             PlayerStatusUI.UpdateFrame(elapsed);
+            playerScared.UpdateFrame(elapsed);
 
         }
 
@@ -177,11 +178,13 @@ namespace Themuseum
             if (player.IsHaunted == false)
             {
                 PlayerStatusUI.DrawFrame(SB, SpritePosition, currentrow);
+                playerScared.DrawFrame(SB, new Vector2(20000,10000), 1);
             }
             
             if(player.IsHaunted ==  true)
             {
-                playerScared.DrawFrame(SB, SpritePosition, 1);
+                playerScared.DrawFrame(SB, SpritePosition ,1);
+                PlayerStatusUI.DrawFrame(SB, new Vector2(2200000000,10), currentrow);
             }
             
             if(keymanager.KeyCollectB == true)

@@ -55,7 +55,7 @@ namespace Themuseum
 
         public MRC()
         {
-            keyCPos = new Vector2(5000, 0);
+            keyCPos = new Vector2(50000,0);
             room1 = new Room1();
             hintPos = new Vector2(400, 250);
             WallArea_Col.Add(new Rectangle(0, 0, 1280, 200));

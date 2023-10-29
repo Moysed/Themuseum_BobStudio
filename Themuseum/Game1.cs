@@ -33,6 +33,7 @@ namespace Themuseum
         bool _isBorderless = false;
         int _width = 1280;
         int _height = 640;
+
         public Game1()
         {
             _graphics = new GraphicsDeviceManager(this);

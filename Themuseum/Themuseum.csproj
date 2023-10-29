@@ -12,6 +12,16 @@
     <ApplicationIcon>Untitled_Artwork-10.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
+    <None Remove="Content\End credits .png" />
+    <None Remove="Content\End credits1.png" />
+    <None Remove="Content\End credits2.png" />
+    <None Remove="Content\End credits3.png" />
+    <None Remove="Content\End credits4.png" />
+    <None Remove="Content\End credits5.png" />
+    <None Remove="Content\End credits6.png" />
+    <None Remove="Content\End credits7.png" />
+  </ItemGroup>
+  <ItemGroup>
     <Content Include="Untitled_Artwork-10.ico" />
   </ItemGroup>
   <ItemGroup>

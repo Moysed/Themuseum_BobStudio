@@ -38,7 +38,7 @@ namespace Themuseum
             BGM.Add(content.Load<Song>("Horror Thai ambi")); //0
             BGM.Add(content.Load<Song>("Ancient Horror")); //1
             BGM.Add(content.Load<Song>("deathsfx_short")); //2
-            BGM.Add(content.Load<Song>("Ending")); //3
+            BGM.Add(content.Load<Song>("Ending Laugh")); //3
 
 
         }

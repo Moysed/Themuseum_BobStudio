@@ -35,6 +35,7 @@ namespace Themuseum
         KeyboardState Oldkey_;
         private List<Rectangle> WallArea_Col = new List<Rectangle>();
         Random random = new Random();
+        private Texture2D wood;
 
         private Texture2D hint;
         private Vector2 hintPos;
@@ -50,6 +51,7 @@ namespace Themuseum
             WallArea_Col.Add(new Rectangle(835, 450, 1000, 2000));
             WallArea_Col.Add(new Rectangle(0, 0, 68, 2000));
             WallArea_Col.Add(new Rectangle(70, 0, 2000, 192));
+            WallArea_Col.Add(new Rectangle(100, 250, 100, 200));
             DoorPos = new Vector2(610, 35);
             keyBPos = Vector2.Zero;
         }
@@ -62,14 +64,19 @@ namespace Themuseum
             Door = content.Load<Texture2D>("placeholderdoor");
             KeyB = content.Load<Texture2D>("smallKey");
             piece3 = content.Load<Texture2D>("leftPiece");
-
+            wood = content.Load<Texture2D>("Wood");
         }
 
         public void Draw(SpriteBatch SB,LanternLight light, Color roomcolor , KeyManagement key)
         {
            
             SB.Draw(TileStatic, Vector2.Zero, roomcolor);
-            
+            SB.Draw(wood, new Vector2(100,300), roomcolor);
+            SB.Draw(wood, new Vector2(150, 350), roomcolor);
+            SB.Draw(wood, new Vector2(150, 300), roomcolor);
+            SB.Draw(wood, new Vector2(100, 350), roomcolor);
+            SB.Draw(wood, new Vector2(150, 250), roomcolor);
+            SB.Draw(wood, new Vector2(100, 250), roomcolor);
             if (key.MRB_StatueActive == true)
             {
                 SB.Draw(KeyB, keyBPos ,Color.White);
@@ -254,7 +261,7 @@ namespace Themuseum
             if (Keymanager.MRB_StatueActive == true)
             {
                 
-                keyBPos = new Vector2(200, 300);
+                keyBPos = new Vector2(700, 350);
                 if(Keymanager.KeyCollectB == true)
                 {
                     keyBPos = new Vector2(500000, 300);

@@ -24,7 +24,7 @@ namespace Themuseum
         {
             //Load
             font = game.Content.Load<SpriteFont>("Start");
-            gameOver = game.Content.Load<Texture2D>("GameOver");
+            gameOver = game.Content.Load<Texture2D>("Attack");
             player = new Player(Vector2.Zero);
             this.game = game;
             
