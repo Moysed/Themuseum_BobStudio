@@ -106,7 +106,7 @@ namespace Themuseum
             }
 
 
-            SB.Draw(bg, Vector2.Zero, Color.White);
+            SB.Draw(bg, Vector2.Zero, roomcolor);
 
 
             for (int i = 0; i < puzzleBlocks.Count; i++)
@@ -302,6 +302,11 @@ namespace Themuseum
                 Keymanager.MRC_Unlock = true;
                 dialogue.SettingParameter("Hint Block", 0, 0, "I heard something dropped", Color.Red);
                 dialogue.Activation(true);
+                ghost.Prechase(player, Keymanager);
+                roomManager.mapcolor = Color.Red;
+                player.IsHaunted = true;
+                sound.PlayBGM(1);
+                sound.setrepeat(true);
                 keyCPos = new Vector2(600, 350);
             }
 
@@ -522,6 +527,7 @@ namespace Themuseum
                     {
                         sound.PlaySfx(1);
                         Console.WriteLine("Door unlocked");
+                        player.IsHaunted = false;
                         Keymanager.GameEnded = true;
                     }
 
