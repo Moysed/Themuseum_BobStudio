@@ -493,6 +493,12 @@
 /processorParam:TextureFormat=Color
 /build:emptycase.png
 
+#begin Ending Laugh.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Ending Laugh.mp3
+
 #begin Escape1.PNG
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -1142,6 +1148,12 @@
 /processorParam:PremultiplyAlpha=True
 /processorParam:TextureFormat=Compressed
 /build:ObjectiveFont.spritefont
+
+#begin paper-pickup.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:paper-pickup.mp3
 
 #begin Piece1.png
 /importer:TextureImporter

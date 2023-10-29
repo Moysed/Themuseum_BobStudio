@@ -28,7 +28,7 @@ namespace Themuseum
             soundEffects.Add(content.Load<SoundEffect>("005-System05")); //Pick-up sfx 0
             soundEffects.Add(content.Load<SoundEffect>("024-Door01")); //Door Open Sfx 1
             soundEffects.Add(content.Load<SoundEffect>("028-Door05")); //Door Locked Sfx 2
-            soundEffects.Add(content.Load<SoundEffect>("046-Book01")); // Note read sfx 3
+            soundEffects.Add(content.Load<SoundEffect>("paper-pickup")); // Note read sfx 3
             soundEffects.Add(content.Load<SoundEffect>("147-Support05")); // Crystal Approve Sfx 4
             soundEffects.Add(content.Load<SoundEffect>("140-Darkness03")); // Crystal Denied sfx 5
             soundEffects.Add(content.Load<SoundEffect>("081-Monster03")); // Monster Sound 6
@@ -37,7 +37,8 @@ namespace Themuseum
 
             BGM.Add(content.Load<Song>("Horror Thai ambi")); //0
             BGM.Add(content.Load<Song>("Ancient Horror")); //1
-            BGM.Add(content.Load<Song>("deathsfx_short"));
+            BGM.Add(content.Load<Song>("deathsfx_short")); //2
+            BGM.Add(content.Load<Song>("Ending Laugh")); //3
 
 
         }
