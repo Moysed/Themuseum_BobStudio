@@ -20,6 +20,7 @@ namespace Themuseum
         private DialogueBox dialogue;
         private SoundSystem soundSystem;
         private Map map;
+        int counter = 120;
 
         RoomManager roomManager;
         Texture2D guide;
@@ -43,7 +44,7 @@ namespace Themuseum
             ghost.LoadSprite(game.Content);
             dialogue.LoadResource(game.Content);
 
-            roomManager = new RoomManager(1);
+            roomManager = new RoomManager(6);
 
             roomManager.LoadAssets(game.Content);
             light.LoadSprite(game.Content);
@@ -60,6 +61,7 @@ namespace Themuseum
         }
         public override void Update(GameTime theTime)
         {
+            counter--;
             float elapsed = (float)theTime.ElapsedGameTime.TotalSeconds;
             Keystate = Keyboard.GetState();
 
@@ -81,8 +83,10 @@ namespace Themuseum
                 Console.WriteLine("Game Won");
                 ScreenEvent.Invoke(game.winScreen, new EventArgs());
 
-                soundSystem.StopBGM();
-                //Reset();
+                Reset();
+
+                
+
 
                 return;
             }
@@ -116,6 +120,17 @@ namespace Themuseum
                 
                 return;
             }
+            if (Keyboard.GetState().IsKeyDown(Keys.P) == true)
+            {
+                ScreenEvent.Invoke(game.winScreen, new EventArgs());
+                game.mGameplay.Reset();
+
+
+
+                return;
+            }
+
+            
             base.Update(theTime);
         }
         public override void Draw(SpriteBatch theBatch)
