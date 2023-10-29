@@ -257,7 +257,7 @@ namespace Themuseum
                         sound.PlayBGM(1);
                         sound.setrepeat(true);
                     }
-                    else
+                    else if(keycontrols.IsKeyDown(Keys.K) && Oldkey_.IsKeyUp(Keys.K) && Keymanager.MRB_StatueActive == false)
                     {
                         sound.PlaySfx(5);
                         UI.ChangeObjectiveText($"Find pieces for statue {Keymanager.MRB_Pieces}/3", "Hint: Pieces are hidden items");
