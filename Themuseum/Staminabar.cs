@@ -173,6 +173,7 @@ namespace Themuseum
             SB.Draw(Lantern, new Vector2(1280 - 120, 640 - 65), Color.White);
             SB.Draw(lanternButton, new Vector2(1280 - 135 + 10, 640 - 70 + 37), Color.White);
             SB.Draw(mapButton, new Vector2(1280 - 135 + 70, 640 - 70 + 37), Color.White);
+            
             if (player.IsHaunted == false)
             {
                 PlayerStatusUI.DrawFrame(SB, SpritePosition, currentrow);
