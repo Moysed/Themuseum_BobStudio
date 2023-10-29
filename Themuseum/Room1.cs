@@ -321,6 +321,10 @@ namespace Themuseum
 
                     if (player.collision.Intersects(HiddenSwitch_02_Col) == true && Keymanager.R1_S2 == false)
                     {
+                        if(light.Collision.Intersects(HiddenSwitch_02_Col) == true)
+                        {
+                            player.StatusTextDisplay("Press K to Interact");
+                        }
                         if (KeyControls.IsKeyDown(Keys.K) && OldKey.IsKeyUp(Keys.K))
                         {
                             switch2_opened = true;
@@ -335,6 +339,10 @@ namespace Themuseum
                     }
                     if (player.collision.Intersects(HiddenSwitch_03_Col) == true && Keymanager.R1_S3 == false)
                     {
+                            if (light.Collision.Intersects(HiddenSwitch_03_Col) == true)
+                            {
+                                player.StatusTextDisplay("Press K to Interact");
+                            }
                         if (KeyControls.IsKeyDown(Keys.K) && OldKey.IsKeyUp(Keys.K))
                         {
                             switch3_opened = true;
@@ -360,7 +368,11 @@ namespace Themuseum
                     //Piece Collect
                     if (player.collision.Intersects(piece1Col) == true && player_pieceActive == true)
                     {
-                        if (KeyControls.IsKeyDown(Keys.K) && OldKey.IsKeyUp(Keys.K))
+                if (light.Collision.Intersects(piece1Col) == true)
+                {
+                    player.StatusTextDisplay("Press K to Interact");
+                }
+                if (KeyControls.IsKeyDown(Keys.K) && OldKey.IsKeyUp(Keys.K))
                         {
                             sound.PlaySfx(0);
                             Keymanager.MRB_Pieces += 1;
@@ -373,7 +385,11 @@ namespace Themuseum
                     }
                     if (player.collision.Intersects(HiddenSwitch_01_Col) == true)
                     {
-                        if (KeyControls.IsKeyDown(Keys.K) && OldKey.IsKeyUp(Keys.K))
+                if (light.Collision.Intersects(HiddenSwitch_01_Col) == true)
+                {
+                    player.StatusTextDisplay("Press K to Interact");
+                }
+                if (KeyControls.IsKeyDown(Keys.K) && OldKey.IsKeyUp(Keys.K))
                         {
                             switch1_opened = true;
                             sound.PlaySfx(1);

@@ -217,6 +217,10 @@ namespace Themuseum
             //Piece Collect
             if (player.collision.Intersects(piece2Col) == true && Keymanager.MRB_PieceActive == true)
             {
+                if (light.Collision.Intersects(piece2Col) == true)
+                {
+                    player.StatusTextDisplay("Press K to Interact");
+                }
                 if (KeyControls.IsKeyDown(Keys.K) && OldKey.IsKeyUp(Keys.K))
                 {
                     dialogue.SettingParameter("placeholderblock", 200, 200, "Statue piece collected", Color.Green);
