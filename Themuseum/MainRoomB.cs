@@ -244,7 +244,7 @@ namespace Themuseum
                 if (keycontrols.IsKeyDown(Keys.K) && Oldkey_.IsKeyUp(Keys.K))
                 {
                     Console.WriteLine(Keymanager.MRB_StatueActive);
-                    if(Keymanager.MRB_Pieces == 3 && keycontrols.IsKeyDown(Keys.K) && Oldkey_.IsKeyUp(Keys.K))
+                    if(Keymanager.MRB_Pieces == 3 && keycontrols.IsKeyDown(Keys.K) && Oldkey_.IsKeyUp(Keys.K) && Keymanager.MRB_StatueActive == false)
                     {
                         sound.PlaySfx(4);
                         dialogue.SettingParameter("Hint Block", 200, 200, "You assembled the statue!, But something is happening", Color.DarkRed);

@@ -76,7 +76,8 @@ namespace Themuseum
          GameEnded = false;
          KeyCollectC = false;
          KeyCollectB = false;
-        }
+         chasescenetrigger = false;
+    }
         
     }
 }
