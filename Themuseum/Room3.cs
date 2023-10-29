@@ -205,8 +205,11 @@ namespace Themuseum
                 }
             
                 if (player.collision.Intersects(piece3col) == true && Keymanager.MRB_PieceActive == true)
-            {
-                player.StatusTextDisplay("Press K to Interact");
+                {
+                if (light.Collision.Intersects(piece3col) == true)
+                {
+                    player.StatusTextDisplay("Press K to Interact");
+                }
                 if (KeyControls.IsKeyDown(Keys.K) && Oldkey_.IsKeyUp(Keys.K))
                 {
                     dialogue.SettingParameter("placeholderblock", 200, 200, "Statue piece collected", Color.Green);
@@ -251,7 +254,7 @@ namespace Themuseum
             if (Keymanager.MRB_StatueActive == true)
             {
                 
-                keyBPos = new Vector2(800, 300);
+                keyBPos = new Vector2(200, 400);
                 if(Keymanager.KeyCollectB == true)
                 {
                     keyBPos = new Vector2(500000, 300);
