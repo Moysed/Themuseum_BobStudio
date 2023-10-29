@@ -157,6 +157,7 @@ namespace Themuseum
             map.IsActive = false;
             roomManager.RoomReset();
             staminabar.ChangeObjectiveText("Find clues and useful items","");
+            game.winScreen.Reset();
             
         }
 

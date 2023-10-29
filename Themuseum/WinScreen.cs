@@ -184,5 +184,20 @@ namespace Themuseum
 
 
         }
+
+        public void Reset()
+        {
+            counter = 120;
+            victory = Vector2.Zero;
+            end1 = new Vector2(250, 0);
+            end2 = new Vector2(1000000000, 0);
+            end3 = new Vector2(1000000000, 0);
+            end4 = new Vector2(1000000000, 0);
+            end5 = new Vector2(1000000000, 0);
+            end6 = new Vector2(1000000000, 0);
+            end7 = new Vector2(1000000000, 0);
+            end8 = new Vector2(1000000000, 0);
+            end9 = new Vector2(1000000000, 0);
+        }
     }
 }
