@@ -17,7 +17,7 @@ namespace Themuseum
         Ghost ghost;
         SpriteFont font;
         int counter = 120;
-        SoundSystem sound;
+        
        
         Game1 game; public GameOver(Game1 game,
          EventHandler theScreenEvent) : base(theScreenEvent)
@@ -26,13 +26,13 @@ namespace Themuseum
             font = game.Content.Load<SpriteFont>("Start");
             gameOver = game.Content.Load<Texture2D>("GameOver");
             player = new Player(Vector2.Zero);
-            sound = new SoundSystem();
             this.game = game;
+            
         }
         public override void Update(GameTime theTime)
         {
             counter--;
-            sound.PlayBGM(2);
+            
             if (Keyboard.GetState().IsKeyDown(Keys.R) == true)
             {
                 ScreenEvent.Invoke(game.mMainmenu, new EventArgs());

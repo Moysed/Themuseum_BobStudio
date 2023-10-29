@@ -91,6 +91,7 @@ namespace Themuseum
 
             if(collision.Intersects(player.collision) == true)
             {
+                
                 gameOver = true;
             }
            
@@ -156,7 +157,7 @@ namespace Themuseum
         }
         public void LoadSprite(ContentManager Content)
         {
-            Sprite.Load(Content, "ghost_anim", 4, 4, 4);
+            Sprite.Load(Content, "ghost_anim", 4, 4, 5);
         }    
     }
 }

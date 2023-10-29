@@ -32,12 +32,12 @@ namespace Themuseum
             soundEffects.Add(content.Load<SoundEffect>("147-Support05")); // Crystal Approve Sfx 4
             soundEffects.Add(content.Load<SoundEffect>("140-Darkness03")); // Crystal Denied sfx 5
             soundEffects.Add(content.Load<SoundEffect>("081-Monster03")); // Monster Sound 6
-            
-            
+            soundEffects.Add(content.Load<SoundEffect>("deathsfx_short")); //7
+
 
             BGM.Add(content.Load<Song>("Horror Thai ambi")); //0
             BGM.Add(content.Load<Song>("Ancient Horror")); //1
-            BGM.Add(content.Load<Song>("deathsfx_short")); //2
+            
             
         }
 

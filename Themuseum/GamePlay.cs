@@ -64,7 +64,7 @@ namespace Themuseum
 
             roomManager.RoomFunction(_graphics, player, KeyManagement, elapsed, dialogue, light,map,soundSystem,ghost,staminabar);
 
-            player.Controls(Keystate, light,KeyManagement);
+            player.Controls(Keystate, light,KeyManagement,ghost,soundSystem);
             player.UpdateAnimation(elapsed);
             map.Behavior(roomManager);
             staminabar.UpdateBar(player.CurrentStamina, player.CurrentFuel, elapsed) ;
@@ -91,9 +91,12 @@ namespace Themuseum
                 ScreenEvent.Invoke(game.mGameoverScreen, new EventArgs());
 
                 Reset();
+                soundSystem.PlaySfx(7);
 
                 return;
             }
+
+
 
             if(Keyboard.GetState().IsKeyDown(Keys.K)== true)
             {
@@ -127,8 +130,9 @@ namespace Themuseum
 
         public void Reset()
         {
-            soundSystem.PlayBGM(0);
+            
             soundSystem.StopBGM();
+            soundSystem.PlayBGM(0);
             ghost.gameOver = false;
             ghost.Changestartingposition(new Vector2(10000, 10000));
             player.Reset();

@@ -79,7 +79,7 @@ namespace Themuseum
             }
         }
 
-        public void Controls(KeyboardState Keystate, LanternLight Light, KeyManagement keyManagement)
+        public void Controls(KeyboardState Keystate, LanternLight Light, KeyManagement keyManagement, Ghost ghost, SoundSystem sound)
         {
             KeyControls = Keystate;
             collision = new Rectangle((int)SelfPosition.X, (int)SelfPosition.Y, 42, 84);
